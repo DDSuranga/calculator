@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #ffffff;
+    color: #000000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +9,7 @@ body {
 }
 
 .calculator {
-    background-color: #ffffff;
+    background-color: #000000;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
@@ -20,7 +21,8 @@ body {
     padding: 15px;
     font-size: 28px;
     border: none;
-    background-color: #e0e0e0;
+    background-color: #ffffff;
+    color: #000000;
     text-align: right;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -36,24 +38,26 @@ body {
 .button {
     padding: 20px;
     font-size: 22px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    box-shadow: 2px 2px 6px #aaa, -2px -2px 6px #ffffff;
+    transition: all 0.2s ease;
 }
 
 .button.operator {
-    background-color: #ff5722;
+    background-color: #e0e0e0;
+    color: #000000;
 }
 
 .button:active {
-    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 2px 2px 6px #aaa, inset -2px -2px 6px #ffffff;
     transform: translateY(2px);
 }
 
 .button.operator:active {
-    background-color: #e64a19;
+    background-color: #cccccc;
+    box-shadow: inset 2px 2px 6px #aaa, inset -2px -2px 6px #ffffff;
 }
