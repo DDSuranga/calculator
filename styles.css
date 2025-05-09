@@ -1,63 +1,42 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+// Function to append the value to the display
+function appendToDisplay(value) {
+    document.getElementById("display").value += value;
 }
 
-.calculator {
-    background-color: #000000;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5), -8px -8px 20px rgba(255, 255, 255, 0.3);
-    transform: perspective(1000px);
+// Function to clear the display
+function clearDisplay() {
+    document.getElementById("display").value = '';
 }
 
-.display {
-    width: calc(100% - 30px);
-    padding: 15px;
-    font-size: 28px;
-    border: none;
-    background-color: #ffffff;
-    color: #000000;
-    text-align: right;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: inset 0px -3px 6px rgba(0, 0, 0, 0.3);
+// Function to delete the last character
+function deleteLast() {
+    var display = document.getElementById("display");
+    display.value = display.value.slice(0, -1);
 }
 
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+// Function to calculate the expression
+function calculate() {
+    var display = document.getElementById("display");
+    try {
+        display.value = eval(display.value);
+    } catch (e) {
+        display.value = "Error";
+    }
 }
 
-.button {
-    padding: 20px;
-    font-size: 22px;
-    background-color: #ffffff;
-    color: #000000;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 2px 2px 6px #aaa, -2px -2px 6px #ffffff;
-    transition: all 0.2s ease;
-}
+// Keyboard event listener to handle keypresses
+document.addEventListener("keydown", function(event) {
+    const key = event.key;
 
-.button.operator {
-    background-color: #e0e0e0;
-    color: #000000;
-}
-
-.button:active {
-    box-shadow: inset 2px 2px 6px #aaa, inset -2px -2px 6px #ffffff;
-    transform: translateY(2px);
-}
-
-.button.operator:active {
-    background-color: #cccccc;
-    box-shadow: inset 2px 2px 6px #aaa, inset -2px -2px 6px #ffffff;
-}
+    if (key >= '0' && key <= '9') {
+        appendToDisplay(key);
+    } else if (key === 'Backspace') {
+        deleteLast();
+    } else if (key === 'C' || key === 'c') {
+        clearDisplay();
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        appendToDisplay(key);
+    } else if (key === 'Enter') {
+        calculate();
+    }
+});
