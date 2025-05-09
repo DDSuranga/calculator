@@ -1,42 +1,106 @@
-// Function to append the value to the display
-function appendToDisplay(value) {
-    document.getElementById("display").value += value;
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-// Function to clear the display
-function clearDisplay() {
-    document.getElementById("display").value = '';
+.calculator {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    transform: perspective(1000px);
+    max-width: 400px; /* Calculator width limits */
+    width: 100%;
 }
 
-// Function to delete the last character
-function deleteLast() {
-    var display = document.getElementById("display");
-    display.value = display.value.slice(0, -1);
+.display {
+    width: calc(100% - 30px);
+    padding: 15px;
+    font-size: 28px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    text-align: right;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: inset 0px -3px 6px rgba(0, 0, 0, 0.3);
 }
 
-// Function to calculate the expression
-function calculate() {
-    var display = document.getElementById("display");
-    try {
-        display.value = eval(display.value);
-    } catch (e) {
-        display.value = "Error";
+/* Grid layout for buttons */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+/* Button styles */
+.button {
+    padding: 20px;
+    font-size: 22px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Operator buttons style */
+.button.operator {
+    background-color: #ff5722;
+}
+
+.button:active {
+    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(2px);
+}
+
+.button.operator:active {
+    background-color: #e64a19;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    /* Adjust button size for mobile */
+    .button {
+        padding: 15px;
+        font-size: 18px;
+    }
+    
+    /* Adjust display font size */
+    .display {
+        font-size: 24px;
+        padding: 12px;
+    }
+    
+    /* Adjust grid layout for buttons */
+    .buttons {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    /* Adjust the calculator container width for mobile */
+    .calculator {
+        padding: 20px;
     }
 }
 
-// Keyboard event listener to handle keypresses
-document.addEventListener("keydown", function(event) {
-    const key = event.key;
-
-    if (key >= '0' && key <= '9') {
-        appendToDisplay(key);
-    } else if (key === 'Backspace') {
-        deleteLast();
-    } else if (key === 'C' || key === 'c') {
-        clearDisplay();
-    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-        appendToDisplay(key);
-    } else if (key === 'Enter') {
-        calculate();
+/* For very small screens (less than 400px wide) */
+@media (max-width: 400px) {
+    .button {
+        padding: 12px;
+        font-size: 16px;
     }
-});
+
+    .display {
+        font-size: 20px;
+        padding: 10px;
+    }
+}
