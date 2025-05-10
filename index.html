@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Calculator</title>
+  <title>Online Calculator - OnlineCalMaster</title>
   <link rel="stylesheet" href="styles.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
   <script>
@@ -15,7 +15,15 @@
 </head>
 <body>
 
-<div class="calculator">
+<!-- Hero Section -->
+<div class="hero">
+  <h1>Welcome to OnlineCalMaster – Your Ultimate Online Calculator!</h1>
+  <p>Calculate with ease using our powerful online calculator – basic, scientific, and percentage calculations at your fingertips.</p>
+  <a href="#calculator" class="cta-button">Start Calculating Now</a>
+</div>
+
+<!-- Calculator Section -->
+<div id="calculator" class="calculator">
   <input type="text" class="display" id="display" readonly />
   <div class="buttons">
     <!-- Memory Buttons -->
@@ -58,6 +66,32 @@
     <button class="button" onclick="calculateLog()">log</button>
     <button class="button" onclick="calculateExp()">exp</button>
   </div>
+</div>
+
+<!-- Content Sections -->
+<div class="content-section" id="basic-calculator">
+  <h2>Basic Calculator</h2>
+  <p>Add, subtract, multiply, and divide with ease using our basic calculator.</p>
+</div>
+
+<div class="content-section" id="scientific-calculator">
+  <h2>Scientific Calculator</h2>
+  <p>Access advanced functions like trigonometry, logarithms, and exponents for complex calculations.</p>
+</div>
+
+<div class="content-section" id="percentage-calculator">
+  <h2>Percentage Calculator</h2>
+  <p>Calculate percentages quickly – ideal for discounts, data analysis, and more.</p>
+</div>
+
+<!-- Blog Section -->
+<div class="blog-section">
+  <h2>Latest Articles</h2>
+  <ul>
+    <li><a href="#">How to Calculate Percentages Easily – Step-by-Step Guide</a></li>
+    <li><a href="#">Why Use an Online Calculator for Complex Math Problems?</a></li>
+    <li><a href="#">Top 5 Math Calculators You Should Try in 2025</a></li>
+  </ul>
 </div>
 
 <script src="script.js"></script>
