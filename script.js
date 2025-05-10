@@ -51,13 +51,17 @@ function calculateSqrt() {
 document.addEventListener('keydown', function(event) {
     const key = event.key;
 
-    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '.', 'Enter', 'Backspace', '%', '^'].includes(key)) {
+    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '.', 'Enter', 'Backspace', '%', '^', 'c', 'C'].includes(key)) {
         switch (key) {
             case 'Enter':
                 calculate();
                 break;
             case 'Backspace':
                 deleteLast();
+                break;
+            case 'c':
+            case 'C':
+                clearDisplay();
                 break;
             default:
                 appendToDisplay(key);
