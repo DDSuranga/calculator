@@ -11,54 +11,60 @@ body {
 
 .calculator {
     background-color: #222;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    transform: perspective(1000px);
-    max-width: 400px; /* Calculator width limits */
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .display {
-    width: calc(100% - 30px);
-    padding: 15px;
-    font-size: 28px;
+    width: 100%;
+    padding: 14px;
+    font-size: 26px;
     border: none;
     background-color: #fff;
     color: #000;
     text-align: right;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: inset 0px -3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px -3px 6px rgba(0, 0, 0, 0.4),
+                inset 0px 3px 6px rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
 }
 
 /* Grid layout for buttons */
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 12px;
 }
 
-/* Button styles */
+/* Button styles with strong 3D effect */
 .button {
-    padding: 20px;
-    font-size: 22px;
-    background-color: #fff;
+    padding: 16px;
+    font-size: 20px;
+    background-color: #e0e0e0;
     color: #000;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4),
+                -2px -2px 4px rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
 }
 
-/* Operator buttons style */
 .button.operator {
-    background-color: #ff5722;
+    background-color: #ff7043;
+    color: #fff;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5),
+                -2px -2px 4px rgba(255, 255, 255, 0.2);
 }
 
 .button:active {
-    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.4),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.2);
     transform: translateY(2px);
 }
 
@@ -68,39 +74,33 @@ body {
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
-    /* Adjust button size for mobile */
-    .button {
-        padding: 15px;
-        font-size: 18px;
-    }
-    
-    /* Adjust display font size */
-    .display {
-        font-size: 24px;
-        padding: 12px;
-    }
-    
-    /* Adjust grid layout for buttons */
-    .buttons {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-    }
-
-    /* Adjust the calculator container width for mobile */
-    .calculator {
-        padding: 20px;
-    }
-}
-
-/* For very small screens (less than 400px wide) */
-@media (max-width: 400px) {
     .button {
         padding: 12px;
         font-size: 16px;
     }
 
     .display {
-        font-size: 20px;
+        font-size: 22px;
         padding: 10px;
+    }
+
+    .buttons {
+        gap: 10px;
+    }
+
+    .calculator {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .display {
+        font-size: 20px;
+        padding: 8px;
     }
 }
