@@ -1,117 +1,73 @@
-const display = document.getElementById('display');
 let memory = 0;
 
-// Append value to display
-function appendToDisplay(value) {
-    display.value += value;
+function showCalculator(type) {
+    const calculator = document.getElementById('calculator');
+    calculator.style.display = (type === 'basic') ? 'block' : 'none';
 }
 
-// Clear display
+window.onload = function () {
+    showCalculator('basic');
+};
+
+const display = document.getElementById('display');
+
+function appendToDisplay(value) {
+    if (value === '√') {
+        display.value += 'Math.sqrt(';
+    } else {
+        display.value += value;
+    }
+}
+
 function clearDisplay() {
     display.value = '';
 }
 
-// Delete last character
 function deleteLast() {
     display.value = display.value.slice(0, -1);
 }
 
-// Evaluate expression
 function calculate() {
     try {
-        let expression = display.value
-            .replace(/×/g, '*')
-            .replace(/÷/g, '/')
-            .replace(/\^/g, '**');
-
-        // Handle percentages
-        expression = expression.replace(/([0-9.]+)%/g, '($1/100)');
-
-        const result = eval(expression);
-        display.value = result;
+        let expression = display.value.replace(/÷/g, '/').replace(/×/g, '*');
+        display.value = eval(expression);
     } catch (error) {
         display.value = 'Error';
     }
 }
 
-// Square root
-function calculateSqrt() {
-    try {
-        const value = parseFloat(display.value);
-        if (isNaN(value)) throw new Error();
-        display.value = Math.sqrt(value);
-    } catch {
-        display.value = 'Error';
-    }
-}
-
-// Scientific functions
-function calculateTrig(func) {
-    try {
-        const value = parseFloat(display.value);
-        if (isNaN(value)) throw new Error();
-        const radians = value * Math.PI / 180;
-        display.value = Math[func](radians).toFixed(8);
-    } catch {
-        display.value = 'Error';
-    }
-}
-
-function calculateLog() {
-    try {
-        const value = parseFloat(display.value);
-        if (isNaN(value) || value <= 0) throw new Error();
-        display.value = Math.log10(value).toFixed(8);
-    } catch {
-        display.value = 'Error';
-    }
-}
-
-function calculateExp() {
-    try {
-        const value = parseFloat(display.value);
-        if (isNaN(value)) throw new Error();
-        display.value = Math.exp(value).toFixed(8);
-    } catch {
-        display.value = 'Error';
-    }
-}
-
-// Memory functions
 function memoryAdd() {
     try {
-        const value = parseFloat(display.value);
-        if (!isNaN(value)) memory += value;
-    } catch {}
+        memory += parseFloat(eval(display.value) || 0);
+    } catch { }
 }
 
 function memorySubtract() {
     try {
-        const value = parseFloat(display.value);
-        if (!isNaN(value)) memory -= value;
-    } catch {}
+        memory -= parseFloat(eval(display.value) || 0);
+    } catch { }
 }
 
 function memoryRecall() {
-    display.value = memory;
-}
-
-function memoryClear() {
-    memory = 0;
+    display.value = memory.toString();
 }
 
 // Keyboard support
-document.addEventListener('keydown', function(event) {
-    const key = event.key;
-    if (['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','%','^'].includes(key)) {
-        appendToDisplay(key);
-    } else if (key === 'Enter') {
+document.addEventListener('keydown', function (e) {
+    if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
+        appendToDisplay(e.key);
+    } else if (e.key === 'Enter') {
+        e.preventDefault();
         calculate();
-    } else if (key === 'Backspace') {
+    } else if (e.key === 'Backspace') {
         deleteLast();
-    } else if (key.toLowerCase() === 'c') {
+    } else if (e.key.toLowerCase() === 'c') {
         clearDisplay();
-    } else if (key === 's') {
-        calculateSqrt();
+    } else if (e.key.toLowerCase() === 'm') {
+        memoryRecall();
+    } else if (e.key === 'r') {
+        appendToDisplay('√');
+    } else if (e.key === '^') {
+        appendToDisplay('**');
     }
 });

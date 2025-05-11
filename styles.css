@@ -1,106 +1,152 @@
-/* Global styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    background: linear-gradient(to right, #d3d3d3, #f0f0f0);
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.sidebar button {
+    background-color: #3867d6;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px #2d54ab, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.sidebar button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #2d54ab;
+}
+
+.sidebar button:hover {
+    background-color: #2f59b3;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
 }
 
 .calculator {
-    background-color: #222;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
+    background-color: #333;
+    padding: 30px;
+    border-radius: 20px;
     width: 100%;
-    box-sizing: border-box;
+    max-width: 420px;
+    margin: 0 auto;
+    box-shadow: inset 0 -2px 5px rgba(255, 255, 255, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .display {
     width: 100%;
-    padding: 14px;
-    font-size: 26px;
+    padding: 15px;
+    font-size: 28px;
     border: none;
     background-color: #fff;
     color: #000;
     text-align: right;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: inset 0px -3px 6px rgba(0, 0, 0, 0.4),
-                inset 0px 3px 6px rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
 }
 
-/* Grid layout for buttons */
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 10px;
 }
 
-/* Button styles with strong 3D effect */
 .button {
-    padding: 16px;
+    padding: 20px;
     font-size: 20px;
-    background-color: #e0e0e0;
-    color: #000;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #000000;
     cursor: pointer;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4),
-                -2px -2px 4px rgba(255, 255, 255, 0.3);
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px #bbb, inset 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .button.operator {
-    background-color: #ff7043;
+    background-color: #ff5722;
     color: #fff;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5),
-                -2px -2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.button.memory {
+    background-color: #009688;
+    color: #fff;
 }
 
 .button:active {
-    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.4),
-                inset -2px -2px 4px rgba(255, 255, 255, 0.2);
     transform: translateY(2px);
+    box-shadow: 0 2px #aaa;
 }
 
-.button.operator:active {
-    background-color: #e64a19;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-    .button {
-        padding: 12px;
-        font-size: 16px;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .display {
-        font-size: 22px;
-        padding: 10px;
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
-    .buttons {
-        gap: 10px;
+    .sidebar button {
+        margin: 10px;
+        flex: 1 1 auto;
+        min-width: 120px;
+    }
+
+    .content {
+        padding: 20px;
     }
 
     .calculator {
-        padding: 15px;
-    }
-}
-
-@media (max-width: 400px) {
-    .button {
-        padding: 10px;
-        font-size: 14px;
+        width: 100%;
+        padding: 20px;
     }
 
-    .display {
-        font-size: 20px;
-        padding: 8px;
+    .buttons {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
