@@ -1,74 +1,73 @@
-// Get the display element
-const display = document.getElementById('display');
+let memory = 0;
 
-// Function to append a character to the display
-function appendToDisplay(value) {
-    display.value += value;
+function showCalculator(type) {
+    const calculator = document.getElementById('calculator');
+    calculator.style.display = (type === 'basic') ? 'block' : 'none';
 }
 
-// Function to clear the display
+window.onload = function () {
+    showCalculator('basic');
+};
+
+const display = document.getElementById('display');
+
+function appendToDisplay(value) {
+    if (value === '√') {
+        display.value += 'Math.sqrt(';
+    } else {
+        display.value += value;
+    }
+}
+
 function clearDisplay() {
     display.value = '';
 }
 
-// Function to delete the last character
 function deleteLast() {
     display.value = display.value.slice(0, -1);
 }
 
-// Function to calculate the result
 function calculate() {
     try {
-        let expression = display.value;
-        expression = expression.replace(/×/g, '*').replace(/÷/g, '/').replace(/\^/g, '**');
-
-        // Handle percentage calculation
-        if (expression.includes('%')) {
-            expression = expression.replace(/([0-9.]+)%/g, '($1/100)');
-        }
-
+        let expression = display.value.replace(/÷/g, '/').replace(/×/g, '*');
         display.value = eval(expression);
     } catch (error) {
         display.value = 'Error';
     }
 }
 
-// Function to calculate the square root
-function calculateSqrt() {
+function memoryAdd() {
     try {
-        const value = parseFloat(display.value);
-        if (isNaN(value)) {
-            display.value = 'Error';
-        } else {
-            display.value = Math.sqrt(value);
-        }
-    } catch (error) {
-        display.value = 'Error';
-    }
+        memory += parseFloat(eval(display.value) || 0);
+    } catch { }
 }
 
-// Add keyboard functionality
-document.addEventListener('keydown', function(event) {
-    const key = event.key;
+function memorySubtract() {
+    try {
+        memory -= parseFloat(eval(display.value) || 0);
+    } catch { }
+}
 
-    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '.', 'Enter', 'Backspace', '%', '^', 'c', 'C'].includes(key)) {
-        switch (key) {
-            case 'Enter':
-                calculate();
-                break;
-            case 'Backspace':
-                deleteLast();
-                break;
-            case 'c':
-            case 'C':
-                clearDisplay();
-                break;
-            default:
-                appendToDisplay(key);
-                break;
-        }
+function memoryRecall() {
+    display.value = memory.toString();
+}
+
+// Keyboard support
+document.addEventListener('keydown', function (e) {
+    if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
+        appendToDisplay(e.key);
+    } else if (e.key === 'Enter') {
+        e.preventDefault();
+        calculate();
+    } else if (e.key === 'Backspace') {
+        deleteLast();
+    } else if (e.key.toLowerCase() === 'c') {
+        clearDisplay();
+    } else if (e.key.toLowerCase() === 'm') {
+        memoryRecall();
+    } else if (e.key === 'r') {
+        appendToDisplay('√');
+    } else if (e.key === '^') {
+        appendToDisplay('**');
     }
-
-    if (key === '*') appendToDisplay('×');
-    if (key === '/') appendToDisplay('÷');
 });
