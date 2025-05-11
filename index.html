@@ -1,53 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enhanced Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <div class="container">
-    <div class="sidebar">
-        <button onclick="showCalculator('basic')">Basic Calculator</button>
+  <div class="sidebar">
+    <button onclick="showCalculator('basic')">Basic Calculator</button>
+    <button onclick="showCalculator('scientific')">Scientific Calculator</button>
+  </div>
+
+  <div class="content">
+    <!-- Basic Calculator -->
+    <div class="calculator" id="basicCalculator">
+      <input type="text" class="display" id="displayBasic" />
+      <div class="buttons">
+        <button class="button operator" onclick="clearDisplay()">C</button>
+        <button class="button operator" onclick="deleteLast()">⌫</button>
+        <button class="button operator" onclick="appendToDisplay('**')">xʸ</button>
+        <button class="button operator" onclick="appendToDisplay('Math.sqrt(')">√</button>
+
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button operator" onclick="appendToDisplay('/')">÷</button>
+
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button operator" onclick="appendToDisplay('*')">×</button>
+
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button operator" onclick="appendToDisplay('-')">-</button>
+
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+        <button class="button operator" onclick="calculate()">=</button>
+        <button class="button operator" onclick="appendToDisplay('+')">+</button>
+
+        <button class="button memory" onclick="memoryAdd()">M+</button>
+        <button class="button memory" onclick="memorySubtract()">M-</button>
+        <button class="button memory" onclick="memoryRecall()">MRC</button>
+      </div>
     </div>
 
-    <div class="content">
-        <div class="calculator" id="calculator">
-            <input type="text" class="display" id="display" readonly>
-            <div class="buttons">
-                <button class="button operator" onclick="clearDisplay()">C</button>
-                <button class="button operator" onclick="deleteLast()">⌫</button>
-                <button class="button operator" onclick="appendToDisplay('**')">xʸ</button>
-                <button class="button operator" onclick="appendToDisplay('√')">√</button>
+    <!-- Scientific Calculator -->
+    <div class="calculator" id="scientificCalculator" style="display: none;">
+      <input type="text" class="display" id="displayScientific" />
+      <div class="buttons">
+        <button class="button operator" onclick="clearDisplay()">C</button>
+        <button class="button operator" onclick="deleteLast()">⌫</button>
+        <button class="button operator sci" onclick="appendToDisplay('Math.pow(')">xʸ</button>
+        <button class="button operator sci" onclick="appendToDisplay('Math.sqrt(')">√</button>
 
-                <button class="button left" onclick="appendToDisplay('7')">7</button>
-                <button class="button left" onclick="appendToDisplay('8')">8</button>
-                <button class="button left" onclick="appendToDisplay('9')">9</button>
-                <button class="button operator" onclick="appendToDisplay('/')">÷</button>
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button operator" onclick="appendToDisplay('/')">÷</button>
 
-                <button class="button left" onclick="appendToDisplay('4')">4</button>
-                <button class="button left" onclick="appendToDisplay('5')">5</button>
-                <button class="button left" onclick="appendToDisplay('6')">6</button>
-                <button class="button operator" onclick="appendToDisplay('*')">×</button>
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button operator" onclick="appendToDisplay('*')">×</button>
 
-                <button class="button left" onclick="appendToDisplay('1')">1</button>
-                <button class="button left" onclick="appendToDisplay('2')">2</button>
-                <button class="button left" onclick="appendToDisplay('3')">3</button>
-                <button class="button operator" onclick="appendToDisplay('-')">-</button>
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button operator" onclick="appendToDisplay('-')">-</button>
 
-                <button class="button left" onclick="appendToDisplay('0')">0</button>
-                <button class="button left" onclick="appendToDisplay('.')">.</button>
-                <button class="button operator" onclick="calculate()">=</button>
-                <button class="button operator" onclick="appendToDisplay('+')">+</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+        <button class="button operator" onclick="calculate()">=</button>
+        <button class="button operator" onclick="appendToDisplay('+')">+</button>
 
-                <button class="button memory" onclick="memoryAdd()">M+</button>
-                <button class="button memory" onclick="memorySubtract()">M-</button>
-                <button class="button memory" onclick="memoryRecall()">MRC</button>
-            </div>
-        </div>
+        <button class="button memory" onclick="appendToDisplay('Math.sin(toRadians(')">sin</button>
+        <button class="button memory" onclick="appendToDisplay('Math.cos(toRadians(')">cos</button>
+        <button class="button memory" onclick="appendToDisplay('Math.tan(toRadians(')">tan</button>
+        <button class="button memory" onclick="appendToDisplay('Math.log(')">log</button>
+
+        <button class="button memory" onclick="appendToDisplay('Math.PI')">π</button>
+        <button class="button memory" onclick="appendToDisplay('Math.E')">e</button>
+        <button class="button memory" onclick="appendToDisplay(')')">)</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
