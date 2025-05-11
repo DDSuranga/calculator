@@ -12,7 +12,7 @@ body {
 .container {
     display: flex;
     width: 100%;
-    max-width: 1300px; /* Increased width */
+    max-width: 1300px;
     background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -60,14 +60,15 @@ body {
 }
 
 .calculator {
-    background-color: #333;
+    background-color: #ffffff; /* White background */
     padding: 30px;
     border-radius: 20px;
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
-    box-shadow: inset 0 -2px 5px rgba(255, 255, 255, 0.1),
-                0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 
+                inset 0 -4px 6px rgba(255, 255, 255, 0.8), 
+                inset 0 4px 6px rgba(0, 0, 0, 0.05); /* 3D look */
 }
 
 .display {
@@ -75,12 +76,12 @@ body {
     padding: 15px;
     font-size: 28px;
     border: none;
-    background-color: #fff;
+    background-color: #f0f0f0;
     color: #000;
     text-align: right;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
 
@@ -99,22 +100,36 @@ body {
     color: #000000;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 6px #bbb, inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px #bbb, inset 0 -2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.button.operator {
-    background-color: #ff5722;
-    color: #fff;
-}
-
-.button.memory {
-    background-color: #009688;
-    color: #fff;
+.button:hover {
+    background-color: #f0f0f0;
 }
 
 .button:active {
     transform: translateY(2px);
     box-shadow: 0 2px #aaa;
+}
+
+.button.operator {
+    background-color: #ff5722;
+    color: #fff;
+    box-shadow: 0 6px #d84315, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.button.operator:hover {
+    background-color: #e64a19;
+}
+
+.button.memory {
+    background-color: #009688;
+    color: #fff;
+    box-shadow: 0 6px #00796b, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.button.memory:hover {
+    background-color: #00796b;
 }
 
 /* Responsive adjustments */

@@ -1,84 +1,104 @@
 let memory = 0;
+let activeDisplay = 'basic';
 
 function showCalculator(type) {
-    document.getElementById('basicCalculator').style.display = type === 'basic' ? 'block' : 'none';
-    document.getElementById('scientificCalculator').style.display = type === 'scientific' ? 'block' : 'none';
+    const basicCalculator = document.getElementById('basicCalculator');
+    const scientificCalculator = document.getElementById('scientificCalculator');
 
-    clearDisplay(); // clear textbox when switching modes
+    if (type === 'basic') {
+        basicCalculator.style.display = 'block';
+        scientificCalculator.style.display = 'none';
+        activeDisplay = 'basic';
+    } else {
+        basicCalculator.style.display = 'none';
+        scientificCalculator.style.display = 'block';
+        activeDisplay = 'scientific';
+    }
 }
 
-window.onload = () => {
+window.onload = function () {
     showCalculator('basic');
 };
 
+const display = document.getElementById('display');
+const displayScientific = document.getElementById('displayScientific');
+
 function getCurrentDisplay() {
-    return document.getElementById(
-        document.getElementById('scientificCalculator').style.display === 'block' ? 'displayScientific' : 'displayBasic'
-    );
+    return activeDisplay === 'scientific' ? displayScientific : display;
 }
 
 function appendToDisplay(value) {
-    const display = getCurrentDisplay();
-    display.value += value;
+    getCurrentDisplay().value += value;
+}
+
+function appendFunction(func) {
+    const disp = getCurrentDisplay();
+    const lastFuncPattern = /Math\.\w+\($/;
+    if (lastFuncPattern.test(disp.value)) {
+        disp.value = disp.value.replace(lastFuncPattern, func + '(');
+    } else {
+        disp.value += func + '(';
+    }
 }
 
 function clearDisplay() {
-    document.getElementById('displayBasic').value = '';
-    document.getElementById('displayScientific').value = '';
+    getCurrentDisplay().value = '';
 }
 
 function deleteLast() {
-    const display = getCurrentDisplay();
-    display.value = display.value.slice(0, -1);
-}
-
-function toRadians(degrees) {
-    return degrees * (Math.PI / 180);
+    const input = getCurrentDisplay();
+    input.value = input.value.slice(0, -1);
 }
 
 function calculate() {
-    const display = getCurrentDisplay();
     try {
-        const result = eval(display.value);
-        display.value = result;
+        let expression = getCurrentDisplay().value
+            .replace(/÷/g, '/')
+            .replace(/×/g, '*')
+            .replace(/√/g, 'Math.sqrt');
+
+        let openParens = (expression.match(/\(/g) || []).length;
+        let closeParens = (expression.match(/\)/g) || []).length;
+        while (closeParens < openParens) {
+            expression += ')';
+            closeParens++;
+        }
+
+        getCurrentDisplay().value = eval(expression);
     } catch {
-        display.value = 'Error';
+        getCurrentDisplay().value = 'Error';
     }
 }
 
 function memoryAdd() {
-    const display = document.getElementById('displayBasic');
     try {
         memory += parseFloat(eval(display.value) || 0);
     } catch {}
 }
 
 function memorySubtract() {
-    const display = document.getElementById('displayBasic');
     try {
         memory -= parseFloat(eval(display.value) || 0);
     } catch {}
 }
 
 function memoryRecall() {
-    document.getElementById('displayBasic').value = memory.toString();
+    display.value = memory.toString();
 }
 
-// Enable pasting into text boxes
-document.getElementById('displayBasic').readOnly = false;
-document.getElementById('displayScientific').readOnly = false;
-
-// Keyboard support
 document.addEventListener('keydown', function (e) {
-    const key = e.key;
-    if (!isNaN(key) || ['+', '-', '*', '/', '.', '(', ')'].includes(key)) {
-        appendToDisplay(key);
-    } else if (key === 'Enter') {
+    if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
+        appendToDisplay(e.key);
+    } else if (e.key === 'Enter') {
         e.preventDefault();
         calculate();
-    } else if (key === 'Backspace') {
+    } else if (e.key === 'Backspace') {
         deleteLast();
-    } else if (key.toLowerCase() === 'c') {
+    } else if (e.key.toLowerCase() === 'c') {
         clearDisplay();
+    } else if (e.key.toLowerCase() === 'm') {
+        memoryRecall();
+    } else if (e.key === '^') {
+        appendToDisplay('**');
     }
 });
