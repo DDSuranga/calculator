@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="Free online calculator for basic and scientific calculations. Easy-to-use, mobile friendly, and packed with useful functions for students, engineers, and everyday users.">
-    <meta name="keywords" content="online calculator, scientific calculator, basic calculator, math tools, calculator with memory, free calculator">
-    <meta name="author" content="YourName">
-    <title>Online Calculator - Basic & Scientific</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Online Calculator - All-in-One</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Free online calculator with currency converter, unit converter, scientific mode, and age calculator. Supports memory functions and live exchange rates."/>
+    <meta name="theme-color" content="#3867d6"/>
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Online Calculator – Basic & Scientific | OnlineCalMaster">
+    <meta property="og:description" content="All-in-one calculator for students, engineers, and professionals – supports math, conversions, and more.">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAIAAAAOTNQaAAAAA1BMVEX///+nxBvIAAAAR0lEQVRo3u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBLcQ8AAa0jZQAAAABJRU5ErkJggg==">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <header style="text-align: center; font-family: Tahoma; padding: 10px;">
-        <h1>Online Calculator – Basic & Scientific</h1>
+        <h1>Online Calculator – All-in-One Tool</h1>
+        <p>Basic, Scientific, Unit Converter, Currency Converter, Age Calculator</p>
     </header>
 
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <button onclick="showCalculator('basic')" aria-label="Switch to Basic Calculator">Basic Calculator</button>
-            <button onclick="showCalculator('scientific')" aria-label="Switch to Scientific Calculator">Scientific Calculator</button>
+            <button onclick="showCalculator('basic')">Basic Calculator</button>
+            <button onclick="showCalculator('scientific')">Scientific Calculator</button>
+            <button onclick="showCalculator('unit')">Unit Converter</button>
+            <button onclick="showCalculator('currency')">Currency Converter</button>
+            <button onclick="showCalculator('age')">Age Calculator</button>
         </aside>
 
         <!-- Main Content -->
@@ -83,17 +102,70 @@
 
                     <button class="button left" onclick="appendToDisplay('0')">0</button>
                     <button class="button left" onclick="appendToDisplay('.')">.</button>
-                    <button class="button trig" onclick="appendToDisplay('Math.sin(')" title="Sine">sin</button>
-                    <button class="button trig" onclick="appendToDisplay('Math.cos(')" title="Cosine">cos</button>
+                    <button class="button trig" onclick="appendToDisplay('Math.sin(')">sin</button>
+                    <button class="button trig" onclick="appendToDisplay('Math.cos(')">cos</button>
 
-                    <button class="button trig" onclick="appendToDisplay('Math.tan(')" title="Tangent">tan</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.log(')" title="Logarithm">log</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.PI')" title="Pi (π)">π</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.E')" title="Euler's number (e)">e</button>
+                    <button class="button trig" onclick="appendToDisplay('Math.tan(')">tan</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.log(')">log</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.PI')">π</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.E')">e</button>
 
                     <button class="button memory" onclick="memoryAdd()">M+</button>
                     <button class="button memory" onclick="memorySubtract()">M-</button>
                     <button class="button memory" onclick="memoryRecall()">MRC</button>
+                </div>
+            </div>
+
+            <!-- Unit Converter -->
+            <div class="calculator" id="unitConverter" style="display: none;">
+                <input type="text" class="display" id="unitDisplay" readonly aria-label="Unit Converter Display">
+                <div class="buttons">
+                    <select id="unitCategory" onchange="updateUnits()" class="unit-select">
+                        <option value="length">📏 Length</option>
+                        <option value="weight">⚖️ Weight</option>
+                        <option value="temperature">🌡️ Temperature</option>
+                    </select>
+
+                    <select id="unitFrom" class="unit-select"></select>
+                    <select id="unitTo" class="unit-select"></select>
+
+                    <input type="number" id="unitInput" class="unit-input" placeholder="Enter value" />
+
+                    <button class="button operator" onclick="convertUnit()">= Convert</button>
+                    <button class="button operator" onclick="clearUnit()">C</button>
+                </div>
+            </div>
+
+            <!-- Currency Converter -->
+            <div class="calculator" id="currencyConverter" style="display: none;">
+                <input type="text" class="display" id="currencyDisplay" readonly aria-label="Currency Converter Display">
+
+                <div class="buttons">
+                    <select id="currencyFrom" class="unit-select"></select>
+                    <select id="currencyTo" class="unit-select"></select>
+
+                    <input type="number" id="currencyInput" class="unit-input" placeholder="Enter amount" />
+
+                    <button class="button operator" onclick="convertCurrency()">= Convert</button>
+                    <button class="button operator" onclick="clearCurrency()">C</button>
+                    <button class="button operator" onclick="swapCurrencies()">⇅ Swap</button>
+                </div>
+            </div>
+
+            <!-- Age Calculator -->
+            <div class="calculator" id="ageCalculator" style="display: none;">
+                <input type="text" class="display" id="ageDisplay" readonly aria-label="Age Display">
+
+                <div class="buttons">
+                    <label style="width:100%; text-align:center; font-weight:bold;">Select Your Birthdate:</label>
+                    <input type="date" id="birthDateInput" class="unit-input" onchange="calculateAge()">
+
+                    <button class="button operator" onclick="calculateAge()">= Calculate Age</button>
+                    <button class="button operator" onclick="clearAge()">C</button>
+
+                    <div style="grid-column: span 2;">
+                        <p id="nextBirthdayDisplay" style="text-align: center; margin-top: 10px;"></p>
+                    </div>
                 </div>
             </div>
         </main>
@@ -101,25 +173,35 @@
         <!-- SEO Column -->
         <aside class="seo-column">
             <section>
-                <h2>Free Online Calculator</h2>
-                <p>Use this easy-to-use calculator for quick basic arithmetic and advanced scientific functions. Great for students, engineers, and everyday users.</p>
-            </section>
-            <section>
-                <h2>Why Use This Calculator?</h2>
-                <p>Our calculator supports memory functions, square roots, powers, trigonometric functions, and logarithms. It's responsive and works on all devices.</p>
-            </section>
-            <section>
-                <h2>Features</h2>
+                <h2>Online Calculator Features</h2>
                 <ul>
-                    <li>Basic operations: +, −, ×, ÷</li>
-                    <li>Scientific functions: sin, cos, tan, log</li>
-                    <li>Memory save & recall</li>
-                    <li>Mobile-friendly design</li>
+                    <li>🧮 Basic & Scientific Calculator</li>
+                    <li>📐 Unit Converter (Length, Weight, Temperature)</li>
+                    <li>💸 Currency Converter with Live Rates</li>
+                    <li>📅 Age Calculator + Next Birthday Countdown</li>
+                    <li>💾 Memory Functions: M+, M-, MRC</li>
+                    <li>📱 Mobile Friendly & PWA Ready</li>
                 </ul>
             </section>
         </aside>
     </div>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
+
+    <!-- Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

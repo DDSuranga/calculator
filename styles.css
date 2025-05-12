@@ -148,6 +148,63 @@ h1 {
     background-color: #5c007a;
 }
 
+/* === Unit, Currency, and Age Converter Specific Styles === */
+
+.unit-select,
+.unit-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #fff;
+    margin-bottom: 8px;
+}
+
+.unit-select:focus,
+.unit-input:focus {
+    outline: none;
+    border-color: #3867d6;
+    box-shadow: 0 0 4px rgba(56, 103, 214, 0.5);
+}
+
+#unitConverter .buttons,
+#currencyConverter .buttons,
+#ageCalculator .buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+#unitConverter .buttons input,
+#currencyConverter .buttons input,
+#ageCalculator .buttons input {
+    grid-column: span 2;
+}
+
+#unitConverter .buttons select,
+#currencyConverter .buttons select,
+#ageCalculator .buttons select {
+    grid-column: span 1;
+}
+
+#currencyConverter .buttons {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#currencyConverter .buttons input[type="number"] {
+    grid-column: span 1;
+}
+
+#currencyConverter .buttons button {
+    grid-column: span 1;
+}
+
+#ageCalculator label {
+    grid-column: span 2;
+}
+
 .seo-column {
     padding: 20px;
     font-family: Tahoma, sans-serif;
