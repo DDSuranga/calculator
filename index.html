@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="Free online calculator for basic and scientific calculations. Easy-to-use, mobile friendly, and packed with useful functions for students, engineers, and everyday users.">
     <meta name="keywords" content="online calculator, scientific calculator, basic calculator, math tools, calculator with memory, free calculator">
     <meta name="author" content="YourName">
@@ -10,27 +10,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header style="text-align: center; font-family: Tahoma; padding: 20px;">
+
+    <header style="text-align: center; font-family: Tahoma; padding: 10px;">
         <h1>Online Calculator – Basic & Scientific</h1>
     </header>
 
     <div class="container">
-        <!-- Sidebar: Calculator Type Selection -->
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <button onclick="showCalculator('basic')">Basic Calculator</button>
-            <button onclick="showCalculator('scientific')">Scientific Calculator</button>
+            <button onclick="showCalculator('basic')" aria-label="Switch to Basic Calculator">Basic Calculator</button>
+            <button onclick="showCalculator('scientific')" aria-label="Switch to Scientific Calculator">Scientific Calculator</button>
         </aside>
 
-        <!-- Main Content: Calculator Display -->
+        <!-- Main Content -->
         <main class="calculator-container">
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
-                <input type="text" class="display" id="display" readonly>
+                <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
                 <div class="buttons">
-                    <button class="button operator" onclick="clearDisplay()">C</button>
-                    <button class="button operator" onclick="deleteLast()">⌫</button>
-                    <button class="button operator" onclick="appendToDisplay('**')">xʸ</button>
-                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')">√</button>
+                    <button class="button operator" onclick="clearDisplay()" title="Clear">C</button>
+                    <button class="button operator" onclick="deleteLast()" title="Delete last character">⌫</button>
+                    <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">xʸ</button>
+                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">√</button>
 
                     <button class="button left" onclick="appendToDisplay('7')">7</button>
                     <button class="button left" onclick="appendToDisplay('8')">8</button>
@@ -45,28 +46,25 @@
                     <button class="button left" onclick="appendToDisplay('1')">1</button>
                     <button class="button left" onclick="appendToDisplay('2')">2</button>
                     <button class="button left" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator" onclick="appendToDisplay('-')">-</button>
+                    <button class="button operator" onclick="calculate()">=</button>
 
                     <button class="button left" onclick="appendToDisplay('0')">0</button>
                     <button class="button left" onclick="appendToDisplay('.')">.</button>
-                    <button class="button operator" onclick="calculate()">=</button>
-                    <button class="button operator" onclick="appendToDisplay('+')">+</button>
+                    <button class="button operator" onclick="memoryAdd()">M+</button>
+                    <button class="button operator" onclick="memorySubtract()">M-</button>
 
-                    <button class="button memory" onclick="memoryAdd()">M+</button>
-                    <button class="button memory" onclick="memorySubtract()">M-</button>
                     <button class="button memory" onclick="memoryRecall()">MRC</button>
                 </div>
             </div>
 
             <!-- Scientific Calculator -->
             <div class="calculator" id="scientificCalculator" style="display: none;">
-                <input type="text" class="display" id="displayScientific" readonly>
+                <input type="text" class="display" id="displayScientific" readonly aria-label="Scientific Calculator Display">
                 <div class="buttons">
-                    <!-- Same layout and functions + scientific -->
-                    <button class="button operator" onclick="clearDisplay()">C</button>
-                    <button class="button operator" onclick="deleteLast()">⌫</button>
-                    <button class="button operator" onclick="appendToDisplay('**')">xʸ</button>
-                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')">√</button>
+                    <button class="button operator" onclick="clearDisplay()" title="Clear">C</button>
+                    <button class="button operator" onclick="deleteLast()" title="Delete last character">⌫</button>
+                    <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">xʸ</button>
+                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">√</button>
 
                     <button class="button left" onclick="appendToDisplay('7')">7</button>
                     <button class="button left" onclick="appendToDisplay('8')">8</button>
@@ -81,27 +79,26 @@
                     <button class="button left" onclick="appendToDisplay('1')">1</button>
                     <button class="button left" onclick="appendToDisplay('2')">2</button>
                     <button class="button left" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator" onclick="appendToDisplay('-')">-</button>
+                    <button class="button operator" onclick="calculate()">=</button>
 
                     <button class="button left" onclick="appendToDisplay('0')">0</button>
                     <button class="button left" onclick="appendToDisplay('.')">.</button>
-                    <button class="button operator" onclick="calculate()">=</button>
-                    <button class="button operator" onclick="appendToDisplay('+')">+</button>
+                    <button class="button trig" onclick="appendToDisplay('Math.sin(')" title="Sine">sin</button>
+                    <button class="button trig" onclick="appendToDisplay('Math.cos(')" title="Cosine">cos</button>
 
-                    <!-- Scientific -->
-                    <button class="button memory" onclick="appendToDisplay('Math.sin(')">sin</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.cos(')">cos</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.tan(')">tan</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.log(')">log</button>
+                    <button class="button trig" onclick="appendToDisplay('Math.tan(')" title="Tangent">tan</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.log(')" title="Logarithm">log</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.PI')" title="Pi (π)">π</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.E')" title="Euler's number (e)">e</button>
 
-                    <button class="button memory" onclick="appendToDisplay('Math.PI')">π</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.E')">e</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.exp(')">eˣ</button>
+                    <button class="button memory" onclick="memoryAdd()">M+</button>
+                    <button class="button memory" onclick="memorySubtract()">M-</button>
+                    <button class="button memory" onclick="memoryRecall()">MRC</button>
                 </div>
             </div>
         </main>
 
-        <!-- SEO Text Column -->
+        <!-- SEO Column -->
         <aside class="seo-column">
             <section>
                 <h2>Free Online Calculator</h2>

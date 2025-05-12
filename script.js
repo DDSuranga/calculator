@@ -1,6 +1,8 @@
 let memory = 0;
 let activeDisplay = 'basic';
 
+let display, displayScientific;
+
 function showCalculator(type) {
     const basicCalculator = document.getElementById('basicCalculator');
     const scientificCalculator = document.getElementById('scientificCalculator');
@@ -18,26 +20,23 @@ function showCalculator(type) {
 
 window.onload = function () {
     showCalculator('basic');
+    display = document.getElementById('display');
+    displayScientific = document.getElementById('displayScientific');
 };
-
-const display = document.getElementById('display');
-const displayScientific = document.getElementById('displayScientific');
 
 function getCurrentDisplay() {
     return activeDisplay === 'scientific' ? displayScientific : display;
 }
 
 function appendToDisplay(value) {
-    getCurrentDisplay().value += value;
-}
+    const input = getCurrentDisplay();
+    const lastFuncPattern = /Math\.\w+$/;
 
-function appendFunction(func) {
-    const disp = getCurrentDisplay();
-    const lastFuncPattern = /Math\.\w+\($/;
-    if (lastFuncPattern.test(disp.value)) {
-        disp.value = disp.value.replace(lastFuncPattern, func + '(');
+    // If the last thing is a function like Math.sin, replace it
+    if (lastFuncPattern.test(input.value)) {
+        input.value = input.value.replace(lastFuncPattern, value);
     } else {
-        disp.value += func + '(';
+        input.value += value;
     }
 }
 
@@ -72,21 +71,26 @@ function calculate() {
 
 function memoryAdd() {
     try {
-        memory += parseFloat(eval(display.value) || 0);
+        const result = eval(getCurrentDisplay().value);
+        memory += isNaN(result) ? 0 : result;
     } catch {}
 }
 
 function memorySubtract() {
     try {
-        memory -= parseFloat(eval(display.value) || 0);
+        const result = eval(getCurrentDisplay().value);
+        memory -= isNaN(result) ? 0 : result;
     } catch {}
 }
 
 function memoryRecall() {
-    display.value = memory.toString();
+    getCurrentDisplay().value = memory.toString();
 }
 
+// Keyboard support
 document.addEventListener('keydown', function (e) {
+    if (document.activeElement.tagName === 'INPUT') return;
+
     if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
         appendToDisplay(e.key);
     } else if (e.key === 'Enter') {
