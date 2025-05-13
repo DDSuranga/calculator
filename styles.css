@@ -239,3 +239,25 @@ h1 {
         min-width: 120px;
     }
 }
+/* Coffee Button Styles */
+.seo-column a[href*="payhere"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffdd00;
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 6px #e6c700;
+    transition: all 0.3s ease;
+}
+
+.seo-column a[href*="payhere"]:hover {
+    background-color: #ffe844;
+    box-shadow: 0 2px #e6c700;
+}
+
+.seo-column a[href*="payhere"]:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #e6c700;
+}
