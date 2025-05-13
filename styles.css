@@ -169,17 +169,9 @@ h1 {
     box-shadow: 0 0 4px rgba(56, 103, 214, 0.5);
 }
 
-#unitConverter .buttons,
-#currencyConverter .buttons,
-#ageCalculator .buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-#unitConverter .buttons input,
-#currencyConverter .buttons input,
-#ageCalculator .buttons input {
+#unitConverter .buttons input[type="number"],
+#currencyConverter .buttons input[type="number"],
+#ageCalculator .buttons input[type="date"] {
     grid-column: span 2;
 }
 

@@ -1,6 +1,5 @@
 let memory = 0;
 let activeDisplay = 'basic';
-
 let display, displayScientific;
 
 function showCalculator(type) {
@@ -9,6 +8,11 @@ function showCalculator(type) {
     document.getElementById('unitConverter').style.display = type === 'unit' ? 'block' : 'none';
     document.getElementById('currencyConverter').style.display = type === 'currency' ? 'block' : 'none';
     document.getElementById('ageCalculator').style.display = type === 'age' ? 'block' : 'none';
+    document.getElementById('dateDifferenceCalculator').style.display = type === 'date' ? 'block' : 'none';
+    document.getElementById('percentageCalculator').style.display = type === 'percentage' ? 'block' : 'none';
+    document.getElementById('percentageChangeCalculator').style.display = type === 'percentageChange' ? 'block' : 'none';
+    document.getElementById('tipCalculator').style.display = type === 'tip' ? 'block' : 'none';
+    document.getElementById('vatCalculator').style.display = type === 'vat' ? 'block' : 'none';
     activeDisplay = type;
 }
 
@@ -27,7 +31,6 @@ function getCurrentDisplay() {
 function appendToDisplay(value) {
     const input = getCurrentDisplay();
     const lastFuncPattern = /Math\.\w+$/;
-
     if (lastFuncPattern.test(input.value)) {
         input.value = input.value.replace(lastFuncPattern, value);
     } else {
@@ -50,14 +53,12 @@ function calculate() {
             .replace(/÷/g, '/')
             .replace(/×/g, '*')
             .replace(/√/g, 'Math.sqrt');
-
         let openParens = (expression.match(/\(/g) || []).length;
         let closeParens = (expression.match(/\)/g) || []).length;
         while (closeParens < openParens) {
             expression += ')';
             closeParens++;
         }
-
         getCurrentDisplay().value = eval(expression);
     } catch {
         getCurrentDisplay().value = 'Error';
@@ -112,10 +113,8 @@ function updateUnits() {
     const category = document.getElementById('unitCategory').value;
     const fromSelect = document.getElementById('unitFrom');
     const toSelect = document.getElementById('unitTo');
-
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
-
     Object.keys(units[category]).forEach(unit => {
         const symbolMap = {
             length: 'm',
@@ -123,12 +122,10 @@ function updateUnits() {
             temperature: '°'
         };
         const symbol = symbolMap[category] || '';
-
         const optionFrom = document.createElement('option');
         optionFrom.value = unit;
         optionFrom.text = `${unit} (${symbol})`;
         fromSelect.appendChild(optionFrom);
-
         const optionTo = document.createElement('option');
         optionTo.value = unit;
         optionTo.text = `${unit} (${symbol})`;
@@ -141,29 +138,25 @@ function convertUnit() {
     const from = document.getElementById('unitFrom').value;
     const to = document.getElementById('unitTo').value;
     const category = document.getElementById('unitCategory').value;
-
     if (isNaN(input)) {
         document.getElementById('unitDisplay').value = "Invalid input";
         return;
     }
-
     let result;
-
     if (category === 'temperature') {
         if (from === to) {
             result = input;
         } else if (from === 'Celsius') {
-            result = to === 'Fahrenheit' ? (input * 9/5) + 32 : input + 273.15;
+            result = to === 'Fahrenheit' ? (input * 9 / 5) + 32 : input + 273.15;
         } else if (from === 'Fahrenheit') {
-            result = to === 'Celsius' ? (input - 32) * 5/9 : (input - 32) * 5/9 + 273.15;
+            result = to === 'Celsius' ? (input - 32) * 5 / 9 : (input - 32) * 5 / 9 + 273.15;
         } else if (from === 'Kelvin') {
-            result = to === 'Celsius' ? input - 273.15 : (input - 273.15) * 9/5 + 32;
+            result = to === 'Celsius' ? input - 273.15 : (input - 273.15) * 9 / 5 + 32;
         }
     } else {
         const baseValue = input / units[category][from];
         result = baseValue * units[category][to];
     }
-
     document.getElementById('unitDisplay').value = `${input} ${from} = ${result.toFixed(4)} ${to}`;
 }
 
@@ -172,110 +165,64 @@ function clearUnit() {
     document.getElementById('unitDisplay').value = '';
 }
 
-// CURRENCY CONVERTER LOGIC - With Emoji Flags
+// CURRENCY CONVERTER LOGIC
 const currencies = [
-    // Asia
-    { code: "INR", name: "Indian Rupee", symbol: "₹", flag: "🇮🇳" },
-    { code: "PKR", name: "Pakistani Rupee", symbol: "₨", flag: "🇵🇰" },
-    { code: "BDT", name: "Bangladeshi Taka", symbol: "৳", flag: "🇧🇩" },
-    { code: "LKR", name: "Sri Lankan Rupee", symbol: "Rs", flag: "🇱🇰" },
-    { code: "JPY", name: "Japanese Yen", symbol: "¥", flag: "🇯🇵" },
-    { code: "CNY", name: "Chinese Yuan", symbol: "¥", flag: "🇨🇳" },
-    { code: "KRW", name: "South Korean Won", symbol: "₩", flag: "🇰🇷" },
-    { code: "VND", name: "Vietnamese Dong", symbol: "₫", flag: "🇻🇳" },
-    { code: "THB", name: "Thai Baht", symbol: "฿", flag: "🇹🇭" },
-    { code: "IDR", name: "Indonesian Rupiah", symbol: "Rp", flag: "🇮🇩" },
-    { code: "MYR", name: "Malaysian Ringgit", symbol: "RM", flag: "🇲🇾" },
-    { code: "PHP", name: "Philippine Peso", symbol: "₱", flag: "🇵🇭" },
-    { code: "SGD", name: "Singapore Dollar", symbol: "$", flag: "🇸🇬" },
-    { code: "HKD", name: "Hong Kong Dollar", symbol: "$", flag: "🇭🇰" },
-    { code: "IRR", name: "Iranian Rial", symbol: "﷼", flag: "🇮🇷" },
-    { code: "ILS", name: "Israeli Shekel", symbol: "₪", flag: "🇮🇱" },
-    { code: "TRY", name: "Turkish Lira", symbol: "₺", flag: "🇹🇷" },
-    { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "🇦🇪" },
-    { code: "SAR", name: "Saudi Riyal", symbol: "﷼", flag: "🇸🇦" },
-    { code: "QAR", name: "Qatari Riyal", symbol: "﷼", flag: "🇶🇦" },
-    { code: "OMR", name: "Omani Rial", symbol: "﷼", flag: "🇴🇲" },
-    { code: "EGP", name: "Egyptian Pound", symbol: "£", flag: "🇪🇬" },
-    { code: "NPR", name: "Nepalese Rupee", symbol: "₨", flag: "🇳🇵" },
-    { code: "MMK", name: "Myanmar Kyat", symbol: "K", flag: "🇲🇲" },
-    { code: "KHR", name: "Cambodian Riel", symbol: "៛", flag: "🇰🇭" },
-    { code: "LAK", name: "Laotian Kip", symbol: "₭", flag: "🇱🇦" },
-    { code: "MVR", name: "Maldivian Rufiyaa", symbol: "ރ.", flag: "🇲🇻" },
-    { code: "AFN", name: "Afghan Afghani", symbol: "؋", flag: "🇦🇫" },
-    { code: "TWD", name: "New Taiwan Dollar", symbol: "NT$", flag: "🇹🇼" },
-    { code: "MNT", name: "Mongolian Tugrik", symbol: "₮", flag: "🇲🇳" },
-    { code: "BTN", name: "Bhutanese Ngultrum", symbol: "Nu.", flag: "🇧🇹" },
-    { code: "BND", name: "Brunei Dollar", symbol: "$", flag: "🇧🇳" },
-    { code: "MUR", name: "Mauritian Rupee", symbol: "₨", flag: "🇲🇺" },
-    { code: "SCR", name: "Seychelles Rupee", symbol: "₨", flag: "🇸🇨" },
-
-    // Europe
-    { code: "EUR", name: "Euro", symbol: "€", flag: "🇪🇺" },
-    { code: "GBP", name: "British Pound", symbol: "£", flag: "🇬🇧" },
-    { code: "CHF", name: "Swiss Franc", symbol: "₣", flag: "🇨🇭" },
-    { code: "UAH", name: "Ukrainian Hryvnia", symbol: "₴", flag: "🇺🇦" },
-    { code: "HUF", name: "Hungarian Forint", symbol: "Ft", flag: "🇭🇺" },
-    { code: "PLN", name: "Polish Zloty", symbol: "zł", flag: "🇵🇱" },
-    { code: "SEK", name: "Swedish Krona", symbol: "kr", flag: "🇸🇪" },
-    { code: "DKK", name: "Danish Krone", symbol: "kr", flag: "🇩🇰" },
-    { code: "NOK", name: "Norwegian Krone", symbol: "kr", flag: "🇳🇴" },
-    { code: "RUB", name: "Russian Ruble", symbol: "₽", flag: "🇷🇺" },
-
-    // Americas
-    { code: "USD", name: "US Dollar", symbol: "$", flag: "🇺🇸" },
-    { code: "CAD", name: "Canadian Dollar", symbol: "$", flag: "🇨🇦" },
-    { code: "MXN", name: "Mexican Peso", symbol: "$", flag: "🇲🇽" },
-    { code: "ARS", name: "Argentine Peso", symbol: "$", flag: "🇦🇷" },
-    { code: "BRL", name: "Brazilian Real", symbol: "R$", flag: "🇧🇷" },
-    { code: "CLP", name: "Chilean Peso", symbol: "$", flag: "🇨🇱" },
-    { code: "COP", name: "Colombian Peso", symbol: "$", flag: "🇨🇴" },
-    { code: "PEN", name: "Peruvian Sol", symbol: "S/", flag: "🇵🇪" },
-    { code: "UYU", name: "Uruguayan Peso", symbol: "$", flag: "🇺🇾" },
-    { code: "BOB", name: "Bolivian Boliviano", symbol: "Bs.", flag: "🇧🇴" },
-    { code: "GTQ", name: "Guatemalan Quetzal", symbol: "Q", flag: "🇬🇹" },
-    { code: "CRC", name: "Costa Rican Colón", symbol: "₡", flag: "🇨🇷" },
-    { code: "NIO", name: "Nicaraguan Córdoba", symbol: "C$", flag: "🇳🇮" },
-
-    // Africa
-    { code: "ZAR", name: "South African Rand", symbol: "R", flag: "🇿🇦" },
-    { code: "TZS", name: "Tanzanian Shilling", symbol: "Sh", flag: "🇹🇿" },
-    { code: "UGX", name: "Ugandan Shilling", symbol: "Sh", flag: "🇺🇬" },
-    { code: "XOF", name: "West African CFA Franc", symbol: "Fr", flag: "🌍" },
-    { code: "XAF", name: "Central African CFA Franc", symbol: "Fr", flag: "🌍" },
-    { code: "EGP", name: "Egyptian Pound", symbol: "£", flag: "🇪🇬" },
-
-    // Middle East
-    { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "🇦🇪" },
-    { code: "SAR", name: "Saudi Riyal", symbol: "﷼", flag: "🇸🇦" },
-    { code: "QAR", name: "Qatari Riyal", symbol: "﷼", flag: "🇶🇦" },
-    { code: "OMR", name: "Omani Rial", symbol: "﷼", flag: "🇴🇲" },
-    { code: "BHD", name: "Bahraini Dinar", symbol: ".د.ب", flag: "🇧🇭" },
-    { code: "KWD", name: "Kuwaiti Dinar", symbol: "د.ك", flag: "🇰🇼" },
-    { code: "LBP", name: "Lebanese Pound", symbol: "ل.ل", flag: "🇱🇧" },
-
-    // Oceania
-    { code: "AUD", name: "Australian Dollar", symbol: "$", flag: "🇦🇺" },
-    { code: "NZD", name: "New Zealand Dollar", symbol: "$", flag: "🇳🇿" },
-    { code: "FJD", name: "Fiji Dollar", symbol: "$", flag: "🇫🇯" },
-    { code: "PGK", name: "Papua New Guinean Kina", symbol: "K", flag: "🇵🇬" }
+    { code: "USD", name: "US Dollar" },
+    { code: "EUR", name: "Euro" },
+    { code: "GBP", name: "British Pound" },
+    { code: "INR", name: "Indian Rupee" },
+    { code: "AUD", name: "Australian Dollar" },
+    { code: "CAD", name: "Canadian Dollar" },
+    { code: "JPY", name: "Japanese Yen" },
+    { code: "CHF", name: "Swiss Franc" },
+    { code: "SGD", name: "Singapore Dollar" },
+    { code: "HKD", name: "Hong Kong Dollar" },
+    { code: "SEK", name: "Swedish Krona" },
+    { code: "NZD", name: "New Zealand Dollar" },
+    { code: "BRL", name: "Brazilian Real" },
+    { code: "ZAR", name: "South African Rand" },
+    { code: "AED", name: "UAE Dirham" },
+    { code: "CNY", name: "Chinese Yuan" },
+    { code: "DKK", name: "Danish Krone" },
+    { code: "ILS", name: "Israeli Shekel" },
+    { code: "IRR", name: "Iranian Rial" },
+    { code: "ISK", name: "Icelandic Króna" },
+    { code: "KRW", name: "South Korean Won" },
+    { code: "MXN", name: "Mexican Peso" },
+    { code: "NOK", name: "Norwegian Krone" },
+    { code: "PKR", name: "Pakistani Rupee" },
+    { code: "PLN", name: "Polish Zloty" },
+    { code: "RUB", name: "Russian Ruble" },
+    { code: "SAR", name: "Saudi Riyal" },
+    { code: "THB", name: "Thai Baht" },
+    { code: "TRY", name: "Turkish Lira" },
+    { code: "TWD", name: "New Taiwan Dollar" },
+    { code: "UAH", name: "Ukrainian Hryvnia" },
+    { code: "VND", name: "Vietnamese Dong" },
+    { code: "XAF", name: "Central African CFA Franc" },
+    { code: "XOF", name: "West African CFA Franc" },
+    { code: "ZAR", name: "South African Rand" }
 ];
 
 function updateCurrencies() {
     const fromSelect = document.getElementById('currencyFrom');
     const toSelect = document.getElementById('currencyTo');
-
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
 
-    currencies.forEach(curr => {
+    // Sort alphabetically by name
+    const sortedCurrencies = [...currencies].sort((a, b) =>
+        a.name.localeCompare(b.name)
+    );
+
+    sortedCurrencies.forEach(curr => {
         const optionFrom = document.createElement('option');
         optionFrom.value = curr.code;
-        optionFrom.text = `${curr.flag} ${curr.name} (${curr.symbol})`;
+        optionFrom.text = `${curr.name} (${curr.code})`;
 
         const optionTo = document.createElement('option');
         optionTo.value = curr.code;
-        optionTo.text = `${curr.flag} ${curr.name} (${curr.symbol})`;
+        optionTo.text = `${curr.name} (${curr.code})`;
 
         fromSelect.appendChild(optionFrom);
         toSelect.appendChild(optionTo);
@@ -296,18 +243,18 @@ async function convertCurrency() {
     }
 
     try {
-        const response = await fetch(`https://api.exchangerate.host/latest?base= ${from}`);
+        const response = await fetch(`https://api.frankfurter.app/latest?amount= ${amount}&from=${from}&to=${to}`);
         const data = await response.json();
-        const rate = data.rates[to];
 
-        if (!rate) throw new Error("Rate not found");
+        if (!data.rates || !data.rates[to]) {
+            throw new Error("Rate not found");
+        }
 
-        const result = amount * rate;
-
+        const result = data.rates[to];
         document.getElementById('currencyDisplay').value = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
     } catch (error) {
+        console.error("Conversion error:", error.message);
         document.getElementById('currencyDisplay').value = "Error fetching rate";
-        console.error("Conversion error:", error);
     }
 }
 
@@ -324,7 +271,7 @@ function clearCurrency() {
     document.getElementById('currencyDisplay').value = '';
 }
 
-// AGE CALCULATOR LOGIC
+// AGE CALCULATOR
 function calculateAge() {
     const birthDateInput = document.getElementById('birthDateInput').value;
     const display = document.getElementById('ageDisplay');
@@ -336,6 +283,11 @@ function calculateAge() {
 
     const birthDate = new Date(birthDateInput);
     const today = new Date();
+
+    if (birthDate > today) {
+        display.value = "Future dates not allowed";
+        return;
+    }
 
     let years = today.getFullYear() - birthDate.getFullYear();
     let months = today.getMonth() - birthDate.getMonth();
@@ -360,16 +312,12 @@ function calculateAge() {
 function calculateNextBirthday(birthDate) {
     const today = new Date();
     const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-
     if (nextBirthday < today) {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
-
     const diff = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
-    const daysUntil = diff;
-
     const display = document.getElementById('nextBirthdayDisplay');
-    display.innerText = `🎂 Next birthday in ${daysUntil} day${daysUntil !== 1 ? 's' : ''}`;
+    display.innerText = `🎉 Next birthday in ${diff} day${diff !== 1 ? 's' : ''}`;
 }
 
 function clearAge() {
@@ -378,10 +326,122 @@ function clearAge() {
     document.getElementById('nextBirthdayDisplay').innerText = '';
 }
 
+// DATE DIFFERENCE CALCULATOR
+function calculateDateDiff() {
+    const date1 = new Date(document.getElementById('date1Input').value);
+    const date2 = new Date(document.getElementById('date2Input').value);
+    const display = document.getElementById('dateDiffDisplay');
+
+    if (!date1 || !date2) {
+        display.value = "Please select both dates";
+        return;
+    }
+
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    display.value = `${diffDays} day(s)`;
+}
+
+function clearDateDiff() {
+    document.getElementById('date1Input').value = '';
+    document.getElementById('date2Input').value = '';
+    document.getElementById('dateDiffDisplay').value = '';
+}
+
+// PERCENTAGE CALCULATOR
+function calculatePercentage() {
+    const value = parseFloat(document.getElementById('percentValue').value);
+    const percent = parseFloat(document.getElementById('percentPercent').value);
+    const display = document.getElementById('percentageDisplay');
+
+    if (isNaN(value) || isNaN(percent)) {
+        display.value = "Invalid input";
+        return;
+    }
+
+    display.value = `${(value * percent / 100).toFixed(2)} (${percent}% of ${value})`;
+}
+
+function clearPercentage() {
+    document.getElementById('percentValue').value = '';
+    document.getElementById('percentPercent').value = '';
+    document.getElementById('percentageDisplay').value = '';
+}
+
+// PERCENTAGE CHANGE
+function calculatePercentageChange() {
+    const oldVal = parseFloat(document.getElementById('oldValue').value);
+    const newVal = parseFloat(document.getElementById('newValue').value);
+    const display = document.getElementById('percentageChangeDisplay');
+
+    if (isNaN(oldVal) || isNaN(newVal)) {
+        display.value = "Invalid input";
+        return;
+    }
+
+    const change = ((newVal - oldVal) / oldVal) * 100;
+    display.value = `${change > 0 ? '+' : ''}${change.toFixed(2)}%`;
+}
+
+function clearPercentageChange() {
+    document.getElementById('oldValue').value = '';
+    document.getElementById('newValue').value = '';
+    document.getElementById('percentageChangeDisplay').value = '';
+}
+
+// TIP CALCULATOR
+function calculateTip() {
+    const bill = parseFloat(document.getElementById('billAmount').value);
+    const tip = parseFloat(document.getElementById('tipPercent').value);
+    const display = document.getElementById('tipDisplay');
+
+    if (isNaN(bill) || isNaN(tip)) {
+        display.value = "Invalid input";
+        return;
+    }
+
+    const tipAmount = bill * (tip / 100);
+    display.value = `Tip: $${tipAmount.toFixed(2)} | Total: $${(bill + tipAmount).toFixed(2)}`;
+}
+
+function clearTip() {
+    document.getElementById('billAmount').value = '';
+    document.getElementById('tipPercent').value = '';
+    document.getElementById('tipDisplay').value = '';
+}
+
+// VAT / DISCOUNT CALCULATOR
+function addVat() {
+    const value = parseFloat(document.getElementById('vatValue').value);
+    const rate = parseFloat(document.getElementById('vatPercent').value);
+    const display = document.getElementById('vatDisplay');
+
+    if (isNaN(value) || isNaN(rate)) {
+        display.value = "Invalid input";
+        return;
+    }
+
+    const total = value * (1 + rate / 100);
+    display.value = `${value} + ${rate}% = ${total.toFixed(2)}`;
+}
+
+function removeVat() {
+    const value = parseFloat(document.getElementById('vatValue').value);
+    const rate = parseFloat(document.getElementById('vatPercent').value);
+    const display = document.getElementById('vatDisplay');
+
+    if (isNaN(value) || isNaN(rate)) {
+        display.value = "Invalid input";
+        return;
+    }
+
+    const original = value / (1 + rate / 100);
+    display.value = `${value} - ${rate}% = ${original.toFixed(2)}`;
+}
+
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', function (e) {
-    if (document.activeElement.tagName === 'INPUT') return;
-
+    if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
     if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
         appendToDisplay(e.key);
     } else if (e.key === 'Enter') {
