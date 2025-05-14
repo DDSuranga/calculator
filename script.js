@@ -9,6 +9,7 @@ function showCalculator(type) {
     document.getElementById('currencyConverter').style.display = type === 'currency' ? 'block' : 'none';
     document.getElementById('ageCalculator').style.display = type === 'age' ? 'block' : 'none';
     document.getElementById('dateDifferenceCalculator').style.display = type === 'date' ? 'block' : 'none';
+    document.getElementById('timeDifferenceCalculator').style.display = type === 'time' ? 'block' : 'none';
     document.getElementById('percentageCalculator').style.display = type === 'percentage' ? 'block' : 'none';
     document.getElementById('percentageChangeCalculator').style.display = type === 'percentageChange' ? 'block' : 'none';
     document.getElementById('tipCalculator').style.display = type === 'tip' ? 'block' : 'none';
@@ -126,6 +127,7 @@ function updateUnits() {
         optionFrom.value = unit;
         optionFrom.text = `${unit} (${symbol})`;
         fromSelect.appendChild(optionFrom);
+
         const optionTo = document.createElement('option');
         optionTo.value = unit;
         optionTo.text = `${unit} (${symbol})`;
@@ -138,10 +140,12 @@ function convertUnit() {
     const from = document.getElementById('unitFrom').value;
     const to = document.getElementById('unitTo').value;
     const category = document.getElementById('unitCategory').value;
+
     if (isNaN(input)) {
         document.getElementById('unitDisplay').value = "Invalid input";
         return;
     }
+
     let result;
     if (category === 'temperature') {
         if (from === to) {
@@ -157,6 +161,7 @@ function convertUnit() {
         const baseValue = input / units[category][from];
         result = baseValue * units[category][to];
     }
+
     document.getElementById('unitDisplay').value = `${input} ${from} = ${result.toFixed(4)} ${to}`;
 }
 
@@ -210,7 +215,6 @@ function updateCurrencies() {
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
 
-    // Sort alphabetically by name
     const sortedCurrencies = [...currencies].sort((a, b) =>
         a.name.localeCompare(b.name)
     );
@@ -305,16 +309,17 @@ function calculateAge() {
     }
 
     display.value = `${years} year(s), ${months} month(s), ${days} day(s)`;
-
     calculateNextBirthday(birthDate);
 }
 
 function calculateNextBirthday(birthDate) {
     const today = new Date();
     const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+
     if (nextBirthday < today) {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
+
     const diff = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
     const display = document.getElementById('nextBirthdayDisplay');
     display.innerText = `🎉 Next birthday in ${diff} day${diff !== 1 ? 's' : ''}`;
@@ -346,6 +351,41 @@ function clearDateDiff() {
     document.getElementById('date1Input').value = '';
     document.getElementById('date2Input').value = '';
     document.getElementById('dateDiffDisplay').value = '';
+}
+
+// TIME DIFFERENCE CALCULATOR
+function calculateTimeDiff() {
+    const time1 = new Date(document.getElementById('time1Input').value);
+    const time2 = new Date(document.getElementById('time2Input').value);
+    const displayFull = document.getElementById('timeDiffFull');
+    const displayMinutes = document.getElementById('timeDiffMinutes');
+    const displaySeconds = document.getElementById('timeDiffSeconds');
+
+    if (!time1 || !time2) {
+        displayFull.innerText = 'Please select both times';
+        displayMinutes.innerText = '';
+        displaySeconds.innerText = '';
+        return;
+    }
+
+    const diffMs = Math.abs(time2 - time1);
+    const totalSeconds = Math.floor(diffMs / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+
+    displayFull.innerText = `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
+    displayMinutes.innerText = `Total Minutes: ${totalMinutes}`;
+    displaySeconds.innerText = `Total Seconds: ${seconds}`;
+}
+
+function clearTimeDiff() {
+    document.getElementById('time1Input').value = '';
+    document.getElementById('time2Input').value = '';
+    document.getElementById('timeDiffFull').innerText = '';
+    document.getElementById('timeDiffMinutes').innerText = '';
+    document.getElementById('timeDiffSeconds').innerText = '';
 }
 
 // PERCENTAGE CALCULATOR
@@ -442,6 +482,7 @@ function removeVat() {
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', function (e) {
     if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
+
     if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
         appendToDisplay(e.key);
     } else if (e.key === 'Enter') {

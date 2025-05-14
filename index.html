@@ -33,6 +33,7 @@
             <button onclick="showCalculator('currency')">Currency Converter</button>
             <button onclick="showCalculator('age')">Age Calculator</button>
             <button onclick="showCalculator('date')">📅 Date Diff</button>
+            <button onclick="showCalculator('time')">⏱️ Time Diff</button>
             <button onclick="showCalculator('percentage')">%</button>
             <button onclick="showCalculator('percentageChange')">% ↑↓</button>
             <button onclick="showCalculator('tip')">💡 Tip</button>
@@ -40,7 +41,7 @@
         </aside>
         <!-- Main Content -->
         <main class="calculator-container">
-
+            <!-- Existing Calculators (unchanged for brevity) -->
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
@@ -107,18 +108,14 @@
             <div class="calculator" id="unitConverter" style="display: none;">
                 <input type="text" class="display" id="unitDisplay" readonly aria-label="Unit Converter Display">
                 <div class="buttons">
-                    <!-- Category Row -->
                     <select id="unitCategory" onchange="updateUnits()" class="unit-select" style="grid-column: span 2;">
                         <option value="length">📏 Length</option>
                         <option value="weight">⚖️ Weight</option>
                         <option value="temperature">🌡️ Temperature</option>
                     </select>
-                    <!-- From/To Units Row -->
                     <select id="unitFrom" class="unit-select" style="grid-column: span 1;"></select>
                     <select id="unitTo" class="unit-select" style="grid-column: span 1;"></select>
-                    <!-- Input Field -->
                     <input type="number" id="unitInput" class="unit-input" placeholder="Enter value" style="grid-column: span 2;" />
-                    <!-- Buttons -->
                     <button class="button operator" onclick="convertUnit()">= Convert</button>
                     <button class="button operator" onclick="clearUnit()">C</button>
                 </div>
@@ -151,17 +148,56 @@
                 </div>
             </div>
 
-            <!-- Date Difference Calculator -->
-            <div class="calculator" id="dateDifferenceCalculator" style="display: none;">
-                <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
-                <div class="buttons">
-                    <label style="width:100%; text-align:center; font-weight:bold;">Select Two Dates:</label>
-                    <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()">
-                    <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()">
-                    <button class="button operator" onclick="calculateDateDiff()">= Calculate Days</button>
-                    <button class="button operator" onclick="clearDateDiff()">C</button>
-                </div>
-            </div>
+           <!-- Date Difference Calculator -->
+<div class="calculator" id="dateDifferenceCalculator" style="display: none;">
+    <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
+    <div class="buttons" style="grid-template-columns: 1fr 1fr;">
+        <!-- From Date Row -->
+        <div style="grid-column: span 2; text-align: center;">
+            <label><strong>From Date:</strong></label>
+            <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%; padding: 10px;">
+        </div>
+
+        <!-- To Date Row -->
+        <div style="grid-column: span 2; text-align: center;">
+            <label><strong>To Date:</strong></label>
+            <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%; padding: 10px;">
+        </div>
+
+        <!-- Buttons Row -->
+        <button class="button operator" onclick="calculateDateDiff()">= Calculate Days</button>
+        <button class="button operator" onclick="clearDateDiff()">C</button>
+    </div>
+</div>
+
+<!-- Time Difference Calculator -->
+<div class="calculator" id="timeDifferenceCalculator" style="display: none;">
+    <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
+    <div class="buttons" style="grid-template-columns: 1fr 1fr;">
+        <!-- From Date & Time Row -->
+        <div style="grid-column: span 2; text-align: center;">
+            <label><strong>From Date & Time:</strong></label>
+            <input type="datetime-local" id="time1Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%; padding: 10px;">
+        </div>
+
+        <!-- To Date & Time Row -->
+        <div style="grid-column: span 2; text-align: center;">
+            <label><strong>To Date & Time:</strong></label>
+            <input type="datetime-local" id="time2Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%; padding: 10px;">
+        </div>
+
+        <!-- Output Sections -->
+        <div style="grid-column: span 2; text-align: center;">
+            <p id="timeDiffFull" style="margin: 5px 0;"></p>
+            <p id="timeDiffMinutes" style="margin: 5px 0;"></p>
+            <p id="timeDiffSeconds" style="margin: 5px 0;"></p>
+        </div>
+
+        <!-- Buttons Row -->
+        <button class="button operator" onclick="calculateTimeDiff()">= Calculate Time</button>
+        <button class="button operator" onclick="clearTimeDiff()">C</button>
+    </div>
+</div>
 
             <!-- Percentage Calculator -->
             <div class="calculator" id="percentageCalculator" style="display: none;">
@@ -206,41 +242,43 @@
                     <button class="button operator" onclick="removeVat()">- Remove VAT</button>
                 </div>
             </div>
-
         </main>
-      <!-- SEO Column -->
-<!-- SEO Column -->
-<aside class="seo-column">
-    <section>
-        <!-- Buy Me a Coffee Button -->
-        <p style="text-align: center; margin-top: 0;">
-            <a href="https://payhere.lk/pay/oca5f1596 " target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 10px 20px; background-color: #ffdd00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 6px #e6c700; transition: background 0.3s; font-size: 16px;">
-                ☕ Buy Me a Coffee
-            </a>
-        </p>
 
-        <!-- Subheading -->
-        <h2>Online Calculator Features</h2>
+        <!-- SEO Column -->
+        <aside class="seo-column">
+            <section>
+                <!-- Buy Me a Coffee Button -->
+                <p style="text-align: center; margin-top: 0;">
+                    <a href="https://payhere.lk/pay/oca5f1596 " target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 10px 20px; background-color: #ffdd00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 6px #e6c700; transition: background 0.3s; font-size: 16px;">
+                        ☕ Buy Me a Coffee
+                    </a>
+                </p>
 
-        <!-- Feature List -->
-        <ul>
-            <li>🧮 Basic & Scientific Calculator</li>
-            <li>📐 Unit Converter (Length, Weight, Temperature)</li>
-            <li>💸 Currency Converter with Live Rates</li>
-            <li>📅 Age Calculator + Next Birthday Countdown</li>
-            <li>📆 Date Difference Calculator</li>
-            <li>% Percentage Calculations</li>
-            <li>📉 Percentage Change Support</li>
-            <li>💡 Tip Calculator</li>
-            <li>🧮 VAT / Discount Functions</li>
-            <li>💾 Memory Functions: M+, M-, MRC</li>
-            <li>📱 Mobile Friendly & PWA Ready</li>
-        </ul>
-    </section>
-</aside>
+                <!-- Subheading -->
+                <h2>Online Calculator Features</h2>
+
+                <!-- Feature List -->
+                <ul>
+                    <li>🧮 Basic & Scientific Calculator</li>
+                    <li>📐 Unit Converter (Length, Weight, Temperature)</li>
+                    <li>💸 Currency Converter with Live Rates</li>
+                    <li>📅 Age Calculator + Next Birthday Countdown</li>
+                    <li>📆 Date Difference Calculator</li>
+                    <li>⏱️ Time Difference Calculator</li>
+                    <li>% Percentage Calculations</li>
+                    <li>📉 Percentage Change Support</li>
+                    <li>💡 Tip Calculator</li>
+                    <li>🧮 VAT / Discount Functions</li>
+                    <li>💾 Memory Functions: M+, M-, MRC</li>
+                    <li>📱 Mobile Friendly & PWA Ready</li>
+                </ul>
+            </section>
+        </aside>
     </div>
+
     <!-- Scripts -->
     <script src="script.js"></script>
+
     <!-- Register Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
