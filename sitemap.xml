@@ -1,63 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://onlinecalmaster.com/ </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>1.0</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/basic-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/scientific-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.7</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/unit-converter </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.7</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/currency-converter </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>daily</changefreq>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/age-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/date-difference-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/percentage-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/tip-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://onlinecalmaster.com/vat-calculator </loc>
-      <lastmod>2025-04-05</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-   </url>
+    <!-- Main Page -->
+    <url>
+        <loc>https://onlinecalmaster.com/ </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Static Pages -->
+    <url>
+        <loc>https://onlinecalmaster.com/about.html </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://onlinecalmaster.com/contact.html </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://onlinecalmaster.com/privacy-policy.html </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
 </urlset>

@@ -5,25 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Online Calculator - All-in-One</title>
+
     <!-- Meta Tags -->
     <meta name="description" content="Free online calculator with currency converter, unit converter, scientific mode, age calculator, and more. Supports memory functions and live exchange rates."/>
     <meta name="theme-color" content="#3867d6"/>
+
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Online Calculator – Basic & Scientific | OnlineCalMaster">
     <meta property="og:description" content="All-in-one calculator for students, engineers, and professionals – supports math, conversions, and more.">
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAIAAAAOTNQaAAAAA1BMVEX///+nxBvIAAAAR0lEQVRo3u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBLcQ8AAa0jZQAAAABJRU5ErkJggg==">
+
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header style="text-align: center; font-family: Tahoma; padding: 10px;">
-        <h1>Online Calculator – All-in-One Tool</h1>
-        <p>Basic, Scientific, Unit Converter, Currency Converter, Age Calculator</p>
+    <header style="text-align: center; font-family: Tahoma; padding: 10px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; width: 100%; box-sizing: border-box;">
+        <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
+        <nav style="display: flex; gap: 15px; font-size: 14px;">
+            <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
+            <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact</a>
+            <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy</a>
+        </nav>
     </header>
+
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -39,9 +49,10 @@
             <button onclick="showCalculator('tip')">💡 Tip</button>
             <button onclick="showCalculator('vat')">🧾 VAT</button>
         </aside>
+
         <!-- Main Content -->
         <main class="calculator-container">
-            <!-- Existing Calculators (unchanged for brevity) -->
+            <!-- Existing Calculators -->
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
@@ -148,56 +159,44 @@
                 </div>
             </div>
 
-           <!-- Date Difference Calculator -->
-<div class="calculator" id="dateDifferenceCalculator" style="display: none;">
-    <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
-    <div class="buttons" style="grid-template-columns: 1fr 1fr;">
-        <!-- From Date Row -->
-        <div style="grid-column: span 2; text-align: center;">
-            <label><strong>From Date:</strong></label>
-            <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%; padding: 10px;">
-        </div>
+            <!-- Date Difference Calculator -->
+            <div class="calculator" id="dateDifferenceCalculator" style="display: none;">
+                <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
+                <div class="buttons">
+                    <div style="grid-column: span 2; text-align: center;">
+                        <label><strong>From Date:</strong></label>
+                        <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%;">
+                    </div>
+                    <div style="grid-column: span 2; text-align: center;">
+                        <label><strong>To Date:</strong></label>
+                        <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%;">
+                    </div>
+                    <button class="button operator" onclick="calculateDateDiff()">= Calculate Days</button>
+                    <button class="button operator" onclick="clearDateDiff()">C</button>
+                </div>
+            </div>
 
-        <!-- To Date Row -->
-        <div style="grid-column: span 2; text-align: center;">
-            <label><strong>To Date:</strong></label>
-            <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%; padding: 10px;">
-        </div>
-
-        <!-- Buttons Row -->
-        <button class="button operator" onclick="calculateDateDiff()">= Calculate Days</button>
-        <button class="button operator" onclick="clearDateDiff()">C</button>
-    </div>
-</div>
-
-<!-- Time Difference Calculator -->
-<div class="calculator" id="timeDifferenceCalculator" style="display: none;">
-    <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
-    <div class="buttons" style="grid-template-columns: 1fr 1fr;">
-        <!-- From Date & Time Row -->
-        <div style="grid-column: span 2; text-align: center;">
-            <label><strong>From Date & Time:</strong></label>
-            <input type="datetime-local" id="time1Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%; padding: 10px;">
-        </div>
-
-        <!-- To Date & Time Row -->
-        <div style="grid-column: span 2; text-align: center;">
-            <label><strong>To Date & Time:</strong></label>
-            <input type="datetime-local" id="time2Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%; padding: 10px;">
-        </div>
-
-        <!-- Output Sections -->
-        <div style="grid-column: span 2; text-align: center;">
-            <p id="timeDiffFull" style="margin: 5px 0;"></p>
-            <p id="timeDiffMinutes" style="margin: 5px 0;"></p>
-            <p id="timeDiffSeconds" style="margin: 5px 0;"></p>
-        </div>
-
-        <!-- Buttons Row -->
-        <button class="button operator" onclick="calculateTimeDiff()">= Calculate Time</button>
-        <button class="button operator" onclick="clearTimeDiff()">C</button>
-    </div>
-</div>
+            <!-- Time Difference Calculator -->
+            <div class="calculator" id="timeDifferenceCalculator" style="display: none;">
+                <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
+                <div class="buttons" style="grid-template-columns: 1fr 1fr;">
+                    <div style="grid-column: span 2; text-align: center;">
+                        <label><strong>From Date & Time:</strong></label>
+                        <input type="datetime-local" id="time1Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%;">
+                    </div>
+                    <div style="grid-column: span 2; text-align: center;">
+                        <label><strong>To Date & Time:</strong></label>
+                        <input type="datetime-local" id="time2Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%;">
+                    </div>
+                    <div style="grid-column: span 2; text-align: center;">
+                        <p id="timeDiffFull" style="margin: 5px 0;"></p>
+                        <p id="timeDiffMinutes" style="margin: 5px 0;"></p>
+                        <p id="timeDiffSeconds" style="margin: 5px 0;"></p>
+                    </div>
+                    <button class="button operator" onclick="calculateTimeDiff()">= Calculate Time</button>
+                    <button class="button operator" onclick="clearTimeDiff()">C</button>
+                </div>
+            </div>
 
             <!-- Percentage Calculator -->
             <div class="calculator" id="percentageCalculator" style="display: none;">
