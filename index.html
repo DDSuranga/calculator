@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Online Calculator - All-in-One</title>
+    <title>Online Calculator – All-in-One Tool</title>
 
     <!-- Meta Tags -->
     <meta name="description" content="Free online calculator with currency converter, unit converter, scientific mode, age calculator, and more. Supports memory functions and live exchange rates."/>
@@ -23,11 +23,14 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Canonical Tag (Fixes Duplicate Content Warning) -->
+    <link rel="canonical" href="https://onlinecalmaster.com/ ">
 </head>
 <body>
     <header style="text-align: center; font-family: Tahoma; padding: 10px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; width: 100%; box-sizing: border-box;">
         <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
-        <nav style="display: flex; gap: 15px; font-size: 14px;">
+        <nav class="top-nav" style="display: flex; gap: 15px; font-size: 14px;">
             <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
             <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact</a>
             <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy</a>
@@ -53,6 +56,7 @@
         <!-- Main Content -->
         <main class="calculator-container">
             <!-- Existing Calculators -->
+
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
@@ -162,7 +166,7 @@
             <!-- Date Difference Calculator -->
             <div class="calculator" id="dateDifferenceCalculator" style="display: none;">
                 <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
-                <div class="buttons">
+                <div class="buttons" style="grid-template-columns: 1fr 1fr;">
                     <div style="grid-column: span 2; text-align: center;">
                         <label><strong>From Date:</strong></label>
                         <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%;">
@@ -246,10 +250,13 @@
         <!-- SEO Column -->
         <aside class="seo-column">
             <section>
-                <!-- Buy Me a Coffee Button -->
+                <!-- Buy Me a Coffee Button 
                 <p style="text-align: center; margin-top: 0;">
-                  
-                </p>
+                    <a href="https://payhere.lk/pay/oca5f1596 " target="_blank" rel="noopener noreferrer"
+                       style="display: inline-block; padding: 10px 20px; background-color: #ffdd00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 6px #e6c700; transition: background 0.3s; font-size: 16px;">
+                        ☕ Support This Tool
+                    </a>
+                </p> -->
 
                 <!-- Subheading -->
                 <h2>Online Calculator Features</h2>
