@@ -5,40 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Online Calculator – All-in-One Tool</title>
-
     <!-- Meta Tags -->
     <meta name="description" content="Free online calculator with currency converter, unit converter, scientific mode, age calculator, and more. Supports memory functions and live exchange rates."/>
     <meta name="theme-color" content="#3867d6"/>
-
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Online Calculator – Basic & Scientific | OnlineCalMaster">
     <meta property="og:description" content="All-in-one calculator for students, engineers, and professionals – supports math, conversions, and more.">
-
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAIAAAAOTNQaAAAAA1BMVEX///+nxBvIAAAAR0lEQVRo3u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBLcQ8AAa0jZQAAAABJRU5ErkJggg==">
-
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Canonical Tag (Fixes Duplicate Content Warning) -->
-    <link rel="canonical" href="https://onlinecalmaster.com/ ">
+    <!-- Canonical Tag -->
+    <link rel="canonical" href="https://onlinecalmaster.com/  ">
 </head>
 <body>
-    <header style="text-align: center; font-family: Tahoma; padding: 10px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; width: 100%; box-sizing: border-box;">
+    <header style="text-align: center; font-family: Tahoma; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: auto;">
         <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
         <nav class="top-nav" style="display: flex; gap: 15px; font-size: 14px;">
+            <a href="index.html" style="color: #3867d6; text-decoration: none;">🏠 Home</a>
             <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
-            <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact</a>
-            <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy</a>
+            <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact Us</a>
+            <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy Policy</a>
+            <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
         </nav>
     </header>
 
     <div class="container">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <button onclick="showCalculator('basic')">Basic Calculator</button>
             <button onclick="showCalculator('scientific')">Scientific Calculator</button>
@@ -56,8 +52,6 @@
         <!-- Main Content -->
         <main class="calculator-container">
             <!-- Existing Calculators -->
-
-            <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
                 <div class="buttons">
@@ -68,15 +62,15 @@
                     <button class="button left" onclick="appendToDisplay('7')">7</button>
                     <button class="button left" onclick="appendToDisplay('8')">8</button>
                     <button class="button left" onclick="appendToDisplay('9')">9</button>
-                    <button class="button operator" onclick="appendToDisplay('/')">÷</button>
+                    <button class="button operator" onclick="calculate()">=</button>
                     <button class="button left" onclick="appendToDisplay('4')">4</button>
                     <button class="button left" onclick="appendToDisplay('5')">5</button>
                     <button class="button left" onclick="appendToDisplay('6')">6</button>
-                    <button class="button operator" onclick="appendToDisplay('*')">×</button>
+                    <button class="button operator" onclick="appendToDisplay('/')">÷</button>
                     <button class="button left" onclick="appendToDisplay('1')">1</button>
                     <button class="button left" onclick="appendToDisplay('2')">2</button>
                     <button class="button left" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator" onclick="calculate()">=</button>
+                    <button class="button operator" onclick="appendToDisplay('*')">×</button>
                     <button class="button left" onclick="appendToDisplay('0')">0</button>
                     <button class="button left" onclick="appendToDisplay('.')">.</button>
                     <button class="button operator" onclick="memoryAdd()">M+</button>
@@ -96,15 +90,15 @@
                     <button class="button left" onclick="appendToDisplay('7')">7</button>
                     <button class="button left" onclick="appendToDisplay('8')">8</button>
                     <button class="button left" onclick="appendToDisplay('9')">9</button>
-                    <button class="button operator" onclick="appendToDisplay('/')">÷</button>
+                    <button class="button operator" onclick="calculate()">=</button>
                     <button class="button left" onclick="appendToDisplay('4')">4</button>
                     <button class="button left" onclick="appendToDisplay('5')">5</button>
                     <button class="button left" onclick="appendToDisplay('6')">6</button>
-                    <button class="button operator" onclick="appendToDisplay('*')">×</button>
+                    <button class="button operator" onclick="appendToDisplay('/')">÷</button>
                     <button class="button left" onclick="appendToDisplay('1')">1</button>
                     <button class="button left" onclick="appendToDisplay('2')">2</button>
                     <button class="button left" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator" onclick="calculate()">=</button>
+                    <button class="button operator" onclick="appendToDisplay('*')">×</button>
                     <button class="button left" onclick="appendToDisplay('0')">0</button>
                     <button class="button left" onclick="appendToDisplay('.')">.</button>
                     <button class="button trig" onclick="appendToDisplay('Math.sin(')">sin</button>
@@ -153,12 +147,12 @@
             <div class="calculator" id="ageCalculator" style="display: none;">
                 <input type="text" class="display" id="ageDisplay" readonly aria-label="Age Display">
                 <div class="buttons">
-                    <label style="width:100%; text-align:center; font-weight:bold;">Select Your Birthdate:</label>
+                    <label style="width:100%; text-align:center; font-weight:bold;">Select Birthdate:</label>
                     <input type="date" id="birthDateInput" class="unit-input" onchange="calculateAge()">
                     <button class="button operator" onclick="calculateAge()">= Calculate Age</button>
                     <button class="button operator" onclick="clearAge()">C</button>
-                    <div style="grid-column: span 2;">
-                        <p id="nextBirthdayDisplay" style="text-align: center; margin-top: 10px;"></p>
+                    <div style="grid-column: span 2; text-align: center;">
+                        <p id="nextBirthdayDisplay" style="margin-top: 10px;"></p>
                     </div>
                 </div>
             </div>
@@ -175,7 +169,7 @@
                         <label><strong>To Date:</strong></label>
                         <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%;">
                     </div>
-                    <button class="button operator" onclick="calculateDateDiff()">= Calculate Days</button>
+                    <button class="button operator" onclick="calculateDateDiff()">= Days Between</button>
                     <button class="button operator" onclick="clearDateDiff()">C</button>
                 </div>
             </div>
@@ -250,31 +244,19 @@
         <!-- SEO Column -->
         <aside class="seo-column">
             <section>
-                <!-- Buy Me a Coffee Button 
-                <p style="text-align: center; margin-top: 0;">
-                    <a href="https://payhere.lk/pay/oca5f1596 " target="_blank" rel="noopener noreferrer"
-                       style="display: inline-block; padding: 10px 20px; background-color: #ffdd00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 6px #e6c700; transition: background 0.3s; font-size: 16px;">
-                        ☕ Support This Tool
-                    </a>
-                </p> -->
-
-                <!-- Subheading -->
-                <h2>Online Calculator Features</h2>
-
-                <!-- Feature List -->
+                <h2>Features</h2>
                 <ul>
                     <li>🧮 Basic & Scientific Calculator</li>
-                    <li>📐 Unit Converter (Length, Weight, Temperature)</li>
-                    <li>💸 Currency Converter with Live Rates</li>
-                    <li>📅 Age Calculator + Next Birthday Countdown</li>
-                    <li>📆 Date Difference Calculator</li>
-                    <li>⏱️ Time Difference Calculator</li>
-                    <li>% Percentage Calculations</li>
-                    <li>📉 Percentage Change Support</li>
+                    <li>📐 Unit Converter</li>
+                    <li>💸 Currency Converter</li>
+                    <li>📅 Age Calculator</li>
+                    <li>📆 Date Difference</li>
+                    <li>⏱️ Time Difference</li>
+                    <li>% Percentage</li>
+                    <li>📉 Percentage Change</li>
                     <li>💡 Tip Calculator</li>
-                    <li>🧮 VAT / Discount Functions</li>
-                    <li>💾 Memory Functions: M+, M-, MRC</li>
-                    <li>📱 Mobile Friendly & PWA Ready</li>
+                    <li>🧮 Memory Functions</li>
+                    <li>📱 Mobile Friendly</li>
                 </ul>
             </section>
         </aside>

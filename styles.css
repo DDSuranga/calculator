@@ -48,13 +48,13 @@ h1 {
     box-shadow: 0 6px #2d54ab, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
 }
 
+.sidebar button:hover {
+    background-color: #2f59b3;
+}
+
 .sidebar button:active {
     transform: translateY(2px);
     box-shadow: 0 2px #2d54ab;
-}
-
-.sidebar button:hover {
-    background-color: #2f59b3;
 }
 
 .calculator-container {
@@ -288,15 +288,15 @@ h1 {
     border-radius: 8px;
     font-weight: bold;
     box-shadow: 0 6px #e6c700;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .seo-column a[href*="payhere"]:hover {
     background-color: #ffe844;
-    box-shadow: 0 2px #e6c700;
 }
 
 .seo-column a[href*="payhere"]:active {
+    background-color: #e6c700;
     transform: translateY(2px);
     box-shadow: 0 2px #e6c700;
 }

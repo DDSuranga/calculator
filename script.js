@@ -54,18 +54,22 @@ function calculate() {
             .replace(/÷/g, '/')
             .replace(/×/g, '*')
             .replace(/√/g, 'Math.sqrt');
+
         let openParens = (expression.match(/\(/g) || []).length;
         let closeParens = (expression.match(/\)/g) || []).length;
+
         while (closeParens < openParens) {
             expression += ')';
             closeParens++;
         }
+
         getCurrentDisplay().value = eval(expression);
     } catch {
         getCurrentDisplay().value = 'Error';
     }
 }
 
+// Memory Functions
 function memoryAdd() {
     try {
         const result = eval(getCurrentDisplay().value);
@@ -116,6 +120,7 @@ function updateUnits() {
     const toSelect = document.getElementById('unitTo');
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
+
     Object.keys(units[category]).forEach(unit => {
         const symbolMap = {
             length: 'm',
@@ -147,6 +152,7 @@ function convertUnit() {
     }
 
     let result;
+
     if (category === 'temperature') {
         if (from === to) {
             result = input;
@@ -215,9 +221,7 @@ function updateCurrencies() {
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
 
-    const sortedCurrencies = [...currencies].sort((a, b) =>
-        a.name.localeCompare(b.name)
-    );
+    const sortedCurrencies = [...currencies].sort((a, b) => a.name.localeCompare(b.name));
 
     sortedCurrencies.forEach(curr => {
         const optionFrom = document.createElement('option');
