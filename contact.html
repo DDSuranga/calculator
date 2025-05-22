@@ -6,6 +6,15 @@
     <title>Contact OnlineCalMaster</title>
     <meta name="description" content="Have questions? Contact us using the form below or email us directly.">
     <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2F25VNZYGT');
+</script>
 </head>
 <body>
     <header style="text-align: center; font-family: Tahoma; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: auto;">
@@ -64,52 +73,51 @@
         &copy; 2025 OnlineCalMaster.com | All Rights Reserved
     </footer>
 
-    <!-- EmailJS Script -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js "></script>
+    <!-- EmailJS SDK v3 -->
+    <script src="https://cdn.emailjs.com/sdk/v3.js "></script>
     <script>
-        // Initialize with your Public Key
-        emailjs.init("svy00LpC5iiWOto39");
+      emailjs.init("svy00LpC5iiWOto39");
 
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+      document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
 
-            if (!name || !email || !message) {
-                showStatus("Please fill in all fields.", "red");
-                return;
-            }
-
-            // Send via EmailJS
-            emailjs.send("service_yzo81ww", "template_onxpnhu", {
-                name: name,
-                email: email,
-                message: message
-            }).then(
-                function(response) {
-                    console.log("SUCCESS!", response.status, response.text);
-                    showStatus("Message sent successfully!", "green");
-                    document.getElementById('contactForm').reset();
-                },
-                function(error) {
-                    console.log("FAILED...", error);
-                    showStatus("Failed to send message. Please try again.", "red");
-                }
-            );
-        });
-
-        function showStatus(message, color) {
-            const statusDiv = document.getElementById('formStatus');
-            statusDiv.style.display = 'block';
-            statusDiv.style.color = color;
-            statusDiv.textContent = message;
-
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 5000);
+        if (!name || !email || !message) {
+          showStatus("Please fill in all fields.", "red");
+          return;
         }
+
+        // Send via EmailJS
+        emailjs.send("service_yzo81ww", "template_onxpnhu", {
+          name: name,
+          email: email,
+          message: message
+        }).then(
+          function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+            showStatus("Message sent successfully!", "green");
+            document.getElementById('contactForm').reset();
+          },
+          function(error) {
+            console.error("FAILED...", error);
+            showStatus("Failed to send message. Check console for details.", "red");
+          }
+        );
+      });
+
+      function showStatus(message, color) {
+        const statusDiv = document.getElementById('formStatus');
+        statusDiv.style.display = 'block';
+        statusDiv.style.color = color;
+        statusDiv.textContent = message;
+
+        setTimeout(() => {
+          statusDiv.style.display = 'none';
+        }, 5000);
+      }
     </script>
 </body>
 </html>
