@@ -54,15 +54,12 @@ function calculate() {
             .replace(/÷/g, '/')
             .replace(/×/g, '*')
             .replace(/√/g, 'Math.sqrt');
-
         let openParens = (expression.match(/\(/g) || []).length;
         let closeParens = (expression.match(/\)/g) || []).length;
-
         while (closeParens < openParens) {
             expression += ')';
             closeParens++;
         }
-
         getCurrentDisplay().value = eval(expression);
     } catch {
         getCurrentDisplay().value = 'Error';
@@ -120,7 +117,6 @@ function updateUnits() {
     const toSelect = document.getElementById('unitTo');
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
-
     Object.keys(units[category]).forEach(unit => {
         const symbolMap = {
             length: 'm',
@@ -132,7 +128,6 @@ function updateUnits() {
         optionFrom.value = unit;
         optionFrom.text = `${unit} (${symbol})`;
         fromSelect.appendChild(optionFrom);
-
         const optionTo = document.createElement('option');
         optionTo.value = unit;
         optionTo.text = `${unit} (${symbol})`;
@@ -145,14 +140,11 @@ function convertUnit() {
     const from = document.getElementById('unitFrom').value;
     const to = document.getElementById('unitTo').value;
     const category = document.getElementById('unitCategory').value;
-
     if (isNaN(input)) {
         document.getElementById('unitDisplay').value = "Invalid input";
         return;
     }
-
     let result;
-
     if (category === 'temperature') {
         if (from === to) {
             result = input;
@@ -167,7 +159,6 @@ function convertUnit() {
         const baseValue = input / units[category][from];
         result = baseValue * units[category][to];
     }
-
     document.getElementById('unitDisplay').value = `${input} ${from} = ${result.toFixed(4)} ${to}`;
 }
 
@@ -220,22 +211,17 @@ function updateCurrencies() {
     const toSelect = document.getElementById('currencyTo');
     fromSelect.innerHTML = '';
     toSelect.innerHTML = '';
-
     const sortedCurrencies = [...currencies].sort((a, b) => a.name.localeCompare(b.name));
-
     sortedCurrencies.forEach(curr => {
         const optionFrom = document.createElement('option');
         optionFrom.value = curr.code;
         optionFrom.text = `${curr.name} (${curr.code})`;
-
         const optionTo = document.createElement('option');
         optionTo.value = curr.code;
         optionTo.text = `${curr.name} (${curr.code})`;
-
         fromSelect.appendChild(optionFrom);
         toSelect.appendChild(optionTo);
     });
-
     fromSelect.value = 'USD';
     toSelect.value = 'INR';
 }
@@ -244,20 +230,16 @@ async function convertCurrency() {
     const amount = parseFloat(document.getElementById('currencyInput').value);
     const from = document.getElementById('currencyFrom').value;
     const to = document.getElementById('currencyTo').value;
-
     if (isNaN(amount)) {
         document.getElementById('currencyDisplay').value = "Invalid input";
         return;
     }
-
     try {
         const response = await fetch(`https://api.frankfurter.app/latest?amount= ${amount}&from=${from}&to=${to}`);
         const data = await response.json();
-
         if (!data.rates || !data.rates[to]) {
             throw new Error("Rate not found");
         }
-
         const result = data.rates[to];
         document.getElementById('currencyDisplay').value = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
     } catch (error) {
@@ -283,35 +265,28 @@ function clearCurrency() {
 function calculateAge() {
     const birthDateInput = document.getElementById('birthDateInput').value;
     const display = document.getElementById('ageDisplay');
-
     if (!birthDateInput) {
         display.value = "Please select a date.";
         return;
     }
-
     const birthDate = new Date(birthDateInput);
     const today = new Date();
-
     if (birthDate > today) {
         display.value = "Future dates not allowed";
         return;
     }
-
     let years = today.getFullYear() - birthDate.getFullYear();
     let months = today.getMonth() - birthDate.getMonth();
     let days = today.getDate() - birthDate.getDate();
-
     if (days < 0) {
         months--;
         const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
         days += prevMonth;
     }
-
     if (months < 0) {
         years--;
         months += 12;
     }
-
     display.value = `${years} year(s), ${months} month(s), ${days} day(s)`;
     calculateNextBirthday(birthDate);
 }
@@ -319,11 +294,9 @@ function calculateAge() {
 function calculateNextBirthday(birthDate) {
     const today = new Date();
     const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-
     if (nextBirthday < today) {
         nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
-
     const diff = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
     const display = document.getElementById('nextBirthdayDisplay');
     display.innerText = `🎉 Next birthday in ${diff} day${diff !== 1 ? 's' : ''}`;
@@ -340,12 +313,10 @@ function calculateDateDiff() {
     const date1 = new Date(document.getElementById('date1Input').value);
     const date2 = new Date(document.getElementById('date2Input').value);
     const display = document.getElementById('dateDiffDisplay');
-
     if (!date1 || !date2) {
         display.value = "Please select both dates";
         return;
     }
-
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     display.value = `${diffDays} day(s)`;
@@ -364,21 +335,18 @@ function calculateTimeDiff() {
     const displayFull = document.getElementById('timeDiffFull');
     const displayMinutes = document.getElementById('timeDiffMinutes');
     const displaySeconds = document.getElementById('timeDiffSeconds');
-
     if (!time1 || !time2) {
         displayFull.innerText = 'Please select both times';
         displayMinutes.innerText = '';
         displaySeconds.innerText = '';
         return;
     }
-
     const diffMs = Math.abs(time2 - time1);
     const totalSeconds = Math.floor(diffMs / 1000);
     const totalMinutes = Math.floor(totalSeconds / 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     const seconds = totalSeconds % 60;
-
     displayFull.innerText = `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
     displayMinutes.innerText = `Total Minutes: ${totalMinutes}`;
     displaySeconds.innerText = `Total Seconds: ${seconds}`;
@@ -397,12 +365,10 @@ function calculatePercentage() {
     const value = parseFloat(document.getElementById('percentValue').value);
     const percent = parseFloat(document.getElementById('percentPercent').value);
     const display = document.getElementById('percentageDisplay');
-
     if (isNaN(value) || isNaN(percent)) {
         display.value = "Invalid input";
         return;
     }
-
     display.value = `${(value * percent / 100).toFixed(2)} (${percent}% of ${value})`;
 }
 
@@ -417,12 +383,10 @@ function calculatePercentageChange() {
     const oldVal = parseFloat(document.getElementById('oldValue').value);
     const newVal = parseFloat(document.getElementById('newValue').value);
     const display = document.getElementById('percentageChangeDisplay');
-
     if (isNaN(oldVal) || isNaN(newVal)) {
         display.value = "Invalid input";
         return;
     }
-
     const change = ((newVal - oldVal) / oldVal) * 100;
     display.value = `${change > 0 ? '+' : ''}${change.toFixed(2)}%`;
 }
@@ -438,12 +402,10 @@ function calculateTip() {
     const bill = parseFloat(document.getElementById('billAmount').value);
     const tip = parseFloat(document.getElementById('tipPercent').value);
     const display = document.getElementById('tipDisplay');
-
     if (isNaN(bill) || isNaN(tip)) {
         display.value = "Invalid input";
         return;
     }
-
     const tipAmount = bill * (tip / 100);
     display.value = `Tip: $${tipAmount.toFixed(2)} | Total: $${(bill + tipAmount).toFixed(2)}`;
 }
@@ -459,12 +421,10 @@ function addVat() {
     const value = parseFloat(document.getElementById('vatValue').value);
     const rate = parseFloat(document.getElementById('vatPercent').value);
     const display = document.getElementById('vatDisplay');
-
     if (isNaN(value) || isNaN(rate)) {
         display.value = "Invalid input";
         return;
     }
-
     const total = value * (1 + rate / 100);
     display.value = `${value} + ${rate}% = ${total.toFixed(2)}`;
 }
@@ -473,12 +433,10 @@ function removeVat() {
     const value = parseFloat(document.getElementById('vatValue').value);
     const rate = parseFloat(document.getElementById('vatPercent').value);
     const display = document.getElementById('vatDisplay');
-
     if (isNaN(value) || isNaN(rate)) {
         display.value = "Invalid input";
         return;
     }
-
     const original = value / (1 + rate / 100);
     display.value = `${value} - ${rate}% = ${original.toFixed(2)}`;
 }
@@ -486,7 +444,6 @@ function removeVat() {
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', function (e) {
     if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
-
     if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
         appendToDisplay(e.key);
     } else if (e.key === 'Enter') {

@@ -19,14 +19,13 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     <!-- Canonical Tag -->
-    <link rel="canonical" href="https://onlinecalmaster.com/  ">
+    <link rel="canonical" href="https://onlinecalmaster.com/    ">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT  "></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-2F25VNZYGT');
 </script>
 </head>
@@ -41,75 +40,88 @@
             <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
         </nav>
     </header>
-
     <div class="container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <button onclick="showCalculator('basic')">Basic Calculator</button>
-            <button onclick="showCalculator('scientific')">Scientific Calculator</button>
-            <button onclick="showCalculator('unit')">Unit Converter</button>
-            <button onclick="showCalculator('currency')">Currency Converter</button>
-            <button onclick="showCalculator('age')">Age Calculator</button>
-            <button onclick="showCalculator('date')">📅 Date Diff</button>
-            <button onclick="showCalculator('time')">⏱️ Time Diff</button>
-            <button onclick="showCalculator('percentage')">%</button>
-            <button onclick="showCalculator('percentageChange')">% ↑↓</button>
-            <button onclick="showCalculator('tip')">💡 Tip</button>
-            <button onclick="showCalculator('vat')">🧾 VAT</button>
+            <button onclick="showCalculator('basic')" style="white-space: nowrap;">Basic Calculator</button>
+            <button onclick="showCalculator('scientific')" style="white-space: nowrap;">Scientific Calculator</button>
+            <button onclick="showCalculator('unit')" style="white-space: nowrap;">Unit Converter</button>
+            <button onclick="showCalculator('currency')" style="white-space: nowrap;">Currency Converter</button>
+            <button onclick="showCalculator('age')" style="white-space: nowrap;">Age Calculator</button>
+            <button onclick="showCalculator('date')" style="white-space: nowrap;">📅 Date Diff</button>
+            <button onclick="showCalculator('time')" style="white-space: nowrap;">⏱️ Time Diff</button>
+            <button onclick="showCalculator('percentage')" style="white-space: nowrap;">%</button>
+            <button onclick="showCalculator('percentageChange')" style="white-space: nowrap;">% ↑↓</button>
+            <button onclick="showCalculator('tip')" style="white-space: nowrap;">💡 Tip</button>
+            <button onclick="showCalculator('vat')" style="white-space: nowrap;">🧾 VAT</button>
         </aside>
-
         <!-- Main Content -->
         <main class="calculator-container">
-            <!-- Existing Calculators -->
+            <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
                 <div class="buttons">
+                    <!-- Row 1 -->
                     <button class="button operator" onclick="clearDisplay()" title="Clear">C</button>
                     <button class="button operator" onclick="deleteLast()" title="Delete last character">⌫</button>
                     <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">xʸ</button>
                     <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">√</button>
-                    <button class="button left" onclick="appendToDisplay('7')">7</button>
-                    <button class="button left" onclick="appendToDisplay('8')">8</button>
-                    <button class="button left" onclick="appendToDisplay('9')">9</button>
-                    <button class="button operator" onclick="calculate()">=</button>
-                    <button class="button left" onclick="appendToDisplay('4')">4</button>
-                    <button class="button left" onclick="appendToDisplay('5')">5</button>
-                    <button class="button left" onclick="appendToDisplay('6')">6</button>
-                    <button class="button operator" onclick="appendToDisplay('/')">÷</button>
-                    <button class="button left" onclick="appendToDisplay('1')">1</button>
-                    <button class="button left" onclick="appendToDisplay('2')">2</button>
-                    <button class="button left" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator" onclick="appendToDisplay('*')">×</button>
-                    <button class="button left" onclick="appendToDisplay('0')">0</button>
-                    <button class="button left" onclick="appendToDisplay('.')">.</button>
-                    <button class="button operator" onclick="memoryAdd()">M+</button>
-                    <button class="button operator" onclick="memorySubtract()">M-</button>
+                    <!-- Row 2 -->
+                    <button class="button" onclick="appendToDisplay('7')">7</button>
+                    <button class="button" onclick="appendToDisplay('8')">8</button>
+                    <button class="button" onclick="appendToDisplay('9')">9</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('/')">÷</button>
+                    <!-- Row 3 -->
+                    <button class="button" onclick="appendToDisplay('4')">4</button>
+                    <button class="button" onclick="appendToDisplay('5')">5</button>
+                    <button class="button" onclick="appendToDisplay('6')">6</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('*')">×</button>
+                    <!-- Row 4 -->
+                    <button class="button" onclick="appendToDisplay('1')">1</button>
+                    <button class="button" onclick="appendToDisplay('2')">2</button>
+                    <button class="button" onclick="appendToDisplay('3')">3</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('-')">–</button>
+                    <!-- Row 5 -->
+                    <button class="button" onclick="appendToDisplay('0')">0</button>
+                    <button class="button" onclick="appendToDisplay('.')">.</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('+')">+</button>
+                    <button class="button equals" onclick="calculate()">=</button>
+                    <!-- Memory Buttons -->
+                    <button class="button memory" onclick="memoryAdd()">M+</button>
+                    <button class="button memory" onclick="memorySubtract()">M-</button>
                     <button class="button memory" onclick="memoryRecall()">MRC</button>
                 </div>
             </div>
-
             <!-- Scientific Calculator -->
             <div class="calculator" id="scientificCalculator" style="display: none;">
                 <input type="text" class="display" id="displayScientific" readonly aria-label="Scientific Calculator Display">
                 <div class="buttons">
+                    <!-- Row 1 -->
                     <button class="button operator" onclick="clearDisplay()" title="Clear">C</button>
                     <button class="button operator" onclick="deleteLast()" title="Delete last character">⌫</button>
                     <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">xʸ</button>
                     <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">√</button>
-                    <button class="button left" onclick="appendToDisplay('7')">7</button>
-                    <button class="button left" onclick="appendToDisplay('8')">8</button>
-                    <button class="button left" onclick="appendToDisplay('9')">9</button>
-                    <button class="button operator" onclick="calculate()">=</button>
-                    <button class="button left" onclick="appendToDisplay('4')">4</button>
-                    <button class="button left" onclick="appendToDisplay('5')">5</button>
-                    <button class="button left" onclick="appendToDisplay('6')">6</button>
-                    <button class="button operator" onclick="appendToDisplay('/')">÷</button>
-                    <button class="button left" onclick="appendToDisplay('1')">1</button>
-                    <button class="button left" onclick="appendToDisplay('2')">2</button>
-                    <button class="button left" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator" onclick="appendToDisplay('*')">×</button>
-                    <button class="button left" onclick="appendToDisplay('0')">0</button>
-                    <button class="button left" onclick="appendToDisplay('.')">.</button>
+                    <!-- Row 2 -->
+                    <button class="button" onclick="appendToDisplay('7')">7</button>
+                    <button class="button" onclick="appendToDisplay('8')">8</button>
+                    <button class="button" onclick="appendToDisplay('9')">9</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('/')">÷</button>
+                    <!-- Row 3 -->
+                    <button class="button" onclick="appendToDisplay('4')">4</button>
+                    <button class="button" onclick="appendToDisplay('5')">5</button>
+                    <button class="button" onclick="appendToDisplay('6')">6</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('*')">×</button>
+                    <!-- Row 4 -->
+                    <button class="button" onclick="appendToDisplay('1')">1</button>
+                    <button class="button" onclick="appendToDisplay('2')">2</button>
+                    <button class="button" onclick="appendToDisplay('3')">3</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('-')">–</button>
+                    <!-- Row 5 -->
+                    <button class="button" onclick="appendToDisplay('0')">0</button>
+                    <button class="button" onclick="appendToDisplay('.')">.</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('+')">+</button>
+                    <button class="button equals" onclick="calculate()">=</button>
+                    <!-- Scientific Functions -->
                     <button class="button trig" onclick="appendToDisplay('Math.sin(')">sin</button>
                     <button class="button trig" onclick="appendToDisplay('Math.cos(')">cos</button>
                     <button class="button trig" onclick="appendToDisplay('Math.tan(')">tan</button>
@@ -121,7 +133,6 @@
                     <button class="button memory" onclick="memoryRecall()">MRC</button>
                 </div>
             </div>
-
             <!-- Unit Converter -->
             <div class="calculator" id="unitConverter" style="display: none;">
                 <input type="text" class="display" id="unitDisplay" readonly aria-label="Unit Converter Display">
@@ -138,7 +149,6 @@
                     <button class="button operator" onclick="clearUnit()">C</button>
                 </div>
             </div>
-
             <!-- Currency Converter -->
             <div class="calculator" id="currencyConverter" style="display: none;">
                 <input type="text" class="display" id="currencyDisplay" readonly aria-label="Currency Converter Display">
@@ -151,7 +161,6 @@
                     <button class="button operator" onclick="swapCurrencies()">⇅ Swap</button>
                 </div>
             </div>
-
             <!-- Age Calculator -->
             <div class="calculator" id="ageCalculator" style="display: none;">
                 <input type="text" class="display" id="ageDisplay" readonly aria-label="Age Display">
@@ -165,7 +174,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Date Difference Calculator -->
             <div class="calculator" id="dateDifferenceCalculator" style="display: none;">
                 <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
@@ -182,7 +190,6 @@
                     <button class="button operator" onclick="clearDateDiff()">C</button>
                 </div>
             </div>
-
             <!-- Time Difference Calculator -->
             <div class="calculator" id="timeDifferenceCalculator" style="display: none;">
                 <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
@@ -204,7 +211,6 @@
                     <button class="button operator" onclick="clearTimeDiff()">C</button>
                 </div>
             </div>
-
             <!-- Percentage Calculator -->
             <div class="calculator" id="percentageCalculator" style="display: none;">
                 <input type="text" class="display" id="percentageDisplay" readonly aria-label="Percentage Calculator Display">
@@ -215,7 +221,6 @@
                     <button class="button operator" onclick="clearPercentage()">C</button>
                 </div>
             </div>
-
             <!-- Percentage Change Calculator -->
             <div class="calculator" id="percentageChangeCalculator" style="display: none;">
                 <input type="text" class="display" id="percentageChangeDisplay" readonly aria-label="Percentage Change Display">
@@ -226,7 +231,6 @@
                     <button class="button operator" onclick="clearPercentageChange()">C</button>
                 </div>
             </div>
-
             <!-- Tip Calculator -->
             <div class="calculator" id="tipCalculator" style="display: none;">
                 <input type="text" class="display" id="tipDisplay" readonly aria-label="Tip Calculator Display">
@@ -237,7 +241,6 @@
                     <button class="button operator" onclick="clearTip()">C</button>
                 </div>
             </div>
-
             <!-- VAT / Discount Calculator -->
             <div class="calculator" id="vatCalculator" style="display: none;">
                 <input type="text" class="display" id="vatDisplay" readonly aria-label="VAT/Discount Calculator Display">
@@ -249,7 +252,6 @@
                 </div>
             </div>
         </main>
-
         <!-- SEO Column -->
         <aside class="seo-column">
             <section>
@@ -270,10 +272,8 @@
             </section>
         </aside>
     </div>
-
     <!-- Scripts -->
     <script src="script.js"></script>
-
     <!-- Register Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {

@@ -16,7 +16,7 @@ h1 {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 0.4fr 2.6fr 1fr; /* Sidebar narrower, main content wider */
     width: 100%;
     max-width: 1400px;
     background-color: #ffffff;
@@ -46,6 +46,7 @@ h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 6px #2d54ab, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+    white-space: nowrap; /* Prevent text wrap in sidebar buttons */
 }
 
 .sidebar button:hover {
@@ -58,7 +59,7 @@ h1 {
 }
 
 .calculator-container {
-    padding: 20px;
+    padding: 10px 20px; /* Reduced vertical padding */
     background-color: #f9f9f9;
     display: flex;
     justify-content: center;
@@ -66,7 +67,7 @@ h1 {
 
 .calculator {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 15px; /* Reduced from default */
     border-radius: 20px;
     width: 100%;
     max-width: 420px;
@@ -77,13 +78,13 @@ h1 {
 
 .display {
     width: 100%;
-    padding: 10px;
-    font-size: 24px;
+    padding: 8px; /* Reduced */
+    font-size: 20px; /* Tighter font */
     border: none;
     background-color: #f0f0f0;
     color: #000;
     text-align: right;
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Reduced */
     border-radius: 10px;
     box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -92,12 +93,13 @@ h1 {
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 6px; /* Reduced gap between buttons */
 }
 
+/* Base Button Style */
 .button {
-    padding: 16px;
-    font-size: 18px;
+    padding: 12px; /* Reduced */
+    font-size: 16px; /* Slightly smaller */
     border: none;
     border-radius: 12px;
     background-color: #ffffff;
@@ -116,6 +118,40 @@ h1 {
     box-shadow: 0 2px #aaa;
 }
 
+/* Numeric Buttons */
+.button:not(.operator):not(.trig):not(.memory):not(.operator-basic) {
+    background-color: #ffffff;
+    color: #000;
+    box-shadow: 0 6px #bbb, inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.button:not(.operator):not(.trig):not(.memory):not(.operator-basic):hover {
+    background-color: #f0f0f0;
+}
+
+/* Basic Operators (+, –, ×, ÷) */
+.button.operator-basic {
+    background-color: #ff9500;
+    color: #fff;
+    box-shadow: 0 6px #cc7a00, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.button.operator-basic:hover {
+    background-color: #e88900;
+}
+
+/* Equals (=) Button */
+.button.equals {
+    background-color: #20bf6b;
+    color: #fff;
+    box-shadow: 0 6px #1aa357, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.button.equals:hover {
+    background-color: #1aa357;
+}
+
+/* Operator Buttons (C, ⌫, =, etc.) */
 .button.operator {
     background-color: #ff5722;
     color: #fff;
@@ -126,6 +162,7 @@ h1 {
     background-color: #e64a19;
 }
 
+/* Memory Buttons (M+, M-, MRC, log, π, e) */
 .button.memory {
     background-color: #009688;
     color: #fff;
@@ -136,6 +173,7 @@ h1 {
     background-color: #00796b;
 }
 
+/* Scientific Function Buttons (sin, cos, tan) */
 .button.trig {
     background-color: #771796;
     color: #fff;
