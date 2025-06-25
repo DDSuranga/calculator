@@ -46,7 +46,7 @@ h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 6px #2d54ab, inset 0 -2px 4px rgba(255, 255, 255, 0.1);
-    white-space: nowrap; /* Prevent text wrap in sidebar buttons */
+    white-space: nowrap;
 }
 
 .sidebar button:hover {
@@ -59,32 +59,54 @@ h1 {
 }
 
 .calculator-container {
-    padding: 10px 20px; /* Reduced vertical padding */
+    padding: 10px 20px;
     background-color: #f9f9f9;
     display: flex;
     justify-content: center;
 }
 
+.calculator-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #3867d6;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
 .calculator {
     background-color: #ffffff;
-    padding: 15px; /* Reduced from default */
+    padding: 15px;
     border-radius: 20px;
     width: 100%;
     max-width: 420px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2),
                 inset 0 -4px 6px rgba(255, 255, 255, 0.8),
                 inset 0 4px 6px rgba(0, 0, 0, 0.05);
+    min-height: 300px;
+    transition: min-height 0.3s ease;
+    display: none;
+}
+
+.calculator.tall {
+    min-height: 400px;
+}
+
+.calculator.extra-tall {
+    min-height: 500px;
 }
 
 .display {
     width: 100%;
-    padding: 8px; /* Reduced */
-    font-size: 20px; /* Tighter font */
+    padding: 8px;
+    font-size: 20px;
     border: none;
     background-color: #f0f0f0;
     color: #000;
     text-align: right;
-    margin-bottom: 12px; /* Reduced */
+    margin-bottom: 12px;
     border-radius: 10px;
     box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -93,13 +115,13 @@ h1 {
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px; /* Reduced gap between buttons */
+    gap: 6px;
 }
 
 /* Base Button Style */
 .button {
-    padding: 12px; /* Reduced */
-    font-size: 16px; /* Slightly smaller */
+    padding: 12px;
+    font-size: 16px;
     border: none;
     border-radius: 12px;
     background-color: #ffffff;
@@ -337,4 +359,53 @@ h1 {
     background-color: #e6c700;
     transform: translateY(2px);
     box-shadow: 0 2px #e6c700;
+}
+
+/* ============ DARK MODE STYLES ============= */
+body.dark-mode {
+    background: linear-gradient(to right, #1e1e1e, #2c2c2c);
+    color: #f0f0f0;
+}
+
+body.dark-mode .container,
+body.dark-mode .calculator,
+body.dark-mode .seo-column {
+    background-color: #2e2e2e;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .sidebar {
+    background-color: #2e2e2e;
+    border-right: 1px solid #444;
+}
+
+body.dark-mode .button,
+body.dark-mode .unit-select,
+body.dark-mode .unit-input,
+body.dark-mode .display {
+    background-color: #3e3e3e;
+    color: #f0f0f0;
+    box-shadow: 0 6px #2a2a2a, inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .button:hover,
+body.dark-mode .button:focus {
+    background-color: #4e4e4e;
+}
+
+body.dark-mode .sidebar button {
+    background-color: #4e4e4e;
+    color: #fff;
+}
+
+body.dark-mode .calculator-title {
+    color: #8cd4ff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode .seo-column h2,
+body.dark-mode .seo-column p,
+body.dark-mode .seo-column a,
+body.dark-mode .top-nav a {
+    color: #ddd;
 }

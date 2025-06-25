@@ -2,33 +2,91 @@ let memory = 0;
 let activeDisplay = 'basic';
 let display, displayScientific;
 
-function showCalculator(type) {
-    document.getElementById('basicCalculator').style.display = type === 'basic' ? 'block' : 'none';
-    document.getElementById('scientificCalculator').style.display = type === 'scientific' ? 'block' : 'none';
-    document.getElementById('unitConverter').style.display = type === 'unit' ? 'block' : 'none';
-    document.getElementById('currencyConverter').style.display = type === 'currency' ? 'block' : 'none';
-    document.getElementById('ageCalculator').style.display = type === 'age' ? 'block' : 'none';
-    document.getElementById('dateDifferenceCalculator').style.display = type === 'date' ? 'block' : 'none';
-    document.getElementById('timeDifferenceCalculator').style.display = type === 'time' ? 'block' : 'none';
-    document.getElementById('percentageCalculator').style.display = type === 'percentage' ? 'block' : 'none';
-    document.getElementById('percentageChangeCalculator').style.display = type === 'percentageChange' ? 'block' : 'none';
-    document.getElementById('tipCalculator').style.display = type === 'tip' ? 'block' : 'none';
-    document.getElementById('vatCalculator').style.display = type === 'vat' ? 'block' : 'none';
-    activeDisplay = type;
-}
-
+// Initialize displays on load
 window.onload = function () {
     showCalculator('basic');
     display = document.getElementById('display');
     displayScientific = document.getElementById('displayScientific');
     updateUnits();
     updateCurrencies();
+
+    // Apply saved theme (dark/light mode)
+    applySavedTheme();
 };
 
+// Show selected calculator and hide others
+function showCalculator(type) {
+    // Hide all calculators
+    document.querySelectorAll('.calculator').forEach(calculator => {
+        calculator.style.display = 'none';
+        calculator.classList.remove('tall', 'extra-tall');
+    });
+
+    const calculatorMap = {
+        basic: 'basicCalculator',
+        scientific: 'scientificCalculator',
+        unit: 'unitConverter',
+        currency: 'currencyConverter',
+        age: 'ageCalculator',
+        date: 'dateDifferenceCalculator',
+        time: 'timeDifferenceCalculator',
+        percentage: 'percentageCalculator',
+        percentageChange: 'percentageChangeCalculator',
+        tip: 'tipCalculator',
+        vat: 'vatCalculator'
+    };
+
+    const calculatorId = calculatorMap[type];
+    if (!calculatorId) return;
+
+    const selectedCalculator = document.getElementById(calculatorId);
+    if (!selectedCalculator) return;
+
+    selectedCalculator.style.display = 'block';
+
+    // Set dynamic height
+    if (type === 'unit' || type === 'currency') {
+        selectedCalculator.classList.add('tall');
+    } else if (
+        type === 'age' ||
+        type === 'date' ||
+        type === 'time' ||
+        type === 'percentageChange' ||
+        type === 'tip' ||
+        type === 'vat'
+    ) {
+        selectedCalculator.classList.add('extra-tall');
+    }
+
+    // Update calculator title
+    const titles = {
+        basic: 'Basic Calculator',
+        scientific: 'Scientific Calculator',
+        unit: 'Unit Converter',
+        currency: 'Currency Converter',
+        age: 'Age Calculator',
+        date: 'Date Difference Calculator',
+        time: 'Time Difference Calculator',
+        percentage: 'Percentage Calculator',
+        percentageChange: 'Percentage Change Calculator',
+        tip: 'Tip Calculator',
+        vat: 'VAT / Discount Calculator'
+    };
+
+    const titleElement = selectedCalculator.querySelector('.calculator-title');
+    if (titleElement) {
+        titleElement.textContent = titles[type] || 'Unknown Calculator';
+    }
+
+    activeDisplay = type;
+}
+
+// Get current input display
 function getCurrentDisplay() {
     return activeDisplay === 'scientific' ? displayScientific : display;
 }
 
+// Append to display
 function appendToDisplay(value) {
     const input = getCurrentDisplay();
     const lastFuncPattern = /Math\.\w+$/;
@@ -39,15 +97,18 @@ function appendToDisplay(value) {
     }
 }
 
+// Clear current display
 function clearDisplay() {
     getCurrentDisplay().value = '';
 }
 
+// Delete last character
 function deleteLast() {
     const input = getCurrentDisplay();
     input.value = input.value.slice(0, -1);
 }
 
+// Evaluate expression
 function calculate() {
     try {
         let expression = getCurrentDisplay().value
@@ -216,10 +277,11 @@ function updateCurrencies() {
         const optionFrom = document.createElement('option');
         optionFrom.value = curr.code;
         optionFrom.text = `${curr.name} (${curr.code})`;
+        fromSelect.appendChild(optionFrom);
+
         const optionTo = document.createElement('option');
         optionTo.value = curr.code;
         optionTo.text = `${curr.name} (${curr.code})`;
-        fromSelect.appendChild(optionFrom);
         toSelect.appendChild(optionTo);
     });
     fromSelect.value = 'USD';
@@ -235,11 +297,9 @@ async function convertCurrency() {
         return;
     }
     try {
-        const response = await fetch(`https://api.frankfurter.app/latest?amount= ${amount}&from=${from}&to=${to}`);
+        const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`);
         const data = await response.json();
-        if (!data.rates || !data.rates[to]) {
-            throw new Error("Rate not found");
-        }
+        if (!data.rates || !data.rates[to]) throw new Error("Rate not found");
         const result = data.rates[to];
         document.getElementById('currencyDisplay').value = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
     } catch (error) {
@@ -308,7 +368,7 @@ function clearAge() {
     document.getElementById('nextBirthdayDisplay').innerText = '';
 }
 
-// DATE DIFFERENCE CALCULATOR
+// DATE DIFFERENCE
 function calculateDateDiff() {
     const date1 = new Date(document.getElementById('date1Input').value);
     const date2 = new Date(document.getElementById('date2Input').value);
@@ -328,28 +388,31 @@ function clearDateDiff() {
     document.getElementById('dateDiffDisplay').value = '';
 }
 
-// TIME DIFFERENCE CALCULATOR
+// TIME DIFFERENCE
 function calculateTimeDiff() {
     const time1 = new Date(document.getElementById('time1Input').value);
     const time2 = new Date(document.getElementById('time2Input').value);
     const displayFull = document.getElementById('timeDiffFull');
     const displayMinutes = document.getElementById('timeDiffMinutes');
     const displaySeconds = document.getElementById('timeDiffSeconds');
+
     if (!time1 || !time2) {
         displayFull.innerText = 'Please select both times';
         displayMinutes.innerText = '';
         displaySeconds.innerText = '';
         return;
     }
+
     const diffMs = Math.abs(time2 - time1);
     const totalSeconds = Math.floor(diffMs / 1000);
     const totalMinutes = Math.floor(totalSeconds / 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     const seconds = totalSeconds % 60;
+
     displayFull.innerText = `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
     displayMinutes.innerText = `Total Minutes: ${totalMinutes}`;
-    displaySeconds.innerText = `Total Seconds: ${seconds}`;
+    displaySeconds.innerText = `Total Seconds: ${totalSeconds}`;
 }
 
 function clearTimeDiff() {
@@ -416,7 +479,7 @@ function clearTip() {
     document.getElementById('tipDisplay').value = '';
 }
 
-// VAT / DISCOUNT CALCULATOR
+// VAT / DISCOUNT
 function addVat() {
     const value = parseFloat(document.getElementById('vatValue').value);
     const rate = parseFloat(document.getElementById('vatPercent').value);
@@ -459,3 +522,27 @@ document.addEventListener('keydown', function (e) {
         appendToDisplay('**');
     }
 });
+
+/* ====== DARK MODE TOGGLE ====== */
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', isDarkModeEnabled() ? 'disabled' : 'enabled');
+    updateDarkModeButtonText();
+}
+
+function isDarkModeEnabled() {
+    return localStorage.getItem('darkMode') === 'enabled';
+}
+
+function updateDarkModeButtonText() {
+    const link = document.querySelector('a[href="#"][onclick="toggleDarkMode(); return false;"]'); 
+    if (!link) return;
+    link.textContent = isDarkModeEnabled() ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
+
+function applySavedTheme() {
+    if (isDarkModeEnabled()) {
+        document.body.classList.add('dark-mode');
+    }
+    updateDarkModeButtonText();
+}

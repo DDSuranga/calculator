@@ -16,7 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>Online Calculator – All-in-One Tool</title>
     <!-- Meta Tags -->
     <meta name="description" content="Free online calculator with currency converter, unit converter, scientific mode, age calculator, and more. Supports memory functions and live exchange rates."/>
-    <meta name="theme-color" content="#3867d6"/>
+    <meta name="theme-color" content="#3867d6"/> 
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Online Calculator – Basic & Scientific | OnlineCalMaster">
     <meta property="og:description" content="All-in-one calculator for students, engineers, and professionals – supports math, conversions, and more.">
@@ -28,9 +28,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     <!-- Canonical Tag -->
-    <link rel="canonical" href="https://onlinecalmaster.com/    ">
+    <link rel="canonical" href="https://onlinecalmaster.com/"> 
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT  "></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -46,11 +46,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <header style="text-align: center; font-family: Tahoma; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: auto;">
         <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
         <nav class="top-nav" style="display: flex; gap: 15px; font-size: 14px;">
-            <a href="index.html" style="color: #3867d6; text-decoration: none;">🏠 Home</a>
+            <a href="index.html" style="color: #3867d6; text-decoration: none;">🏠 Home</a> 
             <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
             <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact Us</a>
             <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy Policy</a>
             <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
+            <a href="#" onclick="toggleDarkMode(); return false;" style="color: #3867d6; text-decoration: none;" id="darkModeToggle">🌙 Dark Mode</a>
         </nav>
     </header>
     <div class="container">
@@ -72,6 +73,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <main class="calculator-container">
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
+                <h2 class="calculator-title">Basic Calculator</h2>
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
                 <div class="buttons">
                     <!-- Row 1 -->
@@ -105,8 +107,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button memory" onclick="memoryRecall()">MRC</button>
                 </div>
             </div>
+
             <!-- Scientific Calculator -->
             <div class="calculator" id="scientificCalculator" style="display: none;">
+                <h2 class="calculator-title">Scientific Calculator</h2>
                 <input type="text" class="display" id="displayScientific" readonly aria-label="Scientific Calculator Display">
                 <div class="buttons">
                     <!-- Row 1 -->
@@ -146,8 +150,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button memory" onclick="memoryRecall()">MRC</button>
                 </div>
             </div>
+
             <!-- Unit Converter -->
-            <div class="calculator" id="unitConverter" style="display: none;">
+            <div class="calculator tall" id="unitConverter" style="display: none;">
+                <h2 class="calculator-title">Unit Converter</h2>
                 <input type="text" class="display" id="unitDisplay" readonly aria-label="Unit Converter Display">
                 <div class="buttons">
                     <select id="unitCategory" onchange="updateUnits()" class="unit-select" style="grid-column: span 2;">
@@ -162,8 +168,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="clearUnit()">C</button>
                 </div>
             </div>
+
             <!-- Currency Converter -->
-            <div class="calculator" id="currencyConverter" style="display: none;">
+            <div class="calculator tall" id="currencyConverter" style="display: none;">
+                <h2 class="calculator-title">Currency Converter</h2>
                 <input type="text" class="display" id="currencyDisplay" readonly aria-label="Currency Converter Display">
                 <div class="buttons">
                     <select id="currencyFrom" class="unit-select"></select>
@@ -174,8 +182,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="swapCurrencies()">⇅ Swap</button>
                 </div>
             </div>
+
             <!-- Age Calculator -->
-            <div class="calculator" id="ageCalculator" style="display: none;">
+            <div class="calculator extra-tall" id="ageCalculator" style="display: none;">
+                <h2 class="calculator-title">Age Calculator</h2>
                 <input type="text" class="display" id="ageDisplay" readonly aria-label="Age Display">
                 <div class="buttons">
                     <label style="width:100%; text-align:center; font-weight:bold;">Select Birthdate:</label>
@@ -187,8 +197,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             </div>
+
             <!-- Date Difference Calculator -->
-            <div class="calculator" id="dateDifferenceCalculator" style="display: none;">
+            <div class="calculator extra-tall" id="dateDifferenceCalculator" style="display: none;">
+                <h2 class="calculator-title">Date Difference Calculator</h2>
                 <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
                 <div class="buttons" style="grid-template-columns: 1fr 1fr;">
                     <div style="grid-column: span 2; text-align: center;">
@@ -203,8 +215,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="clearDateDiff()">C</button>
                 </div>
             </div>
+
             <!-- Time Difference Calculator -->
-            <div class="calculator" id="timeDifferenceCalculator" style="display: none;">
+            <div class="calculator extra-tall" id="timeDifferenceCalculator" style="display: none;">
+                <h2 class="calculator-title">Time Difference Calculator</h2>
                 <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
                 <div class="buttons" style="grid-template-columns: 1fr 1fr;">
                     <div style="grid-column: span 2; text-align: center;">
@@ -224,8 +238,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="clearTimeDiff()">C</button>
                 </div>
             </div>
+
             <!-- Percentage Calculator -->
             <div class="calculator" id="percentageCalculator" style="display: none;">
+                <h2 class="calculator-title">Percentage Calculator</h2>
                 <input type="text" class="display" id="percentageDisplay" readonly aria-label="Percentage Calculator Display">
                 <div class="buttons">
                     <input type="number" id="percentValue" class="unit-input" placeholder="Total Value" />
@@ -234,8 +250,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="clearPercentage()">C</button>
                 </div>
             </div>
+
             <!-- Percentage Change Calculator -->
-            <div class="calculator" id="percentageChangeCalculator" style="display: none;">
+            <div class="calculator extra-tall" id="percentageChangeCalculator" style="display: none;">
+                <h2 class="calculator-title">Percentage Change Calculator</h2>
                 <input type="text" class="display" id="percentageChangeDisplay" readonly aria-label="Percentage Change Display">
                 <div class="buttons">
                     <input type="number" id="oldValue" class="unit-input" placeholder="Old Value" />
@@ -244,8 +262,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="clearPercentageChange()">C</button>
                 </div>
             </div>
+
             <!-- Tip Calculator -->
-            <div class="calculator" id="tipCalculator" style="display: none;">
+            <div class="calculator extra-tall" id="tipCalculator" style="display: none;">
+                <h2 class="calculator-title">Tip Calculator</h2>
                 <input type="text" class="display" id="tipDisplay" readonly aria-label="Tip Calculator Display">
                 <div class="buttons">
                     <input type="number" id="billAmount" class="unit-input" placeholder="Bill Amount" />
@@ -254,8 +274,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <button class="button operator" onclick="clearTip()">C</button>
                 </div>
             </div>
+
             <!-- VAT / Discount Calculator -->
-            <div class="calculator" id="vatCalculator" style="display: none;">
+            <div class="calculator extra-tall" id="vatCalculator" style="display: none;">
+                <h2 class="calculator-title">VAT / Discount Calculator</h2>
                 <input type="text" class="display" id="vatDisplay" readonly aria-label="VAT/Discount Calculator Display">
                 <div class="buttons">
                     <input type="number" id="vatValue" class="unit-input" placeholder="Base Amount" />
