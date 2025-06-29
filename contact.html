@@ -1,136 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4953018177794421"
-     crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-links {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      font-size: 24px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      color: #0056b3;
+    }
+
+    .alert-success {
+      display: none;
+    }
+  </style>
+
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WSQH8DCC');</script>
-<!-- End Google Tag Manager -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Contact OnlineCalMaster</title>
-    <meta name="description" content="Have questions? Contact us using the form below or email us directly.">
-    <link rel="stylesheet" href="styles.css">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2F25VNZYGT');
-</script>
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M6K9R66W'); // Replace with your GTM ID if needed
+  </script>
 </head>
+
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSQH8DCC"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <header style="text-align: center; font-family: Tahoma; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: auto;">
-        <h1>Contact Us</h1>
-        <nav class="top-nav" style="display: flex; gap: 15px; font-size: 14px;">
-            <a href="index.html" style="color: #3867d6; text-decoration: none;">🏠 Home</a>
-            <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
-            <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact Us</a>
-            <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy Policy</a>
-            <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
-        </nav>
-    </header>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M6K9R66W"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
 
-    <div class="container" style="max-width: 1000px; margin: auto; padding: 20px;">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar"></aside>
+  <div class="container contact-container">
+    <h2 class="text-center mb-4">Contact Us</h2>
 
-        <!-- Main Content -->
-        <main class="calculator-container">
-            <section style="background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-                <h2 style="text-align: center;">Get in Touch</h2>
-                <p style="text-align: center;">For support, collaboration, or general inquiries, please use the form below or email us directly.</p>
+    <form id="contact-form">
+      <div class="mb-3">
+        <label for="name" class="form-label">Your Name *</label>
+        <input type="text" class="form-control" id="name" required />
+      </div>
 
-                <p style="text-align: center;"><strong>support@onlinecalmaster.com</strong></p>
-                <p style="text-align: center;">We aim to respond within 24–48 hours.</p>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address *</label>
+        <input type="email" class="form-control" id="email" required />
+      </div>
 
-                <!-- Success/Error Message -->
-                <div id="formStatus" style="display: none; margin-top: 20px; font-weight: bold; text-align: center;"></div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message *</label>
+        <textarea class="form-control" id="message" rows="5" required></textarea>
+      </div>
 
-                <!-- Contact Form -->
-                <form id="contactForm" style="margin-top: 30px;">
-                    <input type="text" id="name" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
-                    <input type="email" id="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
-                    <textarea id="message" placeholder="Your Message" rows="5" required style="width: 100%; padding: 10px; margin-bottom: 10px;"></textarea>
-                    <button type="submit" class="button operator" style="width: 100%;">Send Message</button>
-                </form>
-            </section>
-        </main>
+      <button type="submit" class="btn btn-primary w-100">Send Message</button>
+    </form>
 
-        <!-- SEO Column -->
-        <aside class="seo-column">
-            <section>
-                <h2>Quick Links</h2>
-                <ul>
-                    <li><a href="index.html">🏠 Home</a></li>
-                    <li><a href="about.html">ℹ️ About Us</a></li>
-                    <li><a href="contact.html">📧 Contact Us</a></li>
-                    <li><a href="privacy-policy.html">🔒 Privacy Policy</a></li>
-                </ul>
-            </section>
-        </aside>
+    <div class="alert alert-success mt-3" id="success-alert">
+      ✅ Your message was sent successfully!
     </div>
 
-    <!-- Footer -->
-    <footer style="text-align: center; padding: 20px; font-size: 14px; background: #f0f0f0; margin-top: 40px;">
-        &copy; 2025 OnlineCalMaster.com | All Rights Reserved
-    </footer>
+    <div class="social-links">
+      <h5 class="mt-4">Connect With Us</h5>
+      <a href="https://wa.me/94771234567" target="_blank" title="WhatsApp">
+        📱
+      </a>
+      <a href="https://facebook.com/yourpage" target="_blank" title="Facebook">
+        🔵
+      </a>
+      <a href="https://instagram.com/yourpage" target="_blank" title="Instagram">
+        📸
+      </a>
+      <a href="mailto:support@example.com" title="Email">
+        ✉️
+      </a>
+    </div>
+  </div>
 
-    <!-- EmailJS SDK v3 -->
-    <script src="https://cdn.emailjs.com/sdk/v3.js "></script>
-    <script>
-      emailjs.init("svy00LpC5iiWOto39");
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("eUrV1CCbtewUbs8cg"); // Replace with your EmailJS public key
+    })();
 
-      document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-        if (!name || !email || !message) {
-          showStatus("Please fill in all fields.", "red");
-          return;
-        }
-
-        // Send via EmailJS
-        emailjs.send("service_yzo81ww", "template_onxpnhu", {
-          name: name,
-          email: email,
-          message: message
-        }).then(
-          function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-            showStatus("Message sent successfully!", "green");
-            document.getElementById('contactForm').reset();
-          },
-          function(error) {
-            console.error("FAILED...", error);
-            showStatus("Failed to send message. Check console for details.", "red");
-          }
-        );
-      });
-
-      function showStatus(message, color) {
-        const statusDiv = document.getElementById('formStatus');
-        statusDiv.style.display = 'block';
-        statusDiv.style.color = color;
-        statusDiv.textContent = message;
-
-        setTimeout(() => {
-          statusDiv.style.display = 'none';
-        }, 5000);
+      // Basic validation
+      if (!name || !email || !message) {
+        alert("Please fill in all required fields.");
+        return;
       }
-    </script>
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      const params = {
+        from_name: name,
+        from_email: email,
+        message: message
+      };
+
+      emailjs.send("service_7r5glod", "template_ifknzgp", params)
+        .then(function (response) {
+          document.getElementById("success-alert").style.display = "block";
+          document.getElementById("contact-form").reset();
+        }, function (error) {
+          alert("❌ Failed to send message. Try again later.");
+          console.error("EmailJS error:", error);
+        });
+    });
+  </script>
 </body>
 </html>

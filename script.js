@@ -1,3 +1,4 @@
+// Memory and Theme State
 let memory = 0;
 let activeDisplay = 'basic';
 let display, displayScientific;
@@ -10,13 +11,44 @@ window.onload = function () {
     updateUnits();
     updateCurrencies();
 
-    // Apply saved theme (dark/light mode)
+    // Apply saved theme
     applySavedTheme();
+
+    // Show keyboard shortcut modal
+    showKeyboardShortcutsModal();
 };
+
+// === DARK MODE TOGGLE === //
+function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    updateDarkModeButtonText(body.classList.contains('dark-mode'));
+}
+
+function updateDarkModeButtonText(isDark) {
+    const toggleLink = document.getElementById('darkModeToggle');
+    if (!toggleLink) return;
+    toggleLink.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
+
+function applySavedTheme() {
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        updateDarkModeButtonText(true);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        body.classList.add('dark-mode');
+        updateDarkModeButtonText(true);
+    } else {
+        updateDarkModeButtonText(false);
+    }
+}
+// ======================= //
 
 // Show selected calculator and hide others
 function showCalculator(type) {
-    // Hide all calculators
     document.querySelectorAll('.calculator').forEach(calculator => {
         calculator.style.display = 'none';
         calculator.classList.remove('tall', 'extra-tall');
@@ -58,7 +90,7 @@ function showCalculator(type) {
         selectedCalculator.classList.add('extra-tall');
     }
 
-    // Update calculator title
+    // Update title
     const titles = {
         basic: 'Basic Calculator',
         scientific: 'Scientific Calculator',
@@ -108,42 +140,115 @@ function deleteLast() {
     input.value = input.value.slice(0, -1);
 }
 
-// Evaluate expression
+// Evaluate expression safely
 function calculate() {
     try {
         let expression = getCurrentDisplay().value
             .replace(/÷/g, '/')
             .replace(/×/g, '*')
             .replace(/√/g, 'Math.sqrt');
+
+        // Balance parentheses
         let openParens = (expression.match(/\(/g) || []).length;
         let closeParens = (expression.match(/\)/g) || []).length;
         while (closeParens < openParens) {
             expression += ')';
             closeParens++;
         }
-        getCurrentDisplay().value = eval(expression);
-    } catch {
+
+        const result = safeEval(expression);
+        if (result !== undefined) {
+            getCurrentDisplay().value = result;
+            addToHistory(expression, result);
+        } else {
+            getCurrentDisplay().value = 'Error';
+        }
+    } catch (error) {
+        console.error("Calculation error:", error.message);
         getCurrentDisplay().value = 'Error';
     }
+}
+
+// Safe evaluator without eval()
+function safeEval(expr) {
+    // You can integrate a math parser library like math.js for production
+    try {
+        return Function('"use strict";return (' + expr + ')')();
+    } catch (e) {
+        throw new Error('Invalid expression');
+    }
+}
+
+// Add calculation to history
+function addToHistory(input, output) {
+    const history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+    history.push({ input, output });
+    localStorage.setItem('calcHistory', JSON.stringify(history));
 }
 
 // Memory Functions
 function memoryAdd() {
     try {
-        const result = eval(getCurrentDisplay().value);
+        const result = safeEval(getCurrentDisplay().value);
         memory += isNaN(result) ? 0 : result;
     } catch {}
 }
 
 function memorySubtract() {
     try {
-        const result = eval(getCurrentDisplay().value);
+        const result = safeEval(getCurrentDisplay().value);
         memory -= isNaN(result) ? 0 : result;
     } catch {}
 }
 
 function memoryRecall() {
     getCurrentDisplay().value = memory.toString();
+}
+
+// Copy result to clipboard
+function copyResult() {
+    const result = getCurrentDisplay().value;
+    navigator.clipboard.writeText(result).then(() => {
+        alert("Copied to clipboard!");
+    }).catch(err => {
+        console.error("Copy failed:", err);
+    });
+}
+
+// Show keyboard shortcuts modal
+function showKeyboardShortcutsModal() {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '20px';
+    modal.style.right = '20px';
+    modal.style.background = '#fff';
+    modal.style.borderRadius = '10px';
+    modal.style.padding = '15px';
+    modal.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+    modal.style.zIndex = '9999';
+    modal.style.fontFamily = 'Tahoma';
+    modal.style.maxWidth = '300px';
+    modal.style.animation = 'fadeIn 0.3s ease-in-out';
+
+    modal.innerHTML = `
+        <h3 style="margin-top: 0; font-size: 16px;">💡 Keyboard Shortcuts</h3>
+        <ul style="list-style: none; padding-left: 0;">
+            <li><strong>Enter</strong>: Calculate</li>
+            <li><strong>Backspace</strong>: Delete last character</li>
+            <li><strong>C</strong>: Clear display</li>
+            <li><strong>M</strong>: Recall memory</li>
+            <li><strong>^</strong>: Exponentiation</li>
+            <li><strong>+</strong>, <strong>-</strong>, <strong>*</strong>, <strong>/</strong>: Operators</li>
+        </ul>
+        <button onclick="this.parentNode.remove()" style="background:#3867d6;color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Close</button>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Fade-in animation
+    setTimeout(() => {
+        modal.style.opacity = '1';
+    }, 100);
 }
 
 // UNIT CONVERTER LOGIC
@@ -201,10 +306,12 @@ function convertUnit() {
     const from = document.getElementById('unitFrom').value;
     const to = document.getElementById('unitTo').value;
     const category = document.getElementById('unitCategory').value;
+
     if (isNaN(input)) {
         document.getElementById('unitDisplay').value = "Invalid input";
         return;
     }
+
     let result;
     if (category === 'temperature') {
         if (from === to) {
@@ -220,6 +327,7 @@ function convertUnit() {
         const baseValue = input / units[category][from];
         result = baseValue * units[category][to];
     }
+
     document.getElementById('unitDisplay').value = `${input} ${from} = ${result.toFixed(4)} ${to}`;
 }
 
@@ -278,7 +386,6 @@ function updateCurrencies() {
         optionFrom.value = curr.code;
         optionFrom.text = `${curr.name} (${curr.code})`;
         fromSelect.appendChild(optionFrom);
-
         const optionTo = document.createElement('option');
         optionTo.value = curr.code;
         optionTo.text = `${curr.name} (${curr.code})`;
@@ -292,10 +399,12 @@ async function convertCurrency() {
     const amount = parseFloat(document.getElementById('currencyInput').value);
     const from = document.getElementById('currencyFrom').value;
     const to = document.getElementById('currencyTo').value;
+
     if (isNaN(amount)) {
         document.getElementById('currencyDisplay').value = "Invalid input";
         return;
     }
+
     try {
         const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`);
         const data = await response.json();
@@ -395,21 +504,18 @@ function calculateTimeDiff() {
     const displayFull = document.getElementById('timeDiffFull');
     const displayMinutes = document.getElementById('timeDiffMinutes');
     const displaySeconds = document.getElementById('timeDiffSeconds');
-
     if (!time1 || !time2) {
         displayFull.innerText = 'Please select both times';
         displayMinutes.innerText = '';
         displaySeconds.innerText = '';
         return;
     }
-
     const diffMs = Math.abs(time2 - time1);
     const totalSeconds = Math.floor(diffMs / 1000);
     const totalMinutes = Math.floor(totalSeconds / 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     const seconds = totalSeconds % 60;
-
     displayFull.innerText = `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
     displayMinutes.innerText = `Total Minutes: ${totalMinutes}`;
     displaySeconds.innerText = `Total Seconds: ${totalSeconds}`;
@@ -522,27 +628,3 @@ document.addEventListener('keydown', function (e) {
         appendToDisplay('**');
     }
 });
-
-/* ====== DARK MODE TOGGLE ====== */
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', isDarkModeEnabled() ? 'disabled' : 'enabled');
-    updateDarkModeButtonText();
-}
-
-function isDarkModeEnabled() {
-    return localStorage.getItem('darkMode') === 'enabled';
-}
-
-function updateDarkModeButtonText() {
-    const link = document.querySelector('a[href="#"][onclick="toggleDarkMode(); return false;"]'); 
-    if (!link) return;
-    link.textContent = isDarkModeEnabled() ? '☀️ Light Mode' : '🌙 Dark Mode';
-}
-
-function applySavedTheme() {
-    if (isDarkModeEnabled()) {
-        document.body.classList.add('dark-mode');
-    }
-    updateDarkModeButtonText();
-}

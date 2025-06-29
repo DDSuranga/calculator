@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- Main Page -->
+    <!-- Main Homepage -->
     <url>
         <loc>https://onlinecalmaster.com/ </loc>
         <lastmod>2025-04-07</lastmod>
@@ -27,6 +27,106 @@
         <loc>https://onlinecalmaster.com/privacy-policy.html </loc>
         <lastmod>2025-04-07</lastmod>
         <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Individual Calculator Pages -->
+    <url>
+        <loc>https://onlinecalmaster.com/index.html#basicCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#scientificCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#unitConverter</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#currencyConverter</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#ageCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#dateDifferenceCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#timeDifferenceCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#percentageCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#percentageChangeCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#tipCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <url>
+        <loc> https://onlinecalmaster.com/index.html#vatCalculator</loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <!-- Other Useful Pages -->
+    <url>
+        <loc> https://onlinecalmaster.com/download.html </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://onlinecalmaster.com/faq.html </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://onlinecalmaster.com/blog.html </loc>
+        <lastmod>2025-04-07</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.6</priority>
     </url>
 </urlset>

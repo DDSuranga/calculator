@@ -1,48 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4953018177794421"
      crossorigin="anonymous"></script>
+
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WSQH8DCC');</script>
-<!-- End Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    ' https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WSQH8DCC');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Online Calculator – All-in-One Tool</title>
-    <!-- Meta Tags -->
-    <meta name="description" content="Free online calculator with currency converter, unit converter, scientific mode, age calculator, and more. Supports memory functions and live exchange rates."/>
-    <meta name="theme-color" content="#3867d6"/> 
+
+    <!-- Page Title -->
+    <title>Online Calculator – All-in-One Tool | OnlineCalMaster</title>
+
+    <!-- Meta Description -->
+    <meta name="description" content="Free online calculator with scientific mode, currency converter, unit conversion, age calculator, date difference, time difference, percentage, tip, VAT, and more. Works on mobile and desktop."/>
+    
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Online Calculator – Basic & Scientific | OnlineCalMaster">
     <meta property="og:description" content="All-in-one calculator for students, engineers, and professionals – supports math, conversions, and more.">
-    <!-- PWA Manifest -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content=" https://onlinecalmaster.com/ ">
+    <meta property="og:image" content="https://onlinecalmaster.com/images/og-image.png ">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAIAAAAOTNQaAAAAA1BMVEX///+nxBvIAAAAR0lEQVRo3u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBLcQ8AAa0jZQAAAABJRU5ErkJggg==">
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://onlinecalmaster.com/ " />
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org ",
+      "@type": "WebApplication",
+      "name": "OnlineCalMaster Calculator",
+      "url": "https://onlinecalmaster.com/ ",
+      "description": "An all-in-one free online calculator with scientific mode, unit conversion, currency exchange, age calculation, date/time difference, and more.",
+      "applicationCategory": "Utility",
+      "offers": {
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Basic Calculator",
+        "Scientific Calculator",
+        "Unit Converter",
+        "Currency Converter",
+        "Age Calculator",
+        "Date Difference",
+        "Time Difference",
+        "Percentage Calculator",
+        "Tip Calculator",
+        "VAT Calculator"
+      ]
+    }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2F25VNZYGT');
+    </script>
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Canonical Tag -->
-    <link rel="canonical" href="https://onlinecalmaster.com/"> 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-2F25VNZYGT');
-</script>
 </head>
-<body>
+<body class="light-mode"> <!-- Default theme set to light mode -->
+
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSQH8DCC"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src=" https://www.googletagmanager.com/ns.html?id=GTM-WSQH8DCC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header -->
     <header style="text-align: center; font-family: Tahoma; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: auto;">
         <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
         <nav class="top-nav" style="display: flex; gap: 15px; font-size: 14px;">
@@ -51,10 +94,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact Us</a>
             <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy Policy</a>
             <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
-            <a href="#" onclick="toggleDarkMode(); return false;" style="color: #3867d6; text-decoration: none;" id="darkModeToggle">🌙 Dark Mode</a>
+            <a href="#" onclick="toggleDarkMode(); return false;" style="color: #3867d6; text-decoration: none;" id="darkModeToggle" title="Switch to Dark Mode">🌙 Dark Mode</a>
         </nav>
     </header>
-    <div class="container">
+
+    <!-- Main Layout -->
+    <div class="container theme-wrapper">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <button onclick="showCalculator('basic')" style="white-space: nowrap;">Basic Calculator</button>
@@ -69,11 +114,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <button onclick="showCalculator('tip')" style="white-space: nowrap;">💡 Tip</button>
             <button onclick="showCalculator('vat')" style="white-space: nowrap;">🧾 VAT</button>
         </aside>
+
         <!-- Main Content -->
         <main class="calculator-container">
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <h2 class="calculator-title">Basic Calculator</h2>
+                <p class="calculator-description">Perform basic math operations like addition, subtraction, multiplication, and division. Includes memory functions and square root support.</p>
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
                 <div class="buttons">
                     <!-- Row 1 -->
@@ -111,6 +158,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Scientific Calculator -->
             <div class="calculator" id="scientificCalculator" style="display: none;">
                 <h2 class="calculator-title">Scientific Calculator</h2>
+                <p class="calculator-description">Perform complex calculations including sine, cosine, tangent, logarithms, constants like π and e, and exponent support.</p>
                 <input type="text" class="display" id="displayScientific" readonly aria-label="Scientific Calculator Display">
                 <div class="buttons">
                     <!-- Row 1 -->
@@ -154,6 +202,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Unit Converter -->
             <div class="calculator tall" id="unitConverter" style="display: none;">
                 <h2 class="calculator-title">Unit Converter</h2>
+                <p class="calculator-description">Convert between units of length, weight, and temperature easily. Supports metric and imperial systems for accurate conversions.</p>
                 <input type="text" class="display" id="unitDisplay" readonly aria-label="Unit Converter Display">
                 <div class="buttons">
                     <select id="unitCategory" onchange="updateUnits()" class="unit-select" style="grid-column: span 2;">
@@ -172,6 +221,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Currency Converter -->
             <div class="calculator tall" id="currencyConverter" style="display: none;">
                 <h2 class="calculator-title">Currency Converter</h2>
+                <p class="calculator-description">Instantly convert currencies using live exchange rates from global markets. Supports major currencies including USD, EUR, GBP, INR, and more.</p>
                 <input type="text" class="display" id="currencyDisplay" readonly aria-label="Currency Converter Display">
                 <div class="buttons">
                     <select id="currencyFrom" class="unit-select"></select>
@@ -186,6 +236,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Age Calculator -->
             <div class="calculator extra-tall" id="ageCalculator" style="display: none;">
                 <h2 class="calculator-title">Age Calculator</h2>
+                <p class="calculator-description">Calculate your exact age in years, months, and days based on your birthdate. Also shows countdown to your next birthday!</p>
                 <input type="text" class="display" id="ageDisplay" readonly aria-label="Age Display">
                 <div class="buttons">
                     <label style="width:100%; text-align:center; font-weight:bold;">Select Birthdate:</label>
@@ -201,6 +252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Date Difference Calculator -->
             <div class="calculator extra-tall" id="dateDifferenceCalculator" style="display: none;">
                 <h2 class="calculator-title">Date Difference Calculator</h2>
+                <p class="calculator-description">Find the number of days between two dates. Useful for planning events, calculating durations, or tracking timelines.</p>
                 <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
                 <div class="buttons" style="grid-template-columns: 1fr 1fr;">
                     <div style="grid-column: span 2; text-align: center;">
@@ -219,6 +271,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Time Difference Calculator -->
             <div class="calculator extra-tall" id="timeDifferenceCalculator" style="display: none;">
                 <h2 class="calculator-title">Time Difference Calculator</h2>
+                <p class="calculator-description">Calculate the difference between two times or datetime values. Shows total hours, minutes, and seconds between timestamps.</p>
                 <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
                 <div class="buttons" style="grid-template-columns: 1fr 1fr;">
                     <div style="grid-column: span 2; text-align: center;">
@@ -242,6 +295,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Percentage Calculator -->
             <div class="calculator" id="percentageCalculator" style="display: none;">
                 <h2 class="calculator-title">Percentage Calculator</h2>
+                <p class="calculator-description">Quickly calculate percentages of any value. Great for discounts, grades, and general math problems.</p>
                 <input type="text" class="display" id="percentageDisplay" readonly aria-label="Percentage Calculator Display">
                 <div class="buttons">
                     <input type="number" id="percentValue" class="unit-input" placeholder="Total Value" />
@@ -254,6 +308,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Percentage Change Calculator -->
             <div class="calculator extra-tall" id="percentageChangeCalculator" style="display: none;">
                 <h2 class="calculator-title">Percentage Change Calculator</h2>
+                <p class="calculator-description">Determine the percentage increase or decrease between two numbers. Useful for financial analysis and performance tracking.</p>
                 <input type="text" class="display" id="percentageChangeDisplay" readonly aria-label="Percentage Change Display">
                 <div class="buttons">
                     <input type="number" id="oldValue" class="unit-input" placeholder="Old Value" />
@@ -266,6 +321,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Tip Calculator -->
             <div class="calculator extra-tall" id="tipCalculator" style="display: none;">
                 <h2 class="calculator-title">Tip Calculator</h2>
+                <p class="calculator-description">Split bills and calculate tips effortlessly. Enter the bill amount and desired tip percentage to get total cost instantly.</p>
                 <input type="text" class="display" id="tipDisplay" readonly aria-label="Tip Calculator Display">
                 <div class="buttons">
                     <input type="number" id="billAmount" class="unit-input" placeholder="Bill Amount" />
@@ -278,6 +334,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- VAT / Discount Calculator -->
             <div class="calculator extra-tall" id="vatCalculator" style="display: none;">
                 <h2 class="calculator-title">VAT / Discount Calculator</h2>
+                <p class="calculator-description">Add or remove VAT (Value Added Tax) or discounts from prices. Perfect for shoppers, business owners, and accountants.</p>
                 <input type="text" class="display" id="vatDisplay" readonly aria-label="VAT/Discount Calculator Display">
                 <div class="buttons">
                     <input type="number" id="vatValue" class="unit-input" placeholder="Base Amount" />
@@ -287,9 +344,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
         </main>
+
         <!-- SEO Column -->
         <aside class="seo-column">
             <section>
+                <h2>About This Calculator</h2>
+                <p>Welcome to OnlineCalMaster — a powerful, free online calculator that supports basic math, scientific operations, unit conversion, currency exchange, age calculation, date/time difference, percentage calculation, and more.</p>
+
                 <h2>Features</h2>
                 <ul>
                     <li>🧮 Basic & Scientific Calculator</li>
@@ -304,11 +365,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <li>🧮 Memory Functions</li>
                     <li>📱 Mobile Friendly</li>
                 </ul>
+
+                <h2>Use Cases</h2>
+                <ul>
+                    <li>Students doing homework</li>
+                    <li>Engineers solving complex equations</li>
+                    <li>Travelers converting currencies</li>
+                    <li>Business owners calculating VAT</li>
+                    <li>Anyone needing quick, reliable calculations</li>
+                </ul>
+
+                <h2>Support Us</h2>
+                <p>If you find this tool helpful, please consider supporting us via our <a href=" https://buy.stripe.com/test_123abcXYZ " style="color:#3867d6;">Buy Me a Coffee</a> link below.</p>
+                <a href="https://buy.stripe.com/test_123abcXYZ " class="coffee-button">☕ Buy Me a Coffee</a>
             </section>
         </aside>
     </div>
+
     <!-- Scripts -->
     <script src="script.js"></script>
+
     <!-- Register Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {

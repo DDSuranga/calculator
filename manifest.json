@@ -1,30 +1,81 @@
 {
-  "name": "Online Calculator",
+  "name": "Online Calculator – All-in-One Tool",
   "short_name": "CalcMaster",
-  "start_url": "/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "description": "Free online calculator with basic, scientific, currency conversion, unit converter, and age calculation.",
+  "description": "Free online calculator with basic, scientific, currency conversion, unit converter, age calculation, date difference, time difference, percentage, tip, VAT, and more. Works on desktop and mobile.",
   "theme_color": "#3867d6",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-48x48.png",
+      "src": "/icon-48x48.png",
       "sizes": "48x48",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "icon-192x192.png",
+      "src": "/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "lang": "en-US",
   "scope": "/",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Basic Calculator",
+      "short_name": "Basic",
+      "url": "/index.html#basicCalculator",
+      "icons": [
+        {
+          "src": "/shortcut-icons/basic-calculator.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Scientific Calculator",
+      "short_name": "Scientific",
+      "url": "/index.html#scientificCalculator",
+      "icons": [
+        {
+          "src": "/shortcut-icons/scientific-calculator.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Currency Converter",
+      "short_name": "Currency",
+      "url": "/index.html#currencyConverter",
+      "icons": [
+        {
+          "src": "/shortcut-icons/currency-converter.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Unit Converter",
+      "short_name": "Unit",
+      "url": "/index.html#unitConverter",
+      "icons": [
+        {
+          "src": "/shortcut-icons/unit-converter.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "gcm_sender_id": "103953800507"
 }
