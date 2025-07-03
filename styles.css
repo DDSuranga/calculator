@@ -23,6 +23,48 @@ h1 {
     margin: 10px 0;
 }
 
+/* Header Styles */
+header {
+    text-align: center;
+    font-family: Tahoma;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+}
+
+header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.top-nav a {
+    color: #3867d6;
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.top-nav a:hover {
+    opacity: 0.8;
+}
+
+.top-nav .highlight {
+    color: #2f59b3;
+}
+
+/* Main Layout */
 .container {
     display: grid;
     grid-template-columns: 0.4fr 2.6fr 1fr; /* Sidebar narrower, main content wider */
@@ -70,7 +112,7 @@ h1 {
 }
 
 .calculator-container {
-    padding: 10px 20px;
+    padding: 10px 0; /* Reduced horizontal padding */
     background-color: #f9f9f9;
     display: flex;
     justify-content: center;
@@ -85,6 +127,13 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     opacity: 0.9;
     transition: all 0.3s ease;
+}
+
+.calculator-description {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .calculator {
@@ -299,58 +348,18 @@ h1 {
     margin-bottom: 15px;
 }
 
-/* Top Navigation Menu */
-.top-nav {
-    display: flex;
-    gap: 15px;
-    font-size: 14px;
+.seo-column ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 15px;
 }
 
-.top-nav a {
+.seo-column li::marker {
     color: #3867d6;
-    text-decoration: none;
-    font-weight: bold;
-    transition: opacity 0.3s;
-}
-
-.top-nav a:hover {
-    opacity: 0.8;
-}
-
-@media (max-width: 1024px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-
-    .seo-column {
-        border-left: none;
-        border-top: 1px solid #ccc;
-    }
-
-    .sidebar {
-        border-right: none;
-        border-bottom: 1px solid #ccc;
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .sidebar button {
-        margin: 10px;
-        flex: 1 1 auto;
-        min-width: 120px;
-    }
-
-    /* Responsive Top Nav */
-    .top-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
 }
 
 /* Coffee Button Styles */
-.seo-column a[href*="payhere"] {
+.coffee-button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #ffdd00;
@@ -362,19 +371,29 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-.seo-column a[href*="payhere"]:hover {
+.coffee-button:hover {
     background-color: #ffe844;
 }
 
-.seo-column a[href*="payhere"]:active {
+.coffee-button:active {
     background-color: #e6c700;
     transform: translateY(2px);
     box-shadow: 0 2px #e6c700;
 }
 
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    background: #f0f0f0;
+    width: 100%;
+    margin-top: 40px;
+}
+
 /* ============ DARK MODE STYLES ============= */
 body.dark-mode {
-    background: linear-gradient(to right, #1e1e1e, #2c2c2c);
+    background: linear-gradient(to right, #1e1e1e, #2c2c2e);
     color: #f0f0f0;
     transition: background-color 0.3s ease;
 }
@@ -449,4 +468,36 @@ body.dark-mode .top-nav a {
 body.dark-mode .seo-column a[href*="payhere"] {
     background-color: #ffdd00;
     color: #000;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .seo-column {
+        border-left: none;
+        border-top: 1px solid #ccc;
+    }
+
+    .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .sidebar button {
+        margin: 10px;
+        flex: 1 1 auto;
+        min-width: 120px;
+    }
+
+    /* Responsive Top Nav */
+    .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
