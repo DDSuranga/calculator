@@ -61,7 +61,8 @@
         "Time Difference",
         "Percentage Calculator",
         "Tip Calculator",
-        "VAT Calculator"
+        "VAT Calculator",
+        "Loan EMI Calculator"
       ]
     }
     </script>
@@ -86,9 +87,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header -->
-    <header style="text-align: center; font-family: Tahoma; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: auto;">
+    <header>
         <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
-        <nav class="top-nav" style="display: flex; gap: 15px; font-size: 14px;">
+        <nav class="top-nav">
             <a href="index.html" style="color: #3867d6; text-decoration: none;">🏠 Home</a> 
             <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
             <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact Us</a>
@@ -96,8 +97,7 @@
             <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
             <a href="#" onclick="toggleDarkMode(); return false;" style="color: #3867d6; text-decoration: none;" id="darkModeToggle" title="Switch to Dark Mode">🌙 Dark Mode</a>
         </nav>
-<br><br>
-<div gap: 15px >
+        <div class="ad-slot">
             <script type="text/javascript">
 	atOptions = {
 		'key' : 'cdd5372e40f37d3269e4fa202455374b',
@@ -107,7 +107,7 @@
 		'params' : {}
 	};
 </script>
-</div>
+        </div>
 
 <script type="text/javascript" src="//www.highperformanceformat.com/cdd5372e40f37d3269e4fa202455374b/invoke.js"></script>
     </header>
@@ -127,6 +127,7 @@
             <button onclick="showCalculator('percentageChange')" style="white-space: nowrap;">% ↑↓</button>
             <button onclick="showCalculator('tip')" style="white-space: nowrap;">💡 Tip</button>
             <button onclick="showCalculator('vat')" style="white-space: nowrap;">🧾 VAT</button>
+            <button onclick="showCalculator('loanEmi')" style="white-space: nowrap;">Loan EMI Calculator</button>
         </aside>
 
         <!-- Main Content -->
@@ -368,6 +369,27 @@
                     <button class="button operator" onclick="removeVat()">- Remove VAT</button>
                 </div>
             </div>
+            <!-- Loan EMI Calculator -->
+            <div class="calculator extra-tall" id="loanEmiCalculator" style="display: none;">
+                <h2 class="calculator-title">Loan EMI Calculator</h2>
+                <p class="calculator-description">Calculate monthly loan payments, total payment, and total interest for personal, vehicle, housing, or business loans.</p>
+                <input type="text" class="display" id="loanEmiDisplay" readonly aria-label="Loan EMI Calculator Display">
+                <div class="buttons loan-emi-buttons">
+                    <input type="number" id="loanAmountInput" class="unit-input" placeholder="Loan Amount" min="0" step="0.01" />
+                    <input type="number" id="loanInterestInput" class="unit-input" placeholder="Annual Interest Rate (%)" min="0" step="0.01" />
+                    <input type="number" id="loanTermInput" class="unit-input" placeholder="Loan Term" min="0" step="1" />
+                    <select id="loanTermType" class="unit-select" aria-label="Loan term type">
+                        <option value="years">Years</option>
+                        <option value="months">Months</option>
+                    </select>
+                    <button class="button operator" onclick="calculateLoanEmi()">Calculate EMI</button>
+                    <button class="button operator" onclick="clearLoanEmi()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyLoanEmiResult()">Copy Result</button>
+                    <div class="loan-emi-result" id="loanEmiResult" aria-live="polite">
+                        <p class="loan-emi-message" id="loanEmiMessage">Enter loan details and calculate your monthly EMI.</p>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- SEO Column -->
@@ -400,9 +422,6 @@
                     <li>Anyone needing quick, reliable calculations</li>
                 </ul>
 
-                <h2>Support Us</h2>
-                <p>If you find this tool helpful, please consider supporting us via our <a href=" https://buy.stripe.com/test_123abcXYZ " style="color:#3867d6;">Buy Me a Coffee</a> link below.</p>
-                <a href="https://buy.stripe.com/test_123abcXYZ " class="coffee-button">☕ Buy Me a Coffee</a>
             </section>
         </aside>
     </div>

@@ -65,7 +65,8 @@ function showCalculator(type) {
         percentage: 'percentageCalculator',
         percentageChange: 'percentageChangeCalculator',
         tip: 'tipCalculator',
-        vat: 'vatCalculator'
+        vat: 'vatCalculator',
+        loanEmi: 'loanEmiCalculator'
     };
 
     const calculatorId = calculatorMap[type];
@@ -85,7 +86,8 @@ function showCalculator(type) {
         type === 'time' ||
         type === 'percentageChange' ||
         type === 'tip' ||
-        type === 'vat'
+        type === 'vat' ||
+        type === 'loanEmi'
     ) {
         selectedCalculator.classList.add('extra-tall');
     }
@@ -102,7 +104,8 @@ function showCalculator(type) {
         percentage: 'Percentage Calculator',
         percentageChange: 'Percentage Change Calculator',
         tip: 'Tip Calculator',
-        vat: 'VAT / Discount Calculator'
+        vat: 'VAT / Discount Calculator',
+        loanEmi: 'Loan EMI Calculator'
     };
 
     const titleElement = selectedCalculator.querySelector('.calculator-title');
@@ -610,6 +613,125 @@ function removeVat() {
     display.value = `${value} - ${rate}% = ${original.toFixed(2)}`;
 }
 
+// LOAN EMI CALCULATOR
+let latestLoanEmiResultText = '';
+
+function formatLoanCurrency(value) {
+    return `Rs. ${Number(value).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}`;
+}
+
+function setLoanEmiMessage(message, isError = false) {
+    const display = document.getElementById('loanEmiDisplay');
+    const result = document.getElementById('loanEmiResult');
+    if (display) display.value = isError ? 'Check inputs' : '';
+    if (!result) return;
+
+    result.innerHTML = `<p class="loan-emi-message${isError ? ' is-error' : ''}" id="loanEmiMessage">${message}</p>`;
+    latestLoanEmiResultText = '';
+}
+
+function setLoanEmiCopyStatus(message, isError = false) {
+    const status = document.getElementById('loanEmiCopyStatus');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', isError);
+}
+
+function calculateLoanEmi() {
+    const loanAmount = parseFloat(document.getElementById('loanAmountInput').value);
+    const annualInterestRate = parseFloat(document.getElementById('loanInterestInput').value);
+    const loanTerm = parseFloat(document.getElementById('loanTermInput').value);
+    const termType = document.getElementById('loanTermType').value;
+    const display = document.getElementById('loanEmiDisplay');
+    const result = document.getElementById('loanEmiResult');
+
+    if (isNaN(loanAmount) || loanAmount <= 0) {
+        setLoanEmiMessage('Loan Amount must be greater than 0.', true);
+        return;
+    }
+
+    if (isNaN(annualInterestRate) || annualInterestRate < 0) {
+        setLoanEmiMessage('Interest Rate cannot be negative.', true);
+        return;
+    }
+
+    if (isNaN(loanTerm) || loanTerm <= 0) {
+        setLoanEmiMessage('Loan Term must be greater than 0.', true);
+        return;
+    }
+
+    const numberOfMonths = termType === 'years' ? loanTerm * 12 : loanTerm;
+    const monthlyRate = annualInterestRate / 12 / 100;
+    const monthlyEmi = monthlyRate === 0
+        ? loanAmount / numberOfMonths
+        : loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numberOfMonths) /
+            (Math.pow(1 + monthlyRate, numberOfMonths) - 1);
+    const totalPayment = monthlyEmi * numberOfMonths;
+    const totalInterest = totalPayment - loanAmount;
+    const formattedTerm = `${loanTerm} ${termType === 'years' ? (loanTerm === 1 ? 'Year' : 'Years') : (loanTerm === 1 ? 'Month' : 'Months')}`;
+
+    display.value = formatLoanCurrency(monthlyEmi);
+
+    const rows = [
+        ['Monthly EMI', formatLoanCurrency(monthlyEmi), true],
+        ['Total Payment', formatLoanCurrency(totalPayment)],
+        ['Total Interest', formatLoanCurrency(totalInterest)],
+        ['Loan Amount', formatLoanCurrency(loanAmount)],
+        ['Interest Rate', `${annualInterestRate.toFixed(2)}%`],
+        ['Loan Term', `${formattedTerm} (${numberOfMonths.toLocaleString('en-US')} months)`]
+    ];
+
+    result.innerHTML = `
+        <dl>
+            ${rows.map(([label, value, highlight]) => `
+                <div class="${highlight ? 'highlight' : ''}">
+                    <dt>${label}</dt>
+                    <dd>${value}</dd>
+                </div>
+            `).join('')}
+        </dl>
+        <p class="loan-emi-copy-status" id="loanEmiCopyStatus"></p>
+    `;
+
+    latestLoanEmiResultText = rows
+        .map(([label, value]) => `${label}: ${value}`)
+        .join('\n');
+}
+
+function clearLoanEmi() {
+    document.getElementById('loanAmountInput').value = '';
+    document.getElementById('loanInterestInput').value = '';
+    document.getElementById('loanTermInput').value = '';
+    document.getElementById('loanTermType').value = 'years';
+    document.getElementById('loanEmiDisplay').value = '';
+    setLoanEmiMessage('Enter loan details and calculate your monthly EMI.');
+}
+
+function copyLoanEmiResult() {
+    if (!latestLoanEmiResultText) {
+        setLoanEmiMessage('Please calculate EMI before copying the result.', true);
+        return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(latestLoanEmiResultText)
+            .then(() => setLoanEmiCopyStatus('Loan EMI result copied to clipboard.'))
+            .catch(() => setLoanEmiCopyStatus('Copy failed. Please try again.', true));
+        return;
+    }
+
+    const textArea = document.createElement('textarea');
+    textArea.value = latestLoanEmiResultText;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+    setLoanEmiCopyStatus('Loan EMI result copied to clipboard.');
+}
+
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', function (e) {
     if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
@@ -627,4 +749,106 @@ document.addEventListener('keydown', function (e) {
     } else if (e.key === '^') {
         appendToDisplay('**');
     }
+});
+
+function updateDarkModeButtonText(isDark) {
+    const toggleLink = document.getElementById('darkModeToggle');
+    if (!toggleLink) return;
+    toggleLink.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+}
+
+function showCalculator(type) {
+    document.querySelectorAll('.calculator').forEach(calculator => {
+        calculator.style.display = 'none';
+        calculator.classList.remove('tall', 'extra-tall');
+    });
+
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        button.classList.toggle('is-active', button.getAttribute('onclick') === `showCalculator('${type}')`);
+    });
+
+    const calculatorMap = {
+        basic: 'basicCalculator',
+        scientific: 'scientificCalculator',
+        unit: 'unitConverter',
+        currency: 'currencyConverter',
+        age: 'ageCalculator',
+        date: 'dateDifferenceCalculator',
+        time: 'timeDifferenceCalculator',
+        percentage: 'percentageCalculator',
+        percentageChange: 'percentageChangeCalculator',
+        tip: 'tipCalculator',
+        vat: 'vatCalculator',
+        loanEmi: 'loanEmiCalculator'
+    };
+
+    const calculatorId = calculatorMap[type];
+    if (!calculatorId) return;
+
+    const selectedCalculator = document.getElementById(calculatorId);
+    if (!selectedCalculator) return;
+
+    selectedCalculator.style.display = 'block';
+
+    if (type === 'unit' || type === 'currency') {
+        selectedCalculator.classList.add('tall');
+    } else if (
+        type === 'age' ||
+        type === 'date' ||
+        type === 'time' ||
+        type === 'percentageChange' ||
+        type === 'tip' ||
+        type === 'vat' ||
+        type === 'loanEmi'
+    ) {
+        selectedCalculator.classList.add('extra-tall');
+    }
+
+    const titles = {
+        basic: 'Basic Calculator',
+        scientific: 'Scientific Calculator',
+        unit: 'Unit Converter',
+        currency: 'Currency Converter',
+        age: 'Age Calculator',
+        date: 'Date Difference Calculator',
+        time: 'Time Difference Calculator',
+        percentage: 'Percentage Calculator',
+        percentageChange: 'Percentage Change Calculator',
+        tip: 'Tip Calculator',
+        vat: 'VAT / Discount Calculator',
+        loanEmi: 'Loan EMI Calculator'
+    };
+
+    const titleElement = selectedCalculator.querySelector('.calculator-title');
+    if (titleElement) {
+        titleElement.textContent = titles[type] || 'Unknown Calculator';
+    }
+
+    activeDisplay = type;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const heading = document.querySelector('header h1');
+    if (heading) heading.textContent = 'OnlineCalMaster';
+
+    const navLabels = ['Home', 'About Us', 'Contact Us', 'Privacy Policy', 'Download Desktop App'];
+    document.querySelectorAll('.top-nav a').forEach((link, index) => {
+        if (index < navLabels.length) link.textContent = navLabels[index];
+    });
+
+    updateDarkModeButtonText(document.body.classList.contains('dark-mode'));
+
+    const toolLabels = {
+        "showCalculator('date')": 'Date Diff',
+        "showCalculator('time')": 'Time Diff',
+        "showCalculator('percentage')": 'Percentage',
+        "showCalculator('percentageChange')": 'Percentage Change',
+        "showCalculator('tip')": 'Tip',
+        "showCalculator('vat')": 'VAT'
+    };
+
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        const label = toolLabels[button.getAttribute('onclick')];
+        if (label) button.textContent = label;
+    });
 });
