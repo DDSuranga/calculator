@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google AdSense -->
@@ -18,34 +18,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- Page Title -->
-    <title>Online Calculator – All-in-One Tool | OnlineCalMaster</title>
+    <title>Free Online Calculators &amp; Tools | OnlineCalMaster</title>
 
     <!-- Meta Description -->
-    <meta name="description" content="Free online calculator with scientific mode, currency converter, unit conversion, age calculator, date difference, time difference, percentage, tip, VAT, and more. Works on mobile and desktop."/>
+    <meta name="description" content="Use OnlineCalMaster for fast, free, and mobile-friendly online calculators including finance, business, education, health, date, time, and developer tools."/>
+    <meta name="keywords" content="free online calculators, calculator tools, finance calculators, business calculators, education calculators, health calculators, date calculator, time calculator, developer tools, OnlineCalMaster"/>
     
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Online Calculator – Basic & Scientific | OnlineCalMaster">
-    <meta property="og:description" content="All-in-one calculator for students, engineers, and professionals – supports math, conversions, and more.">
+    <meta property="og:title" content="Free Online Calculators & Tools | OnlineCalMaster">
+    <meta property="og:description" content="Fast, free, and mobile-friendly online calculators for finance, business, education, health, date, time, and daily calculations.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content=" https://onlinecalmaster.com/ ">
-    <meta property="og:image" content="https://onlinecalmaster.com/images/og-image.png ">
+    <meta property="og:url" content="https://onlinecalmaster.com/">
+    <meta property="og:image" content="https://onlinecalmaster.com/images/og-image.png">
 
     <!-- Favicon & PWA -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="Logo.png" type="image/png">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAIAAAAOTNQaAAAAA1BMVEX///+nxBvIAAAAR0lEQVRo3u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBLcQ8AAa0jZQAAAABJRU5ErkJggg==">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://onlinecalmaster.com/ " />
+    <link rel="canonical" href="https://onlinecalmaster.com/" />
 
     <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org ",
+      "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "OnlineCalMaster Calculator",
-      "url": "https://onlinecalmaster.com/ ",
-      "description": "An all-in-one free online calculator with scientific mode, unit conversion, currency exchange, age calculation, date/time difference, and more.",
+      "url": "https://onlinecalmaster.com/",
+      "description": "An all-in-one free online calculator with finance, business, education, health, date, time, and daily calculation tools.",
       "applicationCategory": "Utility",
       "offers": {
         "price": "0",
@@ -55,14 +56,81 @@
         "Basic Calculator",
         "Scientific Calculator",
         "Unit Converter",
-        "Currency Converter",
         "Age Calculator",
         "Date Difference",
         "Time Difference",
         "Percentage Calculator",
         "Tip Calculator",
         "VAT Calculator",
-        "Loan EMI Calculator"
+        "Loan EMI Calculator",
+        "Mortgage Calculator",
+        "Compound Interest Calculator",
+        "BMI Calculator",
+        "Discount Calculator",
+        "Volume Calculator",
+        "Area Calculator"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "OnlineCalMaster",
+      "url": "https://onlinecalmaster.com/",
+      "description": "Fast, free, and mobile-friendly online calculators and smart tools for finance, business, education, health, date, time, and daily calculations.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://onlinecalmaster.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is OnlineCalMaster?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OnlineCalMaster is a free online calculator website with tools for finance, business, education, health, date, time, unit conversion, and daily calculations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the calculators free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The calculators on OnlineCalMaster are free to use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to create an account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No account or login is required to use the calculators."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it on mobile?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. OnlineCalMaster is designed to work on mobile, tablet, and desktop browsers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will more calculators be added?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. More calculators and smart tools will be added over time based on useful real-world needs."
+          }
+        }
       ]
     }
     </script>
@@ -79,7 +147,12 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="light-mode"> <!-- Default theme set to light mode -->
+<body class="light-mode app-loading"> <!-- Default theme set to light mode -->
+    <div class="app-loader" id="appLoader" role="status" aria-live="polite">
+        <div class="loader-ring" aria-hidden="true"></div>
+        <p>Loading OnlineCalMaster...</p>
+        <div class="loader-bar" aria-hidden="true"><span></span></div>
+    </div>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src=" https://www.googletagmanager.com/ns.html?id=GTM-WSQH8DCC"
@@ -88,14 +161,16 @@
 
     <!-- Header -->
     <header>
-        <h1 style="font-size: 24px; margin: 10px 0;">Online Calculator – All-in-One Tool</h1>
+        <h1>Free Online Calculators &amp; Smart Tools</h1>
+        <p class="hero-subtitle">Fast, accurate, and easy-to-use online calculators for finance, business, education, health, dates, time, and daily calculations.</p>
         <nav class="top-nav">
-            <a href="index.html" style="color: #3867d6; text-decoration: none;">🏠 Home</a> 
-            <a href="about.html" style="color: #3867d6; text-decoration: none;">ℹ️ About Us</a>
-            <a href="contact.html" style="color: #3867d6; text-decoration: none;">📧 Contact Us</a>
-            <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">🔒 Privacy Policy</a>
-            <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">💾 Download Desktop App</a>
-            <a href="#" onclick="toggleDarkMode(); return false;" style="color: #3867d6; text-decoration: none;" id="darkModeToggle" title="Switch to Dark Mode">🌙 Dark Mode</a>
+            <a href="index.html" style="color: #3867d6; text-decoration: none;">Home</a> 
+            <a href="about.html" style="color: #3867d6; text-decoration: none;">About Us</a>
+            <a href="contact.html" style="color: #3867d6; text-decoration: none;">Contact Us</a>
+            <a href="privacy-policy.html" style="color: #3867d6; text-decoration: none;">Privacy Policy</a>
+            <a href="download.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">Download Desktop App</a>
+            <a href="purchase-source.html" style="color: #2f59b3; text-decoration: none; font-weight: bold;">Purchase Source Code</a>
+            <a href="#" onclick="toggleDarkMode(); return false;" style="color: #3867d6; text-decoration: none;" id="darkModeToggle" title="Switch to Dark Mode">Dark Mode</a>
         </nav>
         <div class="ad-slot">
             <script type="text/javascript">
@@ -109,55 +184,66 @@
 </script>
         </div>
 
-<script type="text/javascript" src="//www.highperformanceformat.com/cdd5372e40f37d3269e4fa202455374b/invoke.js"></script>
+<script async type="text/javascript" src="//www.highperformanceformat.com/cdd5372e40f37d3269e4fa202455374b/invoke.js"></script>
     </header>
 
     <!-- Main Layout -->
     <div class="container theme-wrapper">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <button onclick="showCalculator('basic')" style="white-space: nowrap;">Basic Calculator</button>
-            <button onclick="showCalculator('scientific')" style="white-space: nowrap;">Scientific Calculator</button>
-            <button onclick="showCalculator('unit')" style="white-space: nowrap;">Unit Converter</button>
-            <button onclick="showCalculator('currency')" style="white-space: nowrap;">Currency Converter</button>
-            <button onclick="showCalculator('age')" style="white-space: nowrap;">Age Calculator</button>
-            <button onclick="showCalculator('date')" style="white-space: nowrap;">📅 Date Diff</button>
-            <button onclick="showCalculator('time')" style="white-space: nowrap;">⏱️ Time Diff</button>
-            <button onclick="showCalculator('percentage')" style="white-space: nowrap;">%</button>
-            <button onclick="showCalculator('percentageChange')" style="white-space: nowrap;">% ↑↓</button>
-            <button onclick="showCalculator('tip')" style="white-space: nowrap;">💡 Tip</button>
-            <button onclick="showCalculator('vat')" style="white-space: nowrap;">🧾 VAT</button>
-            <button onclick="showCalculator('loanEmi')" style="white-space: nowrap;">Loan EMI Calculator</button>
+            <label class="calculator-filter">
+                <span>Search</span>
+                <input type="search" id="calculatorSearch" placeholder="Search calculator..." autocomplete="off">
+            </label>
+            <label class="calculator-filter">
+                <span>Category</span>
+                <select id="calculatorCategory">
+                    <option value="All Calculators">All Calculators</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Business">Business</option>
+                    <option value="Education">Education</option>
+                    <option value="Health">Health</option>
+                    <option value="Date & Time">Date &amp; Time</option>
+                    <option value="Unit Conversion">Unit Conversion</option>
+                    <option value="Developer Tools">Developer Tools</option>
+                </select>
+            </label>
+            <p class="calculator-count" id="calculatorCount">Showing 0 calculators</p>
+            <div class="calculator-list" id="calculatorList" aria-label="Calculator list"></div>
         </aside>
 
         <!-- Main Content -->
         <main class="calculator-container">
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Basic Calculator</h2>
                 <p class="calculator-description">Perform basic math operations like addition, subtraction, multiplication, and division. Includes memory functions and square root support.</p>
                 <input type="text" class="display" id="display" readonly aria-label="Basic Calculator Display">
                 <div class="buttons">
                     <!-- Row 1 -->
                     <button class="button operator" onclick="clearDisplay()" title="Clear">C</button>
-                    <button class="button operator" onclick="deleteLast()" title="Delete last character">⌫</button>
-                    <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">xʸ</button>
-                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">√</button>
+                    <button class="button operator" onclick="deleteLast()" title="Delete last character">DEL</button>
+                    <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">x^y</button>
+                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">sqrt</button>
                     <!-- Row 2 -->
                     <button class="button" onclick="appendToDisplay('7')">7</button>
                     <button class="button" onclick="appendToDisplay('8')">8</button>
                     <button class="button" onclick="appendToDisplay('9')">9</button>
-                    <button class="button operator-basic" onclick="appendToDisplay('/')">÷</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('/')">/</button>
                     <!-- Row 3 -->
                     <button class="button" onclick="appendToDisplay('4')">4</button>
                     <button class="button" onclick="appendToDisplay('5')">5</button>
                     <button class="button" onclick="appendToDisplay('6')">6</button>
-                    <button class="button operator-basic" onclick="appendToDisplay('*')">×</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('*')">*</button>
                     <!-- Row 4 -->
                     <button class="button" onclick="appendToDisplay('1')">1</button>
                     <button class="button" onclick="appendToDisplay('2')">2</button>
                     <button class="button" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator-basic" onclick="appendToDisplay('-')">–</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('-')">-</button>
                     <!-- Row 5 -->
                     <button class="button" onclick="appendToDisplay('0')">0</button>
                     <button class="button" onclick="appendToDisplay('.')">.</button>
@@ -178,35 +264,39 @@
 		'params' : {}
 	};
 </script>
-<script type="text/javascript" src="//www.highperformanceformat.com/2a496e69fc470c187f2914ed9c709bef/invoke.js"></script>
+<script async type="text/javascript" src="//www.highperformanceformat.com/2a496e69fc470c187f2914ed9c709bef/invoke.js"></script>
             </div>
 
             <!-- Scientific Calculator -->
             <div class="calculator" id="scientificCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Scientific Calculator</h2>
-                <p class="calculator-description">Perform complex calculations including sine, cosine, tangent, logarithms, constants like π and e, and exponent support.</p>
+                <p class="calculator-description">Perform complex calculations including sine, cosine, tangent, logarithms, constants like pi and e, and exponent support.</p>
                 <input type="text" class="display" id="displayScientific" readonly aria-label="Scientific Calculator Display">
                 <div class="buttons">
                     <!-- Row 1 -->
                     <button class="button operator" onclick="clearDisplay()" title="Clear">C</button>
-                    <button class="button operator" onclick="deleteLast()" title="Delete last character">⌫</button>
-                    <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">xʸ</button>
-                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">√</button>
+                    <button class="button operator" onclick="deleteLast()" title="Delete last character">DEL</button>
+                    <button class="button operator" onclick="appendToDisplay('**')" title="Exponentiation">x^y</button>
+                    <button class="button operator" onclick="appendToDisplay('Math.sqrt(')" title="Square Root">sqrt</button>
                     <!-- Row 2 -->
                     <button class="button" onclick="appendToDisplay('7')">7</button>
                     <button class="button" onclick="appendToDisplay('8')">8</button>
                     <button class="button" onclick="appendToDisplay('9')">9</button>
-                    <button class="button operator-basic" onclick="appendToDisplay('/')">÷</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('/')">/</button>
                     <!-- Row 3 -->
                     <button class="button" onclick="appendToDisplay('4')">4</button>
                     <button class="button" onclick="appendToDisplay('5')">5</button>
                     <button class="button" onclick="appendToDisplay('6')">6</button>
-                    <button class="button operator-basic" onclick="appendToDisplay('*')">×</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('*')">*</button>
                     <!-- Row 4 -->
                     <button class="button" onclick="appendToDisplay('1')">1</button>
                     <button class="button" onclick="appendToDisplay('2')">2</button>
                     <button class="button" onclick="appendToDisplay('3')">3</button>
-                    <button class="button operator-basic" onclick="appendToDisplay('-')">–</button>
+                    <button class="button operator-basic" onclick="appendToDisplay('-')">-</button>
                     <!-- Row 5 -->
                     <button class="button" onclick="appendToDisplay('0')">0</button>
                     <button class="button" onclick="appendToDisplay('.')">.</button>
@@ -217,7 +307,7 @@
                     <button class="button trig" onclick="appendToDisplay('Math.cos(')">cos</button>
                     <button class="button trig" onclick="appendToDisplay('Math.tan(')">tan</button>
                     <button class="button memory" onclick="appendToDisplay('Math.log(')">log</button>
-                    <button class="button memory" onclick="appendToDisplay('Math.PI')">π</button>
+                    <button class="button memory" onclick="appendToDisplay('Math.PI')">pi</button>
                     <button class="button memory" onclick="appendToDisplay('Math.E')">e</button>
                     <button class="button memory" onclick="memoryAdd()">M+</button>
                     <button class="button memory" onclick="memorySubtract()">M-</button>
@@ -227,46 +317,53 @@
 
             <!-- Unit Converter -->
             <div class="calculator tall" id="unitConverter" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Unit Converter</h2>
                 <p class="calculator-description">Convert between units of length, weight, and temperature easily. Supports metric and imperial systems for accurate conversions.</p>
                 <input type="text" class="display" id="unitDisplay" readonly aria-label="Unit Converter Display">
                 <div class="buttons">
-                    <select id="unitCategory" onchange="updateUnits()" class="unit-select" style="grid-column: span 2;">
-                        <option value="length">📏 Length</option>
-                        <option value="weight">⚖️ Weight</option>
-                        <option value="temperature">🌡️ Temperature</option>
-                    </select>
-                    <select id="unitFrom" class="unit-select" style="grid-column: span 1;"></select>
-                    <select id="unitTo" class="unit-select" style="grid-column: span 1;"></select>
-                    <input type="number" id="unitInput" class="unit-input" placeholder="Enter value" style="grid-column: span 2;" />
+                    <label class="field-group">
+                        <span>Unit Category</span>
+                        <select id="unitCategory" onchange="updateUnits()" class="unit-select">
+                            <option value="length">Length</option>
+                            <option value="weight">Weight</option>
+                            <option value="temperature">Temperature</option>
+                        </select>
+                    </label>
+                    <label class="field-group half">
+                        <span>From Unit</span>
+                        <select id="unitFrom" class="unit-select"></select>
+                    </label>
+                    <label class="field-group half">
+                        <span>To Unit</span>
+                        <select id="unitTo" class="unit-select"></select>
+                    </label>
+                    <label class="field-group">
+                        <span>Value</span>
+                        <input type="number" id="unitInput" class="unit-input" placeholder="Enter value" />
+                    </label>
                     <button class="button operator" onclick="convertUnit()">= Convert</button>
                     <button class="button operator" onclick="clearUnit()">C</button>
                 </div>
             </div>
 
-            <!-- Currency Converter -->
-            <div class="calculator tall" id="currencyConverter" style="display: none;">
-                <h2 class="calculator-title">Currency Converter</h2>
-                <p class="calculator-description">Instantly convert currencies using live exchange rates from global markets. Supports major currencies including USD, EUR, GBP, INR, and more.</p>
-                <input type="text" class="display" id="currencyDisplay" readonly aria-label="Currency Converter Display">
-                <div class="buttons">
-                    <select id="currencyFrom" class="unit-select"></select>
-                    <select id="currencyTo" class="unit-select"></select>
-                    <input type="number" id="currencyInput" class="unit-input" placeholder="Enter amount" />
-                    <button class="button operator" onclick="convertCurrency()">= Convert</button>
-                    <button class="button operator" onclick="clearCurrency()">C</button>
-                    <button class="button operator" onclick="swapCurrencies()">⇅ Swap</button>
-                </div>
-            </div>
-
             <!-- Age Calculator -->
             <div class="calculator extra-tall" id="ageCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Age Calculator</h2>
                 <p class="calculator-description">Calculate your exact age in years, months, and days based on your birthdate. Also shows countdown to your next birthday!</p>
                 <input type="text" class="display" id="ageDisplay" readonly aria-label="Age Display">
                 <div class="buttons">
-                    <label style="width:100%; text-align:center; font-weight:bold;">Select Birthdate:</label>
-                    <input type="date" id="birthDateInput" class="unit-input" onchange="calculateAge()">
+                    <label class="field-group">
+                        <span>Select Birthdate</span>
+                        <input type="date" id="birthDateInput" class="unit-input" onchange="calculateAge()">
+                    </label>
                     <button class="button operator" onclick="calculateAge()">= Calculate Age</button>
                     <button class="button operator" onclick="clearAge()">C</button>
                     <div style="grid-column: span 2; text-align: center;">
@@ -277,18 +374,22 @@
 
             <!-- Date Difference Calculator -->
             <div class="calculator extra-tall" id="dateDifferenceCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Date Difference Calculator</h2>
                 <p class="calculator-description">Find the number of days between two dates. Useful for planning events, calculating durations, or tracking timelines.</p>
                 <input type="text" class="display" id="dateDiffDisplay" readonly aria-label="Date Difference Display">
                 <div class="buttons" style="grid-template-columns: 1fr 1fr;">
-                    <div style="grid-column: span 2; text-align: center;">
-                        <label><strong>From Date:</strong></label>
-                        <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%;">
-                    </div>
-                    <div style="grid-column: span 2; text-align: center;">
-                        <label><strong>To Date:</strong></label>
-                        <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()" style="width: 80%;">
-                    </div>
+                    <label class="field-group">
+                        <span>From Date</span>
+                        <input type="date" id="date1Input" class="unit-input" onchange="calculateDateDiff()">
+                    </label>
+                    <label class="field-group">
+                        <span>To Date</span>
+                        <input type="date" id="date2Input" class="unit-input" onchange="calculateDateDiff()">
+                    </label>
                     <button class="button operator" onclick="calculateDateDiff()">= Days Between</button>
                     <button class="button operator" onclick="clearDateDiff()">C</button>
                 </div>
@@ -296,18 +397,22 @@
 
             <!-- Time Difference Calculator -->
             <div class="calculator extra-tall" id="timeDifferenceCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Time Difference Calculator</h2>
                 <p class="calculator-description">Calculate the difference between two times or datetime values. Shows total hours, minutes, and seconds between timestamps.</p>
                 <input type="text" class="display" id="timeDiffDisplay" readonly aria-label="Time Difference Display">
                 <div class="buttons" style="grid-template-columns: 1fr 1fr;">
-                    <div style="grid-column: span 2; text-align: center;">
-                        <label><strong>From Date & Time:</strong></label>
-                        <input type="datetime-local" id="time1Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%;">
-                    </div>
-                    <div style="grid-column: span 2; text-align: center;">
-                        <label><strong>To Date & Time:</strong></label>
-                        <input type="datetime-local" id="time2Input" class="unit-input" onchange="calculateTimeDiff()" style="width: 80%;">
-                    </div>
+                    <label class="field-group">
+                        <span>From Date & Time</span>
+                        <input type="datetime-local" id="time1Input" class="unit-input" onchange="calculateTimeDiff()">
+                    </label>
+                    <label class="field-group">
+                        <span>To Date & Time</span>
+                        <input type="datetime-local" id="time2Input" class="unit-input" onchange="calculateTimeDiff()">
+                    </label>
                     <div style="grid-column: span 2; text-align: center;">
                         <p id="timeDiffFull" style="margin: 5px 0;"></p>
                         <p id="timeDiffMinutes" style="margin: 5px 0;"></p>
@@ -320,12 +425,22 @@
 
             <!-- Percentage Calculator -->
             <div class="calculator" id="percentageCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Percentage Calculator</h2>
                 <p class="calculator-description">Quickly calculate percentages of any value. Great for discounts, grades, and general math problems.</p>
                 <input type="text" class="display" id="percentageDisplay" readonly aria-label="Percentage Calculator Display">
                 <div class="buttons">
-                    <input type="number" id="percentValue" class="unit-input" placeholder="Total Value" />
-                    <input type="number" id="percentPercent" class="unit-input" placeholder="Percentage %" />
+                    <label class="field-group">
+                        <span>Total Value</span>
+                        <input type="number" id="percentValue" class="unit-input" placeholder="Total Value" />
+                    </label>
+                    <label class="field-group">
+                        <span>Percentage (%)</span>
+                        <input type="number" id="percentPercent" class="unit-input" placeholder="Percentage %" />
+                    </label>
                     <button class="button operator" onclick="calculatePercentage()">= Calculate %</button>
                     <button class="button operator" onclick="clearPercentage()">C</button>
                 </div>
@@ -333,12 +448,22 @@
 
             <!-- Percentage Change Calculator -->
             <div class="calculator extra-tall" id="percentageChangeCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Percentage Change Calculator</h2>
                 <p class="calculator-description">Determine the percentage increase or decrease between two numbers. Useful for financial analysis and performance tracking.</p>
                 <input type="text" class="display" id="percentageChangeDisplay" readonly aria-label="Percentage Change Display">
                 <div class="buttons">
-                    <input type="number" id="oldValue" class="unit-input" placeholder="Old Value" />
-                    <input type="number" id="newValue" class="unit-input" placeholder="New Value" />
+                    <label class="field-group">
+                        <span>Old Value</span>
+                        <input type="number" id="oldValue" class="unit-input" placeholder="Old Value" />
+                    </label>
+                    <label class="field-group">
+                        <span>New Value</span>
+                        <input type="number" id="newValue" class="unit-input" placeholder="New Value" />
+                    </label>
                     <button class="button operator" onclick="calculatePercentageChange()">= % Change</button>
                     <button class="button operator" onclick="clearPercentageChange()">C</button>
                 </div>
@@ -346,12 +471,22 @@
 
             <!-- Tip Calculator -->
             <div class="calculator extra-tall" id="tipCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Tip Calculator</h2>
                 <p class="calculator-description">Split bills and calculate tips effortlessly. Enter the bill amount and desired tip percentage to get total cost instantly.</p>
                 <input type="text" class="display" id="tipDisplay" readonly aria-label="Tip Calculator Display">
                 <div class="buttons">
-                    <input type="number" id="billAmount" class="unit-input" placeholder="Bill Amount" />
-                    <input type="number" id="tipPercent" class="unit-input" placeholder="Tip %" />
+                    <label class="field-group">
+                        <span>Bill Amount</span>
+                        <input type="number" id="billAmount" class="unit-input" placeholder="Bill Amount" />
+                    </label>
+                    <label class="field-group">
+                        <span>Tip (%)</span>
+                        <input type="number" id="tipPercent" class="unit-input" placeholder="Tip %" />
+                    </label>
                     <button class="button operator" onclick="calculateTip()">= Calculate Tip</button>
                     <button class="button operator" onclick="clearTip()">C</button>
                 </div>
@@ -359,34 +494,593 @@
 
             <!-- VAT / Discount Calculator -->
             <div class="calculator extra-tall" id="vatCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">VAT / Discount Calculator</h2>
                 <p class="calculator-description">Add or remove VAT (Value Added Tax) or discounts from prices. Perfect for shoppers, business owners, and accountants.</p>
                 <input type="text" class="display" id="vatDisplay" readonly aria-label="VAT/Discount Calculator Display">
                 <div class="buttons">
-                    <input type="number" id="vatValue" class="unit-input" placeholder="Base Amount" />
-                    <input type="number" id="vatPercent" class="unit-input" placeholder="Rate %" />
+                    <label class="field-group">
+                        <span>Base Amount</span>
+                        <input type="number" id="vatValue" class="unit-input" placeholder="Base Amount" />
+                    </label>
+                    <label class="field-group">
+                        <span>Rate (%)</span>
+                        <input type="number" id="vatPercent" class="unit-input" placeholder="Rate %" />
+                    </label>
                     <button class="button operator" onclick="addVat()">+ Add VAT</button>
                     <button class="button operator" onclick="removeVat()">- Remove VAT</button>
                 </div>
+                <section class="calculator-help" aria-label="VAT Calculator help">
+                    <h3>About the VAT Calculator</h3>
+                    <p>This VAT calculator helps you add tax to a net price or remove VAT from a tax-inclusive price.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter the amount, type the VAT rate, then choose Add VAT or Remove VAT.</p>
+                    <h4>Formula</h4>
+                    <p>Add VAT: Total = Amount x (1 + Rate / 100). Remove VAT: Net = Total / (1 + Rate / 100).</p>
+                    <h4>Example</h4>
+                    <p>For Rs. 10,000 at 18 percent VAT, the VAT-inclusive total is Rs. 11,800.</p>
+                    <div class="calculator-faq">
+                        <details><summary>Can I use this for sales tax?</summary><p>Yes. It works for any percentage-based tax similar to VAT.</p></details>
+                        <details><summary>What does Remove VAT mean?</summary><p>It calculates the original net price from a price that already includes VAT.</p></details>
+                        <details><summary>Can the VAT rate be changed?</summary><p>Yes. Enter the tax rate that applies to your country or invoice.</p></details>
+                    </div>
+                </section>
             </div>
             <!-- Loan EMI Calculator -->
             <div class="calculator extra-tall" id="loanEmiCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
                 <h2 class="calculator-title">Loan EMI Calculator</h2>
                 <p class="calculator-description">Calculate monthly loan payments, total payment, and total interest for personal, vehicle, housing, or business loans.</p>
                 <input type="text" class="display" id="loanEmiDisplay" readonly aria-label="Loan EMI Calculator Display">
                 <div class="buttons loan-emi-buttons">
-                    <input type="number" id="loanAmountInput" class="unit-input" placeholder="Loan Amount" min="0" step="0.01" />
-                    <input type="number" id="loanInterestInput" class="unit-input" placeholder="Annual Interest Rate (%)" min="0" step="0.01" />
-                    <input type="number" id="loanTermInput" class="unit-input" placeholder="Loan Term" min="0" step="1" />
-                    <select id="loanTermType" class="unit-select" aria-label="Loan term type">
-                        <option value="years">Years</option>
-                        <option value="months">Months</option>
-                    </select>
+                    <label class="field-group">
+                        <span>Loan Amount</span>
+                        <input type="number" id="loanAmountInput" class="unit-input" placeholder="Loan Amount" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Annual Interest Rate (%)</span>
+                        <input type="number" id="loanInterestInput" class="unit-input" placeholder="Annual Interest Rate (%)" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Loan Term</span>
+                        <input type="number" id="loanTermInput" class="unit-input" placeholder="Loan Term" min="0" step="1" />
+                    </label>
+                    <label class="field-group">
+                        <span>Term Type</span>
+                        <select id="loanTermType" class="unit-select">
+                            <option value="years">Years</option>
+                            <option value="months">Months</option>
+                        </select>
+                    </label>
                     <button class="button operator" onclick="calculateLoanEmi()">Calculate EMI</button>
                     <button class="button operator" onclick="clearLoanEmi()">Clear</button>
                     <button class="button operator copy-button" onclick="copyLoanEmiResult()">Copy Result</button>
                     <div class="loan-emi-result" id="loanEmiResult" aria-live="polite">
                         <p class="loan-emi-message" id="loanEmiMessage">Enter loan details and calculate your monthly EMI.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="Loan EMI Calculator help">
+                    <h3>About the Loan EMI Calculator</h3>
+                    <p>This calculator estimates the fixed monthly payment for a loan and shows total payment and total interest.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter the loan amount, annual interest rate, loan term, and choose whether the term is in years or months.</p>
+                    <h4>Formula</h4>
+                    <p>EMI = P x R x (1 + R)^N / ((1 + R)^N - 1). For 0 percent interest, EMI = P / N.</p>
+                    <h4>Example</h4>
+                    <p>A Rs. 500,000 loan for 5 years at 10 percent interest gives an estimated monthly EMI.</p>
+                    <div class="calculator-faq">
+                        <details><summary>What is EMI?</summary><p>EMI means Equated Monthly Installment, the fixed amount paid each month.</p></details>
+                        <details><summary>Does this include fees?</summary><p>No. It calculates loan payment from principal, rate, and term only.</p></details>
+                        <details><summary>Can I calculate a 0 percent loan?</summary><p>Yes. The calculator divides the loan amount by the number of months.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Mortgage Calculator -->
+            <div class="calculator extra-tall" id="mortgageCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Mortgage Calculator</h2>
+                <p class="calculator-description">Estimate home loan payments with down payment, interest, taxes, insurance, and total loan cost breakdown.</p>
+                <input type="text" class="display" id="mortgageDisplay" readonly aria-label="Mortgage Calculator Display">
+                <div class="buttons mortgage-buttons">
+                    <label class="field-group">
+                        <span>Home Price</span>
+                        <input type="number" id="homePriceInput" class="unit-input" placeholder="Home Price" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Down Payment</span>
+                        <input type="number" id="downPaymentInput" class="unit-input" placeholder="Down Payment" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Annual Interest Rate (%)</span>
+                        <input type="number" id="mortgageInterestInput" class="unit-input" placeholder="Annual Interest Rate (%)" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Loan Term (Years)</span>
+                        <input type="number" id="mortgageTermInput" class="unit-input" placeholder="Loan Term (Years)" min="0" step="1" />
+                    </label>
+                    <label class="field-group">
+                        <span>Annual Property Tax (Optional)</span>
+                        <input type="number" id="propertyTaxInput" class="unit-input" placeholder="Annual Property Tax" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Annual Home Insurance (Optional)</span>
+                        <input type="number" id="homeInsuranceInput" class="unit-input" placeholder="Annual Home Insurance" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateMortgage()">Calculate</button>
+                    <button class="button operator" onclick="clearMortgage()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyMortgageResult()">Copy Result</button>
+                    <div class="finance-result" id="mortgageResult" aria-live="polite">
+                        <p class="finance-message" id="mortgageMessage">Enter home loan details and calculate your monthly mortgage payment.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compound Interest Calculator -->
+            <div class="calculator extra-tall" id="compoundInterestCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Compound Interest Calculator</h2>
+                <p class="calculator-description">Project savings and investments with compound growth, optional monthly contributions, and clear interest breakdowns.</p>
+                <input type="text" class="display" id="compoundInterestDisplay" readonly aria-label="Compound Interest Calculator Display">
+                <div class="buttons compound-interest-buttons">
+                    <label class="field-group">
+                        <span>Principal Amount</span>
+                        <input type="number" id="compoundPrincipalInput" class="unit-input" placeholder="Principal Amount" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Annual Interest Rate (%)</span>
+                        <input type="number" id="compoundRateInput" class="unit-input" placeholder="Annual Interest Rate (%)" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Time Period</span>
+                        <input type="number" id="compoundTimeInput" class="unit-input" placeholder="Time Period" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Time Type</span>
+                        <select id="compoundTimeType" class="unit-select">
+                            <option value="years">Years</option>
+                            <option value="months">Months</option>
+                        </select>
+                    </label>
+                    <label class="field-group">
+                        <span>Compounding Frequency</span>
+                        <select id="compoundFrequencyInput" class="unit-select">
+                            <option value="1">Yearly</option>
+                            <option value="2">Half-Yearly</option>
+                            <option value="4">Quarterly</option>
+                            <option value="12" selected>Monthly</option>
+                            <option value="365">Daily</option>
+                        </select>
+                    </label>
+                    <label class="field-group">
+                        <span>Monthly Contribution (Optional)</span>
+                        <input type="number" id="compoundMonthlyContributionInput" class="unit-input" placeholder="Monthly Contribution" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateCompoundInterest()">Calculate</button>
+                    <button class="button operator" onclick="clearCompoundInterest()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyCompoundInterestResult()">Copy Result</button>
+                    <div class="finance-result" id="compoundInterestResult" aria-live="polite">
+                        <p class="finance-message" id="compoundInterestMessage">Enter investment details and calculate compound growth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BMI Calculator -->
+            <div class="calculator extra-tall" id="bmiCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">BMI Calculator</h2>
+                <p class="calculator-description">Calculate body mass index with metric or imperial units and see a clear health category range.</p>
+                <input type="text" class="display" id="bmiDisplay" readonly aria-label="BMI Calculator Display">
+                <div class="buttons bmi-buttons">
+                    <label class="field-group">
+                        <span>Weight</span>
+                        <input type="number" id="bmiWeightInput" class="unit-input" placeholder="Enter weight" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Weight Unit</span>
+                        <select id="bmiWeightUnit" class="unit-select">
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="lb">Pounds (lb)</option>
+                        </select>
+                    </label>
+                    <label class="field-group">
+                        <span>Height</span>
+                        <input type="number" id="bmiHeightInput" class="unit-input" placeholder="Enter height" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Height Unit</span>
+                        <select id="bmiHeightUnit" class="unit-select">
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="m">Meters (m)</option>
+                            <option value="ft">Feet (ft)</option>
+                            <option value="in">Inches (in)</option>
+                        </select>
+                    </label>
+                    <button class="button operator" onclick="calculateBmi()">Calculate</button>
+                    <button class="button operator" onclick="clearBmi()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyBmiResult()">Copy Result</button>
+                    <div class="finance-result" id="bmiResult" aria-live="polite">
+                        <p class="finance-message" id="bmiMessage">Enter weight and height to calculate BMI.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="BMI Calculator help">
+                    <h3>About the BMI Calculator</h3>
+                    <p>This BMI calculator estimates body mass index from weight and height, then shows the common BMI category.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter your weight and height, choose the correct units, and press Calculate.</p>
+                    <h4>Formula</h4>
+                    <p>BMI = weight in kilograms / (height in meters x height in meters).</p>
+                    <h4>Example</h4>
+                    <p>A person who weighs 70 kg and is 1.75 m tall has a BMI of about 22.9.</p>
+                    <div class="calculator-faq">
+                        <details><summary>Is BMI a medical diagnosis?</summary><p>No. BMI is a general screening number and does not replace medical advice.</p></details>
+                        <details><summary>Can I use pounds and feet?</summary><p>Yes. The calculator converts imperial units before calculating BMI.</p></details>
+                        <details><summary>What is a normal BMI range?</summary><p>A BMI from 18.5 to 24.9 is commonly considered the normal range for adults.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Discount Calculator -->
+            <div class="calculator extra-tall" id="discountCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Discount Calculator</h2>
+                <p class="calculator-description">Calculate sale price, savings, optional tax, and final payable amount for shopping or business pricing.</p>
+                <input type="text" class="display" id="discountDisplay" readonly aria-label="Discount Calculator Display">
+                <div class="buttons discount-buttons">
+                    <label class="field-group">
+                        <span>Original Price</span>
+                        <input type="number" id="discountOriginalPriceInput" class="unit-input" placeholder="Original Price" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Discount (%)</span>
+                        <input type="number" id="discountPercentInput" class="unit-input" placeholder="Discount Percentage" min="0" max="100" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Tax / VAT (%) Optional</span>
+                        <input type="number" id="discountTaxInput" class="unit-input" placeholder="Tax / VAT Percentage" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateDiscount()">Calculate</button>
+                    <button class="button operator" onclick="clearDiscount()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyDiscountResult()">Copy Result</button>
+                    <div class="finance-result" id="discountResult" aria-live="polite">
+                        <p class="finance-message" id="discountMessage">Enter price and discount to calculate savings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fuel Cost Calculator -->
+            <div class="calculator extra-tall" id="fuelCostCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Fuel Cost Calculator</h2>
+                <p class="calculator-description">Estimate total fuel needed and travel fuel cost from distance, vehicle efficiency, and fuel price per liter.</p>
+                <input type="text" class="display" id="fuelCostDisplay" readonly aria-label="Fuel Cost Calculator Display">
+                <div class="buttons finance-tool-buttons">
+                    <label class="field-group">
+                        <span>Distance</span>
+                        <input type="number" id="fuelDistanceInput" class="unit-input" placeholder="Distance in km" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Fuel Efficiency</span>
+                        <input type="number" id="fuelEfficiencyInput" class="unit-input" placeholder="Km per liter" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Fuel Price Per Liter</span>
+                        <input type="number" id="fuelPriceInput" class="unit-input" placeholder="Fuel price per liter" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateFuelCost()">Calculate</button>
+                    <button class="button operator" onclick="clearFuelCost()">Clear</button>
+                    <div class="finance-result" id="fuelCostResult" aria-live="polite">
+                        <p class="finance-message" id="fuelCostMessage">Enter trip and fuel details to calculate total fuel cost.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="Fuel Cost Calculator help">
+                    <h3>About the Fuel Cost Calculator</h3>
+                    <p>This calculator estimates how much fuel a trip needs and the total cost based on distance, efficiency, and fuel price.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter distance, your vehicle fuel efficiency in kilometers per liter, and the fuel price per liter.</p>
+                    <h4>Formula</h4>
+                    <p>Fuel needed = Distance / Fuel efficiency. Total cost = Fuel needed x Fuel price per liter.</p>
+                    <h4>Example</h4>
+                    <p>For 100 km at 20 km/l and Rs. 300 per liter, fuel needed is 5 liters and cost is Rs. 1,500.</p>
+                    <div class="calculator-faq">
+                        <details><summary>What fuel efficiency unit is used?</summary><p>The calculator uses kilometers per liter.</p></details>
+                        <details><summary>Can I use it for bike trips?</summary><p>Yes. It works for cars, bikes, vans, and any vehicle using distance and fuel efficiency.</p></details>
+                        <details><summary>Does it include tolls or parking?</summary><p>No. It calculates only fuel usage and fuel cost.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Profit Margin Calculator -->
+            <div class="calculator extra-tall" id="profitMarginCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Profit Margin Calculator</h2>
+                <p class="calculator-description">Calculate profit amount, profit margin, and markup percentage from cost price and selling price.</p>
+                <input type="text" class="display" id="profitMarginDisplay" readonly aria-label="Profit Margin Calculator Display">
+                <div class="buttons finance-tool-buttons">
+                    <label class="field-group">
+                        <span>Cost Price</span>
+                        <input type="number" id="profitCostInput" class="unit-input" placeholder="Cost Price" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Selling Price</span>
+                        <input type="number" id="profitSellingInput" class="unit-input" placeholder="Selling Price" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateProfitMargin()">Calculate</button>
+                    <button class="button operator" onclick="clearProfitMargin()">Clear</button>
+                    <div class="finance-result" id="profitMarginResult" aria-live="polite">
+                        <p class="finance-message" id="profitMarginMessage">Enter cost and selling price to calculate profit margin.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="Profit Margin Calculator help">
+                    <h3>About the Profit Margin Calculator</h3>
+                    <p>This calculator shows profit amount, profit margin, and markup from cost price and selling price.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter the cost price and selling price, then press Calculate.</p>
+                    <h4>Formula</h4>
+                    <p>Profit = Selling price - Cost price. Margin = Profit / Selling price x 100. Markup = Profit / Cost price x 100.</p>
+                    <h4>Example</h4>
+                    <p>If cost is Rs. 100 and selling price is Rs. 150, profit is Rs. 50, margin is 33.33 percent, and markup is 50 percent.</p>
+                    <div class="calculator-faq">
+                        <details><summary>What is profit margin?</summary><p>Profit margin shows profit as a percentage of selling price.</p></details>
+                        <details><summary>What is markup?</summary><p>Markup shows profit as a percentage of cost price.</p></details>
+                        <details><summary>Can profit be negative?</summary><p>Yes. If selling price is lower than cost price, the result shows a loss.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Break-Even Calculator -->
+            <div class="calculator extra-tall" id="breakEvenCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Break-Even Calculator</h2>
+                <p class="calculator-description">Find how many units you need to sell to cover fixed costs and calculate break-even sales value.</p>
+                <input type="text" class="display" id="breakEvenDisplay" readonly aria-label="Break-Even Calculator Display">
+                <div class="buttons finance-tool-buttons">
+                    <label class="field-group">
+                        <span>Fixed Costs</span>
+                        <input type="number" id="breakEvenFixedCostInput" class="unit-input" placeholder="Fixed Costs" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Selling Price Per Unit</span>
+                        <input type="number" id="breakEvenSellingPriceInput" class="unit-input" placeholder="Selling Price Per Unit" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Variable Cost Per Unit</span>
+                        <input type="number" id="breakEvenVariableCostInput" class="unit-input" placeholder="Variable Cost Per Unit" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateBreakEven()">Calculate</button>
+                    <button class="button operator" onclick="clearBreakEven()">Clear</button>
+                    <div class="finance-result" id="breakEvenResult" aria-live="polite">
+                        <p class="finance-message" id="breakEvenMessage">Enter business cost details to calculate break-even point.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="Break-Even Calculator help">
+                    <h3>About the Break-Even Calculator</h3>
+                    <p>This calculator estimates how many units must be sold to cover fixed and variable costs.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter fixed costs, selling price per unit, and variable cost per unit.</p>
+                    <h4>Formula</h4>
+                    <p>Break-even units = Fixed costs / (Selling price per unit - Variable cost per unit).</p>
+                    <h4>Example</h4>
+                    <p>If fixed costs are Rs. 1,000, price is Rs. 50, and variable cost is Rs. 30, break-even is 50 units.</p>
+                    <div class="calculator-faq">
+                        <details><summary>What are fixed costs?</summary><p>Fixed costs are costs that do not change directly with each unit sold, such as rent or salaries.</p></details>
+                        <details><summary>What is variable cost?</summary><p>Variable cost is the cost linked to each unit, such as materials or packaging.</p></details>
+                        <details><summary>Why must price be higher than variable cost?</summary><p>Each sale must contribute something toward fixed costs; otherwise break-even cannot be reached.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ROI Calculator -->
+            <div class="calculator extra-tall" id="roiCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">ROI Calculator</h2>
+                <p class="calculator-description">Measure investment performance by calculating net profit and return on investment percentage.</p>
+                <input type="text" class="display" id="roiDisplay" readonly aria-label="ROI Calculator Display">
+                <div class="buttons finance-tool-buttons">
+                    <label class="field-group">
+                        <span>Investment Amount</span>
+                        <input type="number" id="roiInvestmentInput" class="unit-input" placeholder="Investment Amount" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Final Value / Return Amount</span>
+                        <input type="number" id="roiFinalValueInput" class="unit-input" placeholder="Final Value / Return Amount" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateRoi()">Calculate</button>
+                    <button class="button operator" onclick="clearRoi()">Clear</button>
+                    <div class="finance-result" id="roiResult" aria-live="polite">
+                        <p class="finance-message" id="roiMessage">Enter investment and final value to calculate ROI.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="ROI Calculator help">
+                    <h3>About the ROI Calculator</h3>
+                    <p>This ROI calculator measures return on investment by comparing the investment amount with the final value.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter the original investment amount and the final value or return amount.</p>
+                    <h4>Formula</h4>
+                    <p>Net profit = Final value - Investment amount. ROI = Net profit / Investment amount x 100.</p>
+                    <h4>Example</h4>
+                    <p>If you invest Rs. 1,000 and the final value is Rs. 1,250, net profit is Rs. 250 and ROI is 25 percent.</p>
+                    <div class="calculator-faq">
+                        <details><summary>What does ROI mean?</summary><p>ROI means return on investment, a percentage that shows gain or loss compared with the amount invested.</p></details>
+                        <details><summary>Can ROI be negative?</summary><p>Yes. If the final value is lower than the investment, ROI is negative.</p></details>
+                        <details><summary>Does ROI include time?</summary><p>No. This calculator shows simple ROI and does not annualize the return.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Simple Interest Calculator -->
+            <div class="calculator extra-tall" id="simpleInterestCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Simple Interest Calculator</h2>
+                <p class="calculator-description">Calculate simple interest and total amount from principal, annual interest rate, and time in years.</p>
+                <input type="text" class="display" id="simpleInterestDisplay" readonly aria-label="Simple Interest Calculator Display">
+                <div class="buttons finance-tool-buttons">
+                    <label class="field-group">
+                        <span>Principal Amount</span>
+                        <input type="number" id="simplePrincipalInput" class="unit-input" placeholder="Principal Amount" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Annual Interest Rate (%)</span>
+                        <input type="number" id="simpleRateInput" class="unit-input" placeholder="Annual Interest Rate (%)" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Time Period (Years)</span>
+                        <input type="number" id="simpleTimeInput" class="unit-input" placeholder="Time Period in Years" min="0" step="0.01" />
+                    </label>
+                    <button class="button operator" onclick="calculateSimpleInterest()">Calculate</button>
+                    <button class="button operator" onclick="clearSimpleInterest()">Clear</button>
+                    <div class="finance-result" id="simpleInterestResult" aria-live="polite">
+                        <p class="finance-message" id="simpleInterestMessage">Enter principal, rate, and time to calculate simple interest.</p>
+                    </div>
+                </div>
+                <section class="calculator-help" aria-label="Simple Interest Calculator help">
+                    <h3>About the Simple Interest Calculator</h3>
+                    <p>This calculator finds interest earned or charged using principal, annual rate, and time in years.</p>
+                    <h4>How to use it</h4>
+                    <p>Enter the principal amount, annual interest rate, and time period in years.</p>
+                    <h4>Formula</h4>
+                    <p>Simple interest = Principal x Rate x Time / 100. Total amount = Principal + Interest.</p>
+                    <h4>Example</h4>
+                    <p>For Rs. 1,000 at 10 percent for 2 years, interest is Rs. 200 and total amount is Rs. 1,200.</p>
+                    <div class="calculator-faq">
+                        <details><summary>What is simple interest?</summary><p>Simple interest is calculated only on the original principal amount.</p></details>
+                        <details><summary>Is this compound interest?</summary><p>No. Compound interest adds interest to the balance over time.</p></details>
+                        <details><summary>Can I enter decimal years?</summary><p>Yes. You can use values such as 1.5 years for one year and six months.</p></details>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Volume Calculator -->
+            <div class="calculator extra-tall" id="volumeCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Volume Calculator</h2>
+                <p class="calculator-description">Calculate volume for cubes, boxes, cylinders, spheres, and cones with clear unit-based results.</p>
+                <input type="text" class="display" id="volumeDisplay" readonly aria-label="Volume Calculator Display">
+                <div class="buttons volume-buttons">
+                    <label class="field-group">
+                        <span>Shape</span>
+                        <select id="volumeShapeInput" class="unit-select" onchange="updateVolumeFields()">
+                            <option value="rectangular">Rectangular Prism</option>
+                            <option value="cube">Cube</option>
+                            <option value="cylinder">Cylinder</option>
+                            <option value="sphere">Sphere</option>
+                            <option value="cone">Cone</option>
+                        </select>
+                    </label>
+                    <label class="field-group" id="volumeDimensionOneGroup">
+                        <span id="volumeDimensionOneLabel">Length</span>
+                        <input type="number" id="volumeDimensionOneInput" class="unit-input" placeholder="Length" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group" id="volumeDimensionTwoGroup">
+                        <span id="volumeDimensionTwoLabel">Width</span>
+                        <input type="number" id="volumeDimensionTwoInput" class="unit-input" placeholder="Width" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group" id="volumeDimensionThreeGroup">
+                        <span id="volumeDimensionThreeLabel">Height</span>
+                        <input type="number" id="volumeDimensionThreeInput" class="unit-input" placeholder="Height" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Unit</span>
+                        <select id="volumeUnitInput" class="unit-select">
+                            <option value="cm">cm</option>
+                            <option value="m">m</option>
+                            <option value="in">in</option>
+                            <option value="ft">ft</option>
+                        </select>
+                    </label>
+                    <button class="button operator" onclick="calculateVolume()">Calculate</button>
+                    <button class="button operator" onclick="clearVolume()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyVolumeResult()">Copy Result</button>
+                    <div class="finance-result" id="volumeResult" aria-live="polite">
+                        <p class="finance-message" id="volumeMessage">Select a shape and enter dimensions to calculate volume.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Area Calculator -->
+            <div class="calculator extra-tall" id="areaCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title">Area Calculator</h2>
+                <p class="calculator-description">Calculate area for common 2D shapes with dynamic fields, formulas, and clean unit-based results.</p>
+                <input type="text" class="display" id="areaDisplay" readonly aria-label="Area Calculator Display">
+                <div class="buttons area-buttons">
+                    <label class="field-group">
+                        <span>Shape</span>
+                        <select id="areaShapeInput" class="unit-select" onchange="updateAreaFields()">
+                            <option value="rectangle">Rectangle</option>
+                            <option value="square">Square</option>
+                            <option value="triangle">Triangle</option>
+                            <option value="circle">Circle</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="trapezoid">Trapezoid</option>
+                            <option value="ellipse">Ellipse</option>
+                        </select>
+                    </label>
+                    <label class="field-group" id="areaDimensionOneGroup">
+                        <span id="areaDimensionOneLabel">Length</span>
+                        <input type="number" id="areaDimensionOneInput" class="unit-input" placeholder="Length" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group" id="areaDimensionTwoGroup">
+                        <span id="areaDimensionTwoLabel">Width</span>
+                        <input type="number" id="areaDimensionTwoInput" class="unit-input" placeholder="Width" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group" id="areaDimensionThreeGroup">
+                        <span id="areaDimensionThreeLabel">Height</span>
+                        <input type="number" id="areaDimensionThreeInput" class="unit-input" placeholder="Height" min="0" step="0.01" />
+                    </label>
+                    <label class="field-group">
+                        <span>Unit</span>
+                        <select id="areaUnitInput" class="unit-select">
+                            <option value="cm">cm</option>
+                            <option value="m">m</option>
+                            <option value="in">in</option>
+                            <option value="ft">ft</option>
+                        </select>
+                    </label>
+                    <button class="button operator" onclick="calculateArea()">Calculate</button>
+                    <button class="button operator" onclick="clearArea()">Clear</button>
+                    <button class="button operator copy-button" onclick="copyAreaResult()">Copy Result</button>
+                    <div class="finance-result" id="areaResult" aria-live="polite">
+                        <p class="finance-message" id="areaMessage">Select a shape and enter dimensions to calculate area.</p>
                     </div>
                 </div>
             </div>
@@ -396,28 +1090,38 @@
         <aside class="seo-column">
             <section>
                 <h2>About This Calculator</h2>
-                <p>Welcome to OnlineCalMaster — a powerful, free online calculator that supports basic math, scientific operations, unit conversion, currency exchange, age calculation, date/time difference, percentage calculation, and more.</p>
+                <p>Welcome to OnlineCalMaster - a powerful, free online calculator that supports basic math, scientific operations, unit conversion, age calculation, date/time difference, percentage calculation, VAT, loan EMI, mortgage, BMI, discount, volume, area, and more.</p>
 
                 <h2>Features</h2>
                 <ul>
-                    <li>🧮 Basic & Scientific Calculator</li>
-                    <li>📐 Unit Converter</li>
-                    <li>💸 Currency Converter</li>
-                    <li>📅 Age Calculator</li>
-                    <li>📆 Date Difference</li>
-                    <li>⏱️ Time Difference</li>
+                    <li>Basic & Scientific Calculator</li>
+                    <li>Unit Converter</li>
+                    <li>Age Calculator</li>
+                    <li>Date Difference</li>
+                    <li>Time Difference</li>
                     <li>% Percentage</li>
-                    <li>📉 Percentage Change</li>
-                    <li>💡 Tip Calculator</li>
-                    <li>🧮 Memory Functions</li>
-                    <li>📱 Mobile Friendly</li>
+                    <li>Percentage Change</li>
+                    <li>Tip Calculator</li>
+                    <li>Loan EMI Calculator</li>
+                    <li>Mortgage Calculator</li>
+                    <li>BMI Calculator</li>
+                    <li>Discount Calculator</li>
+                    <li>Fuel Cost Calculator</li>
+                    <li>Profit Margin Calculator</li>
+                    <li>Break-Even Calculator</li>
+                    <li>ROI Calculator</li>
+                    <li>Simple Interest Calculator</li>
+                    <li>Volume Calculator</li>
+                    <li>Area Calculator</li>
+                    <li>Memory Functions</li>
+                    <li>Mobile Friendly</li>
                 </ul>
 
                 <h2>Use Cases</h2>
                 <ul>
                     <li>Students doing homework</li>
                     <li>Engineers solving complex equations</li>
-                    <li>Travelers converting currencies</li>
+                    <li>Home buyers estimating mortgage payments</li>
                     <li>Business owners calculating VAT</li>
                     <li>Anyone needing quick, reliable calculations</li>
                 </ul>
@@ -425,6 +1129,119 @@
             </section>
         </aside>
     </div>
+
+    <section class="homepage-seo" aria-label="Online calculator categories and information">
+        <section class="homepage-section" id="calculator-categories">
+            <div class="homepage-section-heading">
+                <span>Calculator Categories</span>
+                <h2>Find the right calculator faster</h2>
+                <p>OnlineCalMaster groups useful calculators by everyday tasks, study needs, business work, and financial planning.</p>
+            </div>
+            <div class="category-grid">
+                <article class="homepage-card" id="finance-calculators">
+                    <span class="card-icon" aria-hidden="true">₹</span>
+                    <h3>Finance Calculators</h3>
+                    <p>Estimate loans, mortgage payments, compound growth, discounts, and other money-related calculations.</p>
+                    <a href="#popular-calculators">Explore finance tools</a>
+                </article>
+                <article class="homepage-card" id="business-calculators">
+                    <span class="card-icon" aria-hidden="true">%</span>
+                    <h3>Business Calculators</h3>
+                    <p>Calculate VAT, percentages, tips, pricing changes, and quick business numbers without a spreadsheet.</p>
+                    <a href="#popular-calculators">Explore business tools</a>
+                </article>
+                <article class="homepage-card" id="education-calculators">
+                    <span class="card-icon" aria-hidden="true">∑</span>
+                    <h3>Education Calculators</h3>
+                    <p>Use basic math, scientific functions, unit conversion, area, and volume calculators for study work.</p>
+                    <a href="#popular-calculators">Explore education tools</a>
+                </article>
+                <article class="homepage-card" id="health-calculators">
+                    <span class="card-icon" aria-hidden="true">BMI</span>
+                    <h3>Health Calculators</h3>
+                    <p>Check simple health-related values such as BMI with fast, mobile-friendly tools.</p>
+                    <a href="#popular-calculators">Explore health tools</a>
+                </article>
+                <article class="homepage-card" id="date-time-calculators">
+                    <span class="card-icon" aria-hidden="true">⏱</span>
+                    <h3>Date &amp; Time Calculators</h3>
+                    <p>Calculate age, date differences, and time differences for planning, records, and daily use.</p>
+                    <a href="#popular-calculators">Explore date tools</a>
+                </article>
+                <article class="homepage-card" id="developer-tools">
+                    <span class="card-icon" aria-hidden="true">{ }</span>
+                    <h3>Developer Tools</h3>
+                    <p>Developer-focused tools are planned for future updates while the current calculator set continues to grow.</p>
+                    <a href="#faq">See future updates</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="homepage-section" id="popular-calculators">
+            <div class="homepage-section-heading">
+                <span>Popular Calculators</span>
+                <h2>Start with the tools already available</h2>
+                <p>These links open calculators that already exist on the homepage.</p>
+            </div>
+            <div class="popular-grid">
+                <a class="homepage-card popular-card" href="#basicCalculator" onclick="showCalculator('basic')">Basic Calculator</a>
+                <a class="homepage-card popular-card" href="#scientificCalculator" onclick="showCalculator('scientific')">Scientific Calculator</a>
+                <a class="homepage-card popular-card" href="#unitConverter" onclick="showCalculator('unit')">Unit Converter</a>
+                <a class="homepage-card popular-card" href="#loanEmiCalculator" onclick="showCalculator('loanEmi')">Loan EMI Calculator</a>
+                <a class="homepage-card popular-card" href="#mortgageCalculator" onclick="showCalculator('mortgage')">Mortgage Calculator</a>
+                <a class="homepage-card popular-card" href="#compoundInterestCalculator" onclick="showCalculator('compoundInterest')">Compound Interest Calculator</a>
+                <a class="homepage-card popular-card" href="#bmiCalculator" onclick="showCalculator('bmi')">BMI Calculator</a>
+                <a class="homepage-card popular-card" href="#discountCalculator" onclick="showCalculator('discount')">Discount Calculator</a>
+                <a class="homepage-card popular-card" href="#volumeCalculator" onclick="showCalculator('volume')">Volume Calculator</a>
+                <a class="homepage-card popular-card" href="#areaCalculator" onclick="showCalculator('area')">Area Calculator</a>
+                <a class="homepage-card popular-card" href="#dateDifferenceCalculator" onclick="showCalculator('date')">Date Difference Calculator</a>
+                <a class="homepage-card popular-card" href="#timeDifferenceCalculator" onclick="showCalculator('time')">Time Difference Calculator</a>
+            </div>
+        </section>
+
+        <section class="homepage-section why-section" id="why-onlinecalmaster">
+            <div class="homepage-section-heading">
+                <span>Why Use OnlineCalMaster?</span>
+                <h2>Simple tools for real daily calculations</h2>
+            </div>
+            <ul class="why-list">
+                <li>Free to use</li>
+                <li>No login required</li>
+                <li>Mobile friendly</li>
+                <li>Fast and lightweight</li>
+                <li>Useful for students, businesses, and daily life</li>
+            </ul>
+        </section>
+
+        <section class="homepage-section faq-section" id="faq">
+            <div class="homepage-section-heading">
+                <span>FAQ</span>
+                <h2>Frequently asked questions</h2>
+            </div>
+            <div class="faq-list">
+                <details>
+                    <summary>What is OnlineCalMaster?</summary>
+                    <p>OnlineCalMaster is a free online calculator website with tools for finance, business, education, health, date, time, unit conversion, and daily calculations.</p>
+                </details>
+                <details>
+                    <summary>Are the calculators free?</summary>
+                    <p>Yes. The calculators on OnlineCalMaster are free to use.</p>
+                </details>
+                <details>
+                    <summary>Do I need to create an account?</summary>
+                    <p>No. You can use the calculators without creating an account or logging in.</p>
+                </details>
+                <details>
+                    <summary>Can I use it on mobile?</summary>
+                    <p>Yes. OnlineCalMaster is designed to work on mobile, tablet, and desktop browsers.</p>
+                </details>
+                <details>
+                    <summary>Will more calculators be added?</summary>
+                    <p>Yes. More calculators and smart tools will be added over time based on useful real-world needs.</p>
+                </details>
+            </div>
+        </section>
+    </section>
 
     <!-- Scripts -->
     <script src="script.js"></script>
@@ -445,3 +1262,7 @@
     </script>
 </body>
 </html>
+
+
+
+

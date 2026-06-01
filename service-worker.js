@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculator-cache-v2';
+const CACHE_NAME = 'calculator-cache-v3';
 const urlsToCache = ['/', '/index.html', '/styles.css', '/script.js', '/manifest.json'];
 
 self.addEventListener('install', event => {
