@@ -478,9 +478,129 @@ header h1 {
     min-width: 0;
     padding: 12px 0 32px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    gap: 16px;
     perspective: 1200px;
+}
+
+.calculator-breadcrumb,
+.calculator-link-panel {
+    width: min(100%, 540px);
+}
+
+.calculator-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: #356583;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.calculator-breadcrumb a,
+.calculator-breadcrumb span {
+    color: #075d92;
+    text-decoration: none;
+}
+
+.calculator-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.calculator-breadcrumb a::after {
+    content: ">";
+    margin-left: 8px;
+    color: #6b8da4;
+}
+
+.calculator-link-panel {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid rgba(4, 133, 194, 0.17);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 16px 34px rgba(7, 73, 121, 0.11);
+    backdrop-filter: blur(10px);
+}
+
+.calculator-share-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.calculator-mini-button,
+.calculator-chip {
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffff 0%, #ecfbff 100%);
+    color: #066aa4;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow:
+        0 4px 0 #b8e8f3,
+        0 9px 16px rgba(3, 104, 160, 0.13);
+}
+
+.calculator-mini-button {
+    min-height: 36px;
+    padding: 8px 14px;
+}
+
+.calculator-share-status {
+    min-height: 18px;
+    color: #036c9d;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.calculator-share-status.is-error {
+    color: #b01f5e;
+}
+
+.calculator-link-groups {
+    display: grid;
+    gap: 12px;
+}
+
+.calculator-link-group h2 {
+    margin: 0 0 8px;
+    color: #064b7a;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.calculator-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.calculator-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 8px 12px;
+}
+
+.calculator-chip:hover,
+.calculator-mini-button:hover {
+    filter: brightness(1.04) saturate(1.04);
+}
+
+.calculator-chip.is-muted {
+    color: #6b8da4;
+    cursor: default;
 }
 
 .calculator {
@@ -654,6 +774,7 @@ header h1 {
 #breakEvenCalculator,
 #roiCalculator,
 #simpleInterestCalculator,
+#dynamicToolCalculator,
 #volumeCalculator,
 #areaCalculator {
     width: min(100%, 470px);
@@ -670,6 +791,7 @@ header h1 {
 #breakEvenCalculator,
 #roiCalculator,
 #simpleInterestCalculator,
+#dynamicToolCalculator,
 #volumeCalculator,
 #areaCalculator {
     width: min(100%, 540px);
@@ -897,6 +1019,7 @@ header h1 {
 #breakEvenCalculator .buttons,
 #roiCalculator .buttons,
 #simpleInterestCalculator .buttons,
+#dynamicToolCalculator .buttons,
 #volumeCalculator .buttons,
 #areaCalculator .buttons {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -924,6 +1047,7 @@ header h1 {
 #breakEvenCalculator .display,
 #roiCalculator .display,
 #simpleInterestCalculator .display,
+#dynamicToolCalculator .display,
 #volumeCalculator .display,
 #areaCalculator .display {
     font-size: clamp(22px, 3.8vw, 36px);
@@ -946,6 +1070,7 @@ header h1 {
 #breakEvenCalculator .button,
 #roiCalculator .button,
 #simpleInterestCalculator .button,
+#dynamicToolCalculator .button,
 #volumeCalculator .button,
 #areaCalculator .button,
 #unitConverter .button {
@@ -973,6 +1098,9 @@ header h1 {
 #breakEvenCalculator .buttons input,
 #roiCalculator .buttons input,
 #simpleInterestCalculator .buttons input,
+#dynamicToolCalculator .buttons input,
+#dynamicToolCalculator .buttons select,
+#dynamicToolCalculator .buttons textarea,
 #volumeCalculator .buttons input,
 #volumeCalculator .buttons select,
 #areaCalculator .buttons input,
@@ -991,6 +1119,7 @@ header h1 {
 #discountCalculator .copy-button,
 #volumeCalculator .copy-button,
 #areaCalculator .copy-button,
+#dynamicToolCalculator .copy-button,
 .loan-emi-result,
 .finance-result {
     grid-column: span 2;
@@ -1087,6 +1216,51 @@ header h1 {
 .loan-emi-copy-status.is-error,
 .finance-copy-status.is-error {
     color: #b01f5e;
+}
+
+.dynamic-display {
+    resize: none;
+    white-space: pre-wrap;
+    text-align: left;
+    font-size: clamp(18px, 3vw, 28px);
+    line-height: 1.2;
+}
+
+.dynamic-tool-buttons .dynamic-wide,
+.dynamic-tool-buttons .finance-result {
+    grid-column: span 2;
+}
+
+.dynamic-textarea {
+    min-height: 150px;
+    resize: vertical;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.calculator .dynamic-check {
+    display: flex;
+    align-items: center;
+    min-height: 58px;
+    padding: 10px 12px;
+    border: 4px solid #0788bf;
+    border-radius: 17px;
+    background: linear-gradient(180deg, #ffffff 0%, #ecfbff 100%);
+    box-shadow:
+        inset 0 3px 8px rgba(0, 54, 100, 0.16),
+        0 5px 0 #0583bc;
+}
+
+.calculator .dynamic-check input {
+    width: 18px;
+    height: 18px;
+    margin: 0 9px 0 0;
+}
+
+.calculator .dynamic-check span {
+    color: #154a75;
+    text-shadow: none;
 }
 
 .calculator-help {
@@ -1751,6 +1925,27 @@ body.dark-mode .seo-column {
     border-color: rgba(97, 210, 255, 0.17);
 }
 
+body.dark-mode .calculator-link-panel {
+    background: rgba(8, 31, 48, 0.78);
+    border-color: rgba(97, 210, 255, 0.17);
+}
+
+body.dark-mode .calculator-breadcrumb,
+body.dark-mode .calculator-breadcrumb a,
+body.dark-mode .calculator-breadcrumb span,
+body.dark-mode .calculator-link-group h2 {
+    color: #c8f3ff;
+}
+
+body.dark-mode .calculator-mini-button,
+body.dark-mode .calculator-chip {
+    background: linear-gradient(180deg, #13324b 0%, #0b2438 100%);
+    color: #e8f8ff;
+    box-shadow:
+        0 4px 0 rgba(97, 210, 255, 0.18),
+        0 9px 16px rgba(0, 0, 0, 0.18);
+}
+
 body.dark-mode .calculator-filter span,
 body.dark-mode .calculator-count {
     color: #c8f3ff;
@@ -2099,6 +2294,12 @@ body.dark-mode .calculator-faq details {
 
     .calculator-container {
         padding-top: 4px;
+        gap: 14px;
+    }
+
+    .calculator-breadcrumb,
+    .calculator-link-panel {
+        width: 100%;
     }
 }
 
@@ -2233,6 +2434,28 @@ body.dark-mode .calculator-faq details {
         line-height: 1.45;
     }
 
+    .calculator-link-panel {
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .calculator-share-actions,
+    .calculator-chip-list {
+        align-items: stretch;
+    }
+
+    .calculator-mini-button,
+    .calculator-chip {
+        min-height: 40px;
+        padding: 10px 12px;
+    }
+
+    .calculator-chip {
+        flex: 1 1 150px;
+        justify-content: center;
+        text-align: center;
+    }
+
     .buttons {
         gap: 13px 12px;
     }
@@ -2342,6 +2565,7 @@ body.dark-mode .calculator-faq details {
     #breakEvenCalculator .buttons,
     #roiCalculator .buttons,
     #simpleInterestCalculator .buttons,
+    #dynamicToolCalculator .buttons,
     #volumeCalculator .buttons,
     #areaCalculator .buttons {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -2370,6 +2594,10 @@ body.dark-mode .calculator-faq details {
     #roiCalculator .buttons button,
     #simpleInterestCalculator .buttons input,
     #simpleInterestCalculator .buttons button,
+    #dynamicToolCalculator .buttons input,
+    #dynamicToolCalculator .buttons select,
+    #dynamicToolCalculator .buttons textarea,
+    #dynamicToolCalculator .buttons button,
     #volumeCalculator .buttons input,
     #volumeCalculator .buttons select,
     #volumeCalculator .buttons button,

@@ -3,34 +3,939 @@ let memory = 0;
 let activeDisplay = 'basic';
 let display, displayScientific;
 let appInitialized = false;
+let lastRenderedCalculatorListKey = '';
+let lastTrackedPath = '';
+let latestShareStatusTimer;
+const HOME_TITLE = 'Free Online Calculators & Tools | OnlineCalMaster';
+const HOME_DESCRIPTION = 'Use OnlineCalMaster for fast, free, and mobile-friendly online calculators including finance, business, education, health, date, time, and developer tools.';
+const SITE_ORIGIN = 'https://onlinecalmaster.com';
+const SOCIAL_IMAGE_URL = `${SITE_ORIGIN}/Logo.png`;
+const GA_MEASUREMENT_ID = 'G-2F25VNZYGT';
+const CATEGORY_ANCHORS = {
+    'Finance': 'finance-calculators',
+    'Business': 'business-calculators',
+    'Education': 'education-calculators',
+    'Health': 'health-calculators',
+    'Daily Tools': 'daily-tools',
+    'Date & Time': 'date-time-calculators',
+    'Unit Conversion': 'unit-conversion-calculators',
+    'Developer Tools': 'developer-tools'
+};
+const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
+const RELATED_OVERRIDES = {
+    loanEmi: ['mortgage', 'roi', 'compoundInterest', 'simpleInterest'],
+    mortgage: ['loanEmi', 'roi', 'compoundInterest', 'savings'],
+    bmi: ['bmr', 'calorie', 'waterIntake'],
+    passwordGenerator: ['uuidGenerator', 'jsonFormatter'],
+    jsonFormatter: ['passwordGenerator', 'uuidGenerator'],
+    countdown: ['timeZoneDifference', 'date', 'time']
+};
 
 const calculatorData = [
-    { name: 'Basic Calculator', category: 'Education', target: 'basic', elementId: 'basicCalculator' },
-    { name: 'Scientific Calculator', category: 'Education', target: 'scientific', elementId: 'scientificCalculator' },
-    { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', elementId: 'unitConverter', heightClass: 'tall' },
-    { name: 'Age Calculator', category: 'Date & Time', target: 'age', elementId: 'ageCalculator', heightClass: 'extra-tall' },
-    { name: 'Date Diff', category: 'Date & Time', target: 'date', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall' },
-    { name: 'Time Diff', category: 'Date & Time', target: 'time', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall' },
-    { name: 'Percentage', category: 'Finance', target: 'percentage', elementId: 'percentageCalculator', title: 'Percentage Calculator' },
-    { name: 'Percentage Change', category: 'Business', target: 'percentageChange', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall' },
-    { name: 'Tip', category: 'Business', target: 'tip', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall' },
-    { name: 'VAT', category: 'Business', target: 'vat', elementId: 'vatCalculator', title: 'VAT / Discount Calculator', heightClass: 'extra-tall' },
-    { name: 'Loan EMI', category: 'Finance', target: 'loanEmi', elementId: 'loanEmiCalculator', title: 'Loan EMI Calculator', heightClass: 'extra-tall' },
-    { name: 'Mortgage', category: 'Finance', target: 'mortgage', elementId: 'mortgageCalculator', title: 'Mortgage Calculator', heightClass: 'extra-tall' },
-    { name: 'Compound Interest', category: 'Finance', target: 'compoundInterest', elementId: 'compoundInterestCalculator', title: 'Compound Interest Calculator', heightClass: 'extra-tall' },
-    { name: 'BMI', category: 'Health', target: 'bmi', elementId: 'bmiCalculator', title: 'BMI Calculator', heightClass: 'extra-tall' },
-    { name: 'Discount', category: 'Business', target: 'discount', elementId: 'discountCalculator', title: 'Discount Calculator', heightClass: 'extra-tall' },
-    { name: 'Fuel Cost', category: 'Finance', target: 'fuelCost', elementId: 'fuelCostCalculator', title: 'Fuel Cost Calculator', heightClass: 'extra-tall' },
-    { name: 'Profit Margin', category: 'Business', target: 'profitMargin', elementId: 'profitMarginCalculator', title: 'Profit Margin Calculator', heightClass: 'extra-tall' },
-    { name: 'Break-Even', category: 'Business', target: 'breakEven', elementId: 'breakEvenCalculator', title: 'Break-Even Calculator', heightClass: 'extra-tall' },
-    { name: 'ROI', category: 'Finance', target: 'roi', elementId: 'roiCalculator', title: 'ROI Calculator', heightClass: 'extra-tall' },
-    { name: 'Simple Interest', category: 'Finance', target: 'simpleInterest', elementId: 'simpleInterestCalculator', title: 'Simple Interest Calculator', heightClass: 'extra-tall' },
-    { name: 'Volume', category: 'Education', target: 'volume', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall' },
-    { name: 'Area', category: 'Education', target: 'area', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall' }
+    { name: 'Basic Calculator', category: 'Education', target: 'basic', slug: 'basic-calculator', elementId: 'basicCalculator', metaDescription: 'Use the free Basic Calculator by OnlineCalMaster for quick addition, subtraction, multiplication, division, memory, and square root calculations.' },
+    { name: 'Scientific Calculator', category: 'Education', target: 'scientific', slug: 'scientific-calculator', elementId: 'scientificCalculator', metaDescription: 'Use the free Scientific Calculator by OnlineCalMaster for trigonometry, logarithms, powers, constants, and advanced math calculations.' },
+    { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', slug: 'unit-converter', elementId: 'unitConverter', heightClass: 'tall', metaDescription: 'Convert common measurement units instantly with the free Unit Converter by OnlineCalMaster.' },
+    { name: 'Age Calculator', category: 'Date & Time', target: 'age', slug: 'age-calculator', elementId: 'ageCalculator', heightClass: 'extra-tall', metaDescription: 'Calculate age in years, months, and days using the free Age Calculator by OnlineCalMaster.' },
+    { name: 'Date Diff', category: 'Date & Time', target: 'date', slug: 'date-difference-calculator', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall', metaDescription: 'Find the exact difference between two dates using the free Date Difference Calculator by OnlineCalMaster.' },
+    { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate hours and minutes between two times using the free Time Difference Calculator by OnlineCalMaster.' },
+    { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
+    { name: 'Percentage Change', category: 'Business', target: 'percentageChange', slug: 'percentage-change-calculator', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate percentage increase or decrease between two values with the free Percentage Change Calculator by OnlineCalMaster.' },
+    { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate tips and total bill amounts instantly using the free Tip Calculator by OnlineCalMaster.' },
+    { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT / Discount Calculator', heightClass: 'extra-tall', metaDescription: 'Add or remove VAT from prices instantly using the free VAT Calculator by OnlineCalMaster.' },
+    { name: 'Loan EMI', category: 'Finance', target: 'loanEmi', slug: 'loan-emi-calculator', elementId: 'loanEmiCalculator', title: 'Loan EMI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate monthly EMI payments instantly using the free Loan EMI Calculator by OnlineCalMaster.' },
+    { name: 'Mortgage', category: 'Finance', target: 'mortgage', slug: 'mortgage-calculator', elementId: 'mortgageCalculator', title: 'Mortgage Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate monthly mortgage payments and total interest using the free Mortgage Calculator by OnlineCalMaster.' },
+    { name: 'Compound Interest', category: 'Finance', target: 'compoundInterest', slug: 'compound-interest-calculator', elementId: 'compoundInterestCalculator', title: 'Compound Interest Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate compound growth, total amount, and interest earned using the free Compound Interest Calculator by OnlineCalMaster.' },
+    { name: 'BMI', category: 'Health', target: 'bmi', slug: 'bmi-calculator', elementId: 'bmiCalculator', title: 'BMI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate body mass index and BMI category using the free BMI Calculator by OnlineCalMaster.' },
+    { name: 'Discount', category: 'Finance', target: 'discount', slug: 'discount-calculator', elementId: 'discountCalculator', title: 'Discount Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate sale discounts, tax, final price, and savings using the free Discount Calculator by OnlineCalMaster.' },
+    { name: 'Savings', category: 'Finance', target: 'savings', slug: 'savings-calculator', elementId: 'dynamicToolCalculator', title: 'Savings Calculator', heightClass: 'extra-tall', dynamicTool: 'savings', metaDescription: 'Estimate future savings from deposits, interest rate, and time using the free Savings Calculator by OnlineCalMaster.' },
+    { name: 'Salary', category: 'Finance', target: 'salary', slug: 'salary-calculator', elementId: 'dynamicToolCalculator', title: 'Salary Calculator', heightClass: 'extra-tall', dynamicTool: 'salary', metaDescription: 'Convert salary amounts between hourly, monthly, and yearly pay using the free Salary Calculator by OnlineCalMaster.' },
+    { name: 'Sales Tax', category: 'Finance', target: 'salesTax', slug: 'sales-tax-calculator', elementId: 'dynamicToolCalculator', title: 'Sales Tax Calculator', heightClass: 'extra-tall', dynamicTool: 'salesTax', metaDescription: 'Calculate sales tax amount and final price using the free Sales Tax Calculator by OnlineCalMaster.' },
+    { name: 'Fuel Cost', category: 'Finance', target: 'fuelCost', slug: 'fuel-cost-calculator', elementId: 'fuelCostCalculator', title: 'Fuel Cost Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate trip fuel usage and total fuel cost using the free Fuel Cost Calculator by OnlineCalMaster.' },
+    { name: 'Profit Margin', category: 'Business', target: 'profitMargin', slug: 'profit-margin-calculator', elementId: 'profitMarginCalculator', title: 'Profit Margin Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate profit amount, profit margin, and markup using the free Profit Margin Calculator by OnlineCalMaster.' },
+    { name: 'Break-Even', category: 'Business', target: 'breakEven', slug: 'break-even-calculator', elementId: 'breakEvenCalculator', title: 'Break-Even Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate break-even units and sales value using the free Break-Even Calculator by OnlineCalMaster.' },
+    { name: 'ROI', category: 'Finance', target: 'roi', slug: 'roi-calculator', elementId: 'roiCalculator', title: 'ROI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate net profit and return on investment percentage using the free ROI Calculator by OnlineCalMaster.' },
+    { name: 'Simple Interest', category: 'Finance', target: 'simpleInterest', slug: 'simple-interest-calculator', elementId: 'simpleInterestCalculator', title: 'Simple Interest Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate simple interest and total amount using the free Simple Interest Calculator by OnlineCalMaster.' },
+    { name: 'BMR', category: 'Health', target: 'bmr', slug: 'bmr-calculator', elementId: 'dynamicToolCalculator', title: 'BMR Calculator', heightClass: 'extra-tall', dynamicTool: 'bmr', metaDescription: 'Estimate basal metabolic rate using age, gender, height, and weight with the free BMR Calculator by OnlineCalMaster.' },
+    { name: 'Daily Water Intake', category: 'Health', target: 'waterIntake', slug: 'daily-water-intake-calculator', elementId: 'dynamicToolCalculator', title: 'Daily Water Intake Calculator', heightClass: 'extra-tall', dynamicTool: 'waterIntake', metaDescription: 'Estimate daily water intake based on body weight and activity using the free Daily Water Intake Calculator by OnlineCalMaster.' },
+    { name: 'Calorie', category: 'Health', target: 'calorie', slug: 'calorie-calculator', elementId: 'dynamicToolCalculator', title: 'Calorie Calculator', heightClass: 'extra-tall', dynamicTool: 'calorie', metaDescription: 'Estimate daily calorie needs from BMR and activity level using the free Calorie Calculator by OnlineCalMaster.' },
+    { name: 'GPA', category: 'Education', target: 'gpa', slug: 'gpa-calculator', elementId: 'dynamicToolCalculator', title: 'GPA Calculator', heightClass: 'extra-tall', dynamicTool: 'gpa', metaDescription: 'Calculate GPA from course grades and credits using the free GPA Calculator by OnlineCalMaster.' },
+    { name: 'Percentage Grade', category: 'Education', target: 'percentageGrade', slug: 'percentage-grade-calculator', elementId: 'dynamicToolCalculator', title: 'Percentage Grade Calculator', heightClass: 'extra-tall', dynamicTool: 'percentageGrade', metaDescription: 'Convert marks to percentage grade using the free Percentage Grade Calculator by OnlineCalMaster.' },
+    { name: 'Countdown', category: 'Daily Tools', target: 'countdown', slug: 'countdown-calculator', elementId: 'dynamicToolCalculator', title: 'Countdown Calculator', heightClass: 'extra-tall', dynamicTool: 'countdown', metaDescription: 'Calculate days and time remaining until a date using the free Countdown Calculator by OnlineCalMaster.' },
+    { name: 'Time Zone Difference', category: 'Daily Tools', target: 'timeZoneDifference', slug: 'time-zone-difference-calculator', elementId: 'dynamicToolCalculator', title: 'Time Zone Difference Calculator', heightClass: 'extra-tall', dynamicTool: 'timeZoneDifference', metaDescription: 'Find the time difference between two UTC offsets using the free Time Zone Difference Calculator by OnlineCalMaster.' },
+    { name: 'Password Generator', category: 'Developer Tools', target: 'passwordGenerator', slug: 'password-generator', elementId: 'dynamicToolCalculator', title: 'Password Generator', heightClass: 'extra-tall', dynamicTool: 'passwordGenerator', metaDescription: 'Generate strong passwords with length and character options using the free Password Generator by OnlineCalMaster.' },
+    { name: 'UUID Generator', category: 'Developer Tools', target: 'uuidGenerator', slug: 'uuid-generator', elementId: 'dynamicToolCalculator', title: 'UUID Generator', heightClass: 'extra-tall', dynamicTool: 'uuidGenerator', metaDescription: 'Generate UUID v4 identifiers instantly using the free UUID Generator by OnlineCalMaster.' },
+    { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format, prettify, and validate JSON using the free JSON Formatter by OnlineCalMaster.' },
+    { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate volume for common 3D shapes using the free Volume Calculator by OnlineCalMaster.' },
+    { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate area for common 2D shapes using the free Area Calculator by OnlineCalMaster.' }
 ];
 
 function getCalculatorByTarget(type) {
     return calculatorData.find(calculator => calculator.target === type);
+}
+
+const dynamicToolDefinitions = {
+    savings: {
+        description: 'Project future savings from current balance, monthly deposits, annual interest, and time.',
+        fields: [
+            { id: 'currentBalance', label: 'Current Savings', type: 'number', placeholder: 'Current amount', min: 0, step: '0.01' },
+            { id: 'monthlyDeposit', label: 'Monthly Deposit', type: 'number', placeholder: 'Monthly deposit', min: 0, step: '0.01' },
+            { id: 'annualRate', label: 'Annual Interest Rate (%)', type: 'number', placeholder: 'Interest rate', min: 0, step: '0.01' },
+            { id: 'years', label: 'Time Period (Years)', type: 'number', placeholder: 'Years', min: 0, step: '0.01' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Savings Calculator estimates how your savings can grow over time with regular monthly deposits and interest.',
+            how: 'Enter your current savings, planned monthly deposit, annual interest rate, and savings period.',
+            formula: 'Future value is calculated by compounding the starting balance monthly and adding each monthly deposit.',
+            example: 'Rs. 100,000 saved now plus Rs. 10,000 per month for 5 years at 6 percent grows to an estimated future balance.',
+            faqs: [
+                ['Does this compound monthly?', 'Yes. The estimate uses monthly compounding.'],
+                ['Can monthly deposit be zero?', 'Yes. Enter 0 if you only want to grow the starting balance.'],
+                ['Is this guaranteed?', 'No. It is an estimate based on the rate you enter.']
+            ]
+        },
+        calculate(values) {
+            const current = readPositiveOrZero(values.currentBalance, 'Current savings cannot be negative.');
+            const deposit = readPositiveOrZero(values.monthlyDeposit, 'Monthly deposit cannot be negative.');
+            const rate = readPositiveOrZero(values.annualRate, 'Interest rate cannot be negative.');
+            const years = readGreaterThanZero(values.years, 'Time period must be greater than 0.');
+            const months = Math.round(years * 12);
+            const monthlyRate = rate / 12 / 100;
+            let balance = current;
+            for (let month = 0; month < months; month += 1) {
+                balance = balance * (1 + monthlyRate) + deposit;
+            }
+            const totalDeposits = current + deposit * months;
+            return dynamicResult(formatLoanCurrency(balance), [
+                ['Future Savings', formatLoanCurrency(balance), true],
+                ['Total Deposits', formatLoanCurrency(totalDeposits)],
+                ['Interest Earned', formatLoanCurrency(balance - totalDeposits)],
+                ['Time Period', `${formatNumber(years)} years`]
+            ]);
+        }
+    },
+    salary: {
+        description: 'Convert hourly, monthly, and yearly pay with simple work schedule assumptions.',
+        fields: [
+            { id: 'payAmount', label: 'Pay Amount', type: 'number', placeholder: 'Amount', min: 0, step: '0.01' },
+            { id: 'payType', label: 'Pay Type', type: 'select', options: [['hourly', 'Hourly'], ['monthly', 'Monthly'], ['yearly', 'Yearly']] },
+            { id: 'hoursPerWeek', label: 'Hours Per Week', type: 'number', placeholder: '40', min: 0, step: '0.01', value: '40' },
+            { id: 'weeksPerYear', label: 'Weeks Per Year', type: 'number', placeholder: '52', min: 0, step: '0.01', value: '52' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Salary Calculator converts pay between hourly, monthly, and yearly values.',
+            how: 'Enter the pay amount, pay type, weekly hours, and working weeks per year.',
+            formula: 'Yearly pay = Hourly rate x Hours per week x Weeks per year. Monthly pay = Yearly pay / 12.',
+            example: 'Rs. 1,000 per hour at 40 hours per week and 52 weeks equals Rs. 2,080,000 per year.',
+            faqs: [
+                ['Does this include tax?', 'No. It is a gross salary conversion only.'],
+                ['Can I change work hours?', 'Yes. Adjust hours per week and weeks per year.'],
+                ['Is monthly salary exact?', 'It uses yearly salary divided by 12.']
+            ]
+        },
+        calculate(values) {
+            const amount = readGreaterThanZero(values.payAmount, 'Pay amount must be greater than 0.');
+            const hours = readGreaterThanZero(values.hoursPerWeek, 'Hours per week must be greater than 0.');
+            const weeks = readGreaterThanZero(values.weeksPerYear, 'Weeks per year must be greater than 0.');
+            let yearly;
+            if (values.payType === 'hourly') yearly = amount * hours * weeks;
+            if (values.payType === 'monthly') yearly = amount * 12;
+            if (values.payType === 'yearly') yearly = amount;
+            const monthly = yearly / 12;
+            const hourly = yearly / weeks / hours;
+            return dynamicResult(formatLoanCurrency(yearly), [
+                ['Yearly Salary', formatLoanCurrency(yearly), true],
+                ['Monthly Salary', formatLoanCurrency(monthly)],
+                ['Hourly Rate', formatLoanCurrency(hourly)],
+                ['Work Schedule', `${formatNumber(hours)} hrs/week, ${formatNumber(weeks)} weeks/year`]
+            ]);
+        }
+    },
+    salesTax: {
+        description: 'Calculate sales tax amount and final price from a pre-tax price and tax rate.',
+        fields: [
+            { id: 'price', label: 'Price Before Tax', type: 'number', placeholder: 'Price', min: 0, step: '0.01' },
+            { id: 'taxRate', label: 'Sales Tax Rate (%)', type: 'number', placeholder: 'Tax rate', min: 0, step: '0.01' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Sales Tax Calculator finds the tax amount and total price after tax.',
+            how: 'Enter the item price before tax and the sales tax percentage.',
+            formula: 'Sales tax = Price x Tax rate / 100. Total price = Price + Sales tax.',
+            example: 'A Rs. 10,000 item with 8 percent tax has Rs. 800 tax and Rs. 10,800 total price.',
+            faqs: [
+                ['Is this the same as VAT?', 'It works for any percentage-based sales tax.'],
+                ['Can tax rate be zero?', 'Yes. A zero tax rate returns the original price.'],
+                ['Does it handle multiple items?', 'Enter the combined pre-tax total.']
+            ]
+        },
+        calculate(values) {
+            const price = readGreaterThanZero(values.price, 'Price must be greater than 0.');
+            const rate = readPositiveOrZero(values.taxRate, 'Tax rate cannot be negative.');
+            const tax = price * rate / 100;
+            return dynamicResult(formatLoanCurrency(price + tax), [
+                ['Final Price', formatLoanCurrency(price + tax), true],
+                ['Sales Tax', formatLoanCurrency(tax)],
+                ['Price Before Tax', formatLoanCurrency(price)],
+                ['Tax Rate', `${formatNumber(rate)}%`]
+            ]);
+        }
+    },
+    bmr: {
+        description: 'Estimate basal metabolic rate using the Mifflin-St Jeor equation.',
+        fields: [
+            { id: 'gender', label: 'Gender', type: 'select', options: [['male', 'Male'], ['female', 'Female']] },
+            { id: 'weight', label: 'Weight (kg)', type: 'number', placeholder: 'Weight', min: 0, step: '0.01' },
+            { id: 'height', label: 'Height (cm)', type: 'number', placeholder: 'Height', min: 0, step: '0.01' },
+            { id: 'age', label: 'Age', type: 'number', placeholder: 'Age', min: 0, step: '1' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The BMR Calculator estimates calories your body uses at rest.',
+            how: 'Enter gender, weight, height, and age.',
+            formula: 'Mifflin-St Jeor: Men = 10W + 6.25H - 5A + 5. Women = 10W + 6.25H - 5A - 161.',
+            example: 'A 30-year-old male, 70 kg and 175 cm, has an estimated BMR near 1,649 calories/day.',
+            faqs: [
+                ['Is BMR the same as daily calories?', 'No. BMR is resting energy only. Activity increases daily needs.'],
+                ['Which units are used?', 'Weight in kilograms and height in centimeters.'],
+                ['Is this medical advice?', 'No. It is an estimate for general planning.']
+            ]
+        },
+        calculate(values) {
+            const weight = readGreaterThanZero(values.weight, 'Weight must be greater than 0.');
+            const height = readGreaterThanZero(values.height, 'Height must be greater than 0.');
+            const age = readGreaterThanZero(values.age, 'Age must be greater than 0.');
+            const bmr = 10 * weight + 6.25 * height - 5 * age + (values.gender === 'male' ? 5 : -161);
+            return dynamicResult(`${formatNumber(bmr, 0)} calories/day`, [
+                ['Estimated BMR', `${formatNumber(bmr, 0)} calories/day`, true],
+                ['Formula', 'Mifflin-St Jeor'],
+                ['Weight', `${formatNumber(weight)} kg`],
+                ['Height', `${formatNumber(height)} cm`]
+            ]);
+        }
+    },
+    waterIntake: {
+        description: 'Estimate daily water intake based on body weight and activity time.',
+        fields: [
+            { id: 'weight', label: 'Weight (kg)', type: 'number', placeholder: 'Weight', min: 0, step: '0.01' },
+            { id: 'activityMinutes', label: 'Activity Minutes', type: 'number', placeholder: 'Daily activity minutes', min: 0, step: '1' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Daily Water Intake Calculator estimates a practical daily hydration target.',
+            how: 'Enter your weight and average daily activity minutes.',
+            formula: 'Base water = Weight x 35 ml. Activity adds about 350 ml per 30 minutes.',
+            example: 'A 70 kg person with 30 minutes of activity needs about 2.8 liters per day.',
+            faqs: [
+                ['Is this exact?', 'No. Weather, diet, health, and activity affect water needs.'],
+                ['Can activity be zero?', 'Yes. Enter 0 for a base estimate.'],
+                ['Should I ask a doctor?', 'Yes, especially for medical conditions or fluid restrictions.']
+            ]
+        },
+        calculate(values) {
+            const weight = readGreaterThanZero(values.weight, 'Weight must be greater than 0.');
+            const activity = readPositiveOrZero(values.activityMinutes, 'Activity minutes cannot be negative.');
+            const liters = (weight * 35 + activity / 30 * 350) / 1000;
+            return dynamicResult(`${formatNumber(liters)} liters/day`, [
+                ['Daily Water Intake', `${formatNumber(liters)} liters/day`, true],
+                ['Base Intake', `${formatNumber(weight * 35 / 1000)} liters`],
+                ['Activity Add-on', `${formatNumber(activity / 30 * 0.35)} liters`],
+                ['Activity', `${formatNumber(activity, 0)} minutes`]
+            ]);
+        }
+    },
+    calorie: {
+        description: 'Estimate daily calorie needs from BMR and activity level.',
+        fields: [
+            { id: 'gender', label: 'Gender', type: 'select', options: [['male', 'Male'], ['female', 'Female']] },
+            { id: 'weight', label: 'Weight (kg)', type: 'number', placeholder: 'Weight', min: 0, step: '0.01' },
+            { id: 'height', label: 'Height (cm)', type: 'number', placeholder: 'Height', min: 0, step: '0.01' },
+            { id: 'age', label: 'Age', type: 'number', placeholder: 'Age', min: 0, step: '1' },
+            { id: 'activity', label: 'Activity Level', type: 'select', options: [['1.2', 'Sedentary'], ['1.375', 'Light'], ['1.55', 'Moderate'], ['1.725', 'Active'], ['1.9', 'Very Active']] }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Calorie Calculator estimates calories needed to maintain current weight.',
+            how: 'Enter body details and select the activity level that best matches your routine.',
+            formula: 'Daily calories = BMR x activity factor.',
+            example: 'If BMR is 1,650 and activity factor is 1.55, maintenance calories are about 2,558/day.',
+            faqs: [
+                ['Can this help with weight loss?', 'It gives a maintenance estimate; weight loss usually requires a calorie deficit.'],
+                ['Which BMR formula is used?', 'It uses the Mifflin-St Jeor equation.'],
+                ['Is it exact?', 'No. It is a planning estimate.']
+            ]
+        },
+        calculate(values) {
+            const weight = readGreaterThanZero(values.weight, 'Weight must be greater than 0.');
+            const height = readGreaterThanZero(values.height, 'Height must be greater than 0.');
+            const age = readGreaterThanZero(values.age, 'Age must be greater than 0.');
+            const factor = parseFloat(values.activity);
+            const bmr = 10 * weight + 6.25 * height - 5 * age + (values.gender === 'male' ? 5 : -161);
+            const calories = bmr * factor;
+            return dynamicResult(`${formatNumber(calories, 0)} calories/day`, [
+                ['Maintenance Calories', `${formatNumber(calories, 0)} calories/day`, true],
+                ['BMR', `${formatNumber(bmr, 0)} calories/day`],
+                ['Activity Factor', factor.toFixed(3)],
+                ['Weight', `${formatNumber(weight)} kg`]
+            ]);
+        }
+    },
+    gpa: {
+        description: 'Calculate GPA from up to five courses using grade points and credits.',
+        fields: [
+            { id: 'grade1', label: 'Course 1 Grade Point', type: 'number', placeholder: '0 - 4', min: 0, step: '0.01' },
+            { id: 'credits1', label: 'Course 1 Credits', type: 'number', placeholder: 'Credits', min: 0, step: '0.01' },
+            { id: 'grade2', label: 'Course 2 Grade Point', type: 'number', placeholder: '0 - 4', min: 0, step: '0.01' },
+            { id: 'credits2', label: 'Course 2 Credits', type: 'number', placeholder: 'Credits', min: 0, step: '0.01' },
+            { id: 'grade3', label: 'Course 3 Grade Point', type: 'number', placeholder: 'Optional', min: 0, step: '0.01' },
+            { id: 'credits3', label: 'Course 3 Credits', type: 'number', placeholder: 'Optional', min: 0, step: '0.01' },
+            { id: 'grade4', label: 'Course 4 Grade Point', type: 'number', placeholder: 'Optional', min: 0, step: '0.01' },
+            { id: 'credits4', label: 'Course 4 Credits', type: 'number', placeholder: 'Optional', min: 0, step: '0.01' },
+            { id: 'grade5', label: 'Course 5 Grade Point', type: 'number', placeholder: 'Optional', min: 0, step: '0.01' },
+            { id: 'credits5', label: 'Course 5 Credits', type: 'number', placeholder: 'Optional', min: 0, step: '0.01' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The GPA Calculator computes weighted GPA from course grade points and credits.',
+            how: 'Enter grade points and credits for each course. Leave unused rows blank.',
+            formula: 'GPA = Sum of grade point x credits / Sum of credits.',
+            example: 'Grades 4.0 and 3.0 with equal credits give a GPA of 3.5.',
+            faqs: [
+                ['Can I use a 5-point scale?', 'Yes, if all entered grade points use the same scale.'],
+                ['Are blank rows allowed?', 'Yes. Blank course rows are ignored.'],
+                ['Do credits matter?', 'Yes. Higher-credit courses affect GPA more.']
+            ]
+        },
+        calculate(values) {
+            let totalPoints = 0;
+            let totalCredits = 0;
+            for (let index = 1; index <= 5; index += 1) {
+                const gradeRaw = values[`grade${index}`];
+                const creditsRaw = values[`credits${index}`];
+                if (!gradeRaw && !creditsRaw) continue;
+                const grade = readPositiveOrZero(gradeRaw, `Course ${index} grade cannot be negative.`);
+                const credits = readGreaterThanZero(creditsRaw, `Course ${index} credits must be greater than 0.`);
+                totalPoints += grade * credits;
+                totalCredits += credits;
+            }
+            if (totalCredits <= 0) throw new Error('Enter at least one course with grade and credits.');
+            const gpa = totalPoints / totalCredits;
+            return dynamicResult(gpa.toFixed(2), [
+                ['GPA', gpa.toFixed(2), true],
+                ['Total Credits', formatNumber(totalCredits)],
+                ['Quality Points', formatNumber(totalPoints)]
+            ]);
+        }
+    },
+    percentageGrade: {
+        description: 'Convert scored marks and total marks into a percentage and grade label.',
+        fields: [
+            { id: 'marksScored', label: 'Marks Scored', type: 'number', placeholder: 'Scored marks', min: 0, step: '0.01' },
+            { id: 'totalMarks', label: 'Total Marks', type: 'number', placeholder: 'Total marks', min: 0, step: '0.01' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Percentage Grade Calculator converts marks into a percentage and grade band.',
+            how: 'Enter marks scored and total possible marks.',
+            formula: 'Percentage = Marks scored / Total marks x 100.',
+            example: '45 out of 50 equals 90 percent, commonly an A grade.',
+            faqs: [
+                ['Can marks include decimals?', 'Yes. Decimal marks are supported.'],
+                ['Can scored marks exceed total?', 'No. Scored marks should not be greater than total marks.'],
+                ['Are grades universal?', 'No. Grade bands can vary by school or exam board.']
+            ]
+        },
+        calculate(values) {
+            const scored = readPositiveOrZero(values.marksScored, 'Marks scored cannot be negative.');
+            const total = readGreaterThanZero(values.totalMarks, 'Total marks must be greater than 0.');
+            if (scored > total) throw new Error('Marks scored cannot be greater than total marks.');
+            const percentage = scored / total * 100;
+            const grade = percentage >= 90 ? 'A' : percentage >= 80 ? 'B' : percentage >= 70 ? 'C' : percentage >= 60 ? 'D' : 'F';
+            return dynamicResult(`${formatNumber(percentage)}%`, [
+                ['Percentage', `${formatNumber(percentage)}%`, true],
+                ['Grade', grade],
+                ['Marks Scored', formatNumber(scored)],
+                ['Total Marks', formatNumber(total)]
+            ]);
+        }
+    },
+    countdown: {
+        description: 'Calculate remaining days and time until a future date.',
+        fields: [
+            { id: 'targetDate', label: 'Target Date', type: 'date' },
+            { id: 'targetTime', label: 'Target Time', type: 'time' }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Countdown Calculator shows how much time remains until a selected date and time.',
+            how: 'Choose a target date and optional time, then calculate the remaining duration.',
+            formula: 'Countdown = Target date and time - Current date and time.',
+            example: 'If an event is 10 days away, the result shows the remaining days, hours, and minutes.',
+            faqs: [
+                ['Can I leave time blank?', 'Yes. It will use midnight at the start of the selected date.'],
+                ['Can I choose a past date?', 'No. Choose a future date for a countdown.'],
+                ['Does it use my local time?', 'Yes. It uses your browser local time.']
+            ]
+        },
+        calculate(values) {
+            if (!values.targetDate) throw new Error('Please choose a target date.');
+            const target = new Date(`${values.targetDate}T${values.targetTime || '00:00'}`);
+            const now = new Date();
+            const diff = target.getTime() - now.getTime();
+            if (!Number.isFinite(diff) || diff <= 0) throw new Error('Target date and time must be in the future.');
+            const totalMinutes = Math.floor(diff / 60000);
+            const days = Math.floor(totalMinutes / 1440);
+            const hours = Math.floor(totalMinutes % 1440 / 60);
+            const minutes = totalMinutes % 60;
+            return dynamicResult(`${days} days`, [
+                ['Time Remaining', `${days} days, ${hours} hours, ${minutes} minutes`, true],
+                ['Target', target.toLocaleString()],
+                ['Total Hours', formatNumber(diff / 3600000)],
+                ['Total Minutes', totalMinutes.toLocaleString('en-US')]
+            ]);
+        }
+    },
+    timeZoneDifference: {
+        description: 'Find the hour difference between two UTC time zone offsets.',
+        fields: [
+            { id: 'fromOffset', label: 'From UTC Offset', type: 'select', options: buildUtcOffsetOptions() },
+            { id: 'toOffset', label: 'To UTC Offset', type: 'select', options: buildUtcOffsetOptions() }
+        ],
+        primaryAction: 'Calculate',
+        help: {
+            what: 'The Time Zone Difference Calculator compares two UTC offsets.',
+            how: 'Select the starting UTC offset and the destination UTC offset.',
+            formula: 'Difference = To UTC offset - From UTC offset.',
+            example: 'UTC+05:30 to UTC+00:00 is 5 hours 30 minutes behind.',
+            faqs: [
+                ['Does this handle daylight saving?', 'No. It compares fixed UTC offsets only.'],
+                ['Can I compare half-hour zones?', 'Yes. Half-hour offsets are included.'],
+                ['Is this a meeting planner?', 'It shows offset difference, not calendar availability.']
+            ]
+        },
+        calculate(values) {
+            const from = parseFloat(values.fromOffset);
+            const to = parseFloat(values.toOffset);
+            const diff = to - from;
+            const abs = Math.abs(diff);
+            const hours = Math.floor(abs);
+            const minutes = Math.round((abs - hours) * 60);
+            const direction = diff === 0 ? 'same time' : diff > 0 ? 'ahead' : 'behind';
+            return dynamicResult(diff === 0 ? 'Same time' : `${hours}h ${minutes}m ${direction}`, [
+                ['Difference', diff === 0 ? 'Same time' : `${hours} hours ${minutes} minutes ${direction}`, true],
+                ['From Offset', formatUtcOffset(from)],
+                ['To Offset', formatUtcOffset(to)]
+            ]);
+        }
+    },
+    passwordGenerator: {
+        description: 'Generate strong passwords with configurable length and character sets.',
+        fields: [
+            { id: 'length', label: 'Password Length', type: 'number', placeholder: 'Length', min: 4, max: 64, step: '1', value: '16' },
+            { id: 'lowercase', label: 'Include Lowercase', type: 'checkbox', checked: true },
+            { id: 'uppercase', label: 'Include Uppercase', type: 'checkbox', checked: true },
+            { id: 'numbers', label: 'Include Numbers', type: 'checkbox', checked: true },
+            { id: 'symbols', label: 'Include Symbols', type: 'checkbox', checked: true }
+        ],
+        primaryAction: 'Generate',
+        copy: true,
+        help: {
+            what: 'The Password Generator creates random passwords from selected character groups.',
+            how: 'Choose length and character options, then generate and copy the result.',
+            formula: 'Passwords are built by randomly selecting characters from the enabled sets.',
+            example: 'A 16-character password with letters, numbers, and symbols is stronger than a short word password.',
+            faqs: [
+                ['What length is recommended?', 'At least 12 to 16 characters is a good general target.'],
+                ['Should I include symbols?', 'Symbols improve complexity when the website supports them.'],
+                ['Is the password stored?', 'No. It is generated in your browser only.']
+            ]
+        },
+        calculate(values) {
+            const length = readGreaterThanZero(values.length, 'Password length must be greater than 0.');
+            if (length < 4 || length > 64) throw new Error('Password length must be between 4 and 64.');
+            const sets = [];
+            if (values.lowercase) sets.push('abcdefghijklmnopqrstuvwxyz');
+            if (values.uppercase) sets.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            if (values.numbers) sets.push('0123456789');
+            if (values.symbols) sets.push('!@#$%^&*()-_=+[]{};:,.?');
+            if (!sets.length) throw new Error('Select at least one character option.');
+            const all = sets.join('');
+            let password = sets.map(set => set[randomIndex(set.length)]).join('');
+            while (password.length < length) password += all[randomIndex(all.length)];
+            password = shuffleString(password).slice(0, length);
+            return dynamicResult(password, [
+                ['Generated Password', password, true],
+                ['Length', length],
+                ['Character Sets', sets.length]
+            ], password);
+        }
+    },
+    uuidGenerator: {
+        description: 'Generate UUID v4 style identifiers for development and testing.',
+        fields: [],
+        primaryAction: 'Generate UUID',
+        copy: true,
+        help: {
+            what: 'The UUID Generator creates random UUID v4 style IDs.',
+            how: 'Click Generate UUID, then copy the generated identifier.',
+            formula: 'UUID v4 uses random hexadecimal values with version and variant bits.',
+            example: 'A UUID looks like 550e8400-e29b-41d4-a716-446655440000.',
+            faqs: [
+                ['What is UUID v4?', 'It is a randomly generated unique identifier format.'],
+                ['Can I generate many IDs?', 'Yes. Click Generate UUID again for a new value.'],
+                ['Is it for security tokens?', 'No. Use a security-specific token generator for sensitive secrets.']
+            ]
+        },
+        calculate() {
+            const uuid = generateUuidV4();
+            return dynamicResult(uuid, [['UUID v4', uuid, true]], uuid);
+        }
+    },
+    jsonFormatter: {
+        description: 'Format, prettify, and validate JSON text.',
+        fields: [
+            { id: 'jsonInput', label: 'JSON Input', type: 'textarea', placeholder: '{"name":"OnlineCalMaster"}' }
+        ],
+        primaryAction: 'Format JSON',
+        copy: true,
+        help: {
+            what: 'The JSON Formatter validates JSON and converts it into readable indented formatting.',
+            how: 'Paste JSON text, press Format JSON, and copy the formatted result.',
+            formula: 'The tool parses JSON, then serializes it with two-space indentation.',
+            example: '{"name":"OnlineCalMaster"} becomes a neatly formatted JSON object.',
+            faqs: [
+                ['Does it fix invalid JSON?', 'No. It reports invalid JSON so you can correct it.'],
+                ['Is my JSON uploaded?', 'No. Formatting happens in your browser.'],
+                ['Can I copy the result?', 'Yes. Use the Copy button after formatting.']
+            ]
+        },
+        calculate(values) {
+            if (!values.jsonInput.trim()) throw new Error('Please paste JSON before formatting.');
+            let parsed;
+            try {
+                parsed = JSON.parse(values.jsonInput);
+            } catch (error) {
+                throw new Error(`Invalid JSON: ${error.message}`);
+            }
+            const formatted = JSON.stringify(parsed, null, 2);
+            return dynamicResult('Valid JSON', [
+                ['Status', 'Valid JSON', true],
+                ['Characters', formatted.length.toLocaleString('en-US')]
+            ], formatted);
+        }
+    }
+};
+
+function readNumber(value, message) {
+    const number = parseFloat(value);
+    if (Number.isNaN(number)) throw new Error(message);
+    return number;
+}
+
+function readGreaterThanZero(value, message) {
+    const number = readNumber(value, message);
+    if (number <= 0) throw new Error(message);
+    return number;
+}
+
+function readPositiveOrZero(value, message) {
+    const number = readNumber(value === '' || value === undefined ? '0' : value, message);
+    if (number < 0) throw new Error(message);
+    return number;
+}
+
+function dynamicResult(display, rows, copyText = '') {
+    return { display, rows, copyText: copyText || rows.map(([label, value]) => `${label}: ${value}`).join('\n') };
+}
+
+function buildUtcOffsetOptions() {
+    const options = [];
+    for (let offset = -12; offset <= 14; offset += 0.5) {
+        options.push([String(offset), formatUtcOffset(offset)]);
+    }
+    return options;
+}
+
+function formatUtcOffset(offset) {
+    const sign = offset >= 0 ? '+' : '-';
+    const abs = Math.abs(offset);
+    const hours = String(Math.floor(abs)).padStart(2, '0');
+    const minutes = String(Math.round((abs % 1) * 60)).padStart(2, '0');
+    return `UTC${sign}${hours}:${minutes}`;
+}
+
+function randomIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+        const array = new Uint32Array(1);
+        window.crypto.getRandomValues(array);
+        return array[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+}
+
+function shuffleString(value) {
+    const chars = value.split('');
+    for (let index = chars.length - 1; index > 0; index -= 1) {
+        const swapIndex = randomIndex(index + 1);
+        [chars[index], chars[swapIndex]] = [chars[swapIndex], chars[index]];
+    }
+    return chars.join('');
+}
+
+function generateUuidV4() {
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, char => {
+        const random = randomIndex(16);
+        const value = char === 'x' ? random : (random & 0x3) | 0x8;
+        return value.toString(16);
+    });
+}
+
+function renderDynamicField(field) {
+    if (field.type === 'checkbox') {
+        return `<label class="field-group dynamic-check">
+            <input type="checkbox" id="dynamic-${field.id}" ${field.checked ? 'checked' : ''}>
+            <span>${field.label}</span>
+        </label>`;
+    }
+
+    if (field.type === 'select') {
+        return `<label class="field-group">
+            <span>${field.label}</span>
+            <select id="dynamic-${field.id}" class="unit-select">
+                ${field.options.map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}
+            </select>
+        </label>`;
+    }
+
+    if (field.type === 'textarea') {
+        return `<label class="field-group dynamic-wide">
+            <span>${field.label}</span>
+            <textarea id="dynamic-${field.id}" class="unit-input dynamic-textarea" placeholder="${field.placeholder || ''}">${field.value || ''}</textarea>
+        </label>`;
+    }
+
+    return `<label class="field-group">
+        <span>${field.label}</span>
+        <input type="${field.type || 'number'}" id="dynamic-${field.id}" class="unit-input" placeholder="${field.placeholder || ''}" ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} ${field.step ? `step="${field.step}"` : ''} value="${field.value || ''}">
+    </label>`;
+}
+
+function renderHelpContent(definition, calculator) {
+    return `
+        <h3>About the ${getCalculatorTitle(calculator)}</h3>
+        <p>${definition.help.what}</p>
+        <h4>How to use it</h4>
+        <p>${definition.help.how}</p>
+        <h4>Formula / Explanation</h4>
+        <p>${definition.help.formula}</p>
+        <h4>Example</h4>
+        <p>${definition.help.example}</p>
+        <div class="calculator-faq">
+            ${definition.help.faqs.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join('')}
+        </div>
+    `;
+}
+
+function renderDynamicTool(calculator) {
+    const definition = dynamicToolDefinitions[calculator.dynamicTool];
+    if (!definition) return;
+
+    document.getElementById('dynamicToolTitle').textContent = getCalculatorTitle(calculator);
+    document.getElementById('dynamicToolDescription').textContent = definition.description;
+    document.getElementById('dynamicToolDisplay').value = '';
+    document.getElementById('dynamicToolHelp').innerHTML = renderHelpContent(definition, calculator);
+    document.getElementById('dynamicToolForm').innerHTML = `
+        ${definition.fields.map(renderDynamicField).join('')}
+        <button class="button operator" onclick="calculateDynamicTool()">${definition.primaryAction || 'Calculate'}</button>
+        <button class="button operator" onclick="clearDynamicTool()">Clear</button>
+        ${definition.copy ? '<button class="button operator copy-button" onclick="copyDynamicToolResult()">Copy</button>' : ''}
+        <div class="finance-result dynamic-wide" id="dynamicToolResult" aria-live="polite">
+            <p class="finance-message" id="dynamicToolMessage">Enter values and calculate the result.</p>
+        </div>
+    `;
+}
+
+function getDynamicToolValues(definition) {
+    return definition.fields.reduce((values, field) => {
+        const input = document.getElementById(`dynamic-${field.id}`);
+        values[field.id] = field.type === 'checkbox' ? input.checked : input.value;
+        return values;
+    }, {});
+}
+
+function showDynamicMessage(message, isError = false) {
+    const display = document.getElementById('dynamicToolDisplay');
+    const result = document.getElementById('dynamicToolResult');
+    if (display) display.value = isError ? 'Check inputs' : '';
+    if (result) {
+        result.innerHTML = `<p class="finance-message${isError ? ' is-error' : ''}" id="dynamicToolMessage">${message}</p>`;
+    }
+    latestDynamicToolCopyText = '';
+}
+
+function renderDynamicResult(result) {
+    const display = document.getElementById('dynamicToolDisplay');
+    const resultBox = document.getElementById('dynamicToolResult');
+    if (display) display.value = result.display;
+    if (resultBox) {
+        resultBox.innerHTML = `<dl>
+            ${result.rows.map(([label, value, highlight]) => `<div class="${highlight ? 'highlight' : ''}"><dt>${label}</dt><dd>${value}</dd></div>`).join('')}
+        </dl>${result.copyText ? '<p class="finance-copy-status" id="dynamicToolCopyStatus"></p>' : ''}`;
+    }
+    latestDynamicToolCopyText = result.copyText || '';
+}
+
+let latestDynamicToolCopyText = '';
+
+function calculateDynamicTool() {
+    const calculator = getCalculatorByTarget(activeDisplay);
+    const definition = calculator ? dynamicToolDefinitions[calculator.dynamicTool] : null;
+    if (!definition) return;
+    try {
+        renderDynamicResult(definition.calculate(getDynamicToolValues(definition)));
+    } catch (error) {
+        showDynamicMessage(error.message || 'Please check your inputs and try again.', true);
+    }
+}
+
+function clearDynamicTool() {
+    const calculator = getCalculatorByTarget(activeDisplay);
+    if (calculator) renderDynamicTool(calculator);
+}
+
+function setDynamicCopyStatus(message, isError = false) {
+    const status = document.getElementById('dynamicToolCopyStatus');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', isError);
+}
+
+function copyDynamicToolResult() {
+    if (!latestDynamicToolCopyText) {
+        showDynamicMessage('Please generate or calculate a result before copying.', true);
+        return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(latestDynamicToolCopyText)
+            .then(() => setDynamicCopyStatus('Result copied to clipboard.'))
+            .catch(() => setDynamicCopyStatus('Copy failed. Please try again.', true));
+        return;
+    }
+    const textArea = document.createElement('textarea');
+    textArea.value = latestDynamicToolCopyText;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+    setDynamicCopyStatus('Result copied to clipboard.');
+}
+
+function getCalculatorBySlug(slug) {
+    return calculatorData.find(calculator => calculator.slug === slug);
+}
+
+function getCalculatorTitle(calculator) {
+    return calculator.title || calculator.name;
+}
+
+function getCleanSlugFromPath() {
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    if (!path || path === 'index.html') return '';
+    return path.split('/').pop();
+}
+
+function getSlugFromHash() {
+    return window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
+}
+
+function getInitialCalculatorFromUrl() {
+    const pathSlug = getCleanSlugFromPath();
+    if (pathSlug) return getCalculatorBySlug(pathSlug);
+
+    const hashSlug = getSlugFromHash();
+    if (hashSlug) {
+        return getCalculatorBySlug(hashSlug) || calculatorData.find(calculator => calculator.elementId === hashSlug);
+    }
+
+    return null;
+}
+
+function isUnknownCleanRoute() {
+    const pathSlug = getCleanSlugFromPath();
+    return Boolean(pathSlug && !getCalculatorBySlug(pathSlug));
+}
+
+function canUseCleanUrls() {
+    return window.location.protocol === 'http:' || window.location.protocol === 'https:';
+}
+
+function getCalculatorUrl(calculator) {
+    if (!calculator?.slug) return '/';
+    return canUseCleanUrls() ? `/${calculator.slug}` : `#${calculator.slug}`;
+}
+
+function getAbsoluteCalculatorUrl(calculator) {
+    return calculator?.slug ? `${SITE_ORIGIN}/${calculator.slug}` : `${SITE_ORIGIN}/`;
+}
+
+function getCanonicalUrl(calculator) {
+    return getAbsoluteCalculatorUrl(calculator);
+}
+
+function updateMetaContent(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.setAttribute('content', value);
+}
+
+function ensureMetaContent(attribute, key, value) {
+    let element = document.querySelector(`meta[${attribute}="${key}"]`);
+    if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(attribute, key);
+        document.head.appendChild(element);
+    }
+    element.setAttribute('content', value);
+}
+
+function setRobotsIndexing(shouldIndex = true) {
+    let robots = document.querySelector('meta[name="robots"]');
+    if (!robots) {
+        robots = document.createElement('meta');
+        robots.setAttribute('name', 'robots');
+        document.head.appendChild(robots);
+    }
+    robots.setAttribute('content', shouldIndex ? 'index,follow' : 'noindex,follow');
+}
+
+function updateCanonical(calculator) {
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+    }
+    canonical.href = getCanonicalUrl(calculator);
+}
+
+function updateBreadcrumbSchema(calculator) {
+    const schemaId = 'calculatorBreadcrumbSchema';
+    let schema = document.getElementById(schemaId);
+
+    if (!calculator) {
+        if (schema) schema.remove();
+        return;
+    }
+
+    if (!schema) {
+        schema = document.createElement('script');
+        schema.type = 'application/ld+json';
+        schema.id = schemaId;
+        document.head.appendChild(schema);
+    }
+
+    const title = getCalculatorTitle(calculator);
+    schema.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: `${SITE_ORIGIN}/`
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: calculator.category,
+                item: `${SITE_ORIGIN}/#${CATEGORY_ANCHORS[calculator.category] || 'calculator-categories'}`
+            },
+            {
+                '@type': 'ListItem',
+                position: 3,
+                name: title,
+                item: getCanonicalUrl(calculator)
+            }
+        ]
+    });
+}
+
+function updateSeoMeta(calculator) {
+    const calculatorTitle = calculator ? getCalculatorTitle(calculator) : '';
+    const title = calculatorTitle ? `${calculatorTitle} | OnlineCalMaster` : HOME_TITLE;
+    const description = calculator?.metaDescription || (calculatorTitle ? `Use the free ${calculatorTitle} by OnlineCalMaster for fast, accurate, mobile-friendly calculations.` : HOME_DESCRIPTION);
+    const canonicalUrl = getCanonicalUrl(calculator);
+
+    document.title = title;
+    setRobotsIndexing(true);
+    ensureMetaContent('name', 'description', description);
+    ensureMetaContent('property', 'og:title', title);
+    ensureMetaContent('property', 'og:description', description);
+    ensureMetaContent('property', 'og:url', canonicalUrl);
+    ensureMetaContent('property', 'og:image', SOCIAL_IMAGE_URL);
+    ensureMetaContent('property', 'og:type', 'website');
+    ensureMetaContent('property', 'og:site_name', 'OnlineCalMaster');
+    ensureMetaContent('name', 'twitter:card', 'summary');
+    ensureMetaContent('name', 'twitter:title', title);
+    ensureMetaContent('name', 'twitter:description', description);
+    ensureMetaContent('name', 'twitter:image', SOCIAL_IMAGE_URL);
+    updateCanonical(calculator);
+    updateBreadcrumbSchema(calculator);
+}
+
+function trackPageView(calculator) {
+    const path = calculator?.slug ? `/${calculator.slug}` : '/';
+    if (path === lastTrackedPath) return;
+    lastTrackedPath = path;
+
+    window.dataLayer = window.dataLayer || [];
+    if (typeof window.gtag !== 'function') {
+        window.gtag = function gtag() {
+            window.dataLayer.push(arguments);
+        };
+    }
+
+    window.gtag('config', GA_MEASUREMENT_ID, {
+        page_title: document.title,
+        page_location: getCanonicalUrl(calculator),
+        page_path: path,
+        send_page_view: true
+    });
+}
+
+function runSeoDiagnostics(calculator) {
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+    if (!isLocal) return;
+
+    const warnings = [];
+    const description = document.querySelector('meta[name="description"]')?.getAttribute('content');
+    const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
+    const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+    if (!description) warnings.push('Missing meta description.');
+    if (!canonical) warnings.push('Missing canonical URL.');
+    if (calculator?.slug && !slugPattern.test(calculator.slug)) warnings.push(`Invalid calculator slug: ${calculator.slug}`);
+    if (canonical && !canonical.startsWith(SITE_ORIGIN)) warnings.push(`Canonical does not use production origin: ${canonical}`);
+
+    if (warnings.length) {
+        console.warn('[OnlineCalMaster SEO diagnostics]', warnings.join(' '));
+    }
+}
+
+function updateBrowserUrl(calculator, replace = false) {
+    if (!window.history || !calculator) return;
+    const nextUrl = getCalculatorUrl(calculator);
+    const currentPath = `${window.location.pathname}${window.location.hash}`;
+    if (currentPath === nextUrl) return;
+
+    const state = { calculator: calculator.target };
+    if (replace) {
+        window.history.replaceState(state, '', nextUrl);
+    } else {
+        window.history.pushState(state, '', nextUrl);
+    }
 }
 
 function getFilteredCalculators() {
@@ -46,6 +951,170 @@ function getFilteredCalculators() {
     });
 }
 
+function createCalculatorLink(calculator, className = 'calculator-chip') {
+    const link = document.createElement('a');
+    link.className = className;
+    link.href = getCalculatorUrl(calculator);
+    link.textContent = getCalculatorTitle(calculator);
+    link.addEventListener('click', event => {
+        event.preventDefault();
+        showCalculator(calculator.target);
+        scrollCalculatorIntoView();
+    });
+    return link;
+}
+
+function getRelatedCalculators(calculator) {
+    if (!calculator) return [];
+    const overrideTargets = RELATED_OVERRIDES[calculator.target] || [];
+    const related = overrideTargets
+        .map(target => getCalculatorByTarget(target))
+        .filter(Boolean);
+
+    const sameCategory = calculatorData.filter(item =>
+        item.target !== calculator.target &&
+        item.category === calculator.category &&
+        !related.some(existing => existing.target === item.target)
+    );
+
+    const otherUseful = calculatorData.filter(item =>
+        item.target !== calculator.target &&
+        !related.some(existing => existing.target === item.target) &&
+        !sameCategory.some(existing => existing.target === item.target)
+    );
+
+    return [...related, ...sameCategory, ...otherUseful].slice(0, 5);
+}
+
+function getRecentCalculatorTargets() {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(RECENT_CALCULATORS_KEY) || '[]');
+        return Array.isArray(parsed) ? parsed.filter(target => getCalculatorByTarget(target)).slice(0, 5) : [];
+    } catch {
+        return [];
+    }
+}
+
+function rememberCalculator(target) {
+    const recent = [target, ...getRecentCalculatorTargets().filter(item => item !== target)].slice(0, 5);
+    localStorage.setItem(RECENT_CALCULATORS_KEY, JSON.stringify(recent));
+}
+
+function renderBreadcrumb(calculator) {
+    const breadcrumb = document.getElementById('calculatorBreadcrumb');
+    if (!breadcrumb || !calculator) return;
+    const home = document.createElement('a');
+    home.href = '/';
+    home.textContent = 'Home';
+    home.addEventListener('click', event => {
+        event.preventDefault();
+        showCalculator('basic');
+    });
+
+    const category = document.createElement('a');
+    category.href = `/#${CATEGORY_ANCHORS[calculator.category] || 'calculator-categories'}`;
+    category.textContent = calculator.category;
+
+    const current = document.createElement('span');
+    current.textContent = getCalculatorTitle(calculator);
+    current.setAttribute('aria-current', 'page');
+
+    breadcrumb.replaceChildren(home, category, current);
+}
+
+function renderRelatedCalculators(calculator) {
+    const relatedElement = document.getElementById('relatedCalculators');
+    if (!relatedElement) return;
+    const related = getRelatedCalculators(calculator);
+    relatedElement.replaceChildren(...related.map(item => createCalculatorLink(item)));
+}
+
+function renderRecentCalculators(activeTarget) {
+    const recentElement = document.getElementById('recentCalculators');
+    if (!recentElement) return;
+    const recent = getRecentCalculatorTargets()
+        .filter(target => target !== activeTarget)
+        .map(target => getCalculatorByTarget(target))
+        .filter(Boolean)
+        .slice(0, 5);
+
+    if (!recent.length) {
+        const empty = document.createElement('span');
+        empty.className = 'calculator-chip is-muted';
+        empty.textContent = 'No recent calculators yet';
+        recentElement.replaceChildren(empty);
+        return;
+    }
+
+    recentElement.replaceChildren(...recent.map(item => createCalculatorLink(item)));
+}
+
+function renderCalculatorNavigation(calculator) {
+    renderBreadcrumb(calculator);
+    renderRelatedCalculators(calculator);
+    renderRecentCalculators(calculator.target);
+}
+
+function scrollCalculatorIntoView() {
+    const container = document.querySelector('.calculator-container');
+    if (container && window.matchMedia && window.matchMedia('(max-width: 900px)').matches) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function setShareStatus(message, isError = false) {
+    const status = document.getElementById('calculatorShareStatus');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', isError);
+    clearTimeout(latestShareStatusTimer);
+    latestShareStatusTimer = setTimeout(() => {
+        status.textContent = '';
+        status.classList.remove('is-error');
+    }, 3500);
+}
+
+function getCurrentCalculatorShareUrl() {
+    return getAbsoluteCalculatorUrl(getCalculatorByTarget(activeDisplay));
+}
+
+function copyTextToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+    }
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+    return Promise.resolve();
+}
+
+function copyCurrentCalculatorUrl() {
+    copyTextToClipboard(getCurrentCalculatorShareUrl())
+        .then(() => setShareStatus('Calculator URL copied.'))
+        .catch(() => setShareStatus('Copy failed. Please try again.', true));
+}
+
+function shareCurrentCalculatorUrl() {
+    const calculator = getCalculatorByTarget(activeDisplay);
+    const shareData = {
+        title: calculator ? `${getCalculatorTitle(calculator)} | OnlineCalMaster` : HOME_TITLE,
+        text: calculator?.metaDescription || HOME_DESCRIPTION,
+        url: getCurrentCalculatorShareUrl()
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => setShareStatus('Share dialog opened.'))
+            .catch(() => copyCurrentCalculatorUrl());
+        return;
+    }
+
+    copyCurrentCalculatorUrl();
+}
+
 function updateCalculatorCount(count) {
     const countElement = document.getElementById('calculatorCount');
     if (!countElement) return;
@@ -57,6 +1126,14 @@ function renderCalculatorList() {
     if (!listElement) return;
 
     const filteredCalculators = getFilteredCalculators();
+    const searchInput = document.getElementById('calculatorSearch');
+    const categorySelect = document.getElementById('calculatorCategory');
+    const renderKey = `${searchInput?.value || ''}|${categorySelect?.value || ''}|${activeDisplay}`;
+    if (renderKey === lastRenderedCalculatorListKey) {
+        updateCalculatorCount(filteredCalculators.length);
+        return;
+    }
+    lastRenderedCalculatorListKey = renderKey;
     updateCalculatorCount(filteredCalculators.length);
     listElement.innerHTML = '';
 
@@ -95,7 +1172,18 @@ function initializeApp() {
     displayScientific = document.getElementById('displayScientific');
 
     initializeCalculatorPanel();
-    showCalculator('basic');
+    const initialCalculator = getInitialCalculatorFromUrl();
+    if (initialCalculator) {
+        showCalculator(initialCalculator.target, { replace: true });
+    } else {
+        showCalculator('basic', { updateUrl: false, updateMeta: false });
+        updateSeoMeta(null);
+        if (isUnknownCleanRoute()) setRobotsIndexing(false);
+        trackPageView(null);
+        if (getCleanSlugFromPath() && window.history) {
+            window.history.replaceState({}, '', canUseCleanUrls() ? '/' : window.location.pathname);
+        }
+    }
     if (document.getElementById('unitCategory')) updateUnits();
 
     // Apply saved theme
@@ -138,17 +1226,24 @@ function applySavedTheme() {
 // ======================= //
 
 // Show selected calculator and hide others
-function showCalculator(type) {
+function showCalculator(type, options = {}) {
     document.querySelectorAll('.calculator').forEach(calculator => {
         calculator.style.display = 'none';
         calculator.classList.remove('tall', 'extra-tall');
     });
 
     const calculator = getCalculatorByTarget(type);
-    if (!calculator) return;
+    if (!calculator) {
+        showCalculator('basic', { replace: true });
+        return;
+    }
 
     const selectedCalculator = document.getElementById(calculator.elementId);
     if (!selectedCalculator) return;
+
+    if (calculator.dynamicTool) {
+        renderDynamicTool(calculator);
+    }
 
     selectedCalculator.style.display = 'block';
 
@@ -162,8 +1257,30 @@ function showCalculator(type) {
     }
 
     activeDisplay = type;
+    rememberCalculator(type);
+    if (options.updateMeta !== false) {
+        updateSeoMeta(calculator);
+    }
+    if (options.updateUrl !== false) {
+        updateBrowserUrl(calculator, options.replace === true);
+    }
+    trackPageView(calculator);
+    runSeoDiagnostics(calculator);
+    renderCalculatorNavigation(calculator);
     renderCalculatorList();
 }
+
+window.addEventListener('popstate', () => {
+    const calculator = getInitialCalculatorFromUrl();
+    if (calculator) {
+        showCalculator(calculator.target, { updateUrl: false });
+    } else {
+        showCalculator('basic', { updateUrl: false, updateMeta: false });
+        updateSeoMeta(null);
+        trackPageView(null);
+        runSeoDiagnostics(null);
+    }
+});
 
 // Get current input display
 function getCurrentDisplay() {
@@ -1897,33 +3014,6 @@ function updateDarkModeButtonText(isDark) {
     const toggleLink = document.getElementById('darkModeToggle');
     if (!toggleLink) return;
     toggleLink.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-}
-
-function showCalculator(type) {
-    document.querySelectorAll('.calculator').forEach(calculator => {
-        calculator.style.display = 'none';
-        calculator.classList.remove('tall', 'extra-tall');
-    });
-
-    const calculator = getCalculatorByTarget(type);
-    if (!calculator) return;
-
-    const selectedCalculator = document.getElementById(calculator.elementId);
-    if (!selectedCalculator) return;
-
-    selectedCalculator.style.display = 'block';
-
-    if (calculator.heightClass) {
-        selectedCalculator.classList.add(calculator.heightClass);
-    }
-
-    const titleElement = selectedCalculator.querySelector('.calculator-title');
-    if (titleElement) {
-        titleElement.textContent = calculator.title || calculator.name;
-    }
-
-    activeDisplay = type;
-    renderCalculatorList();
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -1,6 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preload" href="Logo.png" as="image">
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4953018177794421"
      crossorigin="anonymous"></script>
@@ -23,13 +27,26 @@
     <!-- Meta Description -->
     <meta name="description" content="Use OnlineCalMaster for fast, free, and mobile-friendly online calculators including finance, business, education, health, date, time, and developer tools."/>
     <meta name="keywords" content="free online calculators, calculator tools, finance calculators, business calculators, education calculators, health calculators, date calculator, time calculator, developer tools, OnlineCalMaster"/>
+
+    <!-- SEO Verification Placeholders
+         After creating your webmaster accounts, paste the real verification tags here.
+         Google Search Console:
+         <meta name="google-site-verification" content="PASTE_GOOGLE_VERIFICATION_CODE_HERE">
+         Bing Webmaster Tools:
+         <meta name="msvalidate.01" content="PASTE_BING_VERIFICATION_CODE_HERE">
+    -->
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Free Online Calculators & Tools | OnlineCalMaster">
     <meta property="og:description" content="Fast, free, and mobile-friendly online calculators for finance, business, education, health, date, time, and daily calculations.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://onlinecalmaster.com/">
-    <meta property="og:image" content="https://onlinecalmaster.com/images/og-image.png">
+    <meta property="og:image" content="https://onlinecalmaster.com/Logo.png">
+    <meta property="og:site_name" content="OnlineCalMaster">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Free Online Calculators & Tools | OnlineCalMaster">
+    <meta name="twitter:description" content="Fast, free, and mobile-friendly online calculators for finance, business, education, health, date, time, and daily calculations.">
+    <meta name="twitter:image" content="https://onlinecalmaster.com/Logo.png">
 
     <!-- Favicon & PWA -->
     <link rel="icon" href="Logo.png" type="image/png">
@@ -135,13 +152,16 @@
     }
     </script>
 
-    <!-- Google Analytics -->
+    <!-- Google Analytics
+         Measurement ID: G-2F25VNZYGT
+         SPA pageviews are sent from script.js on initial load and route changes.
+    -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-2F25VNZYGT');
+      gtag('config', 'G-2F25VNZYGT', { send_page_view: false });
     </script>
 
     <!-- Stylesheet -->
@@ -203,6 +223,7 @@
                     <option value="Business">Business</option>
                     <option value="Education">Education</option>
                     <option value="Health">Health</option>
+                    <option value="Daily Tools">Daily Tools</option>
                     <option value="Date & Time">Date &amp; Time</option>
                     <option value="Unit Conversion">Unit Conversion</option>
                     <option value="Developer Tools">Developer Tools</option>
@@ -214,6 +235,25 @@
 
         <!-- Main Content -->
         <main class="calculator-container">
+            <nav class="calculator-breadcrumb" id="calculatorBreadcrumb" aria-label="Breadcrumb"></nav>
+            <section class="calculator-link-panel" aria-label="Calculator navigation shortcuts">
+                <div class="calculator-share-actions">
+                    <button type="button" class="calculator-mini-button" onclick="copyCurrentCalculatorUrl()">Copy URL</button>
+                    <button type="button" class="calculator-mini-button" onclick="shareCurrentCalculatorUrl()">Share</button>
+                    <span class="calculator-share-status" id="calculatorShareStatus" aria-live="polite"></span>
+                </div>
+                <div class="calculator-link-groups">
+                    <section class="calculator-link-group" aria-label="Related calculators">
+                        <h2>Related Calculators</h2>
+                        <div class="calculator-chip-list" id="relatedCalculators"></div>
+                    </section>
+                    <section class="calculator-link-group" aria-label="Recently used calculators">
+                        <h2>Recently Used</h2>
+                        <div class="calculator-chip-list" id="recentCalculators"></div>
+                    </section>
+                </div>
+            </section>
+
             <!-- Basic Calculator -->
             <div class="calculator" id="basicCalculator">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
@@ -983,6 +1023,19 @@
                 </section>
             </div>
 
+            <!-- Dynamic Calculator Panel -->
+            <div class="calculator extra-tall" id="dynamicToolCalculator" style="display: none;">
+                <div class="calculator-brand" aria-label="Powered by Dinil Tech">
+                    <span>Powered by</span>
+                    <img src="Logo.png" alt="Dinil Tech">
+                </div>
+                <h2 class="calculator-title" id="dynamicToolTitle">Calculator</h2>
+                <p class="calculator-description" id="dynamicToolDescription">Select a calculator to begin.</p>
+                <textarea class="display dynamic-display" id="dynamicToolDisplay" readonly aria-label="Calculator Display"></textarea>
+                <div class="buttons dynamic-tool-buttons" id="dynamicToolForm"></div>
+                <section class="calculator-help" id="dynamicToolHelp" aria-label="Calculator help"></section>
+            </div>
+
             <!-- Volume Calculator -->
             <div class="calculator extra-tall" id="volumeCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
@@ -1168,11 +1221,17 @@
                     <p>Calculate age, date differences, and time differences for planning, records, and daily use.</p>
                     <a href="#popular-calculators">Explore date tools</a>
                 </article>
+                <article class="homepage-card" id="daily-tools">
+                    <span class="card-icon" aria-hidden="true">24h</span>
+                    <h3>Daily Tools</h3>
+                    <p>Use quick utilities for countdowns, time zone differences, and everyday planning.</p>
+                    <a href="#popular-calculators">Explore daily tools</a>
+                </article>
                 <article class="homepage-card" id="developer-tools">
                     <span class="card-icon" aria-hidden="true">{ }</span>
                     <h3>Developer Tools</h3>
-                    <p>Developer-focused tools are planned for future updates while the current calculator set continues to grow.</p>
-                    <a href="#faq">See future updates</a>
+                    <p>Generate passwords and UUIDs, format JSON, and handle quick developer tasks in the browser.</p>
+                    <a href="#popular-calculators">Explore developer tools</a>
                 </article>
             </div>
         </section>
@@ -1184,18 +1243,18 @@
                 <p>These links open calculators that already exist on the homepage.</p>
             </div>
             <div class="popular-grid">
-                <a class="homepage-card popular-card" href="#basicCalculator" onclick="showCalculator('basic')">Basic Calculator</a>
-                <a class="homepage-card popular-card" href="#scientificCalculator" onclick="showCalculator('scientific')">Scientific Calculator</a>
-                <a class="homepage-card popular-card" href="#unitConverter" onclick="showCalculator('unit')">Unit Converter</a>
-                <a class="homepage-card popular-card" href="#loanEmiCalculator" onclick="showCalculator('loanEmi')">Loan EMI Calculator</a>
-                <a class="homepage-card popular-card" href="#mortgageCalculator" onclick="showCalculator('mortgage')">Mortgage Calculator</a>
-                <a class="homepage-card popular-card" href="#compoundInterestCalculator" onclick="showCalculator('compoundInterest')">Compound Interest Calculator</a>
-                <a class="homepage-card popular-card" href="#bmiCalculator" onclick="showCalculator('bmi')">BMI Calculator</a>
-                <a class="homepage-card popular-card" href="#discountCalculator" onclick="showCalculator('discount')">Discount Calculator</a>
-                <a class="homepage-card popular-card" href="#volumeCalculator" onclick="showCalculator('volume')">Volume Calculator</a>
-                <a class="homepage-card popular-card" href="#areaCalculator" onclick="showCalculator('area')">Area Calculator</a>
-                <a class="homepage-card popular-card" href="#dateDifferenceCalculator" onclick="showCalculator('date')">Date Difference Calculator</a>
-                <a class="homepage-card popular-card" href="#timeDifferenceCalculator" onclick="showCalculator('time')">Time Difference Calculator</a>
+                <a class="homepage-card popular-card" href="/basic-calculator" onclick="showCalculator('basic'); return false;">Basic Calculator</a>
+                <a class="homepage-card popular-card" href="/scientific-calculator" onclick="showCalculator('scientific'); return false;">Scientific Calculator</a>
+                <a class="homepage-card popular-card" href="/unit-converter" onclick="showCalculator('unit'); return false;">Unit Converter</a>
+                <a class="homepage-card popular-card" href="/loan-emi-calculator" onclick="showCalculator('loanEmi'); return false;">Loan EMI Calculator</a>
+                <a class="homepage-card popular-card" href="/mortgage-calculator" onclick="showCalculator('mortgage'); return false;">Mortgage Calculator</a>
+                <a class="homepage-card popular-card" href="/compound-interest-calculator" onclick="showCalculator('compoundInterest'); return false;">Compound Interest Calculator</a>
+                <a class="homepage-card popular-card" href="/bmi-calculator" onclick="showCalculator('bmi'); return false;">BMI Calculator</a>
+                <a class="homepage-card popular-card" href="/discount-calculator" onclick="showCalculator('discount'); return false;">Discount Calculator</a>
+                <a class="homepage-card popular-card" href="/volume-calculator" onclick="showCalculator('volume'); return false;">Volume Calculator</a>
+                <a class="homepage-card popular-card" href="/area-calculator" onclick="showCalculator('area'); return false;">Area Calculator</a>
+                <a class="homepage-card popular-card" href="/date-difference-calculator" onclick="showCalculator('date'); return false;">Date Difference Calculator</a>
+                <a class="homepage-card popular-card" href="/time-difference-calculator" onclick="showCalculator('time'); return false;">Time Difference Calculator</a>
             </div>
         </section>
 
