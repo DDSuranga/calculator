@@ -13,6 +13,9 @@ el('display').value='12';context.memoryAdd();el('display').value='2';context.mem
 run("activeDisplay='scientific'");el('displayScientific').value='Math.sin(0)+Math.cos(0)';context.calculate();assert.equal(el('displayScientific').value,1);checks++;
 check('calculatePercentage',{percentValue:200,percentPercent:15},'percentageDisplay','30.00');
 check('calculatePercentageChange',{oldValue:100,newValue:120},'percentageChangeDisplay','20.00%');
+for(const [oldValue,newValue,expected] of [[100,80,'-20.00%'],[100,100,'0.00%'],[-100,-50,'-50.00%'],[0,100,'Old value must not be zero.'],[0,0,'Old value must not be zero.'],[-0,-100,'Old value must not be zero.']]){
+ check('calculatePercentageChange',{oldValue,newValue},'percentageChangeDisplay',expected);
+}
 check('calculateTip',{billAmount:100,tipPercent:10},'tipDisplay','$110.00');
 check('addVat',{vatValue:100,vatPercent:18},'vatDisplay','118.00');
 check('removeVat',{vatValue:118,vatPercent:18},'vatDisplay','100.00');
@@ -30,6 +33,9 @@ check('calculateVolume',{volumeShapeInput:'cube',volumeUnitInput:'cm',volumeDime
 check('calculateArea',{areaShapeInput:'triangle',areaUnitInput:'cm',areaDimensionOneInput:4,areaDimensionTwoInput:5},'areaDisplay','10.00');
 check('convertUnit',{unitCategory:'temperature',unitFrom:'Celsius',unitTo:'Fahrenheit',unitInput:100},'unitDisplay','212.0000');
 check('calculateDateDiff',{date1Input:'2026-01-01',date2Input:'2026-01-11'},'dateDiffDisplay','10 day');
+for(const [date1Input,date2Input,expected] of [['','2026-01-01','Please select two valid dates.'],['2026-01-01','','Please select two valid dates.'],['','','Please select two valid dates.'],['not-a-date','2026-01-01','Please select two valid dates.'],['2026-01-01','invalid','Please select two valid dates.'],['2026-02-30','2026-03-01','Please select two valid dates.'],['2026-01-01','2026-13-01','Please select two valid dates.'],['2024-02-28','2024-03-01','2 day(s)'],['2026-01-11','2026-01-01','10 day(s)'],['2026-01-01','2026-01-01','0 day(s)']]){
+ check('calculateDateDiff',{date1Input,date2Input},'dateDiffDisplay',expected);
+}
 check('calculateTimeDiff',{time1Input:'2026-01-01T10:00',time2Input:'2026-01-01T12:30'},'timeDiffFull','02 : 30 : 00');
 check('calculateAge',{birthDateInput:'2000-01-01'},'ageDisplay','year(s)');
 const dynamicCases=[['savings',{currentBalance:100,monthlyDeposit:10,annualRate:0,years:1},'220.00'],['salary',{payAmount:100,payType:'hourly',hoursPerWeek:40,weeksPerYear:52},'208,000.00'],['salesTax',{price:100,taxRate:10},'110.00'],['bmr',{gender:'male',weight:70,height:175,age:30},'1,649'],['waterIntake',{weight:70,activityMinutes:30},'2.80'],['calorie',{gender:'male',weight:70,height:175,age:30,activity:1.2},'1,979'],['gpa',{grade1:4,credits1:3,grade2:3,credits2:3},'3.50'],['percentageGrade',{marksScored:45,totalMarks:50},'90.00%'],['countdown',{targetDate:'2030-01-01',targetTime:'12:00'},'days'],['timeZoneDifference',{fromOffset:5.5,toOffset:0},'5h 30m behind'],['jsonFormatter',{jsonInput:'{"a":1}'},'Valid JSON']];

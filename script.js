@@ -1,4 +1,4 @@
-﻿// Memory and Theme State
+// Memory and Theme State
 let memory = 0;
 let activeDisplay = 'basic';
 let display, displayScientific;
@@ -1534,11 +1534,21 @@ function clearAge() {
 
 // DATE DIFFERENCE
 function calculateDateDiff() {
-    const date1 = new Date(document.getElementById('date1Input').value);
-    const date2 = new Date(document.getElementById('date2Input').value);
+    const value1 = document.getElementById('date1Input').value;
+    const value2 = document.getElementById('date2Input').value;
+    const date1 = new Date(value1);
+    const date2 = new Date(value2);
     const display = document.getElementById('dateDiffDisplay');
-    if (!date1 || !date2) {
-        display.value = "Please select both dates";
+    // Reject missing, malformed and rolled-over dates (for example February 30).
+    const isValidDate = (value, date) => {
+        const parts = /^(\d{4,})-(\d{2})-(\d{2})$/.exec(value);
+        return parts && Number(parts[1]) > 0 && Number.isFinite(date.getTime()) &&
+            date.getUTCFullYear() === Number(parts[1]) &&
+            date.getUTCMonth() + 1 === Number(parts[2]) &&
+            date.getUTCDate() === Number(parts[3]);
+    };
+    if (!isValidDate(value1, date1) || !isValidDate(value2, date2)) {
+        display.value = "Please select two valid dates.";
         return;
     }
     const diffTime = Math.abs(date2 - date1);
@@ -1609,6 +1619,10 @@ function calculatePercentageChange() {
     const display = document.getElementById('percentageChangeDisplay');
     if (isNaN(oldVal) || isNaN(newVal)) {
         display.value = "Invalid input";
+        return;
+    }
+    if (oldVal === 0) {
+        display.value = "Old value must not be zero.";
         return;
     }
     const change = ((newVal - oldVal) / oldVal) * 100;

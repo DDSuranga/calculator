@@ -4,7 +4,7 @@
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "description": "Free online calculator with basic, scientific, currency conversion, unit converter, age calculation, date difference, time difference, percentage, tip, VAT, and more. Works on desktop and mobile.",
+  "description": "Free online calculator with basic, scientific, unit converter, age calculation, date difference, time difference, percentage, tip, VAT, and more. Works on desktop and mobile.",
   "theme_color": "#3867d6",
   "orientation": "portrait",
   "icons": [
@@ -35,44 +35,36 @@
     {
       "name": "Basic Calculator",
       "short_name": "Basic",
-      "url": "/index.html#basicCalculator",
+      "url": "/basic-calculator/",
       "icons": [
         {
-          "src": "/shortcut-icons/basic-calculator.png",
-          "sizes": "192x192"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
     {
       "name": "Scientific Calculator",
       "short_name": "Scientific",
-      "url": "/index.html#scientificCalculator",
+      "url": "/scientific-calculator/",
       "icons": [
         {
-          "src": "/shortcut-icons/scientific-calculator.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Currency Converter",
-      "short_name": "Currency",
-      "url": "/index.html#currencyConverter",
-      "icons": [
-        {
-          "src": "/shortcut-icons/currency-converter.png",
-          "sizes": "192x192"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
     {
       "name": "Unit Converter",
       "short_name": "Unit",
-      "url": "/index.html#unitConverter",
+      "url": "/unit-converter/",
       "icons": [
         {
-          "src": "/shortcut-icons/unit-converter.png",
-          "sizes": "192x192"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     }
