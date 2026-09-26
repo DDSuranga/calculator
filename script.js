@@ -3,7 +3,6 @@ let memory = 0;
 let activeDisplay = 'basic';
 let display, displayScientific;
 let appInitialized = false;
-let lastRenderedCalculatorListKey = '';
 let lastTrackedPath = '';
 let latestShareStatusTimer;
 const HOME_TITLE = 'Free Online Calculators & Tools | OnlineCalMaster';
@@ -741,7 +740,7 @@ function getCalculatorTitle(calculator) {
 }
 
 function getCleanSlugFromPath() {
-    const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    const path = window.location.pathname.replace(/\/index\.html$/, '').replace(/^\/+|\/+$/g, '').toLowerCase();
     if (!path || path === 'index.html') return '';
     return path.split('/').pop();
 }
@@ -773,11 +772,11 @@ function canUseCleanUrls() {
 
 function getCalculatorUrl(calculator) {
     if (!calculator?.slug) return '/';
-    return canUseCleanUrls() ? `/${calculator.slug}` : `#${calculator.slug}`;
+    return canUseCleanUrls() ? `/${calculator.slug}/` : `#${calculator.slug}`;
 }
 
 function getAbsoluteCalculatorUrl(calculator) {
-    return calculator?.slug ? `${SITE_ORIGIN}/${calculator.slug}` : `${SITE_ORIGIN}/`;
+    return calculator?.slug ? `${SITE_ORIGIN}/${calculator.slug}/` : `${SITE_ORIGIN}/`;
 }
 
 function getCanonicalUrl(calculator) {
@@ -886,7 +885,7 @@ function updateSeoMeta(calculator) {
 }
 
 function trackPageView(calculator) {
-    const path = calculator?.slug ? `/${calculator.slug}` : '/';
+    const path = calculator?.slug ? `/${calculator.slug}/` : '/';
     if (path === lastTrackedPath) return;
     lastTrackedPath = path;
 
@@ -945,7 +944,7 @@ function getFilteredCalculators() {
     const selectedCategory = categorySelect?.value || 'All Calculators';
 
     return calculatorData.filter(calculator => {
-        const matchesSearch = calculator.name.toLowerCase().includes(searchTerm);
+        const matchesSearch = `${getCalculatorTitle(calculator)} ${calculator.category}`.toLowerCase().includes(searchTerm);
         const matchesCategory = selectedCategory === 'All Calculators' || calculator.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
@@ -957,6 +956,7 @@ function createCalculatorLink(calculator, className = 'calculator-chip') {
     link.href = getCalculatorUrl(calculator);
     link.textContent = getCalculatorTitle(calculator);
     link.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
         event.preventDefault();
         showCalculator(calculator.target);
         scrollCalculatorIntoView();
@@ -1121,39 +1121,26 @@ function updateCalculatorCount(count) {
     countElement.textContent = `Showing ${count} ${count === 1 ? 'calculator' : 'calculators'}`;
 }
 
+const NAV_GROUPS = [['Education','Basic & Math / Education'],['Finance','Finance'],['Business','Business'],['Health','Health'],['Date & Time','Date & Time'],['Daily Tools','Daily Tools'],['Unit Conversion','Conversion'],['Developer Tools','Developer Tools']];
+function resetCalculatorFilters() {
+ document.getElementById('calculatorSearch').value = '';
+ document.getElementById('calculatorCategory').value = 'All Calculators';
+ renderCalculatorList();
+}
 function renderCalculatorList() {
-    const listElement = document.getElementById('calculatorList');
-    if (!listElement) return;
-
-    const filteredCalculators = getFilteredCalculators();
-    const searchInput = document.getElementById('calculatorSearch');
-    const categorySelect = document.getElementById('calculatorCategory');
-    const renderKey = `${searchInput?.value || ''}|${categorySelect?.value || ''}|${activeDisplay}`;
-    if (renderKey === lastRenderedCalculatorListKey) {
-        updateCalculatorCount(filteredCalculators.length);
-        return;
-    }
-    lastRenderedCalculatorListKey = renderKey;
-    updateCalculatorCount(filteredCalculators.length);
-    listElement.innerHTML = '';
-
-    if (!filteredCalculators.length) {
-        const emptyMessage = document.createElement('p');
-        emptyMessage.className = 'calculator-empty';
-        emptyMessage.textContent = 'No calculators found.';
-        listElement.appendChild(emptyMessage);
-        return;
-    }
-
-    filteredCalculators.forEach(calculator => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.textContent = calculator.name;
-        button.dataset.target = calculator.target;
-        button.classList.toggle('is-active', calculator.target === activeDisplay);
-        button.addEventListener('click', () => showCalculator(calculator.target));
-        listElement.appendChild(button);
-    });
+ const list = document.getElementById('calculatorList');
+ if (!list) return;
+ const filtered = getFilteredCalculators();
+ updateCalculatorCount(filtered.length);
+ list.replaceChildren();
+ if (!filtered.length) { const p=document.createElement('p'); p.className='calculator-empty'; p.textContent='No calculators found. Try another search.'; list.append(p); }
+ NAV_GROUPS.forEach(([category,label]) => {
+  const items=filtered.filter(c=>c.category===category); if(!items.length) return;
+  const group=document.createElement('section'); group.className='navigation-group';
+  const heading=document.createElement('h2'); heading.textContent=label; group.append(heading);
+  items.forEach(c=>{const link=createCalculatorLink(c,'calculator-nav-link'); link.dataset.target=c.target; link.classList.toggle('is-active',c.target===activeDisplay); if(c.target===activeDisplay) link.setAttribute('aria-current','page'); group.append(link);});
+  list.append(group);
+ });
 }
 
 function initializeCalculatorPanel() {
@@ -1176,7 +1163,7 @@ function initializeApp() {
     if (initialCalculator) {
         showCalculator(initialCalculator.target, { replace: true });
     } else {
-        showCalculator('basic', { updateUrl: false, updateMeta: false });
+        showCalculator('basic', { updateUrl: false, updateMeta: false, track: false });
         updateSeoMeta(null);
         if (isUnknownCleanRoute()) setRobotsIndexing(false);
         trackPageView(null);
@@ -1211,17 +1198,10 @@ function updateDarkModeButtonText(isDark) {
 }
 
 function applySavedTheme() {
-    const body = document.body;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        updateDarkModeButtonText(true);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        body.classList.add('dark-mode');
-        updateDarkModeButtonText(true);
-    } else {
-        updateDarkModeButtonText(false);
-    }
+ const saved=localStorage.getItem('theme');
+ const isDark=saved==='dark' || (saved!=='light' && window.matchMedia?.('(prefers-color-scheme: dark)').matches);
+ document.body.classList.toggle('dark-mode', Boolean(isDark));
+ updateDarkModeButtonText(Boolean(isDark));
 }
 // ======================= //
 
@@ -1264,10 +1244,12 @@ function showCalculator(type, options = {}) {
     if (options.updateUrl !== false) {
         updateBrowserUrl(calculator, options.replace === true);
     }
-    trackPageView(calculator);
+    if (options.track !== false) trackPageView(calculator);
     runSeoDiagnostics(calculator);
     renderCalculatorNavigation(calculator);
+    renderCalculatorContext(calculator);
     renderCalculatorList();
+    closeCalculatorNavigation();
 }
 
 window.addEventListener('popstate', () => {
@@ -1275,7 +1257,7 @@ window.addEventListener('popstate', () => {
     if (calculator) {
         showCalculator(calculator.target, { updateUrl: false });
     } else {
-        showCalculator('basic', { updateUrl: false, updateMeta: false });
+        showCalculator('basic', { updateUrl: false, updateMeta: false, track: false });
         updateSeoMeta(null);
         trackPageView(null);
         runSeoDiagnostics(null);
@@ -1313,7 +1295,7 @@ function deleteLast() {
 function calculate() {
     try {
         let expression = getCurrentDisplay().value
-            .replace(/sqrt/g, 'Math.sqrt');
+            .replace(/(?<![.\w])sqrt/g, 'Math.sqrt');
 
         // Balance parentheses
         let openParens = (expression.match(/\(/g) || []).length;
@@ -2993,7 +2975,9 @@ function copyAreaResult() {
 
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', function (e) {
-    if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
+    if (!['basic', 'scientific'].includes(activeDisplay)) return;
+    if (['Enter', ' '].includes(e.key) && document.activeElement?.matches('button, a, summary')) return;
+    if (document.activeElement?.matches('input, textarea, select, [contenteditable="true"]')) return;
     if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
         appendToDisplay(e.key);
     } else if (e.key === 'Enter') {
@@ -3022,7 +3006,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heading.textContent = 'Free Online Calculators & Smart Tools';
     }
 
-    const navLabels = ['Home', 'About Us', 'Contact Us', 'Privacy Policy', 'Download Desktop App', 'Purchase Source Code'];
+    const navLabels = ['Home', 'About Us', 'Contact Us', 'Privacy Policy', 'Download App'];
     document.querySelectorAll('.top-nav a').forEach((link, index) => {
         if (index < navLabels.length) link.textContent = navLabels[index];
     });
@@ -3033,3 +3017,34 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+// Presentation helpers reuse the existing registry, inputs and calculation handlers.
+function closeCalculatorNavigation() {
+ const toggle=document.getElementById('navigationToggle');
+ if(toggle) toggle.setAttribute('aria-expanded','false');
+ document.getElementById('calculatorSidebar')?.classList.remove('is-open');
+}
+function renderCalculatorContext(calculator) {
+ const panel=document.getElementById(calculator.elementId);
+ const description=panel?.querySelector('.calculator-description')?.textContent || calculator.metaDescription;
+ const context=document.getElementById('contextDescription'); if(context) context.textContent=description;
+ const guide=document.getElementById('calculatorGuide'); if(!guide) return;
+ const definition=calculator.dynamicTool ? dynamicToolDefinitions[calculator.dynamicTool] : null;
+  guide.replaceChildren();
+ const heading=document.createElement('h2'); heading.textContent='How to Use'; guide.append(heading);
+ const steps=document.createElement('ol');
+ const labels=[...panel.querySelectorAll('.field-group > span')].map(el=>el.textContent).slice(0,4);
+ const text=['basic','scientific'].includes(calculator.target)
+ ? ['Enter numbers using the keypad or keyboard.','Choose an operation. Memory and advanced controls remain available.','Press = or Enter to calculate. Use C to start again.']
+ : [definition?.help.how || (labels.length ? 'Enter '+labels.join(', ')+'.' : 'Enter the values requested in the calculator.'),'Choose the calculation action to see your result.','Review the result and use Clear to start a new calculation.'];
+ text.forEach(value=>{const li=document.createElement('li');li.textContent=value;steps.append(li);});guide.append(steps);
+ if(['basic','scientific'].includes(calculator.target)){const p=document.createElement('p');p.textContent='Example: 12 × 8 = 96. Your calculations are saved locally in this browser’s calculation history.';guide.append(p);}
+}
+document.addEventListener('DOMContentLoaded',()=>{
+ const toggle=document.getElementById('navigationToggle');
+ toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));document.getElementById('calculatorSidebar').classList.toggle('is-open',open);if(open)document.getElementById('calculatorSearch').focus();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape' && toggle?.getAttribute('aria-expanded')==='true'){closeCalculatorNavigation();toggle.focus();}});
+ const query=new URLSearchParams(location.search).get('q');
+ if(query){document.getElementById('calculatorSearch').value=query;const input=document.getElementById('headerSearch');if(input)input.value=query;renderCalculatorList();document.getElementById('calculatorSidebar').classList.add('is-open');toggle?.setAttribute('aria-expanded','true');}
+ document.querySelector('.header-search')?.addEventListener('submit',e=>{e.preventDefault();document.getElementById('calculatorSearch').value=document.getElementById('headerSearch').value;document.getElementById('calculatorCategory').value='All Calculators';renderCalculatorList();document.getElementById('calculatorSidebar').classList.add('is-open');toggle?.setAttribute('aria-expanded','true');document.getElementById('calculatorSearch').focus();});
+});
