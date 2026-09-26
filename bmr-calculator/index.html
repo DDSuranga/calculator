@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
     <base href="/">
+    <script>
+      // Keep relative assets and supporting-page links rooted after SPA navigation.
+      if (/^https?:$/.test(location.protocol) && !document.querySelector("base")) {
+        const base = document.createElement("base");
+        base.href = "/";
+        document.head.prepend(base);
+      }
+    </script>
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
     <link rel="preload" href="Logo.png" as="image">
@@ -180,7 +188,7 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <a class="skip-link" href="#mainCalculator">Skip to calculator</a>
+    <a class="skip-link" href="#mainCalculator" onclick="document.getElementById('mainCalculator').focus(); return false;">Skip to calculator</a>
     <header class="site-header">
       <a class="site-brand" href="/" aria-label="OnlineCalMaster home"><span class="brand-icon" aria-hidden="true">▦</span><span>Online<span class="brand-accent">CalMaster</span><small>Free Online Calculators &amp; Smart Tools</small></span></a>
       <nav class="top-nav" aria-label="Main navigation"><a href="/">Home</a><a href="about.html">About Us</a><a href="contact.html">Contact Us</a><a href="privacy-policy.html">Privacy Policy</a><a href="download.html">Download App</a></nav>
