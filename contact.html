@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-links {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      font-size: 24px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      color: #0056b3;
+    }
+
+    .alert-success {
+      display: none;
+    }
+  </style>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M6K9R66W'); // Replace with your GTM ID if needed
+  </script>
+</head>
+
+<body>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M6K9R66W"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <div class="container contact-container">
+    <h2 class="text-center mb-4">Contact Us</h2>
+
+    <form id="contact-form">
+      <div class="mb-3">
+        <label for="name" class="form-label">Your Name *</label>
+        <input type="text" class="form-control" id="name" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address *</label>
+        <input type="email" class="form-control" id="email" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="message" class="form-label">Message *</label>
+        <textarea class="form-control" id="message" rows="5" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Send Message</button>
+    </form>
+
+    <div class="alert alert-success mt-3" id="success-alert">
+      ✅ Your message was sent successfully!
+    </div>
+
+    <div class="social-links">
+      <h5 class="mt-4">Connect With Us</h5>
+      <a href="https://wa.me/94771234567" target="_blank" title="WhatsApp">
+        📱
+      </a>
+      <a href="https://facebook.com/yourpage" target="_blank" title="Facebook">
+        🔵
+      </a>
+      <a href="https://instagram.com/yourpage" target="_blank" title="Instagram">
+        📸
+      </a>
+      <a href="mailto:support@example.com" title="Email">
+        ✉️
+      </a>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("eUrV1CCbtewUbs8cg"); // Replace with your EmailJS public key
+    })();
+
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      // Basic validation
+      if (!name || !email || !message) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      const params = {
+        from_name: name,
+        from_email: email,
+        message: message
+      };
+
+      emailjs.send("service_7r5glod", "template_ifknzgp", params)
+        .then(function (response) {
+          document.getElementById("success-alert").style.display = "block";
+          document.getElementById("contact-form").reset();
+        }, function (error) {
+          alert("❌ Failed to send message. Try again later.");
+          console.error("EmailJS error:", error);
+        });
+    });
+  </script>
+</body>
+</html>
