@@ -1,5 +1,5 @@
 // Network-first first-party assets keep releases fresh; the shared shell is an offline route fallback.
-const CACHE_NAME = 'onlinecalmaster-v11-polish';
+const CACHE_NAME = 'onlinecalmaster-v12-adsense-only';
 const CORE = ['/', '/index.html', '/styles.css', '/script.js', '/manifest.json', '/Logo.png', '/icon-48x48.png', '/icon-192x192.png', '/icon-512x512.png'];
 self.addEventListener('install', event => {
  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));

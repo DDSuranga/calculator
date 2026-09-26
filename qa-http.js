@@ -11,12 +11,20 @@ async function get(path, options = {}) {
 (async () => {
     const sitemap = await (await get('/sitemap.xml')).text();
     const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => new URL(match[1]).pathname);
+    const publisher = fs.readFileSync('index.html', 'utf8').match(/client=ca-(pub-\d+)/)[1];
+    const adsTxt = await (await get('/ads.txt')).text();
+    assert.equal(adsTxt.trim(), `google.com, ${publisher}, DIRECT, f08c47fec0942fa0`);
     let schemaCount = 0;
     for (const path of paths) {
         const html = await (await get(path)).text();
         assert.match(html, /<title>[^<]+<\/title>/, path);
         assert.match(html, /<meta name="description" content="[^"]+"/, path);
         assert.match(html, /rel="canonical" href="https:\/\/onlinecalmaster.com\//, path);
+        const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*>/gi)].map(match => new URL(match[1], base));
+        assert.ok(scripts.every(url => [base.hostname, 'pagead2.googlesyndication.com', 'www.googletagmanager.com', 'cdn.jsdelivr.net'].includes(url.hostname)), `Unexpected external script: ${path}`);
+        const adSense = scripts.filter(url => url.pathname.endsWith('/adsbygoogle.js'));
+        assert.ok(adSense.length <= 1, `Duplicate AdSense loader: ${path}`);
+        for (const url of adSense) assert.equal(url.searchParams.get('client'), 'ca-' + publisher);
         for (const schema of html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) { JSON.parse(schema[1]); schemaCount++; }
     }
     for (const tool of registry) {
@@ -44,5 +52,5 @@ async function get(path, options = {}) {
         assert.equal(`${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`, icon.sizes);
     }
     for (const shortcut of manifest.shortcuts) await get(shortcut.url);
-    console.log(`${base.origin}: ${registry.length}/35 calculator routes, ${paths.length} sitemap pages, ${schemaCount} schemas, robots, release assets, manifest/icons/shortcuts passed.`);
+    console.log(`${base.origin}: ${registry.length}/35 calculator routes, ${paths.length} sitemap pages, ${schemaCount} schemas, ads.txt, AdSense/external scripts, robots, release assets, manifest/icons/shortcuts passed.`);
 })().catch(error => { console.error(error.message); process.exitCode = 1; });

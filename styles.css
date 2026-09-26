@@ -107,7 +107,6 @@ body.app-loading .app-loader {
 }
 
 html.desktop-app .top-nav a:not(#darkModeToggle),
-html.desktop-app .ad-slot,
 html.desktop-app .seo-column {
     display: none !important;
 }
@@ -178,13 +177,6 @@ header h1 {
     transform: translateY(-2px);
     background: #ffffff;
     box-shadow: 0 12px 22px rgba(5, 112, 169, 0.18);
-}
-
-.ad-slot {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    overflow-x: auto;
 }
 
 .container {
@@ -2708,7 +2700,6 @@ body.app-page.dark-mode { --surface:#082337; --surface-soft:#0b2c43; --text:#edf
 .preserved-information h2 { font-size:17px;margin:12px 0; }
 .preserved-information ul { padding-left:20px; }
 .preserved-information p,.preserved-information li { font-size:13px;line-height:1.7; }
-.preserved-ad { max-width:100%;overflow:hidden;margin:auto;text-align:center; }
 .site-footer { border-top:1px solid var(--line);padding:28px 24px;text-align:center;font-size:12px;color:var(--subtle); }
 .footer-brand { font-size:19px;text-decoration:none;font-weight:750; }
 .site-footer nav { display:flex;justify-content:center;flex-wrap:wrap;gap:20px;margin:18px 0; }
