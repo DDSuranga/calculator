@@ -19,7 +19,7 @@ const context = {
     URL, Response,
     caches: {
         open: async () => bucket,
-        keys: async () => ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'unrelated-app', cacheName],
+        keys: async () => ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'onlinecalmaster-v12-adsense-only', 'unrelated-app', cacheName],
         delete: async key => { deleted.push(key); return true; }
     },
     fetch: async (request, options) => {
@@ -50,7 +50,7 @@ function request(path, destination, mode) {
         await promise;
     }
     assert.ok(skipped && claimed);
-    assert.deepEqual(deleted, ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish']);
+    assert.deepEqual(deleted, ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'onlinecalmaster-v12-adsense-only']);
     for (const asset of ['/styles.css', '/script.js', '/manifest.json']) {
         assert.equal(await (await request(asset, asset.endsWith('.css') ? 'style' : asset.endsWith('.js') ? 'script' : 'manifest')).text(), 'new asset');
         assert.equal(await cache.get(asset).clone().text(), 'new asset');

@@ -1,0 +1,134 @@
+{
+  "basic": [
+    "Check everyday arithmetic with addition, subtraction, multiplication, division, powers, and square roots.",
+    "Enter a number, choose an operation, enter the next number, and press =. Use DEL to correct a digit or C to clear the expression.",
+    "Multiplication and division are evaluated before addition and subtraction. M+ adds the displayed value to memory; M- subtracts it; MRC recalls it.",
+    "12 × 8 = 96. By contrast, 12 + 8 × 2 = 28 because multiplication comes first."
+  ],
+  "scientific": [
+    "Evaluate expressions with trigonometric functions, logarithms, powers, and the constants pi and e.",
+    "Select a function, enter its argument, and press =. Use parentheses to group expressions and C to begin again.",
+    "Sine, cosine, and tangent use radians. The ln function is the natural logarithm; log uses base 10. Convert degrees to radians by multiplying by pi / 180.",
+    "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians."
+  ],
+  "unit": [
+    "Convert measurements within length, weight, or temperature without mixing incompatible quantities.",
+    "Choose a category, enter the measurement, select its source and destination units, and choose Convert.",
+    "Length and weight use conversion factors through a common base unit. Temperature also needs an offset: Fahrenheit = Celsius × 9 / 5 + 32.",
+    "1 meter = 100 centimeters. A temperature of 0 degrees Celsius equals 32 degrees Fahrenheit. Results show four decimal places."
+  ],
+  "age": [
+    "Find elapsed calendar years, months, and days from a date of birth to today, plus the next birthday countdown.",
+    "Select the date of birth and calculate. The reference date is today on your device; future birth dates are rejected.",
+    "The calculation subtracts calendar components and borrows from the previous month when needed. It does not divide a day count by 365, since months and years have different lengths.",
+    "Someone born on 15 June 2000 is 25 years old on 15 June 2025. Your result changes with today's date and the device's time zone."
+  ],
+  "date": [
+    "Measure the number of calendar days separating two dates, in either order.",
+    "Select both dates and choose Days Between. Both inputs must be valid dates; empty dates produce a validation message.",
+    "The result is the absolute difference between the two dates in days. It counts elapsed days, not both endpoints as inclusive days.",
+    "1 January to 11 January is 10 days. Selecting the same date twice gives 0 days."
+  ],
+  "time": [
+    "Compare two date-and-time values and see elapsed hours, minutes, and seconds, with totals in minutes and seconds.",
+    "Enter both full date-and-time values and choose the calculation action. Include the following date when an interval crosses midnight.",
+    "The tool takes the absolute difference between the timestamps. Hours can exceed 24. Inputs use your device's local time zone, which matters around daylight-saving changes.",
+    "10:00 to 12:30 on the same day is 02:30:00, or 150 minutes and 9,000 seconds."
+  ],
+  "percentage": [
+    "Find a chosen percentage of a value, such as a portion of a budget or a share of a quantity.",
+    "Enter the base value and the percentage, then calculate. Enter 15 for fifteen percent, not 0.15.",
+    "Percentage amount = base value × percentage / 100. This tool returns the portion itself; use Percentage Change to compare an old and new value.",
+    "15% of 200 is 200 × 15 / 100 = 30."
+  ],
+  "percentageChange": [
+    "Compare a new value with an original value to express the difference as a percentage of the original.",
+    "Enter the old value and new value, then choose % Change. The old value must be non-zero.",
+    "Percentage change = (new − old) / old × 100. A zero baseline has no defined percentage change. Negative baselines retain the sign of the denominator, so interpret those results carefully.",
+    "An increase from 100 to 120 is +20%; a decrease from 100 to 80 is −20%. These are relative changes, not percentage-point differences."
+  ],
+  "tip": [
+    "Calculate a tip amount and the resulting total bill using your chosen percentage.",
+    "Enter the bill amount and tip percentage, then calculate. Use the same currency for the bill and the result.",
+    "Tip = bill × tip percentage / 100. Total = bill + tip. This tool does not divide the bill between people.",
+    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. The display uses a dollar symbol."
+  ],
+  "vat": [
+    "Add a percentage to a net price or recover the original price from a tax-inclusive total.",
+    "Enter the amount and rate, then choose Add VAT or Remove VAT according to whether the input excludes or includes tax.",
+    "Adding uses net × (1 + rate / 100). Removing uses gross / (1 + rate / 100); it is not the same as subtracting that percentage of the gross price.",
+    "At 20%, a net price of 100 becomes 120. Removing 20% VAT from 120 returns 100. Use Discount Calculator for a sale-price reduction."
+  ],
+  "loanEmi": [
+    "Estimate a fixed monthly loan installment and the total interest over the chosen term.",
+    "Enter the loan principal, annual interest rate, and term using the selected time unit. Calculate and review the payment breakdown.",
+    "EMI = P × r × (1 + r)^n / ((1 + r)^n − 1), where r is the monthly rate and n is the number of monthly payments. At zero interest, the installment is P / n.",
+    "A principal of 12,000 over 12 months at 0% interest gives a monthly installment of 1,000. Fees and changing rates are outside this estimate."
+  ],
+  "mortgage": [
+    "Estimate monthly principal and interest together with the property tax and home insurance you enter.",
+    "Enter home price, down payment, annual rate, and term in years. Supply annual tax and insurance amounts or enter zero.",
+    "Loan principal = home price − down payment. A fixed-rate monthly payment is calculated on that principal; annual tax and insurance are each divided by 12 and added.",
+    "At 0% interest, a 120,000 principal over 10 years costs 1,000 monthly before tax and insurance. Other ownership costs and lender fees are not included."
+  ],
+  "compoundInterest": [
+    "Project growth of an initial balance with a selected compounding frequency and optional monthly contributions.",
+    "Enter the principal, annual rate, time period, compounding frequency, and monthly contribution. Review future value, contributions, and interest separately.",
+    "Without deposits, A = P × (1 + r / n)^(n × t). Contributions use the equivalent monthly growth rate and are treated as end-of-month deposits. The annual rate r is expressed as a decimal.",
+    "1,000 at 10% compounded annually for two years becomes 1,210 without additional deposits. This assumes a constant rate and excludes fees and taxes."
+  ],
+  "bmi": [
+    "Calculate adult body mass index from weight and height and view the corresponding screening category.",
+    "Select the available unit system, enter height and weight, and calculate. Check the units before interpreting the number.",
+    "BMI = weight in kilograms / height in meters squared. The categories describe a screening measure, not body-fat percentage or a diagnosis; children and pregnancy need different assessment.",
+    "70 kg at 1.75 m gives 70 / 1.75² = 22.86, shown as 22.9. BMI does not distinguish muscle from fat."
+  ],
+  "discount": [
+    "Compare an original price with a discounted price and optional tax to see the final cost and savings.",
+    "Enter the original price, discount percentage, and optional tax rate, then calculate.",
+    "Savings = price × discount / 100. The savings are subtracted from the original price, then tax is applied to the reduced price.",
+    "A price of 100 reduced by 20% becomes 80; adding 10% tax gives a final price of 88."
+  ],
+  "fuelCost": [
+    "Estimate liters of fuel and trip cost from distance, vehicle efficiency, and fuel price.",
+    "Enter distance in kilometers, efficiency in kilometers per liter, and the price of one liter of fuel.",
+    "Liters needed = distance / efficiency. Total cost = liters needed × price per liter. Do not enter liters per 100 km into the km-per-liter field.",
+    "A 300 km trip at 15 km per liter uses 20 liters. At 2 currency units per liter, the fuel cost is 40; tolls and parking are separate."
+  ],
+  "profitMargin": [
+    "Compare cost and selling price to see profit, margin on revenue, and markup on cost.",
+    "Enter the cost price and selling price in the same currency, then calculate.",
+    "Profit = selling price − cost. Margin = profit / selling price × 100; markup = profit / cost × 100. Margin and markup have different denominators.",
+    "A cost of 80 and selling price of 100 give profit of 20, margin of 20%, and markup of 25%. Include relevant costs in your input."
+  ],
+  "breakEven": [
+    "Estimate how many units must be sold to cover fixed costs at a given selling price and variable cost.",
+    "Enter fixed costs for the period, selling price per unit, and variable cost per unit. Selling price must exceed variable cost.",
+    "Contribution per unit = selling price − variable cost. Break-even units = fixed costs / contribution. The displayed unit count rounds up; the sales-value estimate uses the unrounded threshold.",
+    "Fixed costs of 1,000 with a price of 25 and variable cost of 15 require 100 units. This assumes costs and prices remain constant."
+  ],
+  "roi": [
+    "Express the gain or loss on an investment as a percentage of its initial amount.",
+    "Enter a positive initial investment and its final value or total return amount in the same currency.",
+    "Net profit = final value − initial investment. ROI = net profit / initial investment × 100. The result is a total-period return, not an annualized rate.",
+    "An investment of 1,000 ending at 1,250 earns 250, giving 25% ROI. Account for fees consistently when choosing the final value."
+  ],
+  "simpleInterest": [
+    "Calculate interest that is proportional to principal and time without compounding earlier interest.",
+    "Enter the principal, annual interest rate, and duration in years. For six months, enter 0.5 years.",
+    "Interest = P × r × t, where r is the annual rate divided by 100 and t is time in years. Total amount = principal + interest.",
+    "1,000 at 5% for two years earns 100 interest and totals 1,100. Compound Interest Calculator is appropriate when interest itself earns interest."
+  ],
+  "volume": [
+    "Find the volume of supported three-dimensional shapes using their measured dimensions.",
+    "Choose a shape and measurement unit, then enter the dimensions requested. For circular shapes, use radius rather than diameter.",
+    "A cuboid uses length × width × height; a cylinder uses pi × radius² × height; a sphere uses 4 × pi × radius³ / 3. Keep all dimensions in the same unit.",
+    "A cube with a 10 cm side has volume 1,000 cm³. Volume uses cubic units, unlike the square units used for area."
+  ],
+  "area": [
+    "Find the area of a supported two-dimensional shape from its dimensions.",
+    "Select the shape and unit, enter the required dimensions, and calculate. Use perpendicular height for a triangle or parallelogram.",
+    "A rectangle uses length × width; a triangle uses base × height / 2; a circle uses pi × radius². Convert dimensions to the same unit first.",
+    "A rectangle 10 cm long and 5 cm wide has area 50 cm². Area describes a surface, not perimeter or volume."
+  ]
+}

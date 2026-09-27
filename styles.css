@@ -2691,6 +2691,8 @@ body.app-page.dark-mode { --surface:#082337; --surface-soft:#0b2c43; --text:#edf
 .how-card ol { counter-reset:steps;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px; }
 .how-card li::before { counter-increment:steps;content:counter(steps);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#008bce;color:white;font-weight:700;margin-bottom:8px; }
 .how-card p { margin-top:15px; }
+.app-page .how-card h3 { font-size:15px;color:var(--text);margin-top:20px; }
+.app-page .homepage-seo[hidden] { display:none; }
 .app-page .homepage-seo { width:min(1500px,calc(100% - 48px));margin:0 auto 35px; }
 .app-page .homepage-section { border-radius:12px;background:var(--surface);border:1px solid var(--line);box-shadow:none;padding:26px; }
 .app-page .homepage-card,.app-page .why-list li,.app-page .faq-list details { background:var(--surface-soft);border:1px solid var(--line);box-shadow:none;border-radius:8px; }
