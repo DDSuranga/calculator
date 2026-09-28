@@ -2737,3 +2737,6 @@ body.app-page .calculator .finance-result .highlight dd,body.app-page .calculato
 body.app-page .calculator-help :is(h3,h4,p,details,summary) { color:var(--text);text-shadow:none; }
 /* Keep the validation messages readable in the existing result fields on phones. */
 body.app-page :is(#percentageChangeDisplay,#dateDiffDisplay) { font-size:clamp(14px,1.6vw,24px); }
+
+/* Keep the download page available without promoting it in the website UI. */
+a[href="download.html"], a[href="/download.html"] { display:none; }
