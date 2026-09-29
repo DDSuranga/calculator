@@ -52,5 +52,5 @@ async function get(path, options = {}) {
         assert.equal(`${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`, icon.sizes);
     }
     for (const shortcut of manifest.shortcuts) await get(shortcut.url);
-    console.log(`${base.origin}: ${registry.length}/37 calculator routes, ${paths.length} sitemap pages, ${schemaCount} schemas, ads.txt, AdSense/external scripts, robots, release assets, manifest/icons/shortcuts passed.`);
+    console.log(`${base.origin}: ${registry.length}/38 calculator routes, ${paths.length} sitemap pages, ${schemaCount} schemas, ads.txt, AdSense/external scripts, robots, release assets, manifest/icons/shortcuts passed.`);
 })().catch(error => { console.error(error.message); process.exitCode = 1; });

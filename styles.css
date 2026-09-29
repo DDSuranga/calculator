@@ -2747,3 +2747,4 @@ a[href="download.html"], a[href="/download.html"] { display:none; }
 .app-page .gst-mode input { width:auto;min-height:0;accent-color:var(--accent); }
 .app-page #dynamicToolCalculator:has(.gst-mode) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
 .app-page #dynamicToolCalculator:has(#dynamic-sipMonthly) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
+.app-page #dynamicToolCalculator:has(#dynamic-homeLoanAmount) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }

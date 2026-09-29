@@ -55,7 +55,7 @@ for (const calculator of data) {
  .replace(/(<p class="hero-subtitle">)[\s\S]*?<\/p>/,'$1'+escape(context.getCalculatorIntroduction(calculator))+'</p>');
  for (const [key,value] of [['og:title',pageTitle],['og:description',description],['og:url',url(calculator)],['twitter:title',pageTitle],['twitter:description',description]]) html=html.replace(new RegExp('(<meta (?:property|name)="'+key+'" content=")[^"]*'),'$1'+value);
  html=fill(html,'calculatorGuide',context.getCalculatorGuideHtml(calculator));
- if (['gst', 'sip'].includes(calculator.target)) html=html.replace(/\s*<meta name="keywords"[^>]*>/,'');
+ if (['gst', 'sip', 'homeLoanEmi'].includes(calculator.target)) html=html.replace(/\s*<meta name="keywords"[^>]*>/,'');
  html=fill(html,'contextDescription',escape(context.getCalculatorIntroduction(calculator)));
  html=fill(html,'calculatorBreadcrumb',`<a href="/">Home</a><a href="/#${anchors[calculator.category]}">${escape(calculator.category)}</a><span aria-current="page">${escape(title(calculator))}</span>`);
  html=fill(html,'relatedCalculators',run('getRelatedCalculators(current)').map(c=>link(c)).join(''));

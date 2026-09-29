@@ -10,7 +10,7 @@ async function get(p){const r=await fetch(new URL(p,base),{redirect:'manual',cac
 (async()=>{
  const sitemap=await get('/sitemap.xml'),urls=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
  assert.match(sitemap,/<urlset xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9">/);assert.match(sitemap,/<\/urlset>\s*$/);
- assert.equal(urls.length,43);assert.equal(new Set(urls).size,urls.length);
+ assert.equal(urls.length,44);assert.equal(new Set(urls).size,urls.length);
  const robots=await get('/robots.txt');assert.match(robots,/User-agent:\s*\*/);assert.match(robots,/Allow:\s*\//);assert(!/^Disallow:\s*\S/m.test(robots));assert(robots.includes(origin+'/sitemap.xml'));
  const pages=new Map(),titles=new Set(),descriptions=new Set(),headings=new Set();
  for(const u of urls){assert(u.startsWith(origin+'/'));const p=new URL(u).pathname;pages.set(p,await get(p));}
@@ -40,6 +40,6 @@ async function get(p){const r=await fetch(new URL(p,base),{redirect:'manual',cac
  const allLinks=new Map();for(const [p,raw]of pages)for(const href of links(visibleSource(raw))){const documentBase=new URL(raw.match(/<base\b[^>]*href="([^"]+)"/)?.[1]||p,origin);const u=new URL(href,documentBase);if(u.origin===origin)allLinks.set(u.pathname,true);}
  const warnings=[];for(const p of allLinks.keys()){if(pages.has(p))continue;const r=await fetch(new URL(p,base),{redirect:'manual',signal:AbortSignal.timeout(30000)});if(r.status!==200)warnings.push({path:p,status:r.status,location:r.headers.get('location')});}
  const missing=await fetch(new URL('/__seo-audit-missing-page__/',base),{redirect:'manual'});assert.equal(missing.status,404,'unknown routes must not soft-404');
- console.log(JSON.stringify({base:base.origin,calculators:'37/37',sitemap:urls.length,uniqueTitles:titles.size,uniqueH1s:headings.size,uniqueDescriptions:descriptions.size,staticNavigation:'37 links on every tool and homepage',canonicals:'37 self-referencing; existing slashless 301 aliases preserved',schema:'page-specific WebApplication and BreadcrumbList',robots:'indexable',internalLinkWarnings:warnings},null,2));
+ console.log(JSON.stringify({base:base.origin,calculators:'38/38',sitemap:urls.length,uniqueTitles:titles.size,uniqueH1s:headings.size,uniqueDescriptions:descriptions.size,staticNavigation:'38 links on every tool and homepage',canonicals:'38 self-referencing; existing slashless 301 aliases preserved',schema:'page-specific WebApplication and BreadcrumbList',robots:'indexable',internalLinkWarnings:warnings},null,2));
  if(warnings.length)console.log('Review warnings; these may include existing unpublished downloads.');
 })().catch(e=>{console.error(e);process.exitCode=1});
