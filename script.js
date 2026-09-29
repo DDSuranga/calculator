@@ -23,6 +23,9 @@ const CATEGORY_ANCHORS = {
 };
 const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
 const RELATED_OVERRIDES = {
+    gst: ['percentage', 'vat', 'profitMargin', 'salary', 'loanEmi'],
+    vat: ['gst', 'percentage', 'percentageChange', 'tip', 'profitMargin'],
+    salesTax: ['gst', 'percentage', 'discount', 'salary', 'profitMargin'],
     loanEmi: ['mortgage', 'roi', 'compoundInterest', 'simpleInterest'],
     mortgage: ['loanEmi', 'roi', 'compoundInterest', 'savings'],
     bmi: ['bmr', 'calorie', 'waterIntake'],
@@ -66,6 +69,7 @@ const calculatorData = [
     { name: 'UUID Generator', category: 'Developer Tools', target: 'uuidGenerator', slug: 'uuid-generator', elementId: 'dynamicToolCalculator', title: 'UUID Generator', heightClass: 'extra-tall', dynamicTool: 'uuidGenerator', metaDescription: 'Generate UUID v4 identifiers instantly using the free UUID Generator by OnlineCalMaster.' },
     { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format, prettify, and validate JSON using the free JSON Formatter by OnlineCalMaster.' },
     { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate volume for common 3D shapes using the free Volume Calculator by OnlineCalMaster.' },
+    { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
     { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate area for common 2D shapes using the free Area Calculator by OnlineCalMaster.' }
 ];
 
@@ -74,6 +78,42 @@ function getCalculatorByTarget(type) {
 }
 
 const dynamicToolDefinitions = {
+    gst: {
+        description: 'Calculate GST-inclusive and GST-exclusive amounts with CGST, SGST and IGST breakdowns.',
+        fields: [
+            { id: 'gstAmount', label: 'Amount (₹)', type: 'number', placeholder: 'Enter amount', min: 0, max: 1000000000000, step: 'any' },
+            { id: 'gstRate', label: 'GST Rate', type: 'select', value: '18', options: [['0', '0%'], ['0.25', '0.25%'], ['3', '3%'], ['5', '5%'], ['12', '12%'], ['18', '18%'], ['28', '28%'], ['custom', 'Custom %']] },
+            { id: 'gstCustomRate', label: 'Custom rate (%) — used only for Custom %', type: 'number', placeholder: 'Enter custom rate', min: 0, max: 100, step: 'any' },
+            { id: 'gstTaxType', label: 'Tax Type', type: 'select', options: [['intra', 'Intra-State (CGST + SGST)'], ['inter', 'Inter-State (IGST)']] },
+            { id: 'gstMode', label: 'Calculation Mode', type: 'radio', value: 'add', options: [['add', 'Add GST (GST Exclusive)'], ['remove', 'Remove GST (GST Inclusive)']] }
+        ],
+        copy: true,
+        help: {
+            what: 'GST (Goods and Services Tax) is an indirect tax on supplies in India. This tool calculates a single GST percentage on the amount you enter; it does not determine tax classification, input tax credits, cess or invoice eligibility. <strong>GST rates can vary by goods, services and classification.</strong> Select the rate applicable to your transaction and verify current rates with <a href="https://www.gstcouncil.gov.in/">official Indian GST guidance</a> when necessary. Presets are calculation choices, not a list of rates currently applicable to every transaction. This tool does not provide professional tax advice.',
+            how: 'Enter your amount in rupees, choose the applicable GST rate (or Custom % and a custom rate), select Intra-State or Inter-State, and choose Add GST or Remove GST. Press Calculate to see the breakdown. Zero is allowed. Amounts up to ₹10,00,00,00,00,000 and rates from 0% to 100% are supported.',
+            formula: '<strong>Add GST to an amount:</strong> GST = base amount × rate / 100; total = base + GST. <strong>Remove GST from an inclusive price:</strong> base = inclusive amount / (1 + rate / 100); GST component = inclusive amount − base. Do not multiply an inclusive price directly by the rate to extract its GST.',
+            example: 'At an illustrative 18%, ₹1,000 before GST gives ₹180 GST and a ₹1,180 total. Removing 18% GST from ₹1,180 returns a ₹1,000 base and ₹180 GST. Intra-State splits this into ₹90 CGST and ₹90 SGST; Inter-State shows ₹180 IGST instead. At 5%, ₹1,000 becomes ₹1,050, and reversing that price returns ₹1,000.',
+            faqs: [
+                ['CGST vs SGST vs IGST: what does the breakdown mean?', 'For the Intra-State option, this calculator divides the selected GST rate and tax equally between CGST and SGST. For the Inter-State option, it shows the full rate and amount as IGST. Applicable Union Territory transactions may use UTGST instead of SGST. Verify the nature and place of supply under the relevant rules.'],
+                ['How do I remove GST from an amount?', 'Divide the GST-inclusive price by 1 plus the GST rate divided by 100. At 18%, divide by 1.18. Subtract the resulting base from the inclusive price to find the GST component.'],
+                ['Which GST rate should I select?', 'Choose the rate applicable to your transaction. This calculator cannot identify a product or service classification or establish an exemption. Check official GST/CBIC guidance rather than assuming that a preset applies.'],
+                ['Can I calculate zero GST or use a custom rate?', 'Yes. At 0%, GST is zero and the base equals the total. Select Custom % to enter another rate from 0% to 100%.'],
+                ['How are paise and large amounts handled?', 'Calculations use unrounded values internally, and rupee results are displayed with two decimal places using Indian digit grouping. Components are rounded independently, so their displayed sum can differ by one paisa. Values above the stated amount limit are rejected to keep results readable and numerically reliable.']
+            ]
+        },
+        calculate(values) {
+            const result = calculateGst(values);
+            const money = value => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+            const removing = values.gstMode === 'remove';
+            const rows = removing
+                ? [['GST Inclusive Amount', money(result.total)], ['GST Rate', `${result.rate}%`], ['Original/Base Amount', money(result.base), true]]
+                : [['Original Amount', money(result.base)], ['GST Rate', `${result.rate}%`]];
+            if (values.gstTaxType === 'inter') rows.push([`IGST (${result.rate}%)`, money(result.gst)]);
+            else rows.push([removing ? 'GST Component' : 'GST Amount', money(result.gst)], [`CGST (${result.rate / 2}%)`, money(result.gst / 2)], [`SGST (${result.rate / 2}%)`, money(result.gst / 2)]);
+            if (!removing) rows.push(['Total Amount', money(result.total), true]);
+            return dynamicResult(money(removing ? result.base : result.total), rows);
+        }
+    },
     savings: {
         description: 'Project future savings from current balance, monthly deposits, annual interest, and time.',
         fields: [
@@ -527,6 +567,24 @@ const dynamicToolDefinitions = {
     }
 };
 
+function calculateGst(values) {
+    const numeric = (raw, label, maximum) => {
+        const text = String(raw ?? '').trim();
+        if (!text || !/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) throw new Error(`Enter a valid non-negative ${label}.`);
+        const value = Number(text);
+        if (!Number.isFinite(value) || value > maximum) throw new Error(`${label === 'amount' ? 'Amount must be at most ₹10,00,00,00,00,000' : 'GST rate must be between 0% and 100%'}.`);
+        return value;
+    };
+    const amount = numeric(values.gstAmount, 'amount', 1000000000000);
+    if (!['0', '0.25', '3', '5', '12', '18', '28', 'custom'].includes(values.gstRate)) throw new Error('Select a GST rate.');
+    const rate = numeric(values.gstRate === 'custom' ? values.gstCustomRate : values.gstRate, 'GST rate', 100);
+    if (!['add', 'remove'].includes(values.gstMode) || !['intra', 'inter'].includes(values.gstTaxType)) throw new Error('Select a calculation mode and tax type.');
+    const base = values.gstMode === 'remove' ? amount / (1 + rate / 100) : amount;
+    const gst = values.gstMode === 'remove' ? amount - base : base * rate / 100;
+    const total = values.gstMode === 'remove' ? amount : base + gst;
+    return { base, gst, total, rate };
+}
+
 function readNumber(value, message) {
     const number = parseFloat(value);
     if (Number.isNaN(number)) throw new Error(message);
@@ -593,6 +651,9 @@ function generateUuidV4() {
 }
 
 function renderDynamicField(field) {
+    if (field.type === 'radio') {
+        return `<fieldset class="gst-mode dynamic-wide"><legend>${field.label}</legend>${field.options.map(([value, label]) => `<label><input type="radio" name="dynamic-${field.id}" value="${value}" ${value === field.value ? 'checked' : ''}> ${label}</label>`).join('')}</fieldset>`;
+    }
     if (field.type === 'checkbox') {
         return `<label class="field-group dynamic-check">
             <input type="checkbox" id="dynamic-${field.id}" ${field.checked ? 'checked' : ''}>
@@ -604,7 +665,7 @@ function renderDynamicField(field) {
         return `<label class="field-group">
             <span>${field.label}</span>
             <select id="dynamic-${field.id}" class="unit-select">
-                ${field.options.map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}
+                ${field.options.map(([value, label]) => `<option value="${value}"${value === field.value ? ' selected' : ''}>${label}</option>`).join('')}
             </select>
         </label>`;
     }
@@ -659,6 +720,10 @@ function renderDynamicTool(calculator) {
 
 function getDynamicToolValues(definition) {
     return definition.fields.reduce((values, field) => {
+        if (field.type === 'radio') {
+            values[field.id] = document.querySelector(`input[name="dynamic-${field.id}"]:checked`)?.value || '';
+            return values;
+        }
         const input = document.getElementById(`dynamic-${field.id}`);
         values[field.id] = field.type === 'checkbox' ? input.checked : input.value;
         return values;
@@ -864,7 +929,7 @@ function updateBreadcrumbSchema(calculator) {
 
 function updateSeoMeta(calculator) {
     const calculatorTitle = calculator ? getCalculatorTitle(calculator) : '';
-    const title = calculatorTitle ? `${calculatorTitle} | OnlineCalMaster` : HOME_TITLE;
+    const title = calculator?.seoTitle || (calculatorTitle ? `${calculatorTitle} | OnlineCalMaster` : HOME_TITLE);
     const description = calculator?.metaDescription || (calculatorTitle ? `Use the free ${calculatorTitle} by OnlineCalMaster for fast, accurate, mobile-friendly calculations.` : HOME_DESCRIPTION);
     const canonicalUrl = getCanonicalUrl(calculator);
 

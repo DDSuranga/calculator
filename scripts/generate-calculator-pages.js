@@ -30,7 +30,7 @@ function fill(html,id,content) {const r=elementRange(html,id);return html.slice(
 const link = (c,cls='') => `<a${cls ? ` class="${cls}"` : ''} href="/${c.slug}/" data-target="${c.target}">${escape(title(c))}</a>`;
 const nav = groups.map(([category,label])=>`<section class="navigation-group"><h2>${escape(label)}</h2>${data.filter(c=>c.category===category).map(c=>link(c,'calculator-nav-link')).join('')}</section>`).join('\n');
 let template = fs.readFileSync(path.join(root,'index.html'),'utf8');
-template = fill(template,'calculatorList',nav).replace('Showing 0 calculators','Showing 35 calculators');
+template = fill(template,'calculatorList',nav).replace(/Showing \d+ calculators/,`Showing ${data.length} calculators`);
 template = template.replace(/<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g, block=>{
  const schema=JSON.parse(block.replace(/^[^>]*>|<\/script>$/g,''));
  const id=schema['@type']==='WebApplication'?'calculatorApplicationSchema':schema['@type']==='FAQPage'?'homepageFaqSchema':null;
@@ -46,7 +46,7 @@ template=fill(template,'relatedCalculators',run('getRelatedCalculators(current)'
 fs.writeFileSync(path.join(root,'index.html'),template);
 for (const calculator of data) {
  context.current=calculator;
- const pageTitle=escape(title(calculator)+' | OnlineCalMaster'), description=escape(calculator.metaDescription);
+ const pageTitle=escape(calculator.seoTitle || title(calculator)+' | OnlineCalMaster'), description=escape(calculator.metaDescription);
  let html=template.replace('<head>','<head>\n    <base href="/">')
  .replace(/<title>[\s\S]*?<\/title>/,`<title>${pageTitle}</title>`)
  .replace(/(<meta name="description" content=")[^"]*/,'$1'+description)
@@ -55,6 +55,7 @@ for (const calculator of data) {
  .replace(/(<p class="hero-subtitle">)[\s\S]*?<\/p>/,'$1'+escape(context.getCalculatorIntroduction(calculator))+'</p>');
  for (const [key,value] of [['og:title',pageTitle],['og:description',description],['og:url',url(calculator)],['twitter:title',pageTitle],['twitter:description',description]]) html=html.replace(new RegExp('(<meta (?:property|name)="'+key+'" content=")[^"]*'),'$1'+value);
  html=fill(html,'calculatorGuide',context.getCalculatorGuideHtml(calculator));
+ if (calculator.target === 'gst') html=html.replace(/\s*<meta name="keywords"[^>]*>/,'');
  html=fill(html,'contextDescription',escape(context.getCalculatorIntroduction(calculator)));
  html=fill(html,'calculatorBreadcrumb',`<a href="/">Home</a><a href="/#${anchors[calculator.category]}">${escape(calculator.category)}</a><span aria-current="page">${escape(title(calculator))}</span>`);
  html=fill(html,'relatedCalculators',run('getRelatedCalculators(current)').map(c=>link(c)).join(''));

@@ -2740,3 +2740,9 @@ body.app-page :is(#percentageChangeDisplay,#dateDiffDisplay) { font-size:clamp(1
 
 /* Keep the download page available without promoting it in the website UI. */
 a[href="download.html"], a[href="/download.html"] { display:none; }
+
+/* GST mode choices use the existing form palette and full-width grid row. */
+.app-page .gst-mode { margin:0;padding:12px;border:1px solid var(--line);border-radius:6px;color:var(--text); }
+.app-page .gst-mode label { display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer; }
+.app-page .gst-mode input { width:auto;min-height:0;accent-color:var(--accent); }
+.app-page #dynamicToolCalculator:has(.gst-mode) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
