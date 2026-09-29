@@ -2746,3 +2746,4 @@ a[href="download.html"], a[href="/download.html"] { display:none; }
 .app-page .gst-mode label { display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer; }
 .app-page .gst-mode input { width:auto;min-height:0;accent-color:var(--accent); }
 .app-page #dynamicToolCalculator:has(.gst-mode) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
+.app-page #dynamicToolCalculator:has(#dynamic-sipMonthly) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }

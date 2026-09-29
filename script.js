@@ -23,6 +23,9 @@ const CATEGORY_ANCHORS = {
 };
 const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
 const RELATED_OVERRIDES = {
+    sip: ['compoundInterest', 'percentage', 'gst', 'salary', 'loanEmi'],
+    compoundInterest: ['sip', 'savings', 'simpleInterest', 'percentage', 'loanEmi'],
+    savings: ['sip', 'compoundInterest', 'simpleInterest', 'salary', 'percentage'],
     gst: ['percentage', 'vat', 'profitMargin', 'salary', 'loanEmi'],
     vat: ['gst', 'percentage', 'percentageChange', 'tip', 'profitMargin'],
     salesTax: ['gst', 'percentage', 'discount', 'salary', 'profitMargin'],
@@ -70,6 +73,7 @@ const calculatorData = [
     { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format, prettify, and validate JSON using the free JSON Formatter by OnlineCalMaster.' },
     { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate volume for common 3D shapes using the free Volume Calculator by OnlineCalMaster.' },
     { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
+    { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Calculate SIP Returns & Future Value | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
     { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate area for common 2D shapes using the free Area Calculator by OnlineCalMaster.' }
 ];
 
@@ -78,6 +82,41 @@ function getCalculatorByTarget(type) {
 }
 
 const dynamicToolDefinitions = {
+    sip: {
+        description: 'Estimate SIP future value and returns with monthly investments made at the end of each month.',
+        fields: [
+            { id: 'sipMonthly', label: 'Monthly Investment (₹)', type: 'number', value: '5000', min: 0, max: 1000000000, step: 'any' },
+            { id: 'sipAnnualRate', label: 'Expected Annual Return (%)', type: 'number', value: '12', min: 0, max: 100, step: 'any' },
+            { id: 'sipYears', label: 'Investment Period (Years)', type: 'number', value: '10', min: 0.08333333333333333, max: 100, step: 'any' }
+        ],
+        copy: true,
+        help: {
+            what: 'A SIP (Systematic Investment Plan) is a method of investing a fixed amount periodically, commonly in mutual funds. This monthly SIP calculator estimates growth using a constant return rate and contributions at the <strong>end of each month</strong>. Results depend on the rate you enter. Mutual fund returns are market-linked, are not guaranteed, and actual returns can differ. Past performance does not guarantee future performance. This is an educational planning tool, not investment advice. See <a href="https://www.amfiindia.com/investor/knowledge-center-info?zoneName=riskInMutualFunds">AMFI guidance on mutual fund risks</a>.',
+            how: 'Enter a monthly investment, your assumed annual return and the investment period. Select Calculate to view total invested, estimated returns and estimated future value. The 12% default is an illustration, not a promised or typical return.',
+            formula: 'Let P be the monthly investment, i = annual return / 12 / 100 and n = years × 12. With end-of-month contributions, FV = P × ((1 + i)^n − 1) / i. At 0%, FV = P × n. Total invested = P × n; estimated returns = FV − total invested. The calculation does not multiply by (1 + i). The annual percentage is divided by 12, not converted from an effective annual rate.',
+            get example() {
+                const result = calculateSip({ sipMonthly: '5000', sipAnnualRate: '12', sipYears: '10' });
+                return `For ${formatSipCurrency(5000)} invested at the end of each month for 10 years, an illustrative 12% annual rate gives i = 0.01 and n = 120. Total invested: ${formatSipCurrency(result.invested)}. Estimated returns: ${formatSipCurrency(result.returns)}. Estimated future value: ${formatSipCurrency(result.futureValue)}. Figures are rounded to the nearest rupee; the calculation retains precision internally.`;
+            },
+            faqs: [
+                ['SIP vs lump sum: how do they differ?', 'A SIP spreads contributions across time. A lump sum is invested upfront, so the entire amount is exposed to market movements from the start. This tool models equal monthly contributions only; it does not compare funds or recommend a method.'],
+                ['How does the investment period affect SIP growth?', 'A longer period adds more contributions. At a positive assumed return, earlier contributions also have more time to compound. Market returns fluctuate, so this smooth projection is not a forecast of actual fund performance.'],
+                ['When are monthly contributions invested?', 'At the end of each month. The final contribution earns no return before the end of the modeled period. A beginning-of-month convention would produce a different estimate and is not used here.'],
+                ['Can I use a decimal return or investment period?', 'Yes. For example, 10.5% is supported and 1.5 years equals 18 months. Decimal years are multiplied by 12 without rounding. A fractional-month result is a mathematical approximation, not an exact contribution schedule. The minimum period is one month.'],
+                ['What happens at 0% return or zero investment?', 'At 0%, estimated future value equals the total invested and estimated returns are zero. A zero monthly investment produces zero for all three results.'],
+                ['Does this include fees, taxes, inflation or market losses?', 'No. It uses a constant non-negative return assumption without separately modeling fees, taxes, inflation, step-up contributions or withdrawals. Actual investments can lose value. Adjusting an assumption is not a substitute for reviewing a fund’s risks and costs.'],
+                ['What are the input and display limits?', 'For numerical reliability, monthly investment is limited to ₹1,00,00,00,000, annual return to 0–100%, and the period to one month–100 years. Estimates above ₹1,00,00,00,00,00,00,000 are rejected. These are calculator limits, not guidance about suitable investments or achievable returns. Results are displayed to the nearest rupee.']
+            ]
+        },
+        calculate(values) {
+            const result = calculateSip(values);
+            return dynamicResult(formatSipCurrency(result.futureValue), [
+                ['Total Invested', formatSipCurrency(result.invested)],
+                ['Estimated Returns', formatSipCurrency(result.returns)],
+                ['Estimated Future Value', formatSipCurrency(result.futureValue), true]
+            ]);
+        }
+    },
     gst: {
         description: 'Calculate GST-inclusive and GST-exclusive amounts with CGST, SGST and IGST breakdowns.',
         fields: [
@@ -566,6 +605,32 @@ const dynamicToolDefinitions = {
         }
     }
 };
+
+function calculateSip(values) {
+    const numeric = (raw, label, maximum) => {
+        const text = String(raw ?? '').trim();
+        if (!text || !/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) throw new Error(`Enter a valid non-negative ${label}.`);
+        const value = Number(text);
+        if (!Number.isFinite(value) || value > maximum) throw new Error(`Enter a ${label} within the calculator limits shown below.`);
+        return value;
+    };
+    const monthly = numeric(values.sipMonthly, 'monthly investment', 1000000000);
+    const annualRate = numeric(values.sipAnnualRate, 'annual return', 100);
+    const years = numeric(values.sipYears, 'investment period', 100);
+    const months = years * 12;
+    if (months < 1) throw new Error('Enter an investment period of at least one month (1/12 year).');
+    const invested = monthly * months;
+    const monthlyRate = annualRate / 12 / 100;
+    // Stable evaluation of ((1 + i)^n - 1) / i, including very small positive rates.
+    const futureValue = monthlyRate === 0 ? invested : monthly * Math.expm1(months * Math.log1p(monthlyRate)) / monthlyRate;
+    if (!Number.isFinite(futureValue) || futureValue > 1000000000000000) throw new Error('Estimate is too large to display reliably. Reduce the investment, return rate or period.');
+    // Non-negative assumptions cannot produce a loss; clamp floating-point round-off only.
+    return { invested, returns: Math.max(0, futureValue - invested), futureValue: Math.max(invested, futureValue), months };
+}
+
+function formatSipCurrency(value) {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
+}
 
 function calculateGst(values) {
     const numeric = (raw, label, maximum) => {

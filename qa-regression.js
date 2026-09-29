@@ -42,9 +42,9 @@ const dynamicCases=[['savings',{currentBalance:100,monthlyDeposit:10,annualRate:
 for(const [tool,values,expected]of dynamicCases){context.values=values;assert.ok(run(`dynamicToolDefinitions.${tool}.calculate(values).display`).includes(expected),tool);checks++;}
 context.values={length:16,lowercase:true,uppercase:true,numbers:true,symbols:true};assert.equal(run('dynamicToolDefinitions.passwordGenerator.calculate(values).display').length,16);checks++;
 assert.match(run('dynamicToolDefinitions.uuidGenerator.calculate().display'),/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);checks++;
-const data=run('calculatorData');assert.equal(data.length,36);
+const data=run('calculatorData');assert.equal(data.length,37);
 for(const c of data){const html=fs.readFileSync(c.slug+'/index.html','utf8');assert.ok(html.includes('<base href="/">'));assert.ok(html.includes(`rel="canonical" href="https://onlinecalmaster.com/${c.slug}/"`));assert.ok(html.includes('src="script.js"'));assert.ok(fs.readFileSync('sitemap.xml','utf8').includes(`/${c.slug}/</loc>`));}
-console.log(`${checks} calculation/control checks passed; all 36 generated routes and sitemap entries verified.`);
+console.log(`${checks} calculation/control checks passed; all 37 generated routes and sitemap entries verified.`);
 (async()=>{
  for(const [fn,expected] of [['copyLoanEmiResult','Monthly EMI'],['copyMortgageResult','Monthly Payment'],['copyCompoundInterestResult','Future Value'],['copyBmiResult','BMI'],['copyDiscountResult','Final Price'],['copyVolumeResult','Volume'],['copyAreaResult','Area']]){copied='';context[fn]();await Promise.resolve();assert.ok(copied.includes(expected),fn);}
  context.clearLoanEmi();assert.equal(el('loanAmountInput').value,'');
