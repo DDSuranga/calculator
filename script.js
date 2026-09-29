@@ -75,7 +75,7 @@ const calculatorData = [
     { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate volume for common 3D shapes using the free Volume Calculator by OnlineCalMaster.' },
     { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
     { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Calculate SIP Returns & Future Value | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
-    { name: 'Home Loan EMI Calculator India', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator India', seoTitle: 'Home Loan EMI Calculator India – Calculate Monthly EMI | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate your housing loan EMI in Indian rupees, total interest and repayment amount. Compare home loan rates and tenures using a monthly reducing-balance calculation.' },
+    { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Calculate Monthly Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
     { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate area for common 2D shapes using the free Area Calculator by OnlineCalMaster.' }
 ];
 
@@ -83,41 +83,57 @@ function getCalculatorByTarget(type) {
     return calculatorData.find(calculator => calculator.target === type);
 }
 
+const HOME_LOAN_CURRENCIES = {
+    INR: ['₹ INR — Indian Rupee', 'en-IN'],
+    USD: ['$ USD — US Dollar', 'en-US'],
+    EUR: ['€ EUR — Euro', 'en-IE'],
+    GBP: ['£ GBP — British Pound', 'en-GB'],
+    AUD: ['A$ AUD — Australian Dollar', 'en-AU'],
+    CAD: ['C$ CAD — Canadian Dollar', 'en-CA'],
+    JPY: ['¥ JPY — Japanese Yen', 'ja-JP'],
+    SGD: ['S$ SGD — Singapore Dollar', 'en-SG'],
+    AED: ['د.إ AED — UAE Dirham', 'en-AE'],
+    LKR: ['Rs LKR — Sri Lankan Rupee', 'en-LK']
+};
+
 const dynamicToolDefinitions = {
     homeLoanEmi: {
         description: 'Estimate monthly home loan EMI, total interest and repayment using a reducing balance.',
         fields: [
-            { id: 'homeLoanAmount', label: 'Loan Amount (₹)', type: 'number', value: '3000000', min: 0, max: 1000000000000, step: 'any' },
+            { id: 'homeLoanCurrency', label: 'Currency', type: 'select', value: 'INR', options: Object.entries(HOME_LOAN_CURRENCIES).map(([code, [label]]) => [code, label]) },
+            { id: 'homeLoanAmount', label: 'Loan Amount', type: 'number', value: '3000000', min: 0, max: 1000000000000, step: 'any' },
             { id: 'homeLoanRate', label: 'Annual Interest Rate (%)', type: 'number', value: '8.5', min: 0, max: 100, step: 'any' },
             { id: 'homeLoanTenure', label: 'Loan Tenure', type: 'number', value: '20', min: 0, max: 1200, step: 'any' },
             { id: 'homeLoanUnit', label: 'Tenure Unit', type: 'select', value: 'years', options: [['years', 'Years'], ['months', 'Months']] }
         ],
         copy: true,
         help: {
-            what: 'A home loan EMI is an equated monthly instalment that repays the borrowed principal and interest for housing finance. Enter the amount borrowed, rather than the full property price if you pay a deposit. This calculator assumes full disbursement, a constant annual rate and payments at the end of each month. <strong>Planning estimate only:</strong> actual EMI, interest, fees, processing charges, insurance, taxes, rate changes and lender-specific terms may differ. Verify final terms with your bank or lender. The 8.5% default is illustrative, not a guaranteed or universally available rate.',
-            how: 'Enter your housing loan amount, annual interest rate and tenure. Choose Years or Months, then select Calculate. Compare monthly EMI with total interest and total payment before changing the rate or tenure. Changing the tenure unit reinterprets the entered number; enter 240 Months for the same period as 20 Years.',
+            what: 'EMI means Equated Monthly Instalment, a commonly used term for a fixed monthly loan repayment. A home loan EMI repays principal and interest for housing finance. Enter the amount borrowed, rather than the full property price if you pay a deposit. This calculator assumes full disbursement, a constant annual rate and payments at the end of each month. <strong>Planning estimate only:</strong> actual lender calculations may differ. Fees, processing charges, insurance, taxes and other charges are not included. Variable or floating interest rates may change repayments. Verify final figures and terms with your lender. The 8.5% default is illustrative, not a guaranteed or universally available rate.',
+            how: 'Choose a display currency and enter your housing loan amount, annual interest rate and tenure. Choose Years or Months, then select Calculate. Currency selection changes formatting only: it does not convert the amount or fetch exchange rates. Compare monthly EMI with total interest and total payment before changing the rate or tenure. Changing the tenure unit reinterprets the entered number; enter 240 Months for the same period as 20 Years.',
             formula: 'P is the principal, r = annual interest rate / 12 / 100, and n is the number of monthly instalments (years × 12, or months). EMI = P × r × (1 + r)^n / ((1 + r)^n − 1). At 0% interest, EMI = P / n. Total payment = EMI × n; total interest = total payment − P. Interest applies to the outstanding balance, not the original principal throughout the term. This is a reducing-balance estimate, not flat-rate interest.',
             get example() {
                 const result = calculateHomeLoanEmi({ homeLoanAmount: '3000000', homeLoanRate: '8.5', homeLoanTenure: '20', homeLoanUnit: 'years' });
-                return `A ${formatHomeLoanCurrency(result.principal)} home loan at an illustrative 8.5% annual interest for 20 years has ${result.months} monthly instalments. Estimated monthly EMI: ${formatHomeLoanCurrency(result.emi)}. Total interest payable: ${formatHomeLoanCurrency(result.interest)}. Total payment: ${formatHomeLoanCurrency(result.total)}. The calculation retains precision internally; displayed figures are rounded to paise and may differ from a lender’s rounded payment schedule.`;
+                return `A ${formatHomeLoanCurrency(result.principal)} home loan at an illustrative 8.5% annual interest for 20 years has ${result.months} monthly instalments. Estimated monthly EMI: ${formatHomeLoanCurrency(result.emi)}. Total interest payable: ${formatHomeLoanCurrency(result.interest)}. Total payment: ${formatHomeLoanCurrency(result.total)}. INR is used here as one example; select another currency to apply the same formula without converting the loan amount. Calculations retain precision internally; display rounding follows the selected currency and may differ from a lender’s payment schedule.`;
             },
             faqs: [
+                ['Does changing currency convert my loan?', 'No. Currency changes only symbols and number formatting, leaving the loan amount, rate, tenure and calculation unchanged. No exchange rates are requested. INR is supported for users planning a home loan in India, alongside other currencies. JPY displays whole yen; other supported currencies display two decimal places.'],
                 ['How does the interest rate affect home loan EMI?', 'For the same positive loan amount and tenure, a higher rate raises the EMI and total interest. This estimate keeps the entered rate constant; a floating-rate reset may change payments or tenure. Check your lender’s reset terms.'],
                 ['Shorter vs longer tenure: what changes?', 'For the same principal and positive rate, a longer tenure lowers each EMI but raises total interest because the balance stays outstanding longer. A shorter tenure increases the monthly payment and reduces total interest. At 0%, changing tenure only spreads the principal across a different number of payments.'],
                 ['Can I enter tenure in months or decimal years?', 'Yes. Use whole months, or decimal years that equal a whole number of months, such as 1.5 years for 18 payments. Fractional monthly instalments are rejected. The supported period is 1–1,200 months (up to 100 years); this is a calculation limit, not a lender eligibility rule.'],
                 ['Does the EMI include every home-buying cost?', 'No. The result includes only principal and interest. It excludes down payment, processing fees, insurance, property taxes, stamp duty, registration costs and other charges. Add these separately when planning your housing budget and check the lender’s final quotation.'],
                 ['Does it model prepayments or an under-construction home?', 'No. Part disbursements, pre-EMI interest, moratoriums, extra repayments and changing rates need a payment schedule tailored to the loan. This simple estimate assumes the full principal is borrowed at the start and repaid in equal monthly instalments.'],
-                ['How is this different from the generic Loan EMI Calculator?', 'This page focuses on housing loan planning in Indian rupees. The <a href="/loan-emi-calculator/">Loan EMI Calculator</a> remains available for general borrowing, while the <a href="/mortgage-calculator/">Mortgage Calculator</a> also accepts property price, down payment, property tax and insurance inputs.'],
-                ['What happens with zero or very large inputs?', 'A zero loan amount gives zero EMI and totals; 0% interest divides principal equally among payments. Negative or blank values are rejected. For numerical reliability, the amount is capped at ₹10,00,00,00,00,000 and the annual rate at 100%. These limits do not describe available loan products.']
+                ['How is this different from the generic Loan EMI Calculator?', 'This page focuses on housing loan planning with a choice of display currencies. The <a href="/loan-emi-calculator/">Loan EMI Calculator</a> remains available for general borrowing, while the <a href="/mortgage-calculator/">Mortgage Calculator</a> also accepts property price, down payment, property tax and insurance inputs.'],
+                ['What happens with zero or very large inputs?', 'A zero loan amount gives zero EMI and totals; 0% interest divides principal equally among payments. Negative or blank values are rejected. For numerical reliability, the amount is capped at 1,000,000,000,000 in the selected currency and the annual rate at 100%. These limits do not describe available loan products.']
             ]
         },
         calculate(values) {
             const result = calculateHomeLoanEmi(values);
-            return dynamicResult(formatHomeLoanCurrency(result.emi), [
-                ['Monthly EMI', formatHomeLoanCurrency(result.emi), true],
-                ['Principal Amount', formatHomeLoanCurrency(result.principal)],
-                ['Total Interest Payable', formatHomeLoanCurrency(result.interest)],
-                ['Total Payment', formatHomeLoanCurrency(result.total)]
+            const money = value => formatHomeLoanCurrency(value, values.homeLoanCurrency || 'INR');
+            return dynamicResult(money(result.emi), [
+                ['Monthly EMI / Payment', money(result.emi), true],
+                ['Principal Amount', money(result.principal)],
+                ['Total Interest', money(result.interest)],
+                ['Total Payment', money(result.total)]
             ]);
         }
     },
@@ -668,8 +684,9 @@ function calculateHomeLoanEmi(values) {
     return { principal, months, emi, total, interest: Math.max(0, total - principal) };
 }
 
-function formatHomeLoanCurrency(value) {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+function formatHomeLoanCurrency(value, currency = 'INR') {
+    if (!Object.hasOwn(HOME_LOAN_CURRENCIES, currency)) throw new Error('Choose a supported currency.');
+    return new Intl.NumberFormat(HOME_LOAN_CURRENCIES[currency][1], { style: 'currency', currency }).format(value);
 }
 
 function calculateSip(values) {
@@ -847,6 +864,9 @@ function renderDynamicTool(calculator) {
             <p class="finance-message" id="dynamicToolMessage">Enter values and calculate the result.</p>
         </div>
     `;
+    if (calculator.dynamicTool === 'homeLoanEmi') {
+        document.getElementById('dynamic-homeLoanCurrency').addEventListener('change', calculateDynamicTool);
+    }
 }
 
 function getDynamicToolValues(definition) {

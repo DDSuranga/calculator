@@ -31,13 +31,26 @@ for (const input of [values('1000000000001'), values('1000', '101'), values('100
 }
 const definition = vm.runInContext('dynamicToolDefinitions.homeLoanEmi', context);
 for (const value of [example.emi, example.interest, example.total]) assert(definition.help.example.includes(context.formatHomeLoanCurrency(value)));
-assert.deepEqual(Array.from(definition.fields, f => f.value), ['3000000', '8.5', '20', 'years']);
+assert.deepEqual(Array.from(definition.fields, f => f.value), ['INR', '3000000', '8.5', '20', 'years']);
 assert.equal(context.formatHomeLoanCurrency(3000000), '₹30,00,000.00');
 assert(!/NaN|Infinity|undefined/.test(definition.calculate(values()).display));
 const html = fs.readFileSync('home-loan-emi-calculator/index.html', 'utf8');
 assert(html.includes(definition.help.example)); assert(!/name="keywords"/.test(html));
-assert.match(html, /<h1[^>]*>Home Loan EMI Calculator India<\/h1>/);
+assert.match(html, /<h1[^>]*>Home Loan EMI Calculator<\/h1>/);
 assert(html.includes('rel="canonical" href="https://onlinecalmaster.com/home-loan-emi-calculator/"'));
 assert(html.includes('href="/loan-emi-calculator/"'));
 console.log(`${checks} Home Loan EMI formula/validation cases passed, plus amortization, zero/tiny rates, defaults, Indian formatting and generated-example/SEO checks.`);
 console.log(JSON.stringify(example, null, 2));
+const baseline = context.calculateHomeLoanEmi(values());
+for (const currency of ['INR', 'USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY', 'SGD', 'AED', 'LKR']) {
+    const input = { ...values(), homeLoanCurrency: currency };
+    assert.deepEqual(context.calculateHomeLoanEmi(input), baseline);
+    const rendered = definition.calculate(input);
+    for (const [index, key] of ['emi', 'principal', 'interest', 'total'].entries()) assert.equal(rendered.rows[index][1], context.formatHomeLoanCurrency(baseline[key], currency));
+}
+assert.equal(context.formatHomeLoanCurrency(300000, 'USD'), '$300,000.00');
+assert.equal(context.formatHomeLoanCurrency(300000, 'GBP'), '£300,000.00');
+assert.equal(context.formatHomeLoanCurrency(300000, 'INR'), '₹3,00,000.00');
+assert.equal(context.formatHomeLoanCurrency(300000, 'EUR'), '€300,000.00');
+assert.throws(() => context.formatHomeLoanCurrency(1, 'INVALID'));
+console.log('10 currencies passed: identical numeric EMI/principal/interest/total; display formatting and invalid currency checks passed.');

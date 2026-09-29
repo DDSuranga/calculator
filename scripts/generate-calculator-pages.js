@@ -9,7 +9,7 @@ source = source.replace(/\/\/ BEGIN GENERATED CLASSIC GUIDES[\s\S]*?\/\/ END GEN
 fs.writeFileSync(scriptPath, source);
 // Read definitions/renderers only; registered event callbacks are not executed.
 const elements = {};
-const context = {document:{addEventListener(){},querySelectorAll:()=>[],getElementById:id=>elements[id] ||= {}},window:{addEventListener(){}},console};
+const context = {document:{addEventListener(){},querySelectorAll:()=>[],getElementById:id=>elements[id] ||= {addEventListener(){}}},window:{addEventListener(){}},console};
 vm.createContext(context); vm.runInContext(source, context);
 const run = code => vm.runInContext(code, context);
 const data = run('calculatorData'), groups = run('NAV_GROUPS'), anchors = run('CATEGORY_ANCHORS');
