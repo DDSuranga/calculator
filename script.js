@@ -3254,7 +3254,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heading.textContent = 'Free Online Calculators & Smart Tools';
     }
 
-    const navLabels = ['Home', 'About Us', 'Contact Us', 'Privacy Policy', 'Download App'];
+    const navLabels = ['Home', 'About Us', 'Contact Us', 'Privacy Policy'];
     document.querySelectorAll('.top-nav a').forEach((link, index) => {
         if (index < navLabels.length) link.textContent = navLabels[index];
     });

@@ -10,7 +10,7 @@ async function get(p){const r=await fetch(new URL(p,base),{redirect:'manual',cac
 (async()=>{
  const sitemap=await get('/sitemap.xml'),urls=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
  assert.match(sitemap,/<urlset xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9">/);assert.match(sitemap,/<\/urlset>\s*$/);
- assert.equal(urls.length,44);assert.equal(new Set(urls).size,urls.length);
+ assert.equal(urls.length,42);assert.equal(new Set(urls).size,urls.length);
  const robots=await get('/robots.txt');assert.match(robots,/User-agent:\s*\*/);assert.match(robots,/Allow:\s*\//);assert(!/^Disallow:\s*\S/m.test(robots));assert(robots.includes(origin+'/sitemap.xml'));
  const pages=new Map(),titles=new Set(),descriptions=new Set(),headings=new Set();
  for(const u of urls){assert(u.startsWith(origin+'/'));const p=new URL(u).pathname;pages.set(p,await get(p));}

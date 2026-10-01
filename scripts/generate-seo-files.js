@@ -149,8 +149,6 @@ function main() {
         { path: '/about.html', changefreq: 'monthly', priority: '0.7' },
         { path: '/contact.html', changefreq: 'monthly', priority: '0.6' },
         { path: '/privacy-policy.html', changefreq: 'monthly', priority: '0.5' },
-        { path: '/download.html', changefreq: 'monthly', priority: '0.6' },
-        { path: '/purchase-source.html', changefreq: 'monthly', priority: '0.5' }
     ];
 
     const entries = [

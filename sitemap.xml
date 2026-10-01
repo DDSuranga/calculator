@@ -25,18 +25,6 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://onlinecalmaster.com/download.html</loc>
-        <lastmod>2026-09-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://onlinecalmaster.com/purchase-source.html</loc>
-        <lastmod>2026-09-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://onlinecalmaster.com/basic-calculator/</loc>
         <lastmod>2026-09-27</lastmod>
         <changefreq>weekly</changefreq>

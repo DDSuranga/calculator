@@ -1719,182 +1719,6 @@ header h1 {
     margin-top: 4px;
 }
 
-.download-container {
-    grid-template-columns: 230px minmax(0, 820px) 290px;
-    align-items: start;
-}
-
-.download-nav {
-    gap: 8px;
-}
-
-.download-nav a {
-    display: block;
-    padding: 11px 13px;
-    border-radius: 14px;
-    color: #086995;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(3, 145, 204, 0.14);
-    font-size: 14px;
-    font-weight: 800;
-    line-height: 1.25;
-    text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.download-nav a:hover {
-    background: #ffffff;
-    color: #034f79;
-    transform: translateX(2px);
-}
-
-.download-main {
-    width: 100%;
-    padding-top: 0;
-}
-
-.download-card {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(4, 133, 194, 0.16);
-    box-shadow: 0 24px 54px rgba(7, 73, 121, 0.15);
-}
-
-.download-hero {
-    padding: 36px;
-    background:
-        linear-gradient(135deg, rgba(10, 177, 228, 0.16), rgba(255, 255, 255, 0.9) 48%),
-        linear-gradient(180deg, #ffffff 0%, #f2fbff 100%);
-    border-bottom: 1px solid rgba(4, 133, 194, 0.14);
-}
-
-.download-hero h2,
-.download-section h2 {
-    color: #073e72;
-    letter-spacing: 0;
-}
-
-.download-hero h2 {
-    max-width: 620px;
-    margin-bottom: 14px;
-    font-size: clamp(28px, 4vw, 42px);
-    line-height: 1.08;
-}
-
-.download-hero p,
-.download-section p,
-.download-section li {
-    color: #385f7e;
-    font-size: 16px;
-    line-height: 1.72;
-}
-
-.download-primary-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    margin-top: 22px;
-    padding: 12px 18px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, #26c8f5 0%, #08a9df 58%, #0086c3 100%);
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 900;
-    text-decoration: none;
-    box-shadow: 0 6px 0 #0578ad, 0 13px 20px rgba(3, 104, 160, 0.2);
-}
-
-.download-section {
-    padding: 30px 36px;
-    border-bottom: 1px solid rgba(4, 133, 194, 0.11);
-}
-
-.download-section:last-child {
-    border-bottom: 0;
-}
-
-.download-section h2 {
-    margin-bottom: 12px;
-    font-size: 22px;
-}
-
-.download-section ul,
-.download-section ol {
-    padding-left: 22px;
-}
-
-.download-platforms {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-}
-
-.download-platforms div {
-    min-width: 0;
-    padding: 18px;
-    border-radius: 18px;
-    background: linear-gradient(180deg, #ffffff 0%, #f4fcff 100%);
-    border: 1px solid rgba(4, 133, 194, 0.14);
-    box-shadow: 0 12px 24px rgba(7, 73, 121, 0.08);
-}
-
-.download-platforms strong {
-    display: block;
-    margin-bottom: 8px;
-    color: #074b7d;
-    font-size: 17px;
-    font-weight: 900;
-}
-
-.download-platforms p {
-    font-size: 15px;
-    line-height: 1.62;
-}
-
-.source-pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-}
-
-.source-pricing-grid div {
-    min-width: 0;
-    padding: 18px;
-    border-radius: 18px;
-    background: linear-gradient(180deg, #ffffff 0%, #f4fcff 100%);
-    border: 1px solid rgba(4, 133, 194, 0.14);
-    box-shadow: 0 12px 24px rgba(7, 73, 121, 0.08);
-}
-
-.source-pricing-grid strong {
-    display: block;
-    color: #074b7d;
-    font-size: 16px;
-    font-weight: 900;
-}
-
-.source-pricing-grid p {
-    margin: 8px 0;
-    color: #036c9d;
-    font-size: 24px;
-    font-weight: 900;
-    line-height: 1.2;
-}
-
-.source-pricing-grid span {
-    color: #4f6680;
-    font-size: 14px;
-    line-height: 1.55;
-}
-
-.download-summary {
-    position: sticky;
-    top: 14px;
-}
-
 body.dark-mode {
     --ink: #e8f7ff;
     --muted: #a7c5d8;
@@ -2086,67 +1910,6 @@ body.dark-mode .about-values div {
     box-shadow: none;
 }
 
-body.dark-mode .download-card {
-    background: rgba(8, 31, 48, 0.86);
-    border-color: rgba(97, 210, 255, 0.18);
-    box-shadow: 0 24px 54px rgba(0, 11, 22, 0.36);
-}
-
-body.dark-mode .download-hero {
-    background:
-        linear-gradient(135deg, rgba(8, 169, 223, 0.16), rgba(8, 31, 48, 0.88) 48%),
-        linear-gradient(180deg, rgba(12, 42, 61, 0.96), rgba(8, 31, 48, 0.92));
-    border-bottom-color: rgba(97, 210, 255, 0.16);
-}
-
-body.dark-mode .download-hero h2,
-body.dark-mode .download-section h2,
-body.dark-mode .download-platforms strong {
-    color: #e8f8ff;
-}
-
-body.dark-mode .download-hero p,
-body.dark-mode .download-section p,
-body.dark-mode .download-section li {
-    color: #bed8e8;
-}
-
-body.dark-mode .download-nav a {
-    color: #d4f6ff;
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(97, 210, 255, 0.18);
-}
-
-body.dark-mode .download-nav a:hover {
-    background: rgba(255, 255, 255, 0.11);
-    color: #ffffff;
-}
-
-body.dark-mode .download-section {
-    border-bottom-color: rgba(97, 210, 255, 0.13);
-}
-
-body.dark-mode .download-platforms div {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(97, 210, 255, 0.14);
-    box-shadow: none;
-}
-
-body.dark-mode .source-pricing-grid div {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(97, 210, 255, 0.14);
-    box-shadow: none;
-}
-
-body.dark-mode .source-pricing-grid strong,
-body.dark-mode .source-pricing-grid p {
-    color: #d7f7ff;
-}
-
-body.dark-mode .source-pricing-grid span {
-    color: #a8bfd5;
-}
-
 body.dark-mode .top-nav a {
     color: #c8f3ff !important;
     background: rgba(8, 31, 48, 0.78);
@@ -2206,11 +1969,7 @@ body.dark-mode .calculator-faq details {
         position: static;
     }
 
-    .download-container {
-        grid-template-columns: 210px minmax(0, 1fr);
-    }
-
-    .download-summary {
+.download-summary {
         position: static;
     }
 }
@@ -2263,22 +2022,12 @@ body.dark-mode .calculator-faq details {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .download-nav {
-        flex-direction: row;
-        overflow-x: auto;
-        position: static;
-    }
-
-    .download-nav a {
+.download-nav a {
         flex: 0 0 auto;
         white-space: nowrap;
     }
 
-    .download-platforms {
-        grid-template-columns: 1fr;
-    }
-
-    .category-grid,
+.category-grid,
     .popular-grid,
     .why-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2346,8 +2095,7 @@ body.dark-mode .calculator-faq details {
 
     .category-grid,
     .popular-grid,
-    .why-list,
-    .source-pricing-grid {
+    .why-list {
         grid-template-columns: 1fr;
     }
 
@@ -2525,23 +2273,9 @@ body.dark-mode .calculator-faq details {
         grid-template-columns: 1fr;
     }
 
-    .download-card {
-        border-radius: 18px;
-    }
-
-    .download-hero,
-    .download-section {
-        padding: 24px 18px;
-    }
-
-    .download-hero p,
-    .download-section p,
-    .download-section li {
-        font-size: 15px;
-        line-height: 1.68;
-    }
-
-    .download-primary-action {
+.download-hero,
+.download-hero p,
+.download-primary-action {
         width: 100%;
     }
 
@@ -2737,9 +2471,6 @@ body.app-page .calculator .finance-result .highlight dd,body.app-page .calculato
 body.app-page .calculator-help :is(h3,h4,p,details,summary) { color:var(--text);text-shadow:none; }
 /* Keep the validation messages readable in the existing result fields on phones. */
 body.app-page :is(#percentageChangeDisplay,#dateDiffDisplay) { font-size:clamp(14px,1.6vw,24px); }
-
-/* Keep the download page available without promoting it in the website UI. */
-a[href="download.html"], a[href="/download.html"] { display:none; }
 
 /* GST mode choices use the existing form palette and full-width grid row. */
 .app-page .gst-mode { margin:0;padding:12px;border:1px solid var(--line);border-radius:6px;color:var(--text); }
