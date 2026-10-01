@@ -959,6 +959,8 @@ function getCalculatorTitle(calculator) {
 function getCleanSlugFromPath() {
     const path = window.location.pathname.replace(/\/index\.html$/, '').replace(/^\/+|\/+$/g, '').toLowerCase();
     if (!path || path === 'index.html') return '';
+    // GitHub Pages serves this static compatibility page with or without .html.
+    if (path === 'calculators/gst-calculator-india' || path === 'calculators/gst-calculator-india.html') return 'gst-calculator';
     return path.split('/').pop();
 }
 

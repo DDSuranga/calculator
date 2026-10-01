@@ -82,3 +82,4 @@ for (const calculator of data) {
  fs.writeFileSync(path.join(root,calculator.slug,'index.html'),html.replace(/[ \t]+$/gm,'').trimEnd()+'\n');
 }
 console.log(`Pre-rendered ${data.length} calculator pages and homepage navigation.`);
+require('./generate-route-aliases');
