@@ -10,9 +10,10 @@
         document.head.prepend(base);
       }
     </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="script.js" as="script">
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-    <link rel="preload" href="Logo.png" as="image">
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4953018177794421"
@@ -109,7 +110,7 @@
     </script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+
 <noscript><style>body.app-loading .app-loader{display:none} #calculatorSidebar{display:block!important;position:static!important}</style></noscript>
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://onlinecalmaster.com/#finance-calculators"},{"@type":"ListItem","position":3,"name":"Loan EMI Calculator","item":"https://onlinecalmaster.com/loan-emi-calculator/"}]}</script>
 </head>
@@ -185,7 +186,7 @@
                 <div class="calculator-link-groups">
                     <section class="calculator-link-group" aria-label="Recently used calculators">
                         <h2>Recently Used</h2>
-                        <div class="calculator-chip-list" id="recentCalculators"></div>
+                        <div class="calculator-chip-list" id="recentCalculators"><span class="calculator-chip is-muted">No recent calculators yet</span></div>
                     </section>
                 </div>
             </section>
@@ -223,7 +224,7 @@
             <div class="calculator extra-tall" id="loanEmiCalculator" style="display: block;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Loan EMI Calculator</h2>
                 <p class="calculator-description">Calculate monthly loan payments, total payment, and total interest for personal, vehicle, housing, or business loans.</p>
@@ -307,10 +308,10 @@
 
             <!-- Area Calculator -->
 
-            <template id="calculatorPanels"><div class="calculator" id="basicCalculator">
+            <template id="calculatorPanels"><div class="calculator" id="basicCalculator" style="display: block;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Basic Calculator</h2>
                 <p class="calculator-description">Perform basic math operations like addition, subtraction, multiplication, and division. Includes memory functions and square root support.</p>
@@ -350,7 +351,7 @@
 <div class="calculator" id="scientificCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Scientific Calculator</h2>
                 <p class="calculator-description">Perform complex calculations including sine, cosine, tangent, logarithms, constants like pi and e, and exponent support.</p>
@@ -396,7 +397,7 @@
 <div class="calculator tall" id="unitConverter" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Unit Converter</h2>
                 <p class="calculator-description">Convert between units of length, weight, and temperature easily. Supports metric and imperial systems for accurate conversions.</p>
@@ -429,7 +430,7 @@
 <div class="calculator extra-tall" id="ageCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Age Calculator</h2>
                 <p class="calculator-description">Calculate your exact age in years, months, and days based on your birthdate. Also shows countdown to your next birthday!</p>
@@ -449,7 +450,7 @@
 <div class="calculator extra-tall" id="dateDifferenceCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Date Difference Calculator</h2>
                 <p class="calculator-description">Find the number of days between two dates. Useful for planning events, calculating durations, or tracking timelines.</p>
@@ -470,7 +471,7 @@
 <div class="calculator extra-tall" id="timeDifferenceCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Time Difference Calculator</h2>
                 <p class="calculator-description">Calculate the difference between two times or datetime values. Shows total hours, minutes, and seconds between timestamps.</p>
@@ -496,7 +497,7 @@
 <div class="calculator" id="percentageCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Percentage Calculator</h2>
                 <p class="calculator-description">Quickly calculate percentages of any value. Great for discounts, grades, and general math problems.</p>
@@ -517,7 +518,7 @@
 <div class="calculator extra-tall" id="percentageChangeCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Percentage Change Calculator</h2>
                 <p class="calculator-description">Determine the percentage increase or decrease between two numbers. Useful for financial analysis and performance tracking.</p>
@@ -538,7 +539,7 @@
 <div class="calculator extra-tall" id="tipCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Tip Calculator</h2>
                 <p class="calculator-description">Split bills and calculate tips effortlessly. Enter the bill amount and desired tip percentage to get total cost instantly.</p>
@@ -559,7 +560,7 @@
 <div class="calculator extra-tall" id="vatCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">VAT / Discount Calculator</h2>
                 <p class="calculator-description">Add or remove VAT (Value Added Tax) or discounts from prices. Perfect for shoppers, business owners, and accountants.</p>
@@ -595,7 +596,7 @@
 <div class="calculator extra-tall" id="mortgageCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Mortgage Calculator</h2>
                 <p class="calculator-description">Estimate home loan payments with down payment, interest, taxes, insurance, and total loan cost breakdown.</p>
@@ -636,7 +637,7 @@
 <div class="calculator extra-tall" id="compoundInterestCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Compound Interest Calculator</h2>
                 <p class="calculator-description">Project savings and investments with compound growth, optional monthly contributions, and clear interest breakdowns.</p>
@@ -686,7 +687,7 @@
 <div class="calculator extra-tall" id="bmiCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">BMI Calculator</h2>
                 <p class="calculator-description">Calculate body mass index with metric or imperial units and see a clear health category range.</p>
@@ -742,7 +743,7 @@
 <div class="calculator extra-tall" id="discountCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Discount Calculator</h2>
                 <p class="calculator-description">Calculate sale price, savings, optional tax, and final payable amount for shopping or business pricing.</p>
@@ -771,7 +772,7 @@
 <div class="calculator extra-tall" id="dynamicToolCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title" id="dynamicToolTitle">Calculator</h2>
                 <p class="calculator-description" id="dynamicToolDescription">Select a calculator to begin.</p>
@@ -782,7 +783,7 @@
 <div class="calculator extra-tall" id="fuelCostCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Fuel Cost Calculator</h2>
                 <p class="calculator-description">Estimate total fuel needed and travel fuel cost from distance, vehicle efficiency, and fuel price per liter.</p>
@@ -825,7 +826,7 @@
 <div class="calculator extra-tall" id="profitMarginCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Profit Margin Calculator</h2>
                 <p class="calculator-description">Calculate profit amount, profit margin, and markup percentage from cost price and selling price.</p>
@@ -864,7 +865,7 @@
 <div class="calculator extra-tall" id="breakEvenCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Break-Even Calculator</h2>
                 <p class="calculator-description">Find how many units you need to sell to cover fixed costs and calculate break-even sales value.</p>
@@ -907,7 +908,7 @@
 <div class="calculator extra-tall" id="roiCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">ROI Calculator</h2>
                 <p class="calculator-description">Measure investment performance by calculating net profit and return on investment percentage.</p>
@@ -946,7 +947,7 @@
 <div class="calculator extra-tall" id="simpleInterestCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Simple Interest Calculator</h2>
                 <p class="calculator-description">Calculate simple interest and total amount from principal, annual interest rate, and time in years.</p>
@@ -989,7 +990,7 @@
 <div class="calculator extra-tall" id="volumeCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Volume Calculator</h2>
                 <p class="calculator-description">Calculate volume for cubes, boxes, cylinders, spheres, and cones with clear unit-based results.</p>
@@ -1037,7 +1038,7 @@
 <div class="calculator extra-tall" id="areaCalculator" style="display: none;">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
-                    <img src="Logo.png" alt="Dinil Tech">
+                    <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
                 </div>
                 <h2 class="calculator-title">Area Calculator</h2>
                 <p class="calculator-description">Calculate area for common 2D shapes with dynamic fields, formulas, and clean unit-based results.</p>
