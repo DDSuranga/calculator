@@ -99,7 +99,7 @@
     </form>
 
     <div class="alert alert-success mt-3" id="success-alert">
-      ✅ Your message was sent successfully!
+      ✅ Your message request was accepted. Inbox delivery is not yet confirmed.
     </div>
 
     <div class="social-links">
@@ -116,43 +116,65 @@
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
   <script>
-    (function () {
-      emailjs.init("eUrV1CCbtewUbs8cg"); // Replace with your EmailJS public key
-    })();
+    let emailjsReady = false;
+    let initializationPhase = 'SDK';
+    try {
+      if (typeof emailjs !== 'undefined' && typeof emailjs.init === 'function' && typeof emailjs.send === 'function') {
+        initializationPhase = 'INIT';
+        emailjs.init("eUrV1CCbtewUbs8cg");
+        emailjsReady = true;
+      }
+    } catch (_) {
+      // Keep the form usable and report a safe diagnostic when the user submits.
+    }
 
-    document.getElementById("contact-form").addEventListener("submit", function (e) {
+    function reportContactFailure(error, phase) {
+      const status = error && Number.isInteger(error.status) && error.status >= 0 && error.status <= 599
+        ? error.status : null;
+      const timestamp = new Date().toISOString();
+      const reference = 'CONTACT-' + phase + '-' + (status === null ? 'UNKNOWN' : status) + '-' + Date.now();
+      // Do not log form values, provider response text, credentials or raw errors.
+      console.error('Contact form request failed', { reference, phase, status, timestamp });
+      alert('Unable to send your message. Please email onlinecalmaster@gmail.com directly. Reference: ' + reference);
+    }
+
+    document.getElementById("contact-form").addEventListener("submit", async function (e) {
       e.preventDefault();
+      const form = document.getElementById("contact-form");
+      const button = form.querySelector('button[type="submit"]');
+      if (button.disabled) return;
+      document.getElementById("success-alert").style.display = "none";
 
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const message = document.getElementById("message").value.trim();
-
-      // Basic validation
       if (!name || !email || !message) {
         alert("Please fill in all required fields.");
         return;
       }
-
-      // Use the browser email validator; valid domain endings can exceed three letters.
       if (!document.getElementById("email").checkValidity()) {
         alert("Please enter a valid email address.");
         return;
       }
+      if (!emailjsReady) {
+        reportContactFailure(null, initializationPhase);
+        return;
+      }
 
-      const params = {
-        from_name: name,
-        from_email: email,
-        message: message
-      };
-
-      emailjs.send("service_7r5glod", "template_ifknzgp", params)
-        .then(function (response) {
-          document.getElementById("success-alert").style.display = "block";
-          document.getElementById("contact-form").reset();
-        }, function (error) {
-          alert("❌ Failed to send message. Try again later.");
-          console.error("EmailJS error:", error);
-        });
+      const params = { from_name: name, from_email: email, message: message };
+      button.disabled = true;
+      const originalLabel = button.textContent;
+      button.textContent = 'Sending…';
+      try {
+        await emailjs.send("service_7r5glod", "template_ifknzgp", params);
+        document.getElementById("success-alert").style.display = "block";
+        form.reset();
+      } catch (error) {
+        reportContactFailure(error, 'SEND');
+      } finally {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }
     });
   </script>
 </body>
