@@ -1,0 +1,11 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const html=fs.readFileSync('contact.html','utf8');const source=[...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('emailjs.init'));
+const elements={name:{value:'Test'},email:{value:'user@example.technology',checkValidity:()=>true},message:{value:'Test message'},'contact-form':{addEventListener(type,fn){this.submit=fn;},reset(){}},'success-alert':{style:{}}};
+let calls=0,alertText='';const context={document:{getElementById:id=>elements[id]},emailjs:{init(){},send(service,template,params){calls++;assert.equal(service,'service_7r5glod');assert.equal(template,'template_ifknzgp');assert.equal(params.from_email,elements.email.value.trim());return {then(){}};}},alert:t=>alertText=t,console};
+vm.runInNewContext(source,context);const submit=()=>elements['contact-form'].submit({preventDefault(){}});
+submit();assert.equal(calls,1,'valid long-domain address accepted by browser');
+elements.email.checkValidity=()=>false;submit();assert.equal(calls,1,'invalid address not sent');assert.match(alertText,/valid email/);
+elements.name.value=' ';submit();assert.equal(calls,1,'blank required field not sent');assert.match(alertText,/required fields/);
+for(const href of ['/','about.html','privacy-policy.html'])assert.ok(html.includes('href="'+href+'"'));
+assert.ok(html.includes('GTM-M6K9R66W'));assert.ok(!/converting currency|Currency conversion/.test(fs.readFileSync('about.html','utf8')));
+console.log('Contact validation/navigation and About tool accuracy passed; EmailJS mocked, no messages sent.');

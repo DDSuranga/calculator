@@ -72,6 +72,11 @@
   </noscript>
 
   <div class="container contact-container">
+    <nav class="d-flex flex-wrap justify-content-center gap-3 mb-4" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </nav>
     <h1 class="text-center mb-4">Contact Us</h1>
 
     <form id="contact-form">
@@ -134,8 +139,8 @@
         return;
       }
 
-      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-      if (!email.match(emailPattern)) {
+      // Use the browser email validator; valid domain endings can exceed three letters.
+      if (!document.getElementById("email").checkValidity()) {
         alert("Please enter a valid email address.");
         return;
       }
