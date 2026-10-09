@@ -35,7 +35,14 @@ const RELATED_OVERRIDES = {
     bmi: ['bmr', 'calorie', 'waterIntake'],
     passwordGenerator: ['uuidGenerator', 'jsonFormatter'],
     jsonFormatter: ['passwordGenerator', 'uuidGenerator'],
-    countdown: ['timeZoneDifference', 'date', 'time']
+    countdown: ['date', 'time', 'timeZoneDifference', 'age', 'basic'],
+    time: ['date', 'countdown', 'timeZoneDifference', 'age', 'basic'],
+    date: ['time', 'countdown', 'age', 'timeZoneDifference', 'basic'],
+    age: ['date', 'countdown', 'time', 'timeZoneDifference', 'basic'],
+    timeZoneDifference: ['time', 'countdown', 'date', 'age', 'basic'],
+    area: ['volume', 'unit', 'scientific', 'basic', 'percentage'],
+    volume: ['area', 'unit', 'scientific', 'basic', 'percentage'],
+    unit: ['area', 'volume', 'scientific', 'basic', 'percentage']
 };
 
 const calculatorData = [
@@ -43,8 +50,8 @@ const calculatorData = [
     { name: 'Scientific Calculator', category: 'Education', target: 'scientific', slug: 'scientific-calculator', elementId: 'scientificCalculator', metaDescription: 'Use the free Scientific Calculator by OnlineCalMaster for trigonometry, logarithms, powers, constants, and advanced math calculations.' },
     { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', slug: 'unit-converter', elementId: 'unitConverter', heightClass: 'tall', metaDescription: 'Convert common measurement units instantly with the free Unit Converter by OnlineCalMaster.' },
     { name: 'Age Calculator', category: 'Date & Time', target: 'age', slug: 'age-calculator', elementId: 'ageCalculator', heightClass: 'extra-tall', metaDescription: 'Calculate age in years, months, and days using the free Age Calculator by OnlineCalMaster.' },
-    { name: 'Date Diff', category: 'Date & Time', target: 'date', slug: 'date-difference-calculator', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall', metaDescription: 'Find the exact difference between two dates using the free Date Difference Calculator by OnlineCalMaster.' },
-    { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate hours and minutes between two times using the free Time Difference Calculator by OnlineCalMaster.' },
+    { name: 'Date Diff', category: 'Date & Time', target: 'date', slug: 'date-difference-calculator', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Date Difference Calculator – Days Between Dates | OnlineCalMaster', metaDescription: 'Find elapsed days between two dates, in either order. See same-day and inclusive-counting examples with this free date difference calculator.' },
+    { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Time Difference Calculator – Hours, Minutes & Seconds | OnlineCalMaster', metaDescription: 'Calculate elapsed hours, minutes and seconds between two dates and times. Compare overnight intervals and see total minutes and seconds.' },
     { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
     { name: 'Percentage Change', category: 'Business', target: 'percentageChange', slug: 'percentage-change-calculator', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate percentage increase or decrease between two values with the free Percentage Change Calculator by OnlineCalMaster.' },
     { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate tips and total bill amounts instantly using the free Tip Calculator by OnlineCalMaster.' },
@@ -67,16 +74,16 @@ const calculatorData = [
     { name: 'Calorie', category: 'Health', target: 'calorie', slug: 'calorie-calculator', elementId: 'dynamicToolCalculator', title: 'Calorie Calculator', heightClass: 'extra-tall', dynamicTool: 'calorie', metaDescription: 'Estimate daily calorie needs from BMR and activity level using the free Calorie Calculator by OnlineCalMaster.' },
     { name: 'GPA', category: 'Education', target: 'gpa', slug: 'gpa-calculator', elementId: 'dynamicToolCalculator', title: 'GPA Calculator', heightClass: 'extra-tall', dynamicTool: 'gpa', metaDescription: 'Calculate GPA from course grades and credits using the free GPA Calculator by OnlineCalMaster.' },
     { name: 'Percentage Grade', category: 'Education', target: 'percentageGrade', slug: 'percentage-grade-calculator', elementId: 'dynamicToolCalculator', title: 'Percentage Grade Calculator', heightClass: 'extra-tall', dynamicTool: 'percentageGrade', metaDescription: 'Convert marks to percentage grade using the free Percentage Grade Calculator by OnlineCalMaster.' },
-    { name: 'Countdown', category: 'Daily Tools', target: 'countdown', slug: 'countdown-calculator', elementId: 'dynamicToolCalculator', title: 'Countdown Calculator', heightClass: 'extra-tall', dynamicTool: 'countdown', metaDescription: 'Calculate days and time remaining until a date using the free Countdown Calculator by OnlineCalMaster.' },
+    { name: 'Countdown', category: 'Daily Tools', target: 'countdown', slug: 'countdown-calculator', elementId: 'dynamicToolCalculator', title: 'Countdown Calculator', heightClass: 'extra-tall', dynamicTool: 'countdown', seoTitle: 'Countdown Calculator – Days Until a Date & Time | OnlineCalMaster', metaDescription: 'Calculate days, hours and minutes until a future date and time. Get an on-demand result in your local time zone; press Calculate again to refresh.' },
     { name: 'Time Zone Difference', category: 'Daily Tools', target: 'timeZoneDifference', slug: 'time-zone-difference-calculator', elementId: 'dynamicToolCalculator', title: 'Time Zone Difference Calculator', heightClass: 'extra-tall', dynamicTool: 'timeZoneDifference', metaDescription: 'Find the time difference between two UTC offsets using the free Time Zone Difference Calculator by OnlineCalMaster.' },
     { name: 'Password Generator', category: 'Developer Tools', target: 'passwordGenerator', slug: 'password-generator', elementId: 'dynamicToolCalculator', title: 'Password Generator', heightClass: 'extra-tall', dynamicTool: 'passwordGenerator', metaDescription: 'Generate strong passwords with length and character options using the free Password Generator by OnlineCalMaster.' },
     { name: 'UUID Generator', category: 'Developer Tools', target: 'uuidGenerator', slug: 'uuid-generator', elementId: 'dynamicToolCalculator', title: 'UUID Generator', heightClass: 'extra-tall', dynamicTool: 'uuidGenerator', metaDescription: 'Generate UUID v4 identifiers instantly using the free UUID Generator by OnlineCalMaster.' },
     { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format, prettify, and validate JSON using the free JSON Formatter by OnlineCalMaster.' },
-    { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate volume for common 3D shapes using the free Volume Calculator by OnlineCalMaster.' },
+    { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', seoTitle: 'Volume Calculator – Cube, Cylinder, Sphere & More | OnlineCalMaster', metaDescription: 'Calculate volume for rectangular prisms, cubes, cylinders, spheres and cones. Use dimensions in one unit and get cubic-unit results with formulas.' },
     { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
     { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Calculate SIP Returns & Future Value | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
     { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Calculate Monthly Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
-    { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate area for common 2D shapes using the free Area Calculator by OnlineCalMaster.' }
+    { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', seoTitle: 'Area Calculator – 7 Shapes, Formulas & Examples | OnlineCalMaster', metaDescription: 'Calculate area for rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Get square-unit results with formulas and examples.' }
 ];
 
 function getCalculatorByTarget(type) {
@@ -503,13 +510,14 @@ const dynamicToolDefinitions = {
         primaryAction: 'Calculate',
         help: {
             what: 'The Countdown Calculator shows how much time remains until a selected date and time.',
-            how: 'Choose a target date and optional time, then calculate the remaining duration.',
+            how: 'Choose a future target date and optional time, then press Calculate. The result is a snapshot taken on demand, not a continuously updating timer. Press Calculate again to refresh it.',
             formula: 'Countdown = Target date and time - Current date and time.',
-            example: 'If an event is 10 days away, the result shows the remaining days, hours, and minutes.',
+            example: 'If the current local time is 9 October 2026 at 09:00 and the target is 11 October 2026 at 12:30, the remaining duration is 2 days, 3 hours and 30 minutes, assuming no UTC-offset change during that interval.',
             faqs: [
                 ['Can I leave time blank?', 'Yes. It will use midnight at the start of the selected date.'],
                 ['Can I choose a past date?', 'No. Choose a future date for a countdown.'],
-                ['Does it use my local time?', 'Yes. It uses your browser local time.']
+                ['Does it use my local time?', 'Yes. It uses your device time zone and clock. Daylight-saving changes can affect elapsed hours. You cannot select a different time zone here.'],
+                ['Does the countdown update automatically?', 'No. Press Calculate again for a fresh result. The displayed duration does not tick down automatically.']
             ]
         },
         calculate(values) {
@@ -1800,13 +1808,25 @@ function clearDateDiff() {
 
 // TIME DIFFERENCE
 function calculateTimeDiff() {
-    const time1 = new Date(document.getElementById('time1Input').value);
-    const time2 = new Date(document.getElementById('time2Input').value);
+    const value1 = document.getElementById('time1Input').value;
+    const value2 = document.getElementById('time2Input').value;
+    const time1 = new Date(value1);
+    const time2 = new Date(value2);
+    // Validate datetime-local input before subtraction; Invalid Date is truthy.
+    const isValidDateTime = (value, date) => {
+        const parts = /^(\d{4,})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d{1,3})?)?$/.exec(value);
+        if (!parts || !Number.isFinite(date.getTime())) return false;
+        const [year, month, day, hour, minute, second] = parts.slice(1).map(Number);
+        const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+        const days = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        return year > 0 && month >= 1 && month <= 12 && day >= 1 && day <= days[month - 1] &&
+            hour < 24 && minute < 60 && (parts[6] === undefined || second < 60);
+    };
     const displayFull = document.getElementById('timeDiffFull');
     const displayMinutes = document.getElementById('timeDiffMinutes');
     const displaySeconds = document.getElementById('timeDiffSeconds');
-    if (!time1 || !time2) {
-        displayFull.innerText = 'Please select both times';
+    if (!isValidDateTime(value1, time1) || !isValidDateTime(value2, time2)) {
+        displayFull.innerText = 'Please enter two valid dates and times.';
         displayMinutes.innerText = '';
         displaySeconds.innerText = '';
         return;
@@ -3298,14 +3318,38 @@ const CLASSIC_GUIDES = {
   "date": [
     "Measure the number of calendar days separating two dates, in either order.",
     "Select both dates and choose Days Between. Both inputs must be valid dates; empty dates produce a validation message.",
-    "The result is the absolute difference between the two dates in days. It counts elapsed days, not both endpoints as inclusive days.",
-    "1 January to 11 January is 10 days. Selecting the same date twice gives 0 days."
+    "The result is the absolute elapsed-day difference, so reversing the dates gives the same answer. It includes weekends and holidays and does not count both endpoints inclusively. For an inclusive calendar-date count, add 1 to the displayed result yourself; this tool does not apply that adjustment.",
+    "1 January to 11 January gives 10 elapsed days, or 11 calendar dates if both endpoints are counted. Reversing these dates still gives 10 days. The same date in both fields gives 0 elapsed days, or 1 inclusive calendar date.",
+    [
+      [
+        "Does this calculate business days?",
+        "No. All calendar days count, including weekends and holidays."
+      ],
+      [
+        "Do time zones or clock changes affect this result?",
+        "These date-only inputs are compared as UTC dates, so local daylight-saving clock changes do not change the day count."
+      ]
+    ]
   ],
   "time": [
     "Compare two date-and-time values and see elapsed hours, minutes, and seconds, with totals in minutes and seconds.",
-    "Enter both full date-and-time values and choose the calculation action. Include the following date when an interval crosses midnight.",
-    "The tool takes the absolute difference between the timestamps. Hours can exceed 24. Inputs use your device's local time zone, which matters around daylight-saving changes.",
-    "10:00 to 12:30 on the same day is 02:30:00, or 150 minutes and 9,000 seconds."
+    "Enter a complete date and time in both fields, then press Calculate Time. For an overnight interval, select the next calendar date for the end time. Empty or invalid inputs show a validation message.",
+    "The calculator takes the absolute difference between the timestamps. The result is hours : minutes : seconds, with separate totals in minutes and seconds; hours can exceed 24. Both inputs use your device time zone. They do not specify separate time zones or UTC offsets. Across daylight-saving changes, elapsed time may differ from the difference shown on a wall clock.",
+    "On the same date, 10:00 to 12:30 gives 02 : 30 : 00, 150 minutes and 9,000 seconds. From 9 October 2026 at 22:45 to 10 October at 01:15, the result is also 2 hours 30 minutes if no UTC-offset change occurs.",
+    [
+      [
+        "What if I reverse the inputs?",
+        "The result stays positive because the calculator uses the absolute time difference."
+      ],
+      [
+        "How are daylight-saving transitions handled?",
+        "The browser applies the device time zone rules. A skipped local time may be moved forward and a repeated local time resolves to the earlier occurrence. Avoid ambiguous transition times when you need to specify an exact offset."
+      ],
+      [
+        "Can I compare times in different cities?",
+        "Not directly: both timestamps use the same device time zone. Use Time Zone Difference to compare explicit UTC offsets; account for the offsets applicable on your dates."
+      ]
+    ]
   ],
   "percentage": [
     "Find a chosen percentage of a value, such as a portion of a budget or a share of a quantity.",
@@ -3392,16 +3436,44 @@ const CLASSIC_GUIDES = {
     "1,000 at 5% for two years earns 100 interest and totals 1,100. Compound Interest Calculator is appropriate when interest itself earns interest."
   ],
   "volume": [
-    "Find the volume of supported three-dimensional shapes using their measured dimensions.",
-    "Choose a shape and measurement unit, then enter the dimensions requested. For circular shapes, use radius rather than diameter.",
-    "A cuboid uses length × width × height; a cylinder uses pi × radius² × height; a sphere uses 4 × pi × radius³ / 3. Keep all dimensions in the same unit.",
-    "A cube with a 10 cm side has volume 1,000 cm³. Volume uses cubic units, unlike the square units used for area."
+    "Calculate volume for a rectangular prism, cube, cylinder, sphere or cone using measured dimensions.",
+    "Choose a solid and unit, then enter positive dimensions in that same unit. Use perpendicular height for cylinders and cones, not slant height. Circular inputs require radius, which is half the diameter.",
+    "Rectangular prism: length × width × height. Cube: side³. Cylinder: π × radius² × height. Sphere: 4 × π × radius³ / 3. Cone: π × radius² × height / 3. Results use cubic units such as cm³ or m³. Selecting a unit labels the inputs and result; it does not convert dimensions entered in different units.",
+    "A 10 cm cube has volume 1,000 cm³. A 2 m × 3 m × 4 m rectangular prism has volume 24 m³. A cylinder with radius 2 cm and height 3 cm has volume 12π, approximately 37.70 cm³. A cone with the same radius and height has volume 4π, approximately 12.57 cm³.",
+    [
+      [
+        "What if I know the diameter?",
+        "Divide the diameter by 2 before entering the radius. Using the diameter as the radius overstates the result."
+      ],
+      [
+        "How do cubic units convert?",
+        "Convert input lengths to a common unit first. One cubic meter equals 1,000,000 cubic centimeters; 1,000 cm³ equals 1 liter."
+      ],
+      [
+        "Can I calculate an irregular object?",
+        "These formulas assume one of the five supported solids. Split a composite object into suitable solids and combine their volumes, or use a different measurement method."
+      ]
+    ]
   ],
   "area": [
-    "Find the area of a supported two-dimensional shape from its dimensions.",
-    "Select the shape and unit, enter the required dimensions, and calculate. Use perpendicular height for a triangle or parallelogram.",
-    "A rectangle uses length × width; a triangle uses base × height / 2; a circle uses pi × radius². Convert dimensions to the same unit first.",
-    "A rectangle 10 cm long and 5 cm wide has area 50 cm². Area describes a surface, not perimeter or volume."
+    "Calculate the area of a rectangle, square, triangle, circle, parallelogram, trapezoid or ellipse from its dimensions.",
+    "Choose a shape and unit and enter positive dimensions in that same unit. For triangles, parallelograms and trapezoids, height is perpendicular to the base, not the sloping side. For an ellipse, enter the major and minor radii: half the full axis lengths.",
+    "Rectangle: length × width. Square: side². Triangle: base × perpendicular height / 2. Circle: π × radius². Parallelogram: base × perpendicular height. Trapezoid: (parallel base 1 + parallel base 2) × perpendicular height / 2. Ellipse: π × major radius × minor radius. Results use squared units such as cm² or m²; selecting a unit labels the dimensions and result, rather than converting mixed-unit inputs.",
+    "A 10 cm × 5 cm rectangle has area 50 cm². A triangle with base 4 m and perpendicular height 5 m has area 10 m². A circle with radius 3 cm has area 9π, approximately 28.27 cm². An ellipse with radii 4 cm and 2 cm has area 8π, approximately 25.13 cm².",
+    [
+      [
+        "Can I enter a diameter instead of a radius?",
+        "For a circle, divide the diameter by 2 first. For an ellipse, divide each full axis length by 2."
+      ],
+      [
+        "How do I handle different units?",
+        "Convert all lengths to one unit before calculating. A square meter equals 10,000 square centimeters because the length conversion factor is squared."
+      ],
+      [
+        "Does area include perimeter or volume?",
+        "No. Area measures a two-dimensional surface. Use Volume Calculator for three-dimensional space."
+      ]
+    ]
   ]
 };
 // END GENERATED CLASSIC GUIDES
@@ -3414,7 +3486,7 @@ function getCalculatorIntroduction(calculator) {
 function getCalculatorGuideHtml(calculator) {
  const guide = CLASSIC_GUIDES[calculator.target];
  if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>';
- return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>';
+ return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+escapeGuideText(answer)+'</p></details>').join('') : '');
 }
 function getCalculatorApplicationSchema(calculator) {
  return {'@context':'https://schema.org','@type':'WebApplication',name:calculator ? getCalculatorTitle(calculator) : 'OnlineCalMaster Calculator',url:getCanonicalUrl(calculator),description:calculator ? getCalculatorIntroduction(calculator) : HOME_DESCRIPTION,applicationCategory:'UtilitiesApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}};

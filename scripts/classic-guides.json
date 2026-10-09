@@ -26,14 +26,38 @@
   "date": [
     "Measure the number of calendar days separating two dates, in either order.",
     "Select both dates and choose Days Between. Both inputs must be valid dates; empty dates produce a validation message.",
-    "The result is the absolute difference between the two dates in days. It counts elapsed days, not both endpoints as inclusive days.",
-    "1 January to 11 January is 10 days. Selecting the same date twice gives 0 days."
+    "The result is the absolute elapsed-day difference, so reversing the dates gives the same answer. It includes weekends and holidays and does not count both endpoints inclusively. For an inclusive calendar-date count, add 1 to the displayed result yourself; this tool does not apply that adjustment.",
+    "1 January to 11 January gives 10 elapsed days, or 11 calendar dates if both endpoints are counted. Reversing these dates still gives 10 days. The same date in both fields gives 0 elapsed days, or 1 inclusive calendar date.",
+    [
+      [
+        "Does this calculate business days?",
+        "No. All calendar days count, including weekends and holidays."
+      ],
+      [
+        "Do time zones or clock changes affect this result?",
+        "These date-only inputs are compared as UTC dates, so local daylight-saving clock changes do not change the day count."
+      ]
+    ]
   ],
   "time": [
     "Compare two date-and-time values and see elapsed hours, minutes, and seconds, with totals in minutes and seconds.",
-    "Enter both full date-and-time values and choose the calculation action. Include the following date when an interval crosses midnight.",
-    "The tool takes the absolute difference between the timestamps. Hours can exceed 24. Inputs use your device's local time zone, which matters around daylight-saving changes.",
-    "10:00 to 12:30 on the same day is 02:30:00, or 150 minutes and 9,000 seconds."
+    "Enter a complete date and time in both fields, then press Calculate Time. For an overnight interval, select the next calendar date for the end time. Empty or invalid inputs show a validation message.",
+    "The calculator takes the absolute difference between the timestamps. The result is hours : minutes : seconds, with separate totals in minutes and seconds; hours can exceed 24. Both inputs use your device time zone. They do not specify separate time zones or UTC offsets. Across daylight-saving changes, elapsed time may differ from the difference shown on a wall clock.",
+    "On the same date, 10:00 to 12:30 gives 02 : 30 : 00, 150 minutes and 9,000 seconds. From 9 October 2026 at 22:45 to 10 October at 01:15, the result is also 2 hours 30 minutes if no UTC-offset change occurs.",
+    [
+      [
+        "What if I reverse the inputs?",
+        "The result stays positive because the calculator uses the absolute time difference."
+      ],
+      [
+        "How are daylight-saving transitions handled?",
+        "The browser applies the device time zone rules. A skipped local time may be moved forward and a repeated local time resolves to the earlier occurrence. Avoid ambiguous transition times when you need to specify an exact offset."
+      ],
+      [
+        "Can I compare times in different cities?",
+        "Not directly: both timestamps use the same device time zone. Use Time Zone Difference to compare explicit UTC offsets; account for the offsets applicable on your dates."
+      ]
+    ]
   ],
   "percentage": [
     "Find a chosen percentage of a value, such as a portion of a budget or a share of a quantity.",
@@ -120,15 +144,43 @@
     "1,000 at 5% for two years earns 100 interest and totals 1,100. Compound Interest Calculator is appropriate when interest itself earns interest."
   ],
   "volume": [
-    "Find the volume of supported three-dimensional shapes using their measured dimensions.",
-    "Choose a shape and measurement unit, then enter the dimensions requested. For circular shapes, use radius rather than diameter.",
-    "A cuboid uses length × width × height; a cylinder uses pi × radius² × height; a sphere uses 4 × pi × radius³ / 3. Keep all dimensions in the same unit.",
-    "A cube with a 10 cm side has volume 1,000 cm³. Volume uses cubic units, unlike the square units used for area."
+    "Calculate volume for a rectangular prism, cube, cylinder, sphere or cone using measured dimensions.",
+    "Choose a solid and unit, then enter positive dimensions in that same unit. Use perpendicular height for cylinders and cones, not slant height. Circular inputs require radius, which is half the diameter.",
+    "Rectangular prism: length × width × height. Cube: side³. Cylinder: π × radius² × height. Sphere: 4 × π × radius³ / 3. Cone: π × radius² × height / 3. Results use cubic units such as cm³ or m³. Selecting a unit labels the inputs and result; it does not convert dimensions entered in different units.",
+    "A 10 cm cube has volume 1,000 cm³. A 2 m × 3 m × 4 m rectangular prism has volume 24 m³. A cylinder with radius 2 cm and height 3 cm has volume 12π, approximately 37.70 cm³. A cone with the same radius and height has volume 4π, approximately 12.57 cm³.",
+    [
+      [
+        "What if I know the diameter?",
+        "Divide the diameter by 2 before entering the radius. Using the diameter as the radius overstates the result."
+      ],
+      [
+        "How do cubic units convert?",
+        "Convert input lengths to a common unit first. One cubic meter equals 1,000,000 cubic centimeters; 1,000 cm³ equals 1 liter."
+      ],
+      [
+        "Can I calculate an irregular object?",
+        "These formulas assume one of the five supported solids. Split a composite object into suitable solids and combine their volumes, or use a different measurement method."
+      ]
+    ]
   ],
   "area": [
-    "Find the area of a supported two-dimensional shape from its dimensions.",
-    "Select the shape and unit, enter the required dimensions, and calculate. Use perpendicular height for a triangle or parallelogram.",
-    "A rectangle uses length × width; a triangle uses base × height / 2; a circle uses pi × radius². Convert dimensions to the same unit first.",
-    "A rectangle 10 cm long and 5 cm wide has area 50 cm². Area describes a surface, not perimeter or volume."
+    "Calculate the area of a rectangle, square, triangle, circle, parallelogram, trapezoid or ellipse from its dimensions.",
+    "Choose a shape and unit and enter positive dimensions in that same unit. For triangles, parallelograms and trapezoids, height is perpendicular to the base, not the sloping side. For an ellipse, enter the major and minor radii: half the full axis lengths.",
+    "Rectangle: length × width. Square: side². Triangle: base × perpendicular height / 2. Circle: π × radius². Parallelogram: base × perpendicular height. Trapezoid: (parallel base 1 + parallel base 2) × perpendicular height / 2. Ellipse: π × major radius × minor radius. Results use squared units such as cm² or m²; selecting a unit labels the dimensions and result, rather than converting mixed-unit inputs.",
+    "A 10 cm × 5 cm rectangle has area 50 cm². A triangle with base 4 m and perpendicular height 5 m has area 10 m². A circle with radius 3 cm has area 9π, approximately 28.27 cm². An ellipse with radii 4 cm and 2 cm has area 8π, approximately 25.13 cm².",
+    [
+      [
+        "Can I enter a diameter instead of a radius?",
+        "For a circle, divide the diameter by 2 first. For an ellipse, divide each full axis length by 2."
+      ],
+      [
+        "How do I handle different units?",
+        "Convert all lengths to one unit before calculating. A square meter equals 10,000 square centimeters because the length conversion factor is squared."
+      ],
+      [
+        "Does area include perimeter or volume?",
+        "No. Area measures a two-dimensional surface. Use Volume Calculator for three-dimensional space."
+      ]
+    ]
   ]
 }

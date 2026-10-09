@@ -37,6 +37,49 @@ for(const [date1Input,date2Input,expected] of [['','2026-01-01','Please select t
  check('calculateDateDiff',{date1Input,date2Input},'dateDiffDisplay',expected);
 }
 check('calculateTimeDiff',{time1Input:'2026-01-01T10:00',time2Input:'2026-01-01T12:30'},'timeDiffFull','02 : 30 : 00');
+// Time validation must clear previous totals as well as prevent NaN results.
+for(const [time1Input,time2Input] of [
+ ['', ''], ['', '2026-10-09T12:30'], ['2026-10-09T10:00', ''],
+ ['invalid', '2026-10-09T12:30'], ['2026-10-09T10:00', 'invalid'],
+ ['2026-02-30T10:00', '2026-03-01T10:00'], ['2026-13-01T10:00', '2026-10-09T12:30'],
+ ['2026-10-09T24:00', '2026-10-10T01:00'], ['2026-10-09T10:60', '2026-10-09T12:30'],
+ ['2026-10-09T10:00:60', '2026-10-09T12:30'], ['2026-10-00T10:00', '2026-10-09T12:30'],
+ ['2026-02-29T10:00', '2026-03-01T10:00']
+]) {
+ el('timeDiffMinutes').innerText='old result';el('timeDiffSeconds').innerText='old result';
+ check('calculateTimeDiff',{time1Input,time2Input},'timeDiffFull','Please enter two valid dates and times.');
+ assert.equal(el('timeDiffMinutes').innerText,'');assert.equal(el('timeDiffSeconds').innerText,'');
+}
+for(const [time1Input,time2Input,hms,minutes,seconds] of [
+ ['2026-10-09T22:45','2026-10-10T01:15','02 : 30 : 00',150,9000],
+ ['2026-10-10T01:15','2026-10-09T22:45','02 : 30 : 00',150,9000],
+ ['2026-10-09T10:00','2026-10-09T10:00','00 : 00 : 00',0,0],
+ ['2026-10-09T10:00','2026-10-11T12:30','50 : 30 : 00',3030,181800],
+ ['2026-10-09T10:00:15','2026-10-09T10:01:20','00 : 01 : 05',1,65],
+ ['2024-02-29T10:00','2024-02-29T12:30','02 : 30 : 00',150,9000]
+]) {
+ check('calculateTimeDiff',{time1Input,time2Input},'timeDiffFull',hms);
+ assert.equal(el('timeDiffMinutes').innerText,'Total Minutes: '+minutes);
+ assert.equal(el('timeDiffSeconds').innerText,'Total Seconds: '+seconds);
+}
+// Confirm priority calculator validation remains intact.
+check('calculateArea',{areaShapeInput:'rectangle',areaUnitInput:'cm',areaDimensionOneInput:-1,areaDimensionTwoInput:5},'areaDisplay','Check inputs');
+check('calculateVolume',{volumeShapeInput:'cube',volumeUnitInput:'cm',volumeDimensionOneInput:''},'volumeDisplay','Check inputs');
+for(const values of [{targetDate:''},{targetDate:'not-a-date'},{targetDate:'2000-01-01',targetTime:'00:00'}]) {
+ context.values=values;assert.throws(()=>run('dynamicToolDefinitions.countdown.calculate(values)'));checks++;
+}
+for(const target of ['time','date','area','volume','countdown']) {
+ context.target=target;
+ const calculator=run('getCalculatorByTarget(target)');
+ assert.ok(calculator.seoTitle);assert.ok(calculator.metaDescription);
+ const related=run('getRelatedCalculators(getCalculatorByTarget(target))');
+ assert.equal(related.length,5);assert.equal(new Set(related.map(c=>c.target)).size,5);
+ assert.ok(!related.some(c=>['gpa','percentageGrade'].includes(c.target)));
+}
+
+// Restore successful results before the existing copy-result checks.
+check('calculateVolume',{volumeShapeInput:'cube',volumeUnitInput:'cm',volumeDimensionOneInput:3},'volumeDisplay','27.00');
+check('calculateArea',{areaShapeInput:'triangle',areaUnitInput:'cm',areaDimensionOneInput:4,areaDimensionTwoInput:5},'areaDisplay','10.00');
 check('calculateAge',{birthDateInput:'2000-01-01'},'ageDisplay','year(s)');
 const dynamicCases=[['savings',{currentBalance:100,monthlyDeposit:10,annualRate:0,years:1},'220.00'],['salary',{payAmount:100,payType:'hourly',hoursPerWeek:40,weeksPerYear:52},'208,000.00'],['salesTax',{price:100,taxRate:10},'110.00'],['bmr',{gender:'male',weight:70,height:175,age:30},'1,649'],['waterIntake',{weight:70,activityMinutes:30},'2.80'],['calorie',{gender:'male',weight:70,height:175,age:30,activity:1.2},'1,979'],['gpa',{grade1:4,credits1:3,grade2:3,credits2:3},'3.50'],['percentageGrade',{marksScored:45,totalMarks:50},'90.00%'],['countdown',{targetDate:'2030-01-01',targetTime:'12:00'},'days'],['timeZoneDifference',{fromOffset:5.5,toOffset:0},'5h 30m behind'],['jsonFormatter',{jsonInput:'{"a":1}'},'Valid JSON']];
 for(const [tool,values,expected]of dynamicCases){context.values=values;assert.ok(run(`dynamicToolDefinitions.${tool}.calculate(values).display`).includes(expected),tool);checks++;}
