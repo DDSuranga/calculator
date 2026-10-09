@@ -9,3 +9,8 @@ elements.name.value=' ';submit();assert.equal(calls,1,'blank required field not 
 for(const href of ['/','about.html','privacy-policy.html'])assert.ok(html.includes('href="'+href+'"'));
 assert.ok(html.includes('GTM-M6K9R66W'));assert.ok(!/converting currency|Currency conversion/.test(fs.readFileSync('about.html','utf8')));
 console.log('Contact validation/navigation and About tool accuracy passed; EmailJS mocked, no messages sent.');
+
+assert.ok(html.includes('mailto:onlinecalmaster@gmail.com'));
+assert.ok(!html.includes('support@example.com'));
+assert.ok(!html.includes('facebook.com/yourpage') && !html.includes('instagram.com/yourpage'));
+assert.ok(html.includes('https://wa.me/94771234567'));
