@@ -1730,44 +1730,54 @@ function clearUnit() {
 }
 
 // AGE CALCULATOR
-function calculateAge() {
-    const birthDateInput = document.getElementById('birthDateInput').value;
-    const display = document.getElementById('ageDisplay');
-    if (!birthDateInput) {
-        display.value = "Please select a date.";
-        return;
-    }
-    const birthDate = new Date(birthDateInput);
-    const today = new Date();
-    if (birthDate > today) {
-        display.value = "Future dates not allowed";
-        return;
-    }
-    let years = today.getFullYear() - birthDate.getFullYear();
-    let months = today.getMonth() - birthDate.getMonth();
-    let days = today.getDate() - birthDate.getDate();
-    if (days < 0) {
-        months--;
-        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-        days += prevMonth;
-    }
-    if (months < 0) {
-        years--;
-        months += 12;
-    }
-    display.value = `${years} year(s), ${months} month(s), ${days} day(s)`;
-    calculateNextBirthday(birthDate);
+// Compare civil dates in UTC, using the device's local calendar date as today.
+function ageCalendarDate(year, month, day) {
+    const date = new Date(0);
+    date.setUTCFullYear(year, month, day);
+    date.setUTCHours(0, 0, 0, 0);
+    return date;
 }
 
-function calculateNextBirthday(birthDate) {
-    const today = new Date();
-    const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-    if (nextBirthday < today) {
-        nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+function ageAnniversary(birthDate, months) {
+    const first = ageCalendarDate(birthDate.getUTCFullYear(), birthDate.getUTCMonth() + months, 1);
+    const lastDay = ageCalendarDate(first.getUTCFullYear(), first.getUTCMonth() + 1, 0).getUTCDate();
+    return ageCalendarDate(first.getUTCFullYear(), first.getUTCMonth(), Math.min(birthDate.getUTCDate(), lastDay));
+}
+
+function calculateAge() {
+    const value = document.getElementById('birthDateInput').value;
+    const display = document.getElementById('ageDisplay');
+    document.getElementById('nextBirthdayDisplay').innerText = '';
+    const parts = /^(\d{4,})-(\d{2})-(\d{2})$/.exec(value);
+    if (!parts) {
+        display.value = 'Please select a valid date.';
+        return;
     }
-    const diff = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
-    const display = document.getElementById('nextBirthdayDisplay');
-    display.innerText = `ðŸŽ‰ Next birthday in ${diff} day${diff !== 1 ? 's' : ''}`;
+    const [, year, month, day] = parts.map(Number);
+    const birthDate = ageCalendarDate(year, month - 1, day);
+    if (year < 1 || !Number.isFinite(birthDate.getTime()) || birthDate.getUTCFullYear() !== year || birthDate.getUTCMonth() !== month - 1 || birthDate.getUTCDate() !== day) {
+        display.value = 'Please select a valid date.';
+        return;
+    }
+    const now = new Date();
+    const today = ageCalendarDate(now.getFullYear(), now.getMonth(), now.getDate());
+    if (birthDate > today) {
+        display.value = 'Future dates not allowed';
+        return;
+    }
+    let months = (today.getUTCFullYear() - year) * 12 + today.getUTCMonth() - (month - 1);
+    if (ageAnniversary(birthDate, months) > today) months--;
+    const days = Math.round((today - ageAnniversary(birthDate, months)) / 86400000);
+    display.value = `${Math.floor(months / 12)} year(s), ${months % 12} month(s), ${days} day(s)`;
+    calculateNextBirthday(birthDate, today);
+}
+
+function calculateNextBirthday(birthDate, today) {
+    const years = today.getUTCFullYear() - birthDate.getUTCFullYear();
+    let nextBirthday = ageAnniversary(birthDate, years * 12);
+    if (nextBirthday < today) nextBirthday = ageAnniversary(birthDate, (years + 1) * 12);
+    const days = Math.round((nextBirthday - today) / 86400000);
+    document.getElementById('nextBirthdayDisplay').innerText = `Next birthday in ${days} day${days !== 1 ? 's' : ''}`;
 }
 
 function clearAge() {
@@ -3312,7 +3322,7 @@ const CLASSIC_GUIDES = {
   "age": [
     "Find elapsed calendar years, months, and days from a date of birth to today, plus the next birthday countdown.",
     "Select the date of birth and calculate. The reference date is today on your device; future birth dates are rejected.",
-    "The calculation subtracts calendar components and borrows from the previous month when needed. It does not divide a day count by 365, since months and years have different lengths.",
+    "The result counts completed calendar months, then remaining days. When the birth day does not exist in a target month, it uses that month’s last day. February 29 birthdays use February 28 in non-leap years; legal age rules may differ. Today uses your device’s local date, and day counts are unaffected by daylight-saving changes.",
     "Someone born on 15 June 2000 is 25 years old on 15 June 2025. Your result changes with today's date and the device's time zone."
   ],
   "date": [

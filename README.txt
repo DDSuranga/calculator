@@ -42,7 +42,7 @@ A fully responsive web-based calculator with multiple tools including basic math
 - Memory function support
 - Tooltip hints on advanced buttons
 - SEO-friendly content section
-- Coffee donation link (customizable)
+- Free tools supported exclusively by Google AdSense
 
 ---
 

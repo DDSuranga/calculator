@@ -20,7 +20,7 @@
   "age": [
     "Find elapsed calendar years, months, and days from a date of birth to today, plus the next birthday countdown.",
     "Select the date of birth and calculate. The reference date is today on your device; future birth dates are rejected.",
-    "The calculation subtracts calendar components and borrows from the previous month when needed. It does not divide a day count by 365, since months and years have different lengths.",
+    "The result counts completed calendar months, then remaining days. When the birth day does not exist in a target month, it uses that month’s last day. February 29 birthdays use February 28 in non-leap years; legal age rules may differ. Today uses your device’s local date, and day counts are unaffected by daylight-saving changes.",
     "Someone born on 15 June 2000 is 25 years old on 15 June 2025. Your result changes with today's date and the device's time zone."
   ],
   "date": [
