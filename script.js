@@ -227,8 +227,8 @@ const dynamicToolDefinitions = {
         help: {
             what: 'The Savings Calculator estimates how your savings can grow over time with regular monthly deposits and interest.',
             how: 'Enter your current savings, planned monthly deposit, annual interest rate, and savings period.',
-            formula: 'Future value is calculated by compounding the starting balance monthly and adding each monthly deposit.',
-            example: 'Rs. 100,000 saved now plus Rs. 10,000 per month for 5 years at 6 percent grows to an estimated future balance.',
+            formula: 'Each month: balance = previous balance × (1 + annual rate / 1200) + deposit. Deposits arrive at month-end, after interest. Fractional years round to the nearest whole month (half rounds up); below half a month there is no growth. Fees, taxes and changing rates are excluded.',
+            example: 'Rs. 100,000 initially plus Rs. 10,000 at each month-end for 5 years at 6% gives Rs. 832,585.32. Contributions total Rs. 700,000.00; estimated interest is Rs. 132,585.32. At 0% the result is Rs. 700,000.00.',
             faqs: [
                 ['Does this compound monthly?', 'Yes. The estimate uses monthly compounding.'],
                 ['Can monthly deposit be zero?', 'Yes. Enter 0 if you only want to grow the starting balance.'],
@@ -251,7 +251,7 @@ const dynamicToolDefinitions = {
                 ['Future Savings', formatLoanCurrency(balance), true],
                 ['Total Deposits', formatLoanCurrency(totalDeposits)],
                 ['Interest Earned', formatLoanCurrency(balance - totalDeposits)],
-                ['Time Period', `${formatNumber(years)} years`]
+                ['Time Period', `${formatNumber(years)} years (${months} monthly periods used)`]
             ]);
         }
     },
@@ -333,21 +333,20 @@ const dynamicToolDefinitions = {
         ],
         primaryAction: 'Calculate',
         help: {
-            what: 'The BMR Calculator estimates calories your body uses at rest.',
+            what: 'Estimate resting energy expenditure with the simplified Mifflin–St Jeor equation. Supported ages are 19–78, as in the original study. Weight 20–300 kg, height 100–250 cm and calculated BMI 10–70 are broad software limits, not healthy ranges or proof of suitability. Not intended for children, pregnancy, breastfeeding or clinical nutrition decisions. Individual needs differ.',
             how: 'Enter gender, weight, height, and age.',
             formula: 'Mifflin-St Jeor: Men = 10W + 6.25H - 5A + 5. Women = 10W + 6.25H - 5A - 161.',
             example: 'A 30-year-old male, 70 kg and 175 cm, has an estimated BMR near 1,649 calories/day.',
             faqs: [
                 ['Is BMR the same as daily calories?', 'No. BMR is resting energy only. Activity increases daily needs.'],
-                ['Which units are used?', 'Weight in kilograms and height in centimeters.'],
+                ['Which units are used?', 'Weight in kilograms, height in centimeters and age in completed years. Male/female selects the equation coefficient. <a href="https://pubmed.ncbi.nlm.nih.gov/2305711/">Original Mifflin–St Jeor study</a>.'],
                 ['Is this medical advice?', 'No. It is an estimate for general planning.']
             ]
         },
         calculate(values) {
-            const weight = readGreaterThanZero(values.weight, 'Weight must be greater than 0.');
-            const height = readGreaterThanZero(values.height, 'Height must be greater than 0.');
-            const age = readGreaterThanZero(values.age, 'Age must be greater than 0.');
+            const { weight, height, age } = validateEnergyInputs(values);
             const bmr = 10 * weight + 6.25 * height - 5 * age + (values.gender === 'male' ? 5 : -161);
+            if (!Number.isFinite(bmr) || bmr <= 0) throw new Error('These inputs cannot produce a valid energy estimate. Check your measurements.');
             return dynamicResult(`${formatNumber(bmr, 0)} calories/day`, [
                 ['Estimated BMR', `${formatNumber(bmr, 0)} calories/day`, true],
                 ['Formula', 'Mifflin-St Jeor'],
@@ -364,14 +363,14 @@ const dynamicToolDefinitions = {
         ],
         primaryAction: 'Calculate',
         help: {
-            what: 'The Daily Water Intake Calculator estimates a practical daily hydration target.',
+            what: 'This calculator applies a rough weight/activity rule, not a medically validated personal hydration prescription. Do not treat its output as extra water on top of your usual food and beverages.',
             how: 'Enter your weight and average daily activity minutes.',
             formula: 'Base water = Weight x 35 ml. Activity adds about 350 ml per 30 minutes.',
-            example: 'A 70 kg person with 30 minutes of activity needs about 2.8 liters per day.',
+            example: 'For 70 kg and 30 activity minutes, this rule gives 2.45 + 0.35 = 2.80 liters/day. This is an arithmetic estimate, not a required intake.',
             faqs: [
-                ['Is this exact?', 'No. Weather, diet, health, and activity affect water needs.'],
+                ['Is this exact?', 'No. Needs vary, and food and other beverages also contribute. See <a href="https://www.cdc.gov/healthy-weight-growth/water-healthy-drinks/">CDC water guidance</a>; it does not endorse this calculator’s 35 ml/kg rule.'],
                 ['Can activity be zero?', 'Yes. Enter 0 for a base estimate.'],
-                ['Should I ask a doctor?', 'Yes, especially for medical conditions or fluid restrictions.']
+                ['Should I ask a doctor?', 'Follow clinician advice for fluid restrictions, medical conditions, pregnancy or breastfeeding; this rule does not account for these circumstances.']
             ]
         },
         calculate(values) {
@@ -397,22 +396,22 @@ const dynamicToolDefinitions = {
         ],
         primaryAction: 'Calculate',
         help: {
-            what: 'The Calorie Calculator estimates calories needed to maintain current weight.',
+            what: 'Estimate maintenance calories by multiplying resting energy by a rough activity factor. Supported ages are 19–78, as in the original study. Weight 20–300 kg, height 100–250 cm and calculated BMI 10–70 are broad software limits, not healthy ranges or proof of suitability. Not intended for children, pregnancy, breastfeeding or clinical nutrition decisions. Individual needs differ.',
             how: 'Enter body details and select the activity level that best matches your routine.',
-            formula: 'Daily calories = BMR x activity factor.',
+            formula: 'Daily calories = BMR × activity factor: sedentary 1.2, light 1.375, moderate 1.55, active 1.725, very active 1.9. These are rough assumptions, not individually measured energy use.',
             example: 'If BMR is 1,650 and activity factor is 1.55, maintenance calories are about 2,558/day.',
             faqs: [
                 ['Can this help with weight loss?', 'It gives a maintenance estimate; weight loss usually requires a calorie deficit.'],
-                ['Which BMR formula is used?', 'It uses the Mifflin-St Jeor equation.'],
+                ['Which BMR formula is used?', 'Simplified Mifflin–St Jeor: 10 × kg + 6.25 × cm − 5 × age, then +5 for male or −161 for female. <a href="https://pubmed.ncbi.nlm.nih.gov/2305711/">Original study</a>.'],
                 ['Is it exact?', 'No. It is a planning estimate.']
             ]
         },
         calculate(values) {
-            const weight = readGreaterThanZero(values.weight, 'Weight must be greater than 0.');
-            const height = readGreaterThanZero(values.height, 'Height must be greater than 0.');
-            const age = readGreaterThanZero(values.age, 'Age must be greater than 0.');
-            const factor = parseFloat(values.activity);
+            const { weight, height, age } = validateEnergyInputs(values);
+            const factor = Number(values.activity);
+            if (![1.2, 1.375, 1.55, 1.725, 1.9].includes(factor)) throw new Error('Select a supported activity level.');
             const bmr = 10 * weight + 6.25 * height - 5 * age + (values.gender === 'male' ? 5 : -161);
+            if (!Number.isFinite(bmr) || bmr <= 0) throw new Error('These inputs cannot produce a valid energy estimate. Check your measurements.');
             const calories = bmr * factor;
             return dynamicResult(`${formatNumber(calories, 0)} calories/day`, [
                 ['Maintenance Calories', `${formatNumber(calories, 0)} calories/day`, true],
@@ -454,7 +453,10 @@ const dynamicToolDefinitions = {
             for (let index = 1; index <= 5; index += 1) {
                 const gradeRaw = values[`grade${index}`];
                 const creditsRaw = values[`credits${index}`];
-                if (!gradeRaw && !creditsRaw) continue;
+                const gradeText = String(gradeRaw ?? '').trim();
+                const creditsText = String(creditsRaw ?? '').trim();
+                if (!gradeText && !creditsText) continue;
+                if (!gradeText || !creditsText) throw new Error(`Course ${index}: enter both grade points and credits, or leave both blank.`);
                 const grade = readPositiveOrZero(gradeRaw, `Course ${index} grade cannot be negative.`);
                 const credits = readGreaterThanZero(creditsRaw, `Course ${index} credits must be greater than 0.`);
                 totalPoints += grade * credits;
@@ -479,8 +481,8 @@ const dynamicToolDefinitions = {
         help: {
             what: 'The Percentage Grade Calculator converts marks into a percentage and grade band.',
             how: 'Enter marks scored and total possible marks.',
-            formula: 'Percentage = Marks scored / Total marks x 100.',
-            example: '45 out of 50 equals 90 percent, commonly an A grade.',
+            formula: 'Percentage = marks scored / total marks × 100. This tool uses A: 90–100%, B: 80% to below 90%, C: 70% to below 80%, D: 60% to below 70%, F: below 60%. Bands use the unrounded percentage; institutional scales can differ.',
+            example: '45 / 50 × 100 = 90%, which is A on this tool’s scale. 39 / 50 × 100 = 78%, which is C.',
             faqs: [
                 ['Can marks include decimals?', 'Yes. Decimal marks are supported.'],
                 ['Can scored marks exceed total?', 'No. Scored marks should not be greater than total marks.'],
@@ -595,7 +597,7 @@ const dynamicToolDefinitions = {
         },
         calculate(values) {
             const length = readGreaterThanZero(values.length, 'Password length must be greater than 0.');
-            if (length < 4 || length > 64) throw new Error('Password length must be between 4 and 64.');
+            if (!Number.isInteger(length) || length < 4 || length > 64) throw new Error('Password length must be a whole number between 4 and 64.');
             const sets = [];
             if (values.lowercase) sets.push('abcdefghijklmnopqrstuvwxyz');
             if (values.uppercase) sets.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
@@ -605,7 +607,7 @@ const dynamicToolDefinitions = {
             const all = sets.join('');
             let password = sets.map(set => set[randomIndex(set.length)]).join('');
             while (password.length < length) password += all[randomIndex(all.length)];
-            password = shuffleString(password).slice(0, length);
+            password = shuffleString(password);
             return dynamicResult(password, [
                 ['Generated Password', password, true],
                 ['Length', length],
@@ -644,7 +646,7 @@ const dynamicToolDefinitions = {
         help: {
             what: 'The JSON Formatter validates JSON and converts it into readable indented formatting.',
             how: 'Paste JSON text, press Format JSON, and copy the formatted result.',
-            formula: 'The tool parses JSON, then serializes it with two-space indentation.',
+            formula: 'The tool validates JSON and adds two-space indentation without changing numbers, strings, key order, or duplicate keys.',
             example: '{"name":"OnlineCalMaster"} becomes a neatly formatted JSON object.',
             faqs: [
                 ['Does it fix invalid JSON?', 'No. It reports invalid JSON so you can correct it.'],
@@ -654,13 +656,12 @@ const dynamicToolDefinitions = {
         },
         calculate(values) {
             if (!values.jsonInput.trim()) throw new Error('Please paste JSON before formatting.');
-            let parsed;
             try {
-                parsed = JSON.parse(values.jsonInput);
+                JSON.parse(values.jsonInput); // Validate only; never serialize the parsed values.
             } catch (error) {
                 throw new Error(`Invalid JSON: ${error.message}`);
             }
-            const formatted = JSON.stringify(parsed, null, 2);
+            const formatted = formatJsonLosslessly(values.jsonInput);
             return dynamicResult('Valid JSON', [
                 ['Status', 'Valid JSON', true],
                 ['Characters', formatted.length.toLocaleString('en-US')]
@@ -668,6 +669,45 @@ const dynamicToolDefinitions = {
         }
     }
 };
+
+// Preserve every token verbatim after JSON validation, including duplicate keys
+// and numeric literals outside JavaScript's safe numeric precision.
+function validateEnergyInputs(values) {
+    const weight = Number(values.weight), height = Number(values.height), age = Number(values.age);
+    if (!['male', 'female'].includes(values.gender)) throw new Error('Select a supported formula sex.');
+    if (!Number.isInteger(age) || age < 19 || age > 78) throw new Error('This estimate supports whole-number ages 19–78 only.');
+    if (!Number.isFinite(weight) || weight < 20 || weight > 300 || !Number.isFinite(height) || height < 100 || height > 250)
+        throw new Error('Check measurements: this tool supports 20–300 kg and 100–250 cm. These are tool limits, not healthy ranges.');
+    const bmi = weight / ((height / 100) ** 2);
+    if (bmi < 10 || bmi > 70) throw new Error('This height/weight combination is outside this tool’s supported range. Check units or seek individual guidance.');
+    return { weight, height, age };
+}
+
+function formatJsonLosslessly(source) {
+    const tokens = source.match(/"(?:\\.|[^"\\])*"|[^\s{}\[\],:]+|[{}\[\],:]/g);
+    let depth = 0;
+    const output = [];
+    const newline = () => output.push('\n', '  '.repeat(depth));
+    tokens.forEach((token, index) => {
+        if (token === '{' || token === '[') {
+            output.push(token);
+            depth += 1;
+            if (tokens[index + 1] !== (token === '{' ? '}' : ']')) newline();
+        } else if (token === '}' || token === ']') {
+            depth -= 1;
+            if (tokens[index - 1] !== (token === '}' ? '{' : '[')) newline();
+            output.push(token);
+        } else if (token === ',') {
+            output.push(token);
+            newline();
+        } else if (token === ':') {
+            output.push(': ');
+        } else {
+            output.push(token);
+        }
+    });
+    return output.join('');
+}
 
 function calculateHomeLoanEmi(values) {
     const numeric = (raw, label, maximum) => {
@@ -1550,15 +1590,14 @@ function calculate() {
         }
 
         const result = safeEval(expression);
-        if (result !== undefined) {
+        if (Number.isFinite(result)) {
             getCurrentDisplay().value = result;
             addToHistory(expression, result);
         } else {
-            getCurrentDisplay().value = 'Error';
+            getCurrentDisplay().value = 'Undefined result: check division by zero or function inputs.';
         }
     } catch (error) {
-        console.error("Calculation error:", error.message);
-        getCurrentDisplay().value = 'Error';
+        getCurrentDisplay().value = 'Invalid expression: check numbers and operations.';
     }
 }
 
@@ -1678,11 +1717,10 @@ function updateUnits() {
     toSelect.innerHTML = '';
     Object.keys(units[category]).forEach(unit => {
         const symbolMap = {
-            length: 'm',
-            weight: 'kg',
-            temperature: 'deg'
+            Meter: 'm', Kilometer: 'km', Centimeter: 'cm', Millimeter: 'mm', Mile: 'mi', Yard: 'yd', Foot: 'ft', Inch: 'in',
+            Kilogram: 'kg', Gram: 'g', Milligram: 'mg', Pound: 'lb', Ounce: 'oz', Celsius: '°C', Fahrenheit: '°F', Kelvin: 'K'
         };
-        const symbol = symbolMap[category] || '';
+        const symbol = symbolMap[unit] || '';
         const optionFrom = document.createElement('option');
         optionFrom.value = unit;
         optionFrom.text = `${unit} (${symbol})`;
@@ -3310,7 +3348,7 @@ const CLASSIC_GUIDES = {
   "scientific": [
     "Evaluate expressions with trigonometric functions, logarithms, powers, and the constants pi and e.",
     "Select a function, enter its argument, and press =. Use parentheses to group expressions and C to begin again.",
-    "Sine, cosine, and tangent use radians. The ln function is the natural logarithm; log uses base 10. Convert degrees to radians by multiplying by pi / 180.",
+    "Sine, cosine, and tangent use radians. The log button uses base 10: log(100) = 2. Convert degrees to radians by multiplying by pi / 180.",
     "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians."
   ],
   "unit": [

@@ -8,7 +8,7 @@
   "scientific": [
     "Evaluate expressions with trigonometric functions, logarithms, powers, and the constants pi and e.",
     "Select a function, enter its argument, and press =. Use parentheses to group expressions and C to begin again.",
-    "Sine, cosine, and tangent use radians. The ln function is the natural logarithm; log uses base 10. Convert degrees to radians by multiplying by pi / 180.",
+    "Sine, cosine, and tangent use radians. The log button uses base 10: log(100) = 2. Convert degrees to radians by multiplying by pi / 180.",
     "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians."
   ],
   "unit": [

@@ -117,6 +117,72 @@ const dynamicCases=[['savings',{currentBalance:100,monthlyDeposit:10,annualRate:
 for(const [tool,values,expected]of dynamicCases){context.values=values;assert.ok(run(`dynamicToolDefinitions.${tool}.calculate(values).display`).includes(expected),tool);checks++;}
 context.values={length:16,lowercase:true,uppercase:true,numbers:true,symbols:true};assert.equal(run('dynamicToolDefinitions.passwordGenerator.calculate(values).display').length,16);checks++;
 assert.match(run('dynamicToolDefinitions.uuidGenerator.calculate().display'),/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);checks++;
+// Phase 1: exercise the actual scientific button expression and calculator handler.
+const logAction=fs.readFileSync('index.html','utf8').match(/onclick="([^"]+)">log<\/button>/)[1];
+run("activeDisplay='scientific'");
+for(const [argument,expected] of [[100,2],[1,0],[1000,3],[0.01,-2]]) {
+ el('displayScientific').value='';run(logAction);context.appendToDisplay(argument+')');context.calculate();
+ assert.equal(Number(el('displayScientific').value),expected);checks++;
+}
+for(const values of [{grade1:'',credits1:'3'},{grade1:'4',credits1:''},{grade1:' ',credits1:'3'},{grade1:0,credits1:''},{grade5:'',credits5:'2'}]) {
+ context.values=values;assert.throws(()=>run('dynamicToolDefinitions.gpa.calculate(values)'),/enter both grade points and credits/);checks++;
+}
+for(const [values,expected] of [[{grade1:0,credits1:3},'0.00'],[{grade1:'0',credits1:'3',grade2:'4',credits2:'3'},'2.00'],[{grade1:' ',credits1:' ',grade2:'4',credits2:'3'},'4.00']]) {
+ context.values=values;assert.equal(run('dynamicToolDefinitions.gpa.calculate(values).display'),expected);checks++;
+}
+context.values={};assert.throws(()=>run('dynamicToolDefinitions.gpa.calculate(values)'),/at least one course/);checks++;
+const jsonCases=[
+ ['{"id":9007199254740993,"id":9007199254740995}', '{\n  "id": 9007199254740993,\n  "id": 9007199254740995\n}'],
+ ['[1e400,-0,0.1234567890123456789012345]', '[\n  1e400,\n  -0,\n  0.1234567890123456789012345\n]'],
+ ['{"10":{},"2":[],"nested":{"x":1,"x":2}}','{\n  "10": {},\n  "2": [],\n  "nested": {\n    "x": 1,\n    "x": 2\n  }\n}'],
+ ['"spaces , : { } [ ] and \\"quotes\\""','"spaces , : { } [ ] and \\"quotes\\""'],
+ ['true','true'],['null','null'],['9007199254740993','9007199254740993'],['{"s":"\\u0061\\n\\\\"}','{\n  "s": "\\u0061\\n\\\\"\n}']
+];
+for(const [input,expected] of jsonCases) {
+ context.values={jsonInput:input};const actual=run('dynamicToolDefinitions.jsonFormatter.calculate(values).copyText');assert.equal(actual,expected);JSON.parse(actual);
+ context.values={jsonInput:actual};assert.equal(run('dynamicToolDefinitions.jsonFormatter.calculate(values).copyText'),actual);checks++;
+}
+for(const jsonInput of ['', '   ', '{"x":1,}', '{"x":01}', '[NaN]', '{"x":}', '{"x":1} trailing']) {
+ context.values={jsonInput};assert.throws(()=>run('dynamicToolDefinitions.jsonFormatter.calculate(values)'),/paste JSON|Invalid JSON/);checks++;
+}
+// Phase 2 validation and content regressions.
+for (const mode of ['basic','scientific']) for (const expr of ['1/0','0/0','Math.sqrt(-1)','Math.log10(0)','10**1000','1+']) {
+ context.mode=mode;run('activeDisplay=mode');el(mode==='basic'?'display':'displayScientific').value=expr;context.calculate();
+ assert.match(String(el(mode==='basic'?'display':'displayScientific').value),/Undefined result|Invalid expression/);checks++;
+}
+for (const tool of ['bmr','calorie']) {
+ for(const patch of [{age:18},{age:79},{age:19.5},{weight:1},{height:1},{weight:Infinity},{weight:20,height:250},{weight:300,height:100},{gender:'unknown'}]) {
+  context.values={gender:'male',weight:70,height:175,age:30,activity:1.2,...patch};assert.throws(()=>run(`dynamicToolDefinitions.${tool}.calculate(values)`));checks++;
+ }
+ for(const age of [19,78]) {context.values={gender:'female',weight:70,height:175,age,activity:1.2};assert.ok(parseFloat(run(`dynamicToolDefinitions.${tool}.calculate(values).display`).replace(/,/g,''))>0);checks++;}
+}
+for(const activity of [0,-1,Infinity,'bad',2]) {context.values={gender:'male',weight:70,height:175,age:30,activity};assert.throws(()=>run('dynamicToolDefinitions.calorie.calculate(values)'));checks++;}
+for(const length of [0,3,4.5,65,Infinity]) {context.values={length,lowercase:true};assert.throws(()=>run('dynamicToolDefinitions.passwordGenerator.calculate(values)'));checks++;}
+context.values={length:16};assert.throws(()=>run('dynamicToolDefinitions.passwordGenerator.calculate(values)'),/at least one/);checks++;
+for(let mask=1;mask<16;mask++) for(const length of [4,16,64]) {
+ context.values={length,lowercase:!!(mask&1),uppercase:!!(mask&2),numbers:!!(mask&4),symbols:!!(mask&8)};
+ const password=run('dynamicToolDefinitions.passwordGenerator.calculate(values).display');assert.equal(password.length,length);
+ for(const [bit,pattern] of [[1,/[a-z]/],[2,/[A-Z]/],[4,/[0-9]/],[8,/[^a-zA-Z0-9]/]]) if(mask&bit)assert.match(password,pattern);checks++;
+}
+context.values={currentBalance:100000,monthlyDeposit:10000,annualRate:6,years:5};assert.match(run('dynamicToolDefinitions.savings.calculate(values).display'),/832,585.32/);checks++;
+for(const [score,grade] of [[90,'A'],[89.99,'B'],[80,'B'],[79.99,'C'],[70,'C'],[69.99,'D'],[60,'D'],[59.99,'F'],[0,'F'],[100,'A']]) {
+ context.values={marksScored:score,totalMarks:100};const result=run('dynamicToolDefinitions.percentageGrade.calculate(values)');assert.ok(result.rows.some(row=>row[1]===grade));checks++;
+}
+// Exercise every unit label and every supported identity conversion.
+context.document.createElement=()=>({});
+const symbols={Meter:'m',Kilometer:'km',Centimeter:'cm',Millimeter:'mm',Mile:'mi',Yard:'yd',Foot:'ft',Inch:'in',Kilogram:'kg',Gram:'g',Milligram:'mg',Pound:'lb',Ounce:'oz',Celsius:'°C',Fahrenheit:'°F',Kelvin:'K'};
+for(const category of ['length','weight','temperature']) {
+ inputs({unitCategory:category});const options=[];el('unitFrom').appendChild=o=>options.push(o);el('unitTo').appendChild=()=>{};context.updateUnits();
+ for(const option of options) {assert.equal(option.text,`${option.value} (${symbols[option.value]})`);inputs({unitInput:10,unitFrom:option.value,unitTo:option.value});context.convertUnit();assert.equal(parseFloat(el('unitDisplay').value.split(' = ')[1]),10);checks++;}
+}
+for(const [category,from,to,input,expected] of [
+ ['length','Meter','Kilometer',1000,1],['length','Meter','Centimeter',1,100],['length','Meter','Millimeter',1,1000],['length','Meter','Mile',1609.344,1],['length','Meter','Yard',0.9144,1],['length','Meter','Foot',0.3048,1],['length','Meter','Inch',0.0254,1],
+ ['weight','Kilogram','Gram',1,1000],['weight','Kilogram','Milligram',1,1000000],['weight','Kilogram','Pound',0.45359237,1],['weight','Kilogram','Ounce',0.028349523125,1],
+ ['temperature','Celsius','Fahrenheit',100,212],['temperature','Fahrenheit','Celsius',32,0],['temperature','Celsius','Kelvin',0,273.15],['temperature','Kelvin','Celsius',273.15,0]
+]) {inputs({unitCategory:category,unitFrom:from,unitTo:to,unitInput:input});context.convertUnit();assert.ok(Math.abs(parseFloat(el('unitDisplay').value.split(' = ')[1])-expected)<0.001);checks++;}
+for(const [years,expected] of [[0.01,'100.00'],[0.1,'110.00'],[1,'220.00']]) {context.values={currentBalance:100,monthlyDeposit:10,annualRate:0,years};assert.match(run('dynamicToolDefinitions.savings.calculate(values).display'),new RegExp(expected));checks++;}
+const home=fs.readFileSync('index.html','utf8');assert.doesNotMatch(home,/href="#popular-calculators">Explore/);checks++;
+run("activeDisplay='scientific'");
 const data=run('calculatorData');assert.equal(data.length,38);
 for(const c of data){const html=fs.readFileSync(c.slug+'/index.html','utf8');assert.ok(html.includes('<base href="/">'));assert.ok(html.includes(`rel="canonical" href="https://onlinecalmaster.com/${c.slug}/"`));assert.ok(html.includes('src="script.js"'));assert.ok(fs.readFileSync('sitemap.xml','utf8').includes(`/${c.slug}/</loc>`));}
 console.log(`${checks} calculation/control checks passed; all 38 generated routes and sitemap entries verified.`);
