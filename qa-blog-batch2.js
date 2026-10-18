@@ -1,8 +1,8 @@
 // Verify article figures independently, then compare the existing calculator implementations.
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
 const articles=require('./content/articles.json');
-assert.equal(articles.length,10,'Only Batches 1 and 2 are allowed');
-const bodies=articles.slice(5).map(a=>fs.readFileSync(`content/articles/${a.slug}.html`,'utf8'));
+assert.equal(articles.length,15,'Only the approved 15 articles are allowed');
+const bodies=articles.slice(5,10).map(a=>fs.readFileSync(`content/articles/${a.slug}.html`,'utf8'));
 const els={};const el=id=>els[id]||={value:'',innerHTML:'',innerText:'',style:{},classList:{add(){},remove(){},toggle(){}},addEventListener(){}};
 const context={console,Date,document:{getElementById:el,querySelectorAll:()=>[],addEventListener(){}},window:{addEventListener(){}},localStorage:{getItem(){return null;}},setTimeout(){}};
 vm.createContext(context);vm.runInContext(fs.readFileSync('script.js','utf8'),context);

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIP Calculation Explained: Monthly Contributions and Compounding | OnlineCalMaster</title>
+<meta name="description" content="Understand the SIP formula, month-end contributions, rounding and return assumptions with verified monthly examples and clear investment-risk limitations.">
+<link rel="canonical" href="https://onlinecalmaster.com/blog/sip-monthly-contributions-compounding/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SIP Calculation Explained: Monthly Contributions and Compounding">
+<meta property="og:description" content="Understand the SIP formula, month-end contributions, rounding and return assumptions with verified monthly examples and clear investment-risk limitations.">
+<meta property="og:url" content="https://onlinecalmaster.com/blog/sip-monthly-contributions-compounding/">
+<meta property="og:site_name" content="OnlineCalMaster">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SIP Calculation Explained: Monthly Contributions and Compounding">
+<meta name="twitter:description" content="Understand the SIP formula, month-end contributions, rounding and return assumptions with verified monthly examples and clear investment-risk limitations.">
+<link rel="icon" href="/Logo.png" type="image/png">
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/blog.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4953018177794421"
+     crossorigin="anonymous"></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    ' https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WSQH8DCC');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2F25VNZYGT"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2F25VNZYGT', { send_page_view: false });
+    </script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"SIP Calculation Explained: Monthly Contributions and Compounding","description":"Understand the SIP formula, month-end contributions, rounding and return assumptions with verified monthly examples and clear investment-risk limitations.","inLanguage":"en","url":"https://onlinecalmaster.com/blog/sip-monthly-contributions-compounding/","mainEntityOfPage":"https://onlinecalmaster.com/blog/sip-monthly-contributions-compounding/","publisher":{"@type":"Organization","name":"OnlineCalMaster","url":"https://onlinecalmaster.com/"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Knowledge Base","item":"https://onlinecalmaster.com/blog/"},{"@type":"ListItem","position":3,"name":"SIP Calculation Explained: Monthly Contributions and Compounding","item":"https://onlinecalmaster.com/blog/sip-monthly-contributions-compounding/"}]}]</script>
+</head>
+<body class="app-page kb-page">
+<noscript><iframe src=" https://www.googletagmanager.com/ns.html?id=GTM-WSQH8DCC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script src="/blog.js"></script>
+<a class="skip-link" href="#knowledge-main">Skip to content</a>
+<header class="site-header">
+<a class="site-brand" href="/" aria-label="OnlineCalMaster home"><span class="brand-icon" aria-hidden="true">▦</span><span>Online<span class="brand-accent">CalMaster</span><small>Free Online Calculators &amp; Smart Tools</small></span></a>
+<nav class="top-nav" aria-label="Main navigation"><a href="/">Calculators</a><a href="/blog/">Knowledge Base</a><a href="/about.html">About Us</a><a href="/contact.html">Contact Us</a></nav>
+<button class="theme-toggle" id="knowledge-theme" type="button" hidden>Dark Mode</button>
+</header>
+<main id="knowledge-main" class="kb-main" tabindex="-1">
+<nav class="kb-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><a href="/blog/">Knowledge Base</a><span aria-current="page">SIP Calculation Explained: Monthly Contributions and Compounding</span></nav>
+<article class="kb-article"><header><p class="kb-category">Finance</p><h1>SIP Calculation Explained: Monthly Contributions and Compounding</h1><p>Trace monthly contributions through a constant-rate illustration and see why timing, rate conventions and actual returns can differ.</p></header><nav class="kb-toc" aria-label="On this page"><h2>On this page</h2><ul><li><a href="#purpose">A SIP projection is a cash-flow illustration</a></li><li><a href="#timing">The implemented formula uses month-end contributions</a></li><li><a href="#example">₹5,000 per month for one year</a></li><li><a href="#beginning">Why another calculator might show a larger number</a></li><li><a href="#limits">Fractional durations, losses and actual performance</a></li></ul></nav><h2 id="purpose">A SIP projection is a cash-flow illustration</h2>
+<p>A systematic investment plan spreads contributions over time. It is a method of contributing, not a promise of an interest rate. The <a href="/sip-calculator/">SIP Calculator</a> estimates a future value from a fixed monthly contribution, an assumed annual return and a duration. It does not fetch fund prices, choose investments or predict market performance.</p>
+<p><a href="https://investor.sebi.gov.in/calculators/goal_sip_calculator.html">SEBI's investor calculator cautions that projections are illustrations rather than actual returns</a>. Use different assumptions to understand sensitivity, not to label one scenario as assured.</p>
+<h2 id="timing">The implemented formula uses month-end contributions</h2>
+<p>Let M be the monthly amount, i the assumed annual percentage divided by 100 and by 12, and n the years multiplied by 12.</p>
+<p class="formula">Future value = M × ((1+i)<sup>n</sup> − 1)/i</p>
+<p class="formula">Contributions = M × n; estimated growth = future value − contributions.</p>
+<p>For whole months, the equivalent recurrence is balance = previous balance × (1+i) + M. Growth is applied first, then the contribution is added. The last contribution therefore receives no growth before the end point. At zero assumed return, future value is simply M × n.</p>
+<p>The tool divides the annual input by 12. A nominal 12% assumption therefore means 1% per month, with an effective one-year growth factor of 1.01<sup>12</sup>, about 12.6825% growth for money present for the whole year. An effective annual return converted using (1+R)<sup>1/12</sup>−1 would be a different convention. Comparing calculators requires matching that convention as well as deposit timing.</p>
+<h2 id="example">₹5,000 per month for one year</h2>
+<p>Enter monthly investment 5000 and duration 1 year. Twelve contributions total ₹60,000. The following are hypothetical constant-rate scenarios, not forecasts:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="SIP return scenarios"><table><caption>Month-end contributions; intermediate balances are not rounded</caption><thead><tr><th scope="col">Annual input</th><th scope="col">Future value to paise</th><th scope="col">Estimated growth</th><th scope="col">Tool's rounded future value</th></tr></thead><tbody><tr><td>0%</td><td>₹60,000.00</td><td>₹0.00</td><td>₹60,000</td></tr><tr><td>6%</td><td>₹61,677.81</td><td>₹1,677.81</td><td>₹61,678</td></tr><tr><td>12%</td><td>₹63,412.52</td><td>₹3,412.52</td><td>₹63,413</td></tr></tbody></table></div>
+<p>At 12%, month one's ending balance is ₹5,000. Month two is 5,000 × 1.01 + 5,000 = ₹10,050; month three is 10,050 × 1.01 + 5,000 = ₹15,150.50. Continuing for twelve months reproduces the table. The interface rounds amounts to whole rupees, so compare like precision.</p>
+<h2 id="beginning">Why another calculator might show a larger number</h2>
+<p>If the same twelve deposits occur at the beginning of each month, each has one extra month of growth. Multiply the month-end future value by 1.01 in the 12% scenario: ₹64,046.64, about ₹634.13 more. This is a timing comparison, not an alternative selectable mode in this tool.</p>
+<p>The <a href="/blog/compound-interest-regular-deposits/">regular-deposit compounding guide</a> also includes an initial lump sum. This SIP tool starts from zero and does not automatically increase contributions each year, include skipped payments or model an existing balance.</p>
+<h2 id="limits">Fractional durations, losses and actual performance</h2>
+<p>The implementation uses n = years × 12 without rounding. A value such as 1.04 years produces n = 12.48 and contributions of ₹62,400 at ₹5,000/month. That is a mathematical interpolation, not a schedule of 12.48 real payments. Choose a duration corresponding to whole months for a discrete monthly plan.</p>
+<p>The calculator accepts non-negative return assumptions, so it cannot illustrate investment losses. Real investments can lose money. The model also excludes fees, taxes, inflation and changes in contribution dates or market returns. Dividing the final gain by total contributions is not an annualized return measure for staggered cash flows.</p>
+<p>For an actual investment, reconcile transaction dates, amounts, units and valuation records rather than treating this projection as a statement of performance. Read <a href="https://investor.sebi.gov.in/investment-thingsbeforeinv.html">SEBI's discussion of investment risk and return assumptions</a>. This explanation is educational, not personalized investment advice.</p>
+<aside class="kb-use-tool"><h2>Try the calculation</h2><p><a href="/sip-calculator/">Open the SIP Calculator</a> to apply the method. Check the stated inputs and limitations before interpreting the result.</p></aside><section class="kb-related"><h2>Related reading</h2><ul><li><a href="/blog/compound-interest-regular-deposits/">Compound Interest with Regular Deposits: Worked Examples</a></li></ul></section><p>Found an error? <a href="/contact.html">Contact OnlineCalMaster</a> with the article URL, inputs and expected result. Avoid sending sensitive personal information.</p></article>
+</main>
+<footer class="site-footer"><a class="footer-brand" href="/">OnlineCalMaster</a><p>Free calculators and practical calculation guides.</p><nav aria-label="Footer navigation"><a href="/blog/">Knowledge Base</a><a href="/about.html">About Us</a><a href="/contact.html">Contact Us</a><a href="/privacy-policy.html">Privacy Policy</a></nav></footer>
+</body>
+</html>

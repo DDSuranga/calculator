@@ -3531,9 +3531,7 @@ function escapeGuideText(value) {
 function getCalculatorIntroduction(calculator) {
  return CLASSIC_GUIDES[calculator.target]?.[0] || dynamicToolDefinitions[calculator.dynamicTool]?.description || calculator.metaDescription;
 }
-function getCalculatorGuideHtml(calculator) {
- const guide = CLASSIC_GUIDES[calculator.target];
- if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>';
+function getCalculatorReadingHtml(calculator) {
  const reading = {
   "age": [
     [
@@ -3588,9 +3586,54 @@ function getCalculatorGuideHtml(calculator) {
       "compound-interest-regular-deposits",
       "Compound Interest with Regular Deposits: Worked Examples"
     ]
+  ],
+  "mortgage": [
+    [
+      "mortgage-payment-principal-interest-tax-insurance",
+      "Mortgage Payment Calculation: Principal, Interest, Tax and Insurance"
+    ]
+  ],
+  "sip": [
+    [
+      "sip-monthly-contributions-compounding",
+      "SIP Calculation Explained: Monthly Contributions and Compounding"
+    ]
+  ],
+  "gst": [
+    [
+      "gst-inclusive-exclusive-calculation",
+      "GST Inclusive vs Exclusive: Add and Remove GST Correctly"
+    ],
+    [
+      "cgst-sgst-igst-calculation",
+      "CGST, SGST and IGST: Understanding the Calculation"
+    ]
+  ],
+  "bmi": [
+    [
+      "bmi-vs-bmr-meaning-limitations",
+      "BMI vs BMR: What the Numbers Mean and Their Limits"
+    ]
+  ],
+  "bmr": [
+    [
+      "bmi-vs-bmr-meaning-limitations",
+      "BMI vs BMR: What the Numbers Mean and Their Limits"
+    ]
+  ],
+  "calorie": [
+    [
+      "bmi-vs-bmr-meaning-limitations",
+      "BMI vs BMR: What the Numbers Mean and Their Limits"
+    ]
   ]
  }[calculator.target];
- const furtherReading = reading ? '<h3>Learn the method</h3><ul>'+reading.map(([slug,title])=>'<li><a href="/blog/'+slug+'/">'+escapeGuideText(title)+'</a></li>').join('')+'</ul>' : '';
+ return reading ? '<h3>Learn the method</h3><ul>'+reading.map(([slug,title])=>'<li><a href="/blog/'+slug+'/">'+escapeGuideText(title)+'</a></li>').join('')+'</ul>' : '';
+}
+function getCalculatorGuideHtml(calculator) {
+ const guide = CLASSIC_GUIDES[calculator.target];
+ const furtherReading = getCalculatorReadingHtml(calculator);
+ if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>' + furtherReading;
  return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+escapeGuideText(answer)+'</p></details>').join('') : '') + furtherReading;
 }
 function getCalculatorApplicationSchema(calculator) {
@@ -3620,6 +3663,7 @@ function renderCalculatorContext(calculator) {
  : [definition?.help.how || (labels.length ? 'Enter '+labels.join(', ')+'.' : 'Enter the values requested in the calculator.'),'Choose the calculation action to see your result.','Review the result and use Clear to start a new calculation.'];
  text.forEach(value=>{const li=document.createElement('li');li.textContent=value;steps.append(li);});guide.append(steps);
  if(['basic','scientific'].includes(calculator.target)){const p=document.createElement('p');p.textContent='Example: 12 × 8 = 96. Your calculations are saved locally in this browser’s calculation history.';guide.append(p);}
+ guide.insertAdjacentHTML('beforeend', getCalculatorReadingHtml(calculator));
 }
 document.addEventListener('DOMContentLoaded',()=>{
  const toggle=document.getElementById('navigationToggle');

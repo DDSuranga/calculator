@@ -107,7 +107,8 @@
     "calculator": "loan-emi-calculator",
     "calculatorName": "Loan EMI Calculator",
     "related": [
-      "compound-interest-regular-deposits"
+      "compound-interest-regular-deposits",
+      "mortgage-payment-principal-interest-tax-insurance"
     ],
     "summary": "Follow a loan payment from the EMI formula to its interest and principal portions, and compare monthly payments with total borrowing cost."
   },
@@ -119,8 +120,67 @@
     "calculator": "compound-interest-calculator",
     "calculatorName": "Compound Interest Calculator",
     "related": [
-      "how-emi-is-calculated"
+      "how-emi-is-calculated",
+      "sip-monthly-contributions-compounding"
     ],
     "summary": "Separate contributions from growth, compare deposit timing and reproduce a monthly savings projection with clear assumptions."
+  },
+  {
+    "slug": "mortgage-payment-principal-interest-tax-insurance",
+    "title": "Mortgage Payment Calculation: Principal, Interest, Tax and Insurance",
+    "description": "Break down a mortgage payment into principal, interest, property tax and insurance. Follow a worked example and identify costs the estimate leaves out.",
+    "category": "Finance",
+    "calculator": "mortgage-calculator",
+    "calculatorName": "Mortgage Calculator",
+    "related": [
+      "how-emi-is-calculated"
+    ],
+    "summary": "Separate the loan payment from the wider housing budget, with a verified monthly breakdown and clearly identified exclusions."
+  },
+  {
+    "slug": "sip-monthly-contributions-compounding",
+    "title": "SIP Calculation Explained: Monthly Contributions and Compounding",
+    "description": "Understand the SIP formula, month-end contributions, rounding and return assumptions with verified monthly examples and clear investment-risk limitations.",
+    "category": "Finance",
+    "calculator": "sip-calculator",
+    "calculatorName": "SIP Calculator",
+    "related": [
+      "compound-interest-regular-deposits"
+    ],
+    "summary": "Trace monthly contributions through a constant-rate illustration and see why timing, rate conventions and actual returns can differ."
+  },
+  {
+    "slug": "gst-inclusive-exclusive-calculation",
+    "title": "GST Inclusive vs Exclusive: Add and Remove GST Correctly",
+    "description": "Add GST to a taxable base or extract it from an inclusive price. Check worked examples, combined-rate denominators, mixed-rate lines and calculation limits.",
+    "category": "Indian GST",
+    "calculator": "gst-calculator",
+    "calculatorName": "GST Calculator",
+    "related": [
+      "cgst-sgst-igst-calculation"
+    ],
+    "summary": "Choose the correct starting amount and reverse GST without confusing included tax with a discount on the gross price."
+  },
+  {
+    "slug": "cgst-sgst-igst-calculation",
+    "title": "CGST, SGST and IGST: Understanding the Calculation",
+    "description": "Compare CGST plus SGST with IGST using a worked example. Understand place-of-supply assumptions, SEZ and UTGST limits, and why arithmetic is not tax eligibility.",
+    "category": "Indian GST",
+    "calculator": "gst-calculator",
+    "calculatorName": "GST Calculator",
+    "related": [
+      "gst-inclusive-exclusive-calculation"
+    ],
+    "summary": "Separate the legal classification of a supply from its numerical tax breakdown, with important exceptions and official references."
+  },
+  {
+    "slug": "bmi-vs-bmr-meaning-limitations",
+    "title": "BMI vs BMR: What the Numbers Mean and Their Limits",
+    "description": "Distinguish BMI, estimated BMR and daily calorie needs. Check formulas, adult BMI categories, Mifflin–St Jeor examples and population limitations.",
+    "category": "Health",
+    "calculator": "bmi-calculator",
+    "calculatorName": "BMI Calculator",
+    "related": [],
+    "summary": "Understand the different questions answered by a weight-for-height index, resting-energy equation and daily-energy estimate."
   }
 ]
