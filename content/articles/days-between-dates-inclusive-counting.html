@@ -1,0 +1,23 @@
+<p>“Days between two dates” can mean the elapsed distance between them or the number of calendar dates included in a period. Decide which you need before calculating: the answers differ by one when both endpoints are counted.</p>
+<p>The <a href="/date-difference-calculator/">Date Difference Calculator</a> returns the absolute elapsed-day difference. It includes weekends and holidays and does not automatically apply inclusive counting.</p>
+<h2 id="elapsed">Elapsed days count the gaps</h2>
+<p>From 1 March 2025 to 3 March 2025 there are two one-day steps: March 1 → March 2, then March 2 → March 3. The result is <strong>2 elapsed days</strong>.</p>
+<p class="formula">Elapsed days = absolute difference between the two calendar dates.</p>
+<p>This is useful for measuring the separation of two events. A stay from the first date to the third often involves two overnight intervals, but an actual booking's billing rules still govern its charges.</p>
+<h2 id="inclusive">Inclusive counting counts both endpoints</h2>
+<p>If a schedule runs on March 1, March 2 and March 3, there are three included calendar dates.</p>
+<p class="formula">Inclusive calendar-date count = elapsed-day difference + 1</p>
+<p>This adjustment assumes a continuous interval that includes both the start and end date. Add it yourself when that is the question you intend to answer; the existing calculator has no inclusive-count toggle.</p>
+<div class="table-scroll" role="region" aria-label="Date counting examples" tabindex="0"><table><caption>Calendar dates, not business-day or hourly calculations</caption><thead><tr><th scope="col">Start</th><th scope="col">End</th><th scope="col">Elapsed</th><th scope="col">Inclusive</th></tr></thead><tbody><tr><td>1 March 2025</td><td>3 March 2025</td><td>2 days</td><td>3 dates</td></tr><tr><td>3 March 2025</td><td>3 March 2025</td><td>0 days</td><td>1 date</td></tr><tr><td>3 March 2025</td><td>1 March 2025</td><td>2 days</td><td>3 dates</td></tr><tr><td>28 February 2024</td><td>1 March 2024</td><td>2 days</td><td>3 dates</td></tr><tr><td>28 February 2025</td><td>1 March 2025</td><td>1 day</td><td>2 dates</td></tr></tbody></table></div>
+<h2 id="order">Same-day and reversed inputs</h2>
+<p>Using the same date twice produces zero elapsed days because no day boundary separates the dates. Inclusive counting produces one because that date is included once.</p>
+<p>Reversing the inputs does not make the displayed result negative. The tool measures absolute distance, not chronological direction. Keep the original order visible in your notes if direction matters.</p>
+<h2 id="leap">Leap years add a real calendar day</h2>
+<p>February 2024 includes the 29th, while February 2025 does not. That is why the final two table rows differ. The Gregorian rule is: years divisible by 4 are leap years, except century years unless divisible by 400. Thus 2000 was a leap year and 2100 will not be.</p>
+<p>For years, months and days since a birthday, use the <a href="/age-calculator/">Age Calculator</a> and the guide to <a href="/blog/how-to-calculate-age-from-date-of-birth/">calculating calendar age</a>. Dividing a day difference by 365 does not reproduce that result reliably.</p>
+<h2 id="limits">Calendar days are not business days or exact hours</h2>
+<p>The date tool compares date-only values as UTC dates. This keeps local daylight-saving clock changes from altering the calendar-day count. It does not establish that every local midnight-to-midnight interval lasts exactly 24 hours.</p>
+<p>For complete date-and-time inputs, use the <a href="/time-difference-calculator/">Time Difference Calculator</a>; its timestamps use the device time zone. For a future target, the <a href="/countdown-calculator/">Countdown Calculator</a> calculates the remaining interval on demand.</p>
+<p>No public holidays or working-week rules are applied. A contractual or legal deadline can have special start-date, weekend or holiday rules. Check those rules rather than treating this arithmetic as a deadline determination.</p>
+<h2 id="reference">Calendar reference</h2>
+<p>The leap-year rule is documented by the <a href="https://aa.usno.navy.mil/faq/leap_years">U.S. Naval Observatory</a>. The table above uses explicit dates so its arithmetic can be checked independently.</p>

@@ -1,0 +1,26 @@
+<p>Your age in years is the number of birthdays you have completed. An age written as years, months and days is more detailed: it describes the calendar interval from your birth date to a comparison date. It is useful for checking a personal timeline or understanding a form that asks for more than a whole number of years.</p>
+<p>The <a href="/age-calculator/">Age Calculator</a> compares your date of birth with <strong>today on your device</strong>. The fixed dates below make the method reproducible; they are teaching examples, not an extra comparison-date input in the tool.</p>
+<h2 id="method">Start with completed years, then months and days</h2>
+<ol>
+<li>Write both dates with the month spelled out, so 6 July cannot be confused with 7 June.</li>
+<li>Subtract the birth year from the comparison year. For an ordinary birthday, subtract one more year if that birthday has not yet occurred in the comparison year.</li>
+<li>Count the completed calendar months after the last birthday. Do not assume every month has 30 days.</li>
+<li>Count the remaining days after the last completed month. Read the month-end convention below before using dates such as the 29th, 30th or 31st.</li>
+</ol>
+<p class="formula">Completed years = comparison year − birth year − 1 if this year's birthday is still ahead.</p>
+<p>For the full result, OnlineCalMaster counts completed months anchored to the birth date, splits them into years and months, and then counts the remaining days. Anchoring matters: a short February does not permanently move a January 31 birth date to the 28th of every later month.</p>
+<h2 id="examples">Two examples around the same birthday</h2>
+<div class="table-scroll" role="region" aria-label="Age examples" tabindex="0"><table><caption>Birth date: 15 June 2000</caption><thead><tr><th scope="col">Comparison date</th><th scope="col">Calendar age</th><th scope="col">Reason</th></tr></thead><tbody>
+<tr><td>10 June 2025</td><td>24 years, 11 months, 26 days</td><td>The 25th birthday is still five days away.</td></tr>
+<tr><td>20 August 2025</td><td>25 years, 2 months, 5 days</td><td>The 25th birthday was on 15 June; two full months end on 15 August.</td></tr>
+</tbody></table></div>
+<p>For the first row, the last completed month ends on 15 May 2025. From 15 May to 10 June there are 26 days. For the second, the path is 15 June 2000 → 15 June 2025 → 15 August 2025 → 20 August 2025.</p>
+<h2 id="boundaries">Month ends and leap birthdays need a convention</h2>
+<p>When the birth day does not exist in the target month, the calculator uses that month's last day. From 31 January 2025 to 28 February 2025, this convention produces <strong>0 years, 1 month, 0 days</strong>. The elapsed-day difference is 28 days. Both descriptions can be correct because a calendar month is not a fixed number of days.</p>
+<p>For a 29 February birthday, the calculator uses 28 February in non-leap years. This describes the software's convention, not a legal ruling about eligibility, contracts or official birthday recognition. Follow the responsible organization's rules when a legal age threshold matters.</p>
+<h2 id="days">Why not divide days by 365?</h2>
+<p>Leap years have an extra day, and months have unequal lengths. Dividing elapsed days by 365 gives a duration expressed in approximate 365-day years; it does not reconstruct completed calendar years, months and days. Use the <a href="/date-difference-calculator/">Date Difference Calculator</a> if the number of days itself is what you need.</p>
+<p>The related guide to <a href="/blog/days-between-dates-inclusive-counting/">elapsed days and inclusive counting</a> explains why adding both endpoints changes a date count. Do not add an extra day to ordinary age just because both dates appear on a calendar.</p>
+<h2 id="check">Check the inputs before relying on the result</h2>
+<ul><li>Use the actual date of birth; a future birth date is invalid for age today.</li><li>Check your device's date and time zone, particularly around midnight.</li><li>The tool uses date-only calendar calculations, not the exact time of birth.</li><li>For an official form, check whether it requests completed years, completed months or a different convention.</li></ul>
+<p>For a birthday countdown rather than age, use the <a href="/countdown-calculator/">Countdown Calculator</a>. It calculates when requested; it is not a continuously updating clock.</p>

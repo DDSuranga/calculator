@@ -3534,7 +3534,15 @@ function getCalculatorIntroduction(calculator) {
 function getCalculatorGuideHtml(calculator) {
  const guide = CLASSIC_GUIDES[calculator.target];
  if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>';
- return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+escapeGuideText(answer)+'</p></details>').join('') : '');
+ const reading = {
+  age: ['how-to-calculate-age-from-date-of-birth', 'How to calculate age from date of birth'],
+  volume: ['how-to-calculate-volume-common-shapes', 'How to calculate volume of five common shapes'],
+  tip: ['how-to-calculate-tip-total-bill', 'How to calculate a tip and total bill'],
+  percentageChange: ['percentage-increase-decrease-explained', 'Percentage increase and decrease explained'],
+  date: ['days-between-dates-inclusive-counting', 'Elapsed days versus inclusive date counting']
+ }[calculator.target];
+ const furtherReading = reading ? '<h3>Learn the method</h3><p><a href="/blog/'+reading[0]+'/">'+escapeGuideText(reading[1])+'</a></p>' : '';
+ return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+escapeGuideText(answer)+'</p></details>').join('') : '') + furtherReading;
 }
 function getCalculatorApplicationSchema(calculator) {
  return {'@context':'https://schema.org','@type':'WebApplication',name:calculator ? getCalculatorTitle(calculator) : 'OnlineCalMaster Calculator',url:getCanonicalUrl(calculator),description:calculator ? getCalculatorIntroduction(calculator) : HOME_DESCRIPTION,applicationCategory:'UtilitiesApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}};

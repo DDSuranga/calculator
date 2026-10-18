@@ -19,7 +19,7 @@ const context = {
     URL, Response,
     caches: {
         open: async () => bucket,
-        keys: async () => ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'onlinecalmaster-v12-adsense-only', 'unrelated-app', cacheName],
+        keys: async () => ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'onlinecalmaster-v12-adsense-only', 'onlinecalmaster-v13-static-content', 'unrelated-app', cacheName],
         delete: async key => { deleted.push(key); return true; }
     },
     fetch: async (request, options) => {
@@ -50,12 +50,17 @@ function request(path, destination, mode) {
         await promise;
     }
     assert.ok(skipped && claimed);
-    assert.deepEqual(deleted, ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'onlinecalmaster-v12-adsense-only']);
+    assert.deepEqual(deleted, ['calculator-cache-v8', 'onlinecalmaster-v10-redesign', 'onlinecalmaster-v11-polish', 'onlinecalmaster-v12-adsense-only', 'onlinecalmaster-v13-static-content']);
     for (const asset of ['/styles.css', '/script.js', '/manifest.json']) {
         assert.equal(await (await request(asset, asset.endsWith('.css') ? 'style' : asset.endsWith('.js') ? 'script' : 'manifest')).text(), 'new asset');
         assert.equal(await cache.get(asset).clone().text(), 'new asset');
     }
+    await request('/blog/how-to-calculate-age-from-date-of-birth/', 'document', 'navigate');
     networkDown = true;
+    assert.equal(await (await request('/blog/how-to-calculate-age-from-date-of-birth/', 'document', 'navigate')).text(), 'new asset');
+    const missingArticle = await request('/blog/unvisited/', 'document', 'navigate');
+    assert.equal(missingArticle.status, 503);
+    assert.match(await missingArticle.text(), /not saved offline/);
     assert.equal(await (await request('/styles.css', 'style')).text(), 'new asset');
     assert.match(await (await request('/bmi-calculator/', 'document', 'navigate')).text(), /<base href="\/">/);
     const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));

@@ -137,6 +137,9 @@ function main() {
     const baseUrl = getBaseUrl();
     const lastmod = new Date().toISOString().slice(0, 10);
     const calculators = extractCalculatorData();
+    const articles = require('../content/articles.json');
+    // Keep existing publication history; this build does not modify every page's content.
+    const previousDates = new Map([...fs.readFileSync(sitemapPath, 'utf8').matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)].map(m => [m[1], m[2]]));
 
     calculators.forEach(calculator => {
         if (!calculator.slug || !slugPattern.test(calculator.slug)) {
@@ -153,8 +156,11 @@ function main() {
 
     const entries = [
         ...staticPages.map(page => createEntry(baseUrl, page.path, lastmod, page.changefreq, page.priority)),
-        ...calculators.map(calculator => createEntry(baseUrl, calculator.slug, lastmod, 'weekly', '0.8'))
+        ...calculators.map(calculator => createEntry(baseUrl, calculator.slug, lastmod, 'weekly', '0.8')),
+        createEntry(baseUrl, '/blog/', lastmod, 'monthly', '0.6'),
+        ...articles.map(article => createEntry(baseUrl, `/blog/${article.slug}/`, lastmod, 'monthly', '0.6'))
     ];
+    for (const entry of entries) entry.lastmod = previousDates.get(entry.loc) || lastmod;
 
     validateEntries(entries);
 

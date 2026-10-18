@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "how-to-calculate-age-from-date-of-birth",
+    "title": "How to Calculate Age from Date of Birth",
+    "description": "Learn to calculate calendar age in years, months and days, with birthday examples, month-end rules and a clear explanation of the today-only calculator.",
+    "category": "Age & Dates",
+    "calculator": "age-calculator",
+    "calculatorName": "Age Calculator",
+    "related": ["days-between-dates-inclusive-counting"],
+    "summary": "Count completed calendar years and months, then the remaining days. Understand why days divided by 365 is not calendar age."
+  },
+  {
+    "slug": "how-to-calculate-volume-common-shapes",
+    "title": "How to Calculate Volume: Five Common 3D Shapes",
+    "description": "Choose the volume formula for a cube, rectangular prism, cylinder, sphere or cone. Follow worked examples and avoid radius, height and cubic-unit mistakes.",
+    "category": "Geometry",
+    "calculator": "volume-calculator",
+    "calculatorName": "Volume Calculator",
+    "related": [],
+    "summary": "Choose the right measurements and formula for five solids, then check cubic units, rounding and container assumptions."
+  },
+  {
+    "slug": "how-to-calculate-tip-total-bill",
+    "title": "How to Calculate a Restaurant Tip and Total Bill",
+    "description": "Calculate a restaurant tip and total using an itemized bill. Understand the chosen tip base, tax, service charges and rounding with a worked $48 example.",
+    "category": "Everyday Percentages",
+    "calculator": "tip-calculator",
+    "calculatorName": "Tip Calculator",
+    "related": ["percentage-increase-decrease-explained"],
+    "summary": "Separate the amount you tip on from tax and service charges, and avoid adding charges twice when finding the final bill."
+  },
+  {
+    "slug": "percentage-increase-decrease-explained",
+    "title": "Percentage Increase and Decrease: Formula and Common Mistakes",
+    "description": "Calculate percentage change from old and new values. See why increases and decreases do not cancel, how percentage points differ, and when zero is invalid.",
+    "category": "Everyday Percentages",
+    "calculator": "percentage-change-calculator",
+    "calculatorName": "Percentage Change Calculator",
+    "related": ["how-to-calculate-tip-total-bill"],
+    "summary": "Choose the correct baseline, interpret the sign and distinguish percentage changes from percentage points."
+  },
+  {
+    "slug": "days-between-dates-inclusive-counting",
+    "title": "Days Between Dates: Elapsed Days vs Inclusive Counting",
+    "description": "Compare elapsed days with inclusive date counting using same-day, reversed-date and leap-year examples. Learn what the date calculator does and does not count.",
+    "category": "Age & Dates",
+    "calculator": "date-difference-calculator",
+    "calculatorName": "Date Difference Calculator",
+    "related": ["how-to-calculate-age-from-date-of-birth"],
+    "summary": "Decide whether you need the gaps between dates or every calendar date in an interval, including both endpoints."
+  }
+]

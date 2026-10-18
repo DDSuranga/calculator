@@ -1,5 +1,5 @@
 // Network-first first-party assets keep releases fresh; the shared shell is an offline route fallback.
-const CACHE_NAME = 'onlinecalmaster-v13-static-content';
+const CACHE_NAME = 'onlinecalmaster-v14-knowledge-base';
 const CORE = ['/', '/index.html', '/styles.css', '/script.js', '/manifest.json', '/Logo.png', '/icon-48x48.png', '/icon-192x192.png', '/icon-512x512.png'];
 self.addEventListener('install', event => {
  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -23,6 +23,10 @@ self.addEventListener('fetch', event => {
    if (cached) return cached;
    // The base URL keeps assets at the site root when the shell serves an uncached route offline.
    if (request.mode === 'navigate') {
+    // An uncached article is not a calculator route. Never substitute the calculator shell.
+    if (url.pathname === '/blog' || url.pathname.startsWith('/blog/')) {
+     return new Response('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Article unavailable offline | OnlineCalMaster</title><main><h1>This guide is not saved offline yet</h1><p>Reconnect and reload to read it. Previously opened guides remain available offline.</p><p><a href="/">Open the calculators</a></p></main></html>', {status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
+    }
     const shell = await cache.match('/index.html');
     if (shell) return new Response((await shell.text()).replace('<head>','<head><base href="/">'),{headers:{'Content-Type':'text/html; charset=utf-8'}});
    }
