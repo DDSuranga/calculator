@@ -50,6 +50,6 @@ function setup(options = {}) {
   for (const href of ['/', 'about.html', 'privacy-policy.html']) assert.ok(html.includes('href="' + href + '"'));
   assert.ok(html.includes('GTM-M6K9R66W')); assert.ok(html.includes('mailto:onlinecalmaster@gmail.com'));
   assert.ok(!/support@example.com|facebook.com\/yourpage|instagram.com\/yourpage/.test(html));
-  assert.ok(html.includes('https://wa.me/94771234567')); assert.ok(html.includes('Inbox delivery is not yet confirmed.'));
+  assert.ok(html.includes('https://wa.me/94761499141')); assert.ok(html.includes('📱 +94 76 149 9141')); assert.ok(!html.includes('94771234567'));  assert.ok(html.includes('Inbox delivery is not yet confirmed.'));
   console.log('Contact tests passed: validation, accepted requests, 9 failure statuses, missing SDK, initialization/synchronous failures, duplicate suppression, stale-success clearing, safe diagnostics and preserved links. No emails sent.');
 })().catch(error => { console.error(error); process.exitCode = 1; });
