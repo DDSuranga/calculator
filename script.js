@@ -55,7 +55,7 @@ const calculatorData = [
     { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
     { name: 'Percentage Change', category: 'Business', target: 'percentageChange', slug: 'percentage-change-calculator', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate percentage increase or decrease between two values with the free Percentage Change Calculator by OnlineCalMaster.' },
     { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate tips and total bill amounts instantly using the free Tip Calculator by OnlineCalMaster.' },
-    { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT / Discount Calculator', heightClass: 'extra-tall', metaDescription: 'Add or remove VAT from prices instantly using the free VAT Calculator by OnlineCalMaster.' },
+    { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT Calculator', heightClass: 'extra-tall', metaDescription: 'Add or remove VAT from prices instantly using the free VAT Calculator by OnlineCalMaster.' },
     { name: 'Loan EMI', category: 'Finance', target: 'loanEmi', slug: 'loan-emi-calculator', elementId: 'loanEmiCalculator', title: 'Loan EMI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate monthly EMI payments instantly using the free Loan EMI Calculator by OnlineCalMaster.' },
     { name: 'Mortgage', category: 'Finance', target: 'mortgage', slug: 'mortgage-calculator', elementId: 'mortgageCalculator', title: 'Mortgage Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate monthly mortgage payments and total interest using the free Mortgage Calculator by OnlineCalMaster.' },
     { name: 'Compound Interest', category: 'Finance', target: 'compoundInterest', slug: 'compound-interest-calculator', elementId: 'compoundInterestCalculator', title: 'Compound Interest Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate compound growth, total amount, and interest earned using the free Compound Interest Calculator by OnlineCalMaster.' },
@@ -1958,7 +1958,7 @@ function clearTip() {
     document.getElementById('tipDisplay').value = '';
 }
 
-// VAT / DISCOUNT
+// VAT
 function addVat() {
     const value = parseFloat(document.getElementById('vatValue').value);
     const rate = parseFloat(document.getElementById('vatPercent').value);
@@ -3427,7 +3427,7 @@ const CLASSIC_GUIDES = {
     "Estimate a fixed monthly loan installment and the total interest over the chosen term.",
     "Enter the loan principal, annual interest rate, and term using the selected time unit. Calculate and review the payment breakdown.",
     "EMI = P × r × (1 + r)^n / ((1 + r)^n − 1), where r is the monthly rate and n is the number of monthly payments. At zero interest, the installment is P / n.",
-    "A principal of 12,000 over 12 months at 0% interest gives a monthly installment of 1,000. Fees and changing rates are outside this estimate."
+    "INR 500,000 over 5 years at a fixed nominal annual rate of 10% gives an estimated monthly EMI of INR 10,623.52. This assumes 60 equal month-end repayments, a monthly rate of 10% / 12 and full disbursement at the start. Fees, taxes, insurance, rate changes and extra or missed payments are excluded; lender rounding may differ."
   ],
   "mortgage": [
     "Estimate monthly principal and interest together with the property tax and home insurance you enter.",
