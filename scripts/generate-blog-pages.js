@@ -1,4 +1,4 @@
-// Only the five explicitly listed article sources are published. No directory copying.
+// Only the explicitly listed article sources are published. No directory copying.
 const fs = require('fs'), path = require('path'), assert = require('assert/strict');
 const root = path.resolve(__dirname, '..');
 const articles = require('../content/articles.json');

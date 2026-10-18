@@ -1,0 +1,23 @@
+<h2 id="fair-comparison">Choose what stays the same</h2>
+<p>A cone is one-third of a cylinder only when both have the same base radius and perpendicular height. A sphere has no independently selectable height: its full height is its diameter, 2r. Comparisons become misleading when the radius or height silently changes.</p>
+<p>Use this guide when comparing ideal container shapes or checking a geometry answer. For the basic measurements and all five supported solids, start with the <a href="/blog/how-to-calculate-volume-common-shapes/">volume formula guide</a>. The <a href="/volume-calculator/">Volume Calculator</a> evaluates one solid at a time; the comparisons below show which inputs to hold fixed.</p>
+<h2 id="equal-dimensions">Same radius and the same overall height</h2>
+<p>Let each solid have radius r. Set the cylinder and cone height to 2r so that they are as tall as the sphere. Then:</p>
+<ul><li>Cylinder: V = πr²(2r) = 2πr³.</li><li>Sphere: V = 4πr³/3.</li><li>Cone: V = πr²(2r)/3 = 2πr³/3.</li></ul>
+<p class="formula">Cylinder : sphere : cone = 3 : 2 : 1, when radius is shared and cylinder/cone height is 2r.</p>
+<p>For r = 3 cm, the diameter is 6 cm. Enter radius 3 and height 6 for the cylinder and cone, and radius 3 for the sphere.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Equal dimension volume comparison"><table><caption>All three solids have radius 3 cm and overall height 6 cm</caption><thead><tr><th scope="col">Solid</th><th scope="col">Exact volume</th><th scope="col">Rounded volume</th></tr></thead><tbody><tr><td>Cylinder</td><td>54π cm³</td><td>169.65 cm³</td></tr><tr><td>Sphere</td><td>36π cm³</td><td>113.10 cm³</td></tr><tr><td>Cone</td><td>18π cm³</td><td>56.55 cm³</td></tr></tbody></table></div>
+<p>The sphere occupies two-thirds of its enclosing cylinder's ideal volume; the empty space is 18π cm³, or 56.55 cm³. These are volume ratios, not a claim that a solid sphere and cone physically fit together to fill that cylinder.</p>
+<h2 id="equal-volume">Same radius and same volume: height must change</h2>
+<p>If the cylinder has radius 3 cm and height 6 cm, a cone of radius 3 cm needs height 18 cm to match its 54π cm³ volume. A cone must be three times as tall to compensate for its one-third factor when the base stays fixed.</p>
+<p>To match a sphere of radius r instead, solve πr²h = 4πr³/3 for a cylinder: h = 4r/3. For a cone, solve πr²h/3 = 4πr³/3: h = 4r. With r = 3 cm, a cylinder of height 4 cm and a cone of height 12 cm each have volume 36π cm³, matching the sphere's 113.10 cm³.</p>
+<p>These alternatives cannot simultaneously keep the same radius, height and volume. Decide which measurement is constrained before choosing a container or checking an answer.</p>
+<h2 id="scaling">Radius, diameter and scaling mistakes</h2>
+<p>If a drawing gives diameter 6 cm, enter radius 3 cm. Entering 6 as the radius makes a cylinder or cone four times too large when height stays fixed, and makes a sphere eight times too large. That follows directly from the squared and cubed radius terms.</p>
+<p>Doubling every linear dimension multiplies every solid's volume by eight. Doubling only a cylinder's height doubles its volume. Doubling only its radius quadruples volume. The phrase “twice as big” is therefore too vague for a capacity comparison.</p>
+<h2 id="practical">Capacity checks and limits</h2>
+<p>For usable internal capacity, use internal dimensions in one unit throughout. The calculator's unit selector labels those dimensions; it does not convert numbers already entered. A shape with volume 169.65 cm³ has ideal capacity about 0.16965 L because 1,000 cm³ = 1 L. Do not round each dimension or π before the final step.</p>
+<p>Wall thickness, a rounded base, a truncated cone, a lid and space left for filling can change real capacity. A full sphere formula also does not give the volume of a partly filled spherical tank. Measure the actual geometry rather than treating these ideal formulas as a guaranteed usable capacity.</p>
+<h2 id="questions">Quick comparison checks</h2>
+<details><summary>Is a sphere always larger than a cone?</summary><p>No. A cone can be arbitrarily tall. The 3:2:1 relationship above applies only to the stated common radius and height 2r.</p></details>
+<details><summary>Should I use slant height for the cone?</summary><p>No. Volume requires perpendicular height from the base plane to the tip. Slant height runs along the side and is generally longer.</p></details>

@@ -3535,13 +3535,62 @@ function getCalculatorGuideHtml(calculator) {
  const guide = CLASSIC_GUIDES[calculator.target];
  if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>';
  const reading = {
-  age: ['how-to-calculate-age-from-date-of-birth', 'How to calculate age from date of birth'],
-  volume: ['how-to-calculate-volume-common-shapes', 'How to calculate volume of five common shapes'],
-  tip: ['how-to-calculate-tip-total-bill', 'How to calculate a tip and total bill'],
-  percentageChange: ['percentage-increase-decrease-explained', 'Percentage increase and decrease explained'],
-  date: ['days-between-dates-inclusive-counting', 'Elapsed days versus inclusive date counting']
+  "age": [
+    [
+      "how-to-calculate-age-from-date-of-birth",
+      "How to Calculate Age from Date of Birth"
+    ],
+    [
+      "leap-year-birthdays-month-end-age",
+      "Leap-Year Birthdays and Month-End Age Calculations"
+    ]
+  ],
+  "volume": [
+    [
+      "how-to-calculate-volume-common-shapes",
+      "How to Calculate Volume: Five Common 3D Shapes"
+    ],
+    [
+      "cylinder-cone-sphere-volume-comparison",
+      "Cylinder, Cone and Sphere Volume: Compare Like for Like"
+    ]
+  ],
+  "tip": [
+    [
+      "how-to-calculate-tip-total-bill",
+      "How to Calculate a Restaurant Tip and Total Bill"
+    ],
+    [
+      "calculate-15-18-20-percent-tips",
+      "Calculate 15%, 18% and 20% Tips Without a Calculator"
+    ]
+  ],
+  "percentageChange": [
+    [
+      "percentage-increase-decrease-explained",
+      "Percentage Increase and Decrease: Formula and Common Mistakes"
+    ]
+  ],
+  "date": [
+    [
+      "days-between-dates-inclusive-counting",
+      "Days Between Dates: Elapsed Days vs Inclusive Counting"
+    ]
+  ],
+  "loanEmi": [
+    [
+      "how-emi-is-calculated",
+      "How EMI Is Calculated: Formula, Interest and Repayment"
+    ]
+  ],
+  "compoundInterest": [
+    [
+      "compound-interest-regular-deposits",
+      "Compound Interest with Regular Deposits: Worked Examples"
+    ]
+  ]
  }[calculator.target];
- const furtherReading = reading ? '<h3>Learn the method</h3><p><a href="/blog/'+reading[0]+'/">'+escapeGuideText(reading[1])+'</a></p>' : '';
+ const furtherReading = reading ? '<h3>Learn the method</h3><ul>'+reading.map(([slug,title])=>'<li><a href="/blog/'+slug+'/">'+escapeGuideText(title)+'</a></li>').join('')+'</ul>' : '';
  return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+escapeGuideText(answer)+'</p></details>').join('') : '') + furtherReading;
 }
 function getCalculatorApplicationSchema(calculator) {

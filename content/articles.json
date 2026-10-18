@@ -6,7 +6,10 @@
     "category": "Age & Dates",
     "calculator": "age-calculator",
     "calculatorName": "Age Calculator",
-    "related": ["days-between-dates-inclusive-counting"],
+    "related": [
+      "days-between-dates-inclusive-counting",
+      "leap-year-birthdays-month-end-age"
+    ],
     "summary": "Count completed calendar years and months, then the remaining days. Understand why days divided by 365 is not calendar age."
   },
   {
@@ -16,7 +19,9 @@
     "category": "Geometry",
     "calculator": "volume-calculator",
     "calculatorName": "Volume Calculator",
-    "related": [],
+    "related": [
+      "cylinder-cone-sphere-volume-comparison"
+    ],
     "summary": "Choose the right measurements and formula for five solids, then check cubic units, rounding and container assumptions."
   },
   {
@@ -26,7 +31,10 @@
     "category": "Everyday Percentages",
     "calculator": "tip-calculator",
     "calculatorName": "Tip Calculator",
-    "related": ["percentage-increase-decrease-explained"],
+    "related": [
+      "percentage-increase-decrease-explained",
+      "calculate-15-18-20-percent-tips"
+    ],
     "summary": "Separate the amount you tip on from tax and service charges, and avoid adding charges twice when finding the final bill."
   },
   {
@@ -36,7 +44,9 @@
     "category": "Everyday Percentages",
     "calculator": "percentage-change-calculator",
     "calculatorName": "Percentage Change Calculator",
-    "related": ["how-to-calculate-tip-total-bill"],
+    "related": [
+      "how-to-calculate-tip-total-bill"
+    ],
     "summary": "Choose the correct baseline, interpret the sign and distinguish percentage changes from percentage points."
   },
   {
@@ -46,7 +56,71 @@
     "category": "Age & Dates",
     "calculator": "date-difference-calculator",
     "calculatorName": "Date Difference Calculator",
-    "related": ["how-to-calculate-age-from-date-of-birth"],
+    "related": [
+      "how-to-calculate-age-from-date-of-birth"
+    ],
     "summary": "Decide whether you need the gaps between dates or every calendar date in an interval, including both endpoints."
+  },
+  {
+    "slug": "leap-year-birthdays-month-end-age",
+    "title": "Leap-Year Birthdays and Month-End Age Calculations",
+    "description": "Understand February 29 birthdays and month-end age calculations with worked calendar examples, anchored anniversaries and clear limits on legal interpretations.",
+    "category": "Age & Dates",
+    "calculator": "age-calculator",
+    "calculatorName": "Age Calculator",
+    "related": [
+      "how-to-calculate-age-from-date-of-birth",
+      "days-between-dates-inclusive-counting"
+    ],
+    "summary": "Compare leap-day and month-end boundaries using an explicit anniversary rule, and understand why calendar-age tools can disagree."
+  },
+  {
+    "slug": "cylinder-cone-sphere-volume-comparison",
+    "title": "Cylinder, Cone and Sphere Volume: Compare Like for Like",
+    "description": "Compare cylinder, cone and sphere volumes with equal radii and heights. Verify the 3:2:1 ratio, equal-volume dimensions and common diameter mistakes.",
+    "category": "Geometry",
+    "calculator": "volume-calculator",
+    "calculatorName": "Volume Calculator",
+    "related": [
+      "how-to-calculate-volume-common-shapes"
+    ],
+    "summary": "Hold dimensions constant, compare ideal capacities and see exactly when the cylinder, sphere and cone ratio is 3:2:1."
+  },
+  {
+    "slug": "calculate-15-18-20-percent-tips",
+    "title": "Calculate 15%, 18% and 20% Tips Without a Calculator",
+    "description": "Work out 15%, 18% and 20% tips mentally using 10% and 1%. Check bill totals, cent rounding and equal splits with practical receipt examples.",
+    "category": "Everyday Percentages",
+    "calculator": "tip-calculator",
+    "calculatorName": "Tip Calculator",
+    "related": [
+      "how-to-calculate-tip-total-bill",
+      "percentage-increase-decrease-explained"
+    ],
+    "summary": "Build common tip percentages from simple fractions, check the final bill and handle rounding when sharing a total."
+  },
+  {
+    "slug": "how-emi-is-calculated",
+    "title": "How EMI Is Calculated: Formula, Interest and Repayment",
+    "description": "Understand the reducing-balance EMI formula with a 12-month loan example, principal and interest breakdown, term comparison and practical limitations.",
+    "category": "Finance",
+    "calculator": "loan-emi-calculator",
+    "calculatorName": "Loan EMI Calculator",
+    "related": [
+      "compound-interest-regular-deposits"
+    ],
+    "summary": "Follow a loan payment from the EMI formula to its interest and principal portions, and compare monthly payments with total borrowing cost."
+  },
+  {
+    "slug": "compound-interest-regular-deposits",
+    "title": "Compound Interest with Regular Deposits: Worked Examples",
+    "description": "Calculate compound interest with monthly deposits. Follow verified examples, compare deposit timing and understand compounding frequency and fractional years.",
+    "category": "Finance",
+    "calculator": "compound-interest-calculator",
+    "calculatorName": "Compound Interest Calculator",
+    "related": [
+      "how-emi-is-calculated"
+    ],
+    "summary": "Separate contributions from growth, compare deposit timing and reproduce a monthly savings projection with clear assumptions."
   }
 ]
