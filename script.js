@@ -49,7 +49,7 @@ const calculatorData = [
     { name: 'Basic Calculator', category: 'Education', target: 'basic', slug: 'basic-calculator', elementId: 'basicCalculator', metaDescription: 'Use the free Basic Calculator by OnlineCalMaster for quick addition, subtraction, multiplication, division, memory, and square root calculations.' },
     { name: 'Scientific Calculator', category: 'Education', target: 'scientific', slug: 'scientific-calculator', elementId: 'scientificCalculator', metaDescription: 'Use the free Scientific Calculator by OnlineCalMaster for trigonometry, logarithms, powers, constants, and advanced math calculations.' },
     { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', slug: 'unit-converter', elementId: 'unitConverter', heightClass: 'tall', metaDescription: 'Convert common measurement units instantly with the free Unit Converter by OnlineCalMaster.' },
-    { name: 'Age Calculator', category: 'Date & Time', target: 'age', slug: 'age-calculator', elementId: 'ageCalculator', heightClass: 'extra-tall', metaDescription: 'Calculate age in years, months, and days using the free Age Calculator by OnlineCalMaster.' },
+    { name: 'Age Calculator', category: 'Date & Time', target: 'age', slug: 'age-calculator', elementId: 'ageCalculator', heightClass: 'extra-tall', seoTitle: 'Age Calculator from Date of Birth | OnlineCalMaster', metaDescription: 'Enter your date of birth to calculate your age today in years, months and days, plus days until your next birthday. See leap-year and month-end rules.' },
     { name: 'Date Diff', category: 'Date & Time', target: 'date', slug: 'date-difference-calculator', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Date Difference Calculator – Days Between Dates | OnlineCalMaster', metaDescription: 'Find elapsed days between two dates, in either order. See same-day and inclusive-counting examples with this free date difference calculator.' },
     { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Time Difference Calculator – Hours, Minutes & Seconds | OnlineCalMaster', metaDescription: 'Calculate elapsed hours, minutes and seconds between two dates and times. Compare overnight intervals and see total minutes and seconds.' },
     { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
@@ -3358,7 +3358,7 @@ const CLASSIC_GUIDES = {
     "1 meter = 100 centimeters. A temperature of 0 degrees Celsius equals 32 degrees Fahrenheit. Results show four decimal places."
   ],
   "age": [
-    "Find elapsed calendar years, months, and days from a date of birth to today, plus the next birthday countdown.",
+    "Enter your date of birth to find your age today in years, months and days, plus the days until your next birthday. Today is based on your device’s local date.",
     "Select the date of birth and calculate. The reference date is today on your device; future birth dates are rejected.",
     "The result counts completed calendar months, then remaining days. When the birth day does not exist in a target month, it uses that month’s last day. February 29 birthdays use February 28 in non-leap years; legal age rules may differ. Today uses your device’s local date, and day counts are unaffected by daylight-saving changes.",
     "Someone born on 15 June 2000 is 25 years old on 15 June 2025. Your result changes with today's date and the device's time zone."
@@ -3484,7 +3484,7 @@ const CLASSIC_GUIDES = {
     "1,000 at 5% for two years earns 100 interest and totals 1,100. Compound Interest Calculator is appropriate when interest itself earns interest."
   ],
   "volume": [
-    "Calculate volume for a rectangular prism, cube, cylinder, sphere or cone using measured dimensions.",
+    "Choose a rectangular prism, cube, cylinder, sphere or cone. Enter all dimensions in the same unit; for circular shapes, use radius rather than diameter. Results are in cubic units.",
     "Choose a solid and unit, then enter positive dimensions in that same unit. Use perpendicular height for cylinders and cones, not slant height. Circular inputs require radius, which is half the diameter.",
     "Rectangular prism: length × width × height. Cube: side³. Cylinder: π × radius² × height. Sphere: 4 × π × radius³ / 3. Cone: π × radius² × height / 3. Results use cubic units such as cm³ or m³. Selecting a unit labels the inputs and result; it does not convert dimensions entered in different units.",
     "A 10 cm cube has volume 1,000 cm³. A 2 m × 3 m × 4 m rectangular prism has volume 24 m³. A cylinder with radius 2 cm and height 3 cm has volume 12π, approximately 37.70 cm³. A cone with the same radius and height has volume 4π, approximately 12.57 cm³.",
