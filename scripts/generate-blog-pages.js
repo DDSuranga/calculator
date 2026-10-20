@@ -1,8 +1,17 @@
-// Only the explicitly listed article sources are published. No directory copying.
+// Generate public articles from explicitly listed sources.
+// GitHub Pages also serves repository HTML sources; keep those sources noindex.
 const fs = require('fs'), path = require('path'), assert = require('assert/strict');
 const root = path.resolve(__dirname, '..');
 const articles = require('../content/articles.json');
-const template = fs.readFileSync(path.join(root, 'templates/article.html'), 'utf8');
+function readSource(relative) {
+    const source = fs.readFileSync(path.join(root, relative), 'utf8');
+    const marker = /<meta name="robots" content="noindex" data-source-only>\r?\n/g;
+    assert.equal((source.match(marker) || []).length, 1, relative + ' requires one source-only noindex marker');
+    const output = source.replace(marker, '');
+    assert(!/<meta\b[^>]*\bnoindex\b/i.test(output), relative + ' must not publish noindex');
+    return output;
+}
+const template = readSource('templates/article.html');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const origin = 'https://onlinecalmaster.com';
 const escape = value => String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -24,7 +33,7 @@ function write(relative, title, description, breadcrumb, content, schema, type) 
 }
 const crumb = (title,url) => ({'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:origin+'/'},{'@type':'ListItem',position:2,name:'Knowledge Base',item:origin+'/blog/'},...(url ? [{'@type':'ListItem',position:3,name:title,item:origin+url}] : [])]});
 for (const a of articles) {
-    const body=fs.readFileSync(path.join(root,'content/articles',a.slug+'.html'),'utf8');
+    const body=readSource('content/articles/'+a.slug+'.html');
     assert(!/<h1\b|<script\b|<iframe\b/i.test(body), a.slug+' invalid article body');
     const headings=[...body.matchAll(/<h2 id="([^"]+)">([^<]+)<\/h2>/g)];
     assert(headings.length>=4);
