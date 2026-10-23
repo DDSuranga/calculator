@@ -23,6 +23,9 @@ const CATEGORY_ANCHORS = {
 };
 const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
 const RELATED_OVERRIDES = {
+    zScore: ['scientific', 'percentage', 'basic'],
+    cbm: ['volume', 'unit', 'area', 'basic'],
+    scientific: ['zScore', 'basic', 'percentage', 'unit'],
     homeLoanEmi: ['loanEmi', 'mortgage', 'sip', 'compoundInterest', 'percentage'],
     sip: ['compoundInterest', 'percentage', 'gst', 'salary', 'loanEmi'],
     compoundInterest: ['savings', 'sip', 'roi', 'simpleInterest', 'percentage'],
@@ -41,7 +44,7 @@ const RELATED_OVERRIDES = {
     age: ['date', 'countdown', 'time', 'timeZoneDifference', 'basic'],
     timeZoneDifference: ['time', 'countdown', 'date', 'age', 'basic'],
     area: ['volume', 'unit', 'scientific', 'basic', 'percentage'],
-    volume: ['area', 'unit', 'scientific', 'basic', 'percentage'],
+    volume: ['cbm', 'area', 'unit', 'scientific', 'basic'],
     unit: ['area', 'volume', 'scientific', 'basic', 'percentage']
 };
 
@@ -83,7 +86,9 @@ const calculatorData = [
     { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
     { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Calculate SIP Returns & Future Value | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
     { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Calculate Monthly Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
-    { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', seoTitle: 'Area Calculator – 7 Shapes, Formulas & Examples | OnlineCalMaster', metaDescription: 'Calculate area for rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Get square-unit results with formulas and examples.' }
+    { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', seoTitle: 'Area Calculator – 7 Shapes, Formulas & Examples | OnlineCalMaster', metaDescription: 'Calculate area for rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Get square-unit results with formulas and examples.' },
+    { name: 'Z-Score Calculator', category: 'Education', target: 'zScore', slug: 'z-score-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'zScore', heightClass: 'extra-tall', seoTitle: 'Z-Score Calculator – Calculate Standard Scores Online', metaDescription: 'Calculate a z-score from a raw score, population mean and standard deviation. See the standard score formula, interpretation and worked examples.' },
+    { name: 'CBM Shipping Calculator', category: 'Business', target: 'cbm', slug: 'cbm-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'cbm', heightClass: 'extra-tall', seoTitle: 'CBM Calculator – Calculate Shipping Volume Online', metaDescription: 'Calculate CBM per carton, total shipping volume and cubic feet from dimensions and quantity. Enter centimeters, meters, inches or feet.' }
 ];
 
 function getCalculatorByTarget(type) {
@@ -104,6 +109,64 @@ const HOME_LOAN_CURRENCIES = {
 };
 
 const dynamicToolDefinitions = {
+    zScore: {
+        description: 'Find how many population standard deviations a value is above or below the mean.',
+        fields: [
+            { id: 'zRaw', label: 'Raw Score (X)', type: 'number', step: 'any', placeholder: '85' },
+            { id: 'zMean', label: 'Population Mean (μ)', type: 'number', step: 'any', placeholder: '75' },
+            { id: 'zSD', label: 'Population Standard Deviation (σ)', type: 'number', min: 0, step: 'any', placeholder: '10' }
+        ],
+        primaryAction: 'Calculate Z-Score', copy: true,
+        help: {
+            what: 'A z-score (standard score or z value) expresses the distance of one value from a population mean in standard deviation units. It is dimensionless. Use a mean and standard deviation describing the same population and measurement as the raw score.',
+            how: 'Enter a raw score, population mean and positive population standard deviation. Negative scores and means are allowed. Calculate to see the signed standard score and substitution into the formula.',
+            formula: 'z = (X − μ) / σ. A positive result is above the mean, a negative result is below it, and zero is exactly at the mean. The tool uses the supplied statistics; it does not estimate them from a dataset.',
+            example: 'With X = 85, μ = 75 and σ = 10, z = (85 − 75) / 10 = 1: one standard deviation above the mean. With X = 60 and the same population statistics, z = −1.5. For X = −2.5, μ = −1 and σ = 0.5, z = −3.',
+            faqs: [
+                ['Does a z-score give a percentile or probability?', 'Not by itself. Converting a score to a standard normal percentile requires a normal-distribution assumption or another justified model. This tool does not calculate probabilities, p-values or statistical significance.'],
+                ['Is a score beyond ±2 always unusual?', 'No universal label applies to every distribution. A distance of two standard deviations describes scale, but how common it is depends on the distribution. Do not use a fixed cutoff as a diagnosis or automatic outlier rule.'],
+                ['Why must the standard deviation be positive?', 'Standard deviation measures spread and cannot be negative. With zero spread the formula divides by zero, so a z-score is undefined.'],
+                ['Can I use a sample standard deviation?', 'This form asks for population statistics. A sample-based standardized value can be computed arithmetically, but uncertainty, sample estimates and statistical tests need appropriate methods; this is not a t-test calculator.'],
+                ['How are values displayed?', 'Results show up to 10 significant digits; very small or large values use scientific notation. Calculations use JavaScript floating-point arithmetic.'],
+                ['Where can I read about standardization?', 'See the <a href="https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/standard.htm" rel="noopener">NIST standardization reference</a>. Use the <a href="/scientific-calculator/">Scientific Calculator</a> for other arithmetic.']
+            ]
+        },
+        calculate(values) {
+            const r = calculateZScoreValues(values);
+            const f = formatNewCalculatorNumber;
+            const interpretation = r.z === 0 ? 'The value equals the population mean.' : f(Math.abs(r.z)) + ' standard deviations ' + (r.z > 0 ? 'above' : 'below') + ' the population mean.';
+            return dynamicResult(f(r.z), [['Z-Score', f(r.z), true], ['Interpretation', interpretation], ['Formula breakdown', '(' + f(r.x) + ' − (' + f(r.mean) + ')) / ' + f(r.sd) + ' = ' + f(r.z)]]);
+        }
+    },
+    cbm: {
+        description: 'Calculate the volume of identical rectangular cartons in cubic meters and total cubic feet.',
+        fields: [
+            { id: 'cbmLength', label: 'Length', type: 'number', min: 0, step: 'any', placeholder: '50' },
+            { id: 'cbmWidth', label: 'Width', type: 'number', min: 0, step: 'any', placeholder: '40' },
+            { id: 'cbmHeight', label: 'Height', type: 'number', min: 0, step: 'any', placeholder: '30' },
+            { id: 'cbmUnit', label: 'Dimension Unit (all three dimensions)', type: 'select', value: 'cm', options: [['cm', 'Centimeters (cm)'], ['m', 'Meters (m)'], ['in', 'Inches (in)'], ['ft', 'Feet (ft)']] },
+            { id: 'cbmQuantity', label: 'Quantity (identical cartons)', type: 'number', min: 1, step: '1', value: '1' }
+        ],
+        primaryAction: 'Calculate CBM', copy: true,
+        help: {
+            what: 'CBM means cubic meters, a unit of volume used to describe cargo and storage space. This shipping volume calculator totals identical rectangular cartons; it does not calculate freight charges or chargeable weight.',
+            how: 'Measure external length, width and height including packaging. Select the unit used for all three dimensions and enter a positive whole-number quantity. For mixed carton sizes, calculate each group separately and add their volumes.',
+            formula: 'Convert each dimension to meters, then multiply: CBM per carton = L × W × H. Total CBM = per-carton volume × quantity. Total cubic feet = total CBM / 0.3048³. Conversion factors: cm × 0.01; m × 1; inches × 0.0254; feet × 0.3048.',
+            example: 'For 50 × 40 × 30 cm, the meter dimensions are 0.5 × 0.4 × 0.3. One carton is 0.060 m³; 10 identical cartons total 0.600 m³, approximately 21.1888 ft³. A carton measuring 12 × 12 × 12 inches is 1 ft³ or 0.028316846592 m³.',
+            faqs: [
+                ['Does CBM determine my shipping price?', 'No. Carriers may consider actual weight, dimensional weight, service, minimum charges and their own rounding rules. This tool does not calculate any carrier-specific price or dimensional-weight divisor.'],
+                ['Should I measure inside or outside the carton?', 'Use outside dimensions including packaging and protrusions. Pallets, gaps and stacking restrictions can increase required cargo space beyond the sum of carton volumes.'],
+                ['Can I enter decimal dimensions or a fractional quantity?', 'Decimal measurements are supported. Quantity must be a positive whole number because it counts identical cartons. Choose one unit for all dimensions; mixed-unit entry is not supported.'],
+                ['Does it calculate container loading or irregular shapes?', 'No. Summed box volume does not prove that cartons fit in a container. For cylinders, spheres or other supported solids use the <a href="/volume-calculator/">Volume Calculator</a>; for measurements use the <a href="/unit-converter/">Unit Converter</a>.'],
+                ['How precise are the results?', 'Results display up to 10 significant digits and use scientific notation for very small or large values. Intermediate calculations are not rounded. Your measurements and carrier rules determine practical shipping precision.'],
+                ['Are the inch and foot conversions exact?', 'Yes: one international inch is exactly 0.0254 m and one foot is exactly 0.3048 m. See <a href="https://www.nist.gov/pml/owm/si-units-length" rel="noopener">NIST length units</a>.']
+            ]
+        },
+        calculate(values) {
+            const r = calculateCbmValues(values), f = formatNewCalculatorNumber;
+            return dynamicResult(f(r.total) + ' m³', [['CBM per carton', f(r.perCarton) + ' m³'], ['Total CBM', f(r.total) + ' m³', true], ['Cubic feet (total)', f(r.cubicFeet) + ' ft³'], ['Dimensions in meters', r.meters.map(f).join(' × ') + ' m'], ['Calculation breakdown', f(r.perCarton) + ' m³ × ' + r.quantity + ' cartons = ' + f(r.total) + ' m³']]);
+        }
+    },
     homeLoanEmi: {
         description: 'Estimate monthly home loan EMI, total interest and repayment using a reducing balance.',
         fields: [
@@ -779,6 +842,38 @@ function calculateGst(values) {
     const gst = values.gstMode === 'remove' ? amount - base : base * rate / 100;
     const total = values.gstMode === 'remove' ? amount : base + gst;
     return { base, gst, total, rate };
+}
+
+// Pure arithmetic for the Z-Score and CBM tools; existing calculators retain their own validators.
+function readNewCalculatorNumber(value, label) {
+    const text = String(value ?? '').trim();
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(text) || !Number.isFinite(Number(text))) throw new Error('Enter a finite number for ' + label + '.');
+    return Number(text);
+}
+function formatNewCalculatorNumber(number) {
+    return Object.is(number, -0) ? '0' : String(Number(number.toPrecision(10)));
+}
+function calculateZScoreValues(values) {
+    const x = readNewCalculatorNumber(values.zRaw, 'Raw Score');
+    const mean = readNewCalculatorNumber(values.zMean, 'Population Mean');
+    const sd = readNewCalculatorNumber(values.zSD, 'Population Standard Deviation');
+    if (sd <= 0) throw new Error('Population standard deviation must be greater than zero.');
+    const z = (x - mean) / sd;
+    if (!Number.isFinite(z) || (z === 0 && x !== mean)) throw new Error('These values exceed the supported numerical range. Use values with a smaller range.');
+    return { x, mean, sd, z };
+}
+function calculateCbmValues(values) {
+    const factors = { cm: 0.01, m: 1, in: 0.0254, ft: 0.3048 };
+    if (!Object.prototype.hasOwnProperty.call(factors, values.cbmUnit)) throw new Error('Select a supported dimension unit.');
+    const dimensions = ['cbmLength', 'cbmWidth', 'cbmHeight'].map((key, i) => readNewCalculatorNumber(values[key], ['Length', 'Width', 'Height'][i]));
+    if (dimensions.some(n => n <= 0)) throw new Error('All dimensions must be greater than zero.');
+    const quantity = readNewCalculatorNumber(values.cbmQuantity, 'Quantity');
+    if (!Number.isSafeInteger(quantity) || quantity <= 0) throw new Error('Quantity must be a positive whole number within the supported integer range.');
+    const meters = dimensions.map(n => n * factors[values.cbmUnit]);
+    const perCarton = meters.reduce((a, b) => a * b, 1), total = perCarton * quantity;
+    const cubicFeet = total / Math.pow(0.3048, 3);
+    if (![perCarton, total, cubicFeet].every(n => Number.isFinite(n) && n > 0)) throw new Error('These dimensions exceed the supported numerical range. Use smaller or larger measurements.');
+    return { meters, quantity, perCarton, total, cubicFeet };
 }
 
 function readNumber(value, message) {

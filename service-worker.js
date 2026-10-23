@@ -1,5 +1,5 @@
 // Network-first first-party assets keep releases fresh; the shared shell is an offline route fallback.
-const CACHE_NAME = 'onlinecalmaster-v17-site-icons';
+const CACHE_NAME = 'onlinecalmaster-v18-zscore-cbm';
 const CORE = ['/', '/index.html', '/styles.css', '/script.js', '/manifest.json', '/favicon.ico', '/favicon-32x32.png', '/apple-touch-icon.png', '/Logo.png', '/icon-48x48.png', '/icon-192x192.png', '/icon-512x512.png'];
 self.addEventListener('install', event => {
  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
