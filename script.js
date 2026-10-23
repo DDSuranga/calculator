@@ -291,7 +291,7 @@ const dynamicToolDefinitions = {
             what: 'The Savings Calculator estimates how your savings can grow over time with regular monthly deposits and interest.',
             how: 'Enter your current savings, planned monthly deposit, annual interest rate, and savings period.',
             formula: 'Each month: balance = previous balance × (1 + annual rate / 1200) + deposit. Deposits arrive at month-end, after interest. Fractional years round to the nearest whole month (half rounds up); below half a month there is no growth. Fees, taxes and changing rates are excluded.',
-            example: 'Rs. 100,000 initially plus Rs. 10,000 at each month-end for 5 years at 6% gives Rs. 832,585.32. Contributions total Rs. 700,000.00; estimated interest is Rs. 132,585.32. At 0% the result is Rs. 700,000.00.',
+            example: '100,000 initially plus 10,000 at each month-end for 5 years at 6% gives 832,585.32. Contributions total 700,000.00; estimated interest is 132,585.32. At 0% the result is 700,000.00.',
             faqs: [
                 ['Does this compound monthly?', 'Yes. The estimate uses monthly compounding.'],
                 ['Can monthly deposit be zero?', 'Yes. Enter 0 if you only want to grow the starting balance.'],
@@ -331,7 +331,7 @@ const dynamicToolDefinitions = {
             what: 'The Salary Calculator converts pay between hourly, monthly, and yearly values.',
             how: 'Enter the pay amount, pay type, weekly hours, and working weeks per year.',
             formula: 'Yearly pay = Hourly rate x Hours per week x Weeks per year. Monthly pay = Yearly pay / 12.',
-            example: 'Rs. 1,000 per hour at 40 hours per week and 52 weeks equals Rs. 2,080,000 per year.',
+            example: '1,000 per hour at 40 hours per week and 52 weeks equals 2,080,000 per year.',
             faqs: [
                 ['Does this include tax?', 'No. It is a gross salary conversion only.'],
                 ['Can I change work hours?', 'Yes. Adjust hours per week and weeks per year.'],
@@ -367,7 +367,7 @@ const dynamicToolDefinitions = {
             what: 'The Sales Tax Calculator finds the tax amount and total price after tax.',
             how: 'Enter the item price before tax and the sales tax percentage.',
             formula: 'Sales tax = Price x Tax rate / 100. Total price = Price + Sales tax.',
-            example: 'A Rs. 10,000 item with 8 percent tax has Rs. 800 tax and Rs. 10,800 total price.',
+            example: 'A 10,000 item with 8 percent tax has 800 tax and 10,800 total price.',
             faqs: [
                 ['Is this the same as VAT?', 'It works for any percentage-based sales tax.'],
                 ['Can tax rate be zero?', 'Yes. A zero tax rate returns the original price.'],
@@ -2044,7 +2044,7 @@ function calculateTip() {
         return;
     }
     const tipAmount = bill * (tip / 100);
-    display.value = `Tip: $${tipAmount.toFixed(2)} | Total: $${(bill + tipAmount).toFixed(2)}`;
+    display.value = `Tip: ${formatLoanCurrency(tipAmount)} | Total: ${formatLoanCurrency(bill + tipAmount)}`;
 }
 
 function clearTip() {
@@ -2082,7 +2082,7 @@ function removeVat() {
 let latestLoanEmiResultText = '';
 
 function formatLoanCurrency(value) {
-    return `Rs. ${Number(value).toLocaleString('en-US', {
+    return `${Number(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}`;
@@ -3511,7 +3511,7 @@ const CLASSIC_GUIDES = {
     "Calculate a tip amount and the resulting total bill using your chosen percentage.",
     "Enter the bill amount and tip percentage, then calculate. Use the same currency for the bill and the result.",
     "Tip = bill × tip percentage / 100. Total = bill + tip. This tool does not divide the bill between people.",
-    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. The display uses a dollar symbol.",
+    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. Results use neutral numbers; use the same currency for the bill and tip.",
     [
       [
         "Is a gratuity the same as a tip?",

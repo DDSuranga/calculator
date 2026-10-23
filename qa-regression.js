@@ -16,7 +16,7 @@ check('calculatePercentageChange',{oldValue:100,newValue:120},'percentageChangeD
 for(const [oldValue,newValue,expected] of [[100,80,'-20.00%'],[100,100,'0.00%'],[-100,-50,'-50.00%'],[0,100,'Old value must not be zero.'],[0,0,'Old value must not be zero.'],[-0,-100,'Old value must not be zero.']]){
  check('calculatePercentageChange',{oldValue,newValue},'percentageChangeDisplay',expected);
 }
-check('calculateTip',{billAmount:100,tipPercent:10},'tipDisplay','$110.00');
+check('calculateTip',{billAmount:100,tipPercent:10},'tipDisplay','Total: 110.00');
 check('addVat',{vatValue:100,vatPercent:18},'vatDisplay','118.00');
 check('removeVat',{vatValue:118,vatPercent:18},'vatDisplay','100.00');
 check('calculateLoanEmi',{loanAmountInput:1200,loanInterestInput:0,loanTermInput:12,loanTermType:'months'},'loanEmiDisplay','100.00');

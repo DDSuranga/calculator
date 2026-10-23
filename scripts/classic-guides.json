@@ -79,7 +79,7 @@
     "Calculate a tip amount and the resulting total bill using your chosen percentage.",
     "Enter the bill amount and tip percentage, then calculate. Use the same currency for the bill and the result.",
     "Tip = bill × tip percentage / 100. Total = bill + tip. This tool does not divide the bill between people.",
-    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. The display uses a dollar symbol.",
+    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. Results use neutral numbers; use the same currency for the bill and tip.",
     [
       [
         "Is a gratuity the same as a tip?",

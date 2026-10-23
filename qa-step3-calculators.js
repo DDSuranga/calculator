@@ -73,27 +73,27 @@ if (registrations.join('|') !== 'Finance|Business|Business|Finance|Finance') {
 
 setValues({ fuelDistanceInput: 300, fuelEfficiencyInput: 15, fuelPriceInput: 450 });
 context.calculateFuelCost();
-assertContains('fuelCostDisplay', 'Rs. 9,000.00');
+assertContains('fuelCostDisplay', '9,000.00');
 assertContains('fuelCostResult', '20.00 liters');
 
 setValues({ profitCostInput: 1000, profitSellingInput: 1500 });
 context.calculateProfitMargin();
 assertContains('profitMarginDisplay', '33.33%');
-assertContains('profitMarginResult', 'Rs. 500.00');
+assertContains('profitMarginResult', '500.00');
 
 setValues({ breakEvenFixedCostInput: 10000, breakEvenSellingPriceInput: 500, breakEvenVariableCostInput: 300 });
 context.calculateBreakEven();
 assertContains('breakEvenDisplay', '50 units');
-assertContains('breakEvenResult', 'Rs. 25,000.00');
+assertContains('breakEvenResult', '25,000.00');
 
 setValues({ roiInvestmentInput: 10000, roiFinalValueInput: 12500 });
 context.calculateRoi();
 assertContains('roiDisplay', '25.00%');
-assertContains('roiResult', 'Rs. 2,500.00');
+assertContains('roiResult', '2,500.00');
 
 setValues({ simplePrincipalInput: 10000, simpleRateInput: 10, simpleTimeInput: 2 });
 context.calculateSimpleInterest();
-assertContains('simpleInterestDisplay', 'Rs. 12,000.00');
-assertContains('simpleInterestResult', 'Rs. 2,000.00');
+assertContains('simpleInterestDisplay', '12,000.00');
+assertContains('simpleInterestResult', '2,000.00');
 
 console.log('Step 3 calculator tests passed.');
