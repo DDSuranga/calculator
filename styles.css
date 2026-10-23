@@ -2479,3 +2479,113 @@ body.app-page :is(#percentageChangeDisplay,#dateDiffDisplay) { font-size:clamp(1
 .app-page #dynamicToolCalculator:has(.gst-mode) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
 .app-page #dynamicToolCalculator:has(#dynamic-sipMonthly) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
 .app-page #dynamicToolCalculator:has(#dynamic-homeLoanAmount) .calculator-faq details { background:var(--surface);color:var(--text);border:1px solid var(--line); }
+
+/* Premium UI presentation — calculator controls, routes and content are unchanged. */
+body.app-page { --surface:#fff;--surface-soft:#f4f7ff;--text:#101b45;--subtle:#435579;--line:#dce7f6;--accent:#0069e8;--key:#f5f8fd;--key-ink:#101b45;background:radial-gradient(ellipse at 75% 0,#eaf2ff,transparent 52%),#f7faff;font-family:Inter,"Segoe UI",Arial,sans-serif; }
+body.app-page.dark-mode { --surface:#10243b;--surface-soft:#142d48;--text:#edf5ff;--subtle:#c0cde1;--line:#2c4665;--accent:#66c8ff;--key:#19334e;--key-ink:#f0f6ff;background:radial-gradient(ellipse at 85% 0,#122b51,transparent 55%),#091625; }
+.app-page .site-header { padding:14px 28px;gap:24px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 4px 20px #14377508; }
+.app-page .site-brand { font-size:25px;letter-spacing:-1px;gap:13px; }
+.app-page .site-brand small { letter-spacing:0;font-size:11px; }
+.app-page .brand-icon { border-radius:14px;box-shadow:0 5px 15px #007cff25; }
+.app-page .top-nav { gap:22px; }
+.app-page .top-nav a { font-size:14px;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap; }
+.app-page .header-search { border:1px solid var(--line);border-radius:16px;background:var(--surface-soft);overflow:hidden; }
+.app-page .header-search input { background:transparent;color:var(--text);font-size:14px;min-height:46px; }
+.app-page .header-search button { min-width:48px;background:linear-gradient(135deg,#00c6fa,#0073ff);color:white; }
+.app-page .theme-toggle { display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 14px;border:1px solid var(--line);border-radius:25px;background:var(--surface-soft);color:var(--text);font-size:12px;white-space:nowrap; }
+.app-page .theme-toggle::after { content:'';width:34px;height:20px;border-radius:20px;background:radial-gradient(circle at 10px 10px,#fff 0 7px,transparent 8px),#657998;box-shadow:inset 0 0 0 1px #536c8d; }
+.app-page.dark-mode .theme-toggle::after { background:radial-gradient(circle at 24px 10px,#fff 0 7px,transparent 8px),#087bff; }
+.app-page .container { width:min(1600px,calc(100% - 36px));grid-template-columns:280px minmax(0,1fr) 340px;gap:22px;margin-top:24px; }
+.app-page .sidebar { border:1px solid var(--line);border-radius:22px;padding:18px 16px;background:linear-gradient(150deg,var(--surface),var(--surface-soft));box-shadow:0 8px 32px #1b407306; }
+.app-page .sidebar input,.app-page .sidebar select { border:1px solid var(--line);border-radius:12px;min-height:44px;background:var(--surface);color:var(--text);font-size:14px; }
+.app-page .navigation-group h2 { color:var(--accent);font-size:12px;letter-spacing:.7px;margin:22px 8px 9px; }
+.app-page .calculator-nav-link { display:flex;align-items:center;gap:11px;min-height:44px;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.4;color:var(--text); }
+.app-page .calculator-nav-link::before { content:'▦';font-size:21px;color:var(--accent);width:22px;flex-shrink:0;text-align:center; }
+.app-page .calculator-nav-link[data-target=scientific]::before { content:'⚗'; }
+.app-page .calculator-nav-link[data-target=percentage]::before { content:'%'; }
+.app-page .calculator-nav-link[data-target=volume]::before { content:'◇';color:#7841d9; }
+.app-page .calculator-nav-link[data-target=zScore]::before { content:'▥'; }
+.app-page .calculator-nav-link[data-target=loanEmi]::before { content:'▤'; }
+.app-page .calculator-nav-link[data-target=age]::before { content:'◷'; }
+.app-page .calculator-nav-link.is-active { background:linear-gradient(105deg,#006df4,#009cff);color:white;box-shadow:0 5px 12px #0078f52b; }
+.app-page .calculator-nav-link.is-active::before { color:white; }
+.app-page .calculator-nav-link.is-active::after { content:'›';margin-left:auto;font-size:23px; }
+.app-page .calculator-nav-link:hover:not(.is-active) { background:var(--surface-soft);color:var(--accent); }
+.app-page .compact-hero { padding:30px 32px;border-radius:22px;border:1px solid #d8e5fc;background:radial-gradient(ellipse at 4% 20%,#d9f7ff,transparent 60%),linear-gradient(115deg,#f7faff,#e9e9ff);box-shadow:0 8px 30px #24468005;min-height:220px;gap:20px; }
+.app-page .compact-hero h1 { font-size:clamp(26px,2.7vw,40px);color:var(--text);line-height:1.18;letter-spacing:-1px; }
+.app-page .hero-subtitle { font-size:15px;line-height:1.7;max-width:760px; }
+.app-page .hero-benefits { font-size:12px;gap:12px 20px;margin-top:22px; }
+.app-page .hero-benefits b { border-radius:8px; }
+.app-page .hero-benefits li:first-child b { background:#15a94c;border-radius:50%; }
+.app-page .hero-benefits li:nth-child(3) b { background:#7a42ef; }
+.app-page .hero-benefits li:nth-child(4) b { background:#c77b00; }
+.app-page .hero-art { flex-basis:190px;min-width:160px;height:165px;color:#09b7ec;text-shadow:0 8px 16px #086dda22; }
+.app-page .mini-calculator { flex-basis:115px;width:115px;padding:12px;border:7px solid #fff;border-radius:22px;background:linear-gradient(145deg,#5bdcff,#0077f3);box-shadow:8px 16px 28px #5274b933;font-size:15px;line-height:1.9;transform:rotate(15deg); }
+.app-page .mini-calculator i { background:linear-gradient(120deg,#22b4ff,#0664ef);color:white;font-size:22px;font-weight:700;border:1px solid #76d7ff; }
+.app-page.dark-mode .compact-hero { border-color:var(--line);background:radial-gradient(ellipse at 10% 0,#154d68,transparent 70%),linear-gradient(115deg,#10263f,#202947); }
+.app-page.dark-mode .mini-calculator { border-color:#bfd9f4; }
+.app-page .calculator-breadcrumb { font-size:12px;padding:1px 6px 3px; }
+.app-page .calculator { padding:30px!important;border-radius:22px!important;box-shadow:0 10px 40px #193e7110;border:1px solid var(--line); }
+.app-page .calculator-title { font-size:28px;line-height:1.3;letter-spacing:-.6px; }
+.app-page .calculator-description { font-size:14px;line-height:1.7;margin-bottom:22px; }
+.app-page .calculator-brand span { font-size:10px; }
+.app-page .calculator-brand img { width:32px;max-height:32px; }
+.app-page .calculator .display { border-radius:13px;background:linear-gradient(115deg,#e1f5ff,#cce9ff);border:1px solid #9ed0ff;box-shadow:inset 0 2px 5px #246ea908;color:#10264b;min-height:76px;height:auto;font-size:clamp(24px,2.8vw,38px);font-variant-numeric:tabular-nums; }
+.app-page .calculator textarea.display { min-height:82px;resize:vertical;white-space:pre-wrap;overflow-wrap:anywhere; }
+.app-page .calculator .buttons { gap:11px; }
+body.app-page :is(#basicCalculator,#scientificCalculator) .button,.app-page .calculator .button { border-radius:12px;min-height:54px;border-color:var(--line);background:linear-gradient(145deg,var(--surface),var(--key));box-shadow:0 2px 4px #203e6805;transition:background .15s,box-shadow .15s,transform .15s; }
+.app-page .calculator .button:hover { transform:translateY(-1px);box-shadow:0 5px 12px #123d7918; }
+.app-page .calculator .button:active { transform:translateY(1px); }
+body.app-page .calculator .button:is(.operator,.operator-basic,.trig) { background:linear-gradient(145deg,#008bed,#0060ae);border-color:#008ed9;color:white; }
+body.app-page .calculator .button.memory { background:linear-gradient(120deg,#f0e9ff,#e2d3fc);border-color:#cfb5ff;color:#38216b; }
+body.app-page.dark-mode .calculator .button.memory { background:linear-gradient(120deg,#3c3259,#382b5a);border-color:#665381;color:#f0e7ff; }
+body.app-page .calculator .button.equals { background:linear-gradient(110deg,#00c2ec,#0088ff);border-color:#009fe9;color:white; }
+body.app-page .calculator .button[onclick^="clear"],body.app-page .calculator .button[onclick^="deleteLast"] { background:linear-gradient(120deg,#e84677,#c51b60);border-color:#d6306b;color:white; }
+.app-page .calculator .unit-input,.app-page .calculator .unit-select { border-radius:11px;min-height:46px;background:var(--surface);font-size:15px; }
+.app-page .calculator .field-group span,.app-page .calculator label { font-size:14px;line-height:1.5; }
+.app-page .calculator .finance-result,.app-page .calculator .loan-emi-result,.app-page .calculator .calculator-help { border-radius:14px;padding:20px; }
+.app-page .calculator-help :is(p,details,summary) { font-size:14px;line-height:1.75; }
+body.app-page .calculator-faq details { background:var(--surface);border:1px solid var(--line);border-radius:10px; }
+.app-page .contextual-panel { padding-top:33px;gap:18px; }
+.app-page .info-card,.app-page .how-card { border:1px solid var(--line);border-radius:22px;padding:24px;background:var(--surface);box-shadow:0 6px 25px #20487607; }
+.app-page .info-card h2,.app-page .how-card h2 { font-size:20px;line-height:1.4; }
+.app-page .info-card h2 span { display:inline-grid;place-items:center;min-width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,#00c9ed,#007aff);color:white; }
+.app-page .info-card p,.app-page .info-card li,.app-page .how-card p,.app-page .how-card li { font-size:14px;line-height:1.8; }
+.app-page .related-list .calculator-chip { font-size:14px;min-height:48px;padding:14px 0; }
+.app-page .calculator-link-panel { border-radius:16px;padding:16px; }
+.app-page :is(input,select,button,a,summary):focus-visible { outline:3px solid var(--accent);outline-offset:3px; }
+@media(max-width:1400px) and (min-width:1051px){.app-page .container{grid-template-columns:245px minmax(0,1fr) 275px;gap:18px;}.app-page .site-header{padding:12px 20px;gap:16px;}.app-page .top-nav{gap:14px;}.app-page .compact-hero{padding:25px;}.app-page .hero-art{flex-basis:150px;min-width:130px;}.app-page .info-card{padding:20px;}.app-page .calculator{padding:24px!important;}}
+@media(max-width:1050px){.app-page .container{grid-template-columns:minmax(0,1fr) 270px;}.app-page .site-header{padding:12px 18px;}.app-page .top-nav{gap:18px;}.app-page .sidebar.is-open{max-width:calc(100vw - 32px);}.app-page .compact-hero{padding:25px;}.app-page .hero-art{min-width:130px;flex-basis:150px;}}
+@media(max-width:720px){.app-page .container{display:flex;width:calc(100% - 24px);gap:16px;}.app-page .site-header{padding:12px;gap:12px;}.app-page .site-brand{font-size:21px;}.app-page .site-brand small{font-size:10px;}.app-page .top-nav{flex-wrap:wrap;gap:3px 16px;overflow:visible;}.app-page .top-nav a{font-size:12px;min-height:38px;}.app-page .theme-toggle{padding:6px 10px;font-size:11px;gap:6px;}.app-page .compact-hero{padding:22px 20px;min-height:0;}.app-page .compact-hero h1{font-size:28px;letter-spacing:-.6px;}.app-page .hero-subtitle{font-size:14px;}.app-page .hero-benefits{font-size:11px;gap:10px 12px;margin-top:16px;}.app-page .calculator{padding:20px!important;border-radius:18px!important;}.app-page .calculator-title{font-size:24px;}.app-page .calculator-description{font-size:14px;}.app-page .calculator .buttons{gap:8px;}.app-page .calculator .button,body.app-page :is(#basicCalculator,#scientificCalculator) .button{min-height:48px;border-radius:10px;}.app-page .calculator .display{font-size:28px;min-height:68px;}.app-page .info-card,.app-page .how-card{padding:20px;border-radius:18px;}.app-page .contextual-panel{padding-top:0;}.app-page .sidebar.is-open{top:185px;max-height:calc(100dvh - 205px);}}
+@media(prefers-reduced-motion:reduce){.app-page .calculator .button{transition:none;transform:none!important;}}
+/* Explicit keypad states override legacy ID-specific keypad styling. */
+body.app-page :is(#basicCalculator,#scientificCalculator) .button:is(.operator,.operator-basic,.trig) { background:linear-gradient(145deg,#008bed,#0060ae);border-color:#008ed9;color:#fff; }
+body.app-page :is(#basicCalculator,#scientificCalculator) .button.memory { background:linear-gradient(120deg,#f0e9ff,#e2d3fc);border-color:#cfb5ff;color:#38216b; }
+body.app-page.dark-mode :is(#basicCalculator,#scientificCalculator) .button.memory { background:linear-gradient(120deg,#3c3259,#382b5a);border-color:#665381;color:#f0e7ff; }
+body.app-page :is(#basicCalculator,#scientificCalculator) .button.equals { background:linear-gradient(110deg,#00c2ec,#0088ff);border-color:#009fe9;color:white; }
+body.app-page :is(#basicCalculator,#scientificCalculator) .button[onclick^="clear"],body.app-page :is(#basicCalculator,#scientificCalculator) .button[onclick^="deleteLast"] { background:linear-gradient(120deg,#e84677,#c51b60);border-color:#d6306b;color:white; }
+body.app-page #calculatorSidebar .calculator-nav-link.is-active { color:white; }
+body.app-page .hero-benefits { color:var(--text); }
+body.app-page.dark-mode { background:radial-gradient(ellipse at 85% 0,#122b51,transparent 55%),#091625!important; }
+body.app-page.dark-mode .sidebar { background:linear-gradient(150deg,var(--surface),var(--surface-soft)); }
+body.app-page.dark-mode .sidebar :is(input,select) { background:var(--surface); }
+body.app-page .related-list .calculator-chip { box-shadow:none; }
+body.app-page #calculatorSidebar a.calculator-nav-link.is-active { color:#fff!important;background:linear-gradient(105deg,#0061d6,#0076dc); }
+body.app-page .top-nav a { background:transparent; }
+body.app-page .calculator .button:is(.operator,.operator-basic,.trig),body.app-page :is(#basicCalculator,#scientificCalculator) .button:is(.operator,.operator-basic,.trig) { background:linear-gradient(145deg,#0074c8,#005899); }
+body.app-page .calculator .button.equals,body.app-page :is(#basicCalculator,#scientificCalculator) .button.equals { background:linear-gradient(110deg,#00c2ec,#0088ff);color:#071d39; }
+body.app-page .calculator .button[onclick^="clear"],body.app-page .calculator .button[onclick^="deleteLast"],body.app-page :is(#basicCalculator,#scientificCalculator) .button[onclick^="clear"],body.app-page :is(#basicCalculator,#scientificCalculator) .button[onclick^="deleteLast"] { background:linear-gradient(120deg,#cb295e,#ae1450);color:white; }
+@media(max-width:720px){.app-page .top-nav a{min-height:44px;}}
+
+/* Compact hero: retain natural height when text wraps. */
+.app-page .container { row-gap:12px; }
+.app-page .compact-hero { min-height:160px;padding:10px 28px;gap:20px; }
+.app-page .compact-hero > div:first-child { min-width:0;flex:1; }
+.app-page .hero-benefits { margin-top:12px; }
+.app-page .hero-art { flex:0 0 140px;min-width:140px;height:140px; }
+.app-page .mini-calculator { transform:rotate(15deg) scale(.68);flex-shrink:0; }
+.app-page .calculator-container { gap:12px; }
+.app-page .calculator-breadcrumb { margin:0;padding:0 6px; }
+.app-page .contextual-panel { padding-top:30px; }
+@media(min-width:721px) and (max-width:1050px){.app-page .compact-hero{padding:14px 22px;}.app-page .hero-art{flex-basis:125px;min-width:125px;height:140px;}}
+@media(max-width:720px){.app-page .compact-hero{min-height:0;padding:16px 20px;}.app-page .hero-art{display:none;}.app-page .contextual-panel{padding-top:0;}}

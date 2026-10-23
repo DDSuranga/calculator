@@ -3419,10 +3419,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heading.textContent = 'Free Online Calculators & Smart Tools';
     }
 
-    const navLabels = ['Home', 'About Us', 'Contact Us', 'Privacy Policy'];
-    document.querySelectorAll('.top-nav a').forEach((link, index) => {
-        if (index < navLabels.length) link.textContent = navLabels[index];
-    });
+    // Keep the authored navigation labels aligned with their existing destinations.
 
     updateDarkModeButtonText(document.body.classList.contains('dark-mode'));
 
