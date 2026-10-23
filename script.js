@@ -25,10 +25,10 @@ const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
 const RELATED_OVERRIDES = {
     homeLoanEmi: ['loanEmi', 'mortgage', 'sip', 'compoundInterest', 'percentage'],
     sip: ['compoundInterest', 'percentage', 'gst', 'salary', 'loanEmi'],
-    compoundInterest: ['sip', 'savings', 'simpleInterest', 'percentage', 'loanEmi'],
+    compoundInterest: ['savings', 'sip', 'roi', 'simpleInterest', 'percentage'],
     savings: ['sip', 'compoundInterest', 'simpleInterest', 'salary', 'percentage'],
     gst: ['percentage', 'vat', 'profitMargin', 'salary', 'loanEmi'],
-    vat: ['gst', 'percentage', 'percentageChange', 'tip', 'profitMargin'],
+    vat: ['salesTax', 'gst', 'percentage', 'discount', 'profitMargin'],
     salesTax: ['gst', 'percentage', 'discount', 'salary', 'profitMargin'],
     loanEmi: ['homeLoanEmi', 'mortgage', 'roi', 'compoundInterest', 'simpleInterest'],
     mortgage: ['homeLoanEmi', 'loanEmi', 'roi', 'compoundInterest', 'savings'],
@@ -51,15 +51,15 @@ const calculatorData = [
     { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', slug: 'unit-converter', elementId: 'unitConverter', heightClass: 'tall', metaDescription: 'Convert common measurement units instantly with the free Unit Converter by OnlineCalMaster.' },
     { name: 'Age Calculator', category: 'Date & Time', target: 'age', slug: 'age-calculator', elementId: 'ageCalculator', heightClass: 'extra-tall', seoTitle: 'Age Calculator from Date of Birth | OnlineCalMaster', metaDescription: 'Calculate your age today in years, months and days from your date of birth. Find the days until your next birthday with our free age calculator.' },
     { name: 'Date Diff', category: 'Date & Time', target: 'date', slug: 'date-difference-calculator', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Date Difference Calculator – Days Between Dates | OnlineCalMaster', metaDescription: 'Find elapsed days between two dates, in either order. See same-day and inclusive-counting examples with this free date difference calculator.' },
-    { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Time Difference Calculator – Hours, Minutes & Seconds | OnlineCalMaster', metaDescription: 'Calculate elapsed hours, minutes and seconds between two dates and times. Compare overnight intervals and see total minutes and seconds.' },
+    { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Time Difference & Duration Calculator | OnlineCalMaster', metaDescription: 'Calculate time duration between two dates and times in hours, minutes and seconds. Check overnight intervals and see total minutes and seconds.' },
     { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
     { name: 'Percentage Change', category: 'Business', target: 'percentageChange', slug: 'percentage-change-calculator', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate percentage increase or decrease between two values with the free Percentage Change Calculator by OnlineCalMaster.' },
     { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate tips and total bill amounts instantly using the free Tip Calculator by OnlineCalMaster.' },
-    { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT Calculator', heightClass: 'extra-tall', metaDescription: 'Add or remove VAT from prices instantly using the free VAT Calculator by OnlineCalMaster.' },
-    { name: 'Loan EMI', category: 'Finance', target: 'loanEmi', slug: 'loan-emi-calculator', elementId: 'loanEmiCalculator', title: 'Loan EMI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate monthly EMI payments instantly using the free Loan EMI Calculator by OnlineCalMaster.' },
+    { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT Calculator', heightClass: 'extra-tall', seoTitle: 'VAT Calculator – Add or Remove VAT | OnlineCalMaster', metaDescription: 'Add VAT to a net price or remove VAT from an inclusive total using your chosen rate. Check formulas and examples with the free VAT calculator.' },
+    { name: 'Loan EMI', category: 'Finance', target: 'loanEmi', slug: 'loan-emi-calculator', elementId: 'loanEmiCalculator', title: 'Loan EMI Calculator', heightClass: 'extra-tall', seoTitle: 'Loan EMI Calculator – Monthly Payment & Interest | OnlineCalMaster', metaDescription: 'Estimate your monthly loan EMI, total interest and repayment from principal, annual rate and term. See the fixed-rate formula and worked example.' },
     { name: 'Mortgage', category: 'Finance', target: 'mortgage', slug: 'mortgage-calculator', elementId: 'mortgageCalculator', title: 'Mortgage Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate monthly mortgage payments and total interest using the free Mortgage Calculator by OnlineCalMaster.' },
-    { name: 'Compound Interest', category: 'Finance', target: 'compoundInterest', slug: 'compound-interest-calculator', elementId: 'compoundInterestCalculator', title: 'Compound Interest Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate compound growth, total amount, and interest earned using the free Compound Interest Calculator by OnlineCalMaster.' },
-    { name: 'BMI', category: 'Health', target: 'bmi', slug: 'bmi-calculator', elementId: 'bmiCalculator', title: 'BMI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate body mass index and BMI category using the free BMI Calculator by OnlineCalMaster.' },
+    { name: 'Compound Interest', category: 'Finance', target: 'compoundInterest', slug: 'compound-interest-calculator', elementId: 'compoundInterestCalculator', title: 'Compound Interest Calculator', heightClass: 'extra-tall', seoTitle: 'Compound Interest Calculator – Investment Growth | OnlineCalMaster', metaDescription: 'Estimate investment growth with an initial balance, optional monthly deposits and your assumed interest rate. Compare contributions and compound interest.' },
+    { name: 'BMI', category: 'Health', target: 'bmi', slug: 'bmi-calculator', elementId: 'bmiCalculator', title: 'BMI Calculator', heightClass: 'extra-tall', seoTitle: 'BMI Calculator for Adults – Women & Men | OnlineCalMaster', metaDescription: 'Calculate adult BMI from height and weight in metric or imperial units. See standard categories for women and men, with screening limitations.' },
     { name: 'Discount', category: 'Finance', target: 'discount', slug: 'discount-calculator', elementId: 'discountCalculator', title: 'Discount Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate sale discounts, tax, final price, and savings using the free Discount Calculator by OnlineCalMaster.' },
     { name: 'Savings', category: 'Finance', target: 'savings', slug: 'savings-calculator', elementId: 'dynamicToolCalculator', title: 'Savings Calculator', heightClass: 'extra-tall', dynamicTool: 'savings', metaDescription: 'Estimate future savings from deposits, interest rate, and time using the free Savings Calculator by OnlineCalMaster.' },
     { name: 'Salary', category: 'Finance', target: 'salary', slug: 'salary-calculator', elementId: 'dynamicToolCalculator', title: 'Salary Calculator', heightClass: 'extra-tall', dynamicTool: 'salary', metaDescription: 'Convert salary amounts between hourly, monthly, and yearly pay using the free Salary Calculator by OnlineCalMaster.' },
@@ -3396,6 +3396,10 @@ const CLASSIC_GUIDES = {
       [
         "Can I compare times in different cities?",
         "Not directly: both timestamps use the same device time zone. Use Time Zone Difference to compare explicit UTC offsets; account for the offsets applicable on your dates."
+      ],
+      [
+        "Is this a time duration calculator?",
+        "Yes. Enter a full start date and time and a full end date and time to measure elapsed duration. For 10:45 PM to 1:15 AM overnight, use the following date for the end: 2 hours 30 minutes, or 150 minutes. It does not deduct work breaks."
       ]
     ]
   ],
@@ -3415,19 +3419,45 @@ const CLASSIC_GUIDES = {
     "Calculate a tip amount and the resulting total bill using your chosen percentage.",
     "Enter the bill amount and tip percentage, then calculate. Use the same currency for the bill and the result.",
     "Tip = bill × tip percentage / 100. Total = bill + tip. This tool does not divide the bill between people.",
-    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. The display uses a dollar symbol."
+    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. The display uses a dollar symbol.",
+    [
+      [
+        "Is a gratuity the same as a tip?",
+        "For a restaurant bill, a gratuity usually means a tip. This tool calculates a percentage tip and total bill; it does not calculate employment gratuity, severance or an end-of-service benefit. Check the bill for an included gratuity before adding another."
+      ]
+    ]
   ],
   "vat": [
     "Add a percentage to a net price or recover the original price from a tax-inclusive total.",
     "Enter the amount and rate, then choose Add VAT or Remove VAT according to whether the input excludes or includes tax.",
     "Adding uses net × (1 + rate / 100). Removing uses gross / (1 + rate / 100); it is not the same as subtracting that percentage of the gross price.",
-    "At 20%, a net price of 100 becomes 120. Removing 20% VAT from 120 returns 100. Use Discount Calculator for a sale-price reduction."
+    "At 20%, a net price of 100 becomes 120. Removing 20% VAT from 120 returns 100. Use Discount Calculator for a sale-price reduction.",
+    [
+      [
+        "How do I calculate VAT included in a price?",
+        "Divide the VAT-inclusive price by 1 + rate / 100. At 20%, 120 / 1.20 = 100 before VAT and the VAT portion is 20. Subtracting 20% from 120 would give 96, which is not the VAT-exclusive price."
+      ],
+      [
+        "Does this choose the correct VAT rate?",
+        "No. Enter the applicable rate yourself. The tool performs arithmetic; it does not determine tax eligibility, exemptions or the jurisdiction that applies. For a US purchase, check the applicable sales tax rules rather than assuming a VAT rate."
+      ]
+    ]
   ],
   "loanEmi": [
     "Estimate a fixed monthly loan installment and the total interest over the chosen term.",
     "Enter the loan principal, annual interest rate, and term using the selected time unit. Calculate and review the payment breakdown.",
     "EMI = P × r × (1 + r)^n / ((1 + r)^n − 1), where r is the monthly rate and n is the number of monthly payments. At zero interest, the installment is P / n.",
-    "INR 500,000 over 5 years at a fixed nominal annual rate of 10% gives an estimated monthly EMI of INR 10,623.52. This assumes 60 equal month-end repayments, a monthly rate of 10% / 12 and full disbursement at the start. Fees, taxes, insurance, rate changes and extra or missed payments are excluded; lender rounding may differ."
+    "INR 500,000 over 5 years at a fixed nominal annual rate of 10% gives an estimated monthly EMI of INR 10,623.52. This assumes 60 equal month-end repayments, a monthly rate of 10% / 12 and full disbursement at the start. Fees, taxes, insurance, rate changes and extra or missed payments are excluded; lender rounding may differ.",
+    [
+      [
+        "What does EMI mean?",
+        "EMI means equated monthly installment: a regular payment covering interest and repayment of principal. This calculator estimates a fixed-rate loan payment, not a flat-rate interest charge."
+      ],
+      [
+        "Which calculator should I use for a home loan?",
+        "Use Home Loan EMI Calculator for principal-and-interest estimates with display currency selection. Use Mortgage Calculator when starting from a home price and down payment and including annual property tax and home insurance. Neither determines lender approval."
+      ]
+    ]
   ],
   "mortgage": [
     "Estimate monthly principal and interest together with the property tax and home insurance you enter.",
@@ -3439,13 +3469,33 @@ const CLASSIC_GUIDES = {
     "Project growth of an initial balance with a selected compounding frequency and optional monthly contributions.",
     "Enter the principal, annual rate, time period, compounding frequency, and monthly contribution. Review future value, contributions, and interest separately.",
     "Without deposits, A = P × (1 + r / n)^(n × t). Contributions use the equivalent monthly growth rate and are treated as end-of-month deposits. The annual rate r is expressed as a decimal.",
-    "1,000 at 10% compounded annually for two years becomes 1,210 without additional deposits. This assumes a constant rate and excludes fees and taxes."
+    "1,000 at 10% compounded annually for two years becomes 1,210 without additional deposits. This assumes a constant rate and excludes fees and taxes.",
+    [
+      [
+        "Can I use this as an investment growth calculator?",
+        "Yes, for an illustrative constant-rate projection with an initial amount and optional monthly deposits. It does not forecast markets or model losses, variable returns, fees, taxes or inflation. A positive assumed rate does not guarantee a return."
+      ],
+      [
+        "When are monthly contributions added?",
+        "Contributions are treated as end-of-month deposits, using an equivalent monthly growth rate derived from the selected compounding frequency. Keep the deposit timing in mind when comparing other investment calculators."
+      ]
+    ]
   ],
   "bmi": [
     "Calculate adult body mass index from weight and height and view the corresponding screening category.",
     "Select the available unit system, enter height and weight, and calculate. Check the units before interpreting the number.",
     "BMI = weight in kilograms / height in meters squared. The categories describe a screening measure, not body-fat percentage or a diagnosis; children and pregnancy need different assessment.",
-    "70 kg at 1.75 m gives 70 / 1.75² = 22.86, shown as 22.9. BMI does not distinguish muscle from fat."
+    "70 kg at 1.75 m gives 70 / 1.75² = 22.86, shown as 22.9. BMI does not distinguish muscle from fat.",
+    [
+      [
+        "Can women use this BMI calculator?",
+        "Yes. For adults age 20 and older, the BMI formula and standard category thresholds are the same for women and men. Enter height and weight; there is no female-specific multiplier. BMI is a screening measure, not a diagnosis or a measurement of body fat."
+      ],
+      [
+        "Can I use this for pregnancy or children?",
+        "Do not interpret pregnancy weight using this general adult calculator. Children and teens need age- and sex-specific assessment. Ask a qualified health professional about interpretation for your circumstances."
+      ]
+    ]
   ],
   "discount": [
     "Compare an original price with a discounted price and optional tax to see the final cost and savings.",
@@ -3500,6 +3550,10 @@ const CLASSIC_GUIDES = {
       [
         "Can I calculate an irregular object?",
         "These formulas assume one of the five supported solids. Split a composite object into suitable solids and combine their volumes, or use a different measurement method."
+      ],
+      [
+        "Can I calculate CBM for a rectangular box?",
+        "Yes. CBM means cubic meters. Choose rectangular prism and m, then enter all three outside dimensions in meters. A 60 cm × 40 cm × 30 cm box is 0.6 m × 0.4 m × 0.3 m = 0.072 m³. Ten identical boxes occupy 0.72 m³ before allowance for packing or stacking. This tool calculates one solid at a time, not freight charges or dimensional weight."
       ]
     ]
   ],
@@ -3569,6 +3623,7 @@ function getCalculatorReadingHtml(calculator) {
       "Percentage Increase and Decrease: Formula and Common Mistakes"
     ]
   ],
+  "time": [["days-between-dates-inclusive-counting", "Days Between Dates: Elapsed Days vs Inclusive Counting"]],
   "date": [
     [
       "days-between-dates-inclusive-counting",
