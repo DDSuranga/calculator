@@ -57,7 +57,7 @@ const calculatorData = [
     { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Time Difference & Duration Calculator | OnlineCalMaster', metaDescription: 'Calculate time duration between two dates and times in hours, minutes and seconds. Check overnight intervals and see total minutes and seconds.' },
     { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
     { name: 'Percentage Change', category: 'Business', target: 'percentageChange', slug: 'percentage-change-calculator', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate percentage increase or decrease between two values with the free Percentage Change Calculator by OnlineCalMaster.' },
-    { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate tips and total bill amounts instantly using the free Tip Calculator by OnlineCalMaster.' },
+    { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', seoTitle: 'Tip Calculator – Restaurant Tip & Total Bill | OnlineCalMaster', metaDescription: 'Calculate a restaurant tip and total bill from your bill amount and chosen percentage. Check 15%, 18% and 20% examples, with clear rounding guidance.' },
     { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT Calculator', heightClass: 'extra-tall', seoTitle: 'VAT Calculator – Add or Remove VAT | OnlineCalMaster', metaDescription: 'Add VAT to a net price or remove VAT from an inclusive total using your chosen rate. Check formulas and examples with the free VAT calculator.' },
     { name: 'Loan EMI', category: 'Finance', target: 'loanEmi', slug: 'loan-emi-calculator', elementId: 'loanEmiCalculator', title: 'Loan EMI Calculator', heightClass: 'extra-tall', seoTitle: 'Loan EMI Calculator – Monthly Payment & Interest | OnlineCalMaster', metaDescription: 'Estimate your monthly loan EMI, total interest and repayment from principal, annual rate and term. See the fixed-rate formula and worked example.' },
     { name: 'Mortgage', category: 'Finance', target: 'mortgage', slug: 'mortgage-calculator', elementId: 'mortgageCalculator', title: 'Mortgage Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate monthly mortgage payments and total interest using the free Mortgage Calculator by OnlineCalMaster.' },
@@ -82,7 +82,7 @@ const calculatorData = [
     { name: 'Password Generator', category: 'Developer Tools', target: 'passwordGenerator', slug: 'password-generator', elementId: 'dynamicToolCalculator', title: 'Password Generator', heightClass: 'extra-tall', dynamicTool: 'passwordGenerator', metaDescription: 'Generate strong passwords with length and character options using the free Password Generator by OnlineCalMaster.' },
     { name: 'UUID Generator', category: 'Developer Tools', target: 'uuidGenerator', slug: 'uuid-generator', elementId: 'dynamicToolCalculator', title: 'UUID Generator', heightClass: 'extra-tall', dynamicTool: 'uuidGenerator', metaDescription: 'Generate UUID v4 identifiers instantly using the free UUID Generator by OnlineCalMaster.' },
     { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format, prettify, and validate JSON using the free JSON Formatter by OnlineCalMaster.' },
-    { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', seoTitle: 'Volume Calculator – Cube, Cylinder, Sphere & More | OnlineCalMaster', metaDescription: 'Calculate the volume of common 3D shapes with our free volume calculator. Choose a shape, enter its dimensions and get results with helpful formulas.' },
+    { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', seoTitle: 'Volume Calculator – Cube, Cylinder, Sphere & More | OnlineCalMaster', metaDescription: 'Calculate volume for a cube, rectangular prism, cylinder, sphere or cone. Enter dimensions in one unit and get cubic-unit results with formulas and examples.' },
     { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
     { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Calculate SIP Returns & Future Value | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
     { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Calculate Monthly Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
@@ -3453,7 +3453,17 @@ const CLASSIC_GUIDES = {
     "Enter your date of birth to find your age today in years, months and days, plus the days until your next birthday. Today is based on your device’s local date.",
     "Select the date of birth and calculate. The reference date is today on your device; future birth dates are rejected.",
     "The result counts completed calendar months, then remaining days. When the birth day does not exist in a target month, it uses that month’s last day. February 29 birthdays use February 28 in non-leap years; legal age rules may differ. Today uses your device’s local date, and day counts are unaffected by daylight-saving changes.",
-    "Someone born on 15 June 2000 is 25 years old on 15 June 2025. Your result changes with today's date and the device's time zone."
+    "Someone born on 15 June 2000 is 25 years old on 15 June 2025. Your result changes with today's date and the device's time zone.",
+    [
+      [
+        "Can I calculate my age on a different date?",
+        "This calculator uses today’s date on your device. It does not let you select another reference date. For a manual calculation using a different date, see How to Calculate Age from Date of Birth.",
+        [
+          "How to Calculate Age from Date of Birth",
+          "/blog/how-to-calculate-age-from-date-of-birth/"
+        ]
+      ]
+    ]
   ],
   "date": [
     "Measure the number of calendar days separating two dates, in either order.",
@@ -3511,11 +3521,15 @@ const CLASSIC_GUIDES = {
     "Calculate a tip amount and the resulting total bill using your chosen percentage.",
     "Enter the bill amount and tip percentage, then calculate. Use the same currency for the bill and the result.",
     "Tip = bill × tip percentage / 100. Total = bill + tip. This tool does not divide the bill between people.",
-    "A bill of 50 with a 15% tip produces a tip of 7.50 and a total of 57.50. Results use neutral numbers; use the same currency for the bill and tip.",
+    "For a bill of 50.00, a 15% tip is 7.50 and the total is 57.50; an 18% tip is 9.00 and the total is 59.00; a 20% tip is 10.00 and the total is 60.00. Displayed amounts are rounded to two decimal places. Use the same currency throughout.",
     [
       [
         "Is a gratuity the same as a tip?",
         "For a restaurant bill, a gratuity usually means a tip. This tool calculates a percentage tip and total bill; it does not calculate employment gratuity, severance or an end-of-service benefit. Check the bill for an included gratuity before adding another."
+      ],
+      [
+        "Does the total include tax or service charges?",
+        "The calculator adds the tip to exactly the bill amount you enter. It does not add tax or service charges separately. If you enter a subtotal before tax, add any separate tax or charges when checking the final amount payable. Check the bill for an included gratuity before adding another tip."
       ]
     ]
   ],
@@ -3645,7 +3659,11 @@ const CLASSIC_GUIDES = {
       ],
       [
         "Can I calculate CBM for a rectangular box?",
-        "Yes. CBM means cubic meters. Choose rectangular prism and m, then enter all three outside dimensions in meters. A 60 cm × 40 cm × 30 cm box is 0.6 m × 0.4 m × 0.3 m = 0.072 m³. Ten identical boxes occupy 0.72 m³ before allowance for packing or stacking. This tool calculates one solid at a time, not freight charges or dimensional weight."
+        "Yes. CBM means cubic meters. Choose rectangular prism and m, then enter all three outside dimensions in meters. A 60 cm × 40 cm × 30 cm box is 0.6 m × 0.4 m × 0.3 m = 0.072 m³. Ten identical boxes occupy 0.72 m³ before allowance for packing or stacking. This tool calculates one solid at a time, not freight charges or dimensional weight. For multiple identical cartons, use the CBM Shipping Calculator to enter quantity and dimensions in centimeters, meters, inches or feet.",
+        [
+          "CBM Shipping Calculator",
+          "/cbm-calculator/"
+        ]
       ]
     ]
   ],
@@ -3673,6 +3691,13 @@ const CLASSIC_GUIDES = {
 // END GENERATED CLASSIC GUIDES
 function escapeGuideText(value) {
  return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+// Optional editorial links stay same-site; all answer text remains HTML-escaped.
+function renderGuideAnswer(answer, link) {
+ const text = escapeGuideText(answer);
+ if (!Array.isArray(link) || link.length !== 2 || !/^\/[a-z0-9/-]+\/$/.test(link[1]) || link[1].includes('//')) return text;
+ const label = escapeGuideText(link[0]);
+ return label ? text.replace(label, '<a href="'+escapeGuideText(link[1])+'">'+label+'</a>') : text;
 }
 function getCalculatorIntroduction(calculator) {
  return CLASSIC_GUIDES[calculator.target]?.[0] || dynamicToolDefinitions[calculator.dynamicTool]?.description || calculator.metaDescription;
@@ -3781,7 +3806,7 @@ function getCalculatorGuideHtml(calculator) {
  const guide = CLASSIC_GUIDES[calculator.target];
  const furtherReading = getCalculatorReadingHtml(calculator);
  if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>' + furtherReading;
- return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+escapeGuideText(answer)+'</p></details>').join('') : '') + furtherReading;
+ return '<h2>How to Use</h2><p>'+escapeGuideText(guide[1])+'</p><h3>Formula and interpretation</h3><p>'+escapeGuideText(guide[2])+'</p><h3>Example</h3><p>'+escapeGuideText(guide[3])+'</p>' + (guide[4]?.length ? '<h3>Frequently asked questions</h3>'+guide[4].map(([question,answer,link])=>'<details><summary>'+escapeGuideText(question)+'</summary><p>'+renderGuideAnswer(answer,link)+'</p></details>').join('') : '') + furtherReading;
 }
 function getCalculatorApplicationSchema(calculator) {
  return {'@context':'https://schema.org','@type':'WebApplication',name:calculator ? getCalculatorTitle(calculator) : 'OnlineCalMaster Calculator',url:getCanonicalUrl(calculator),description:calculator ? getCalculatorIntroduction(calculator) : HOME_DESCRIPTION,applicationCategory:'UtilitiesApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}};
