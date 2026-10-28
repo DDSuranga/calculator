@@ -5,8 +5,8 @@ let display, displayScientific;
 let appInitialized = false;
 let lastTrackedPath = '';
 let latestShareStatusTimer;
-const HOME_TITLE = 'Free Online Calculators & Tools | OnlineCalMaster';
-const HOME_DESCRIPTION = 'Free online calculators for age, BMI, loans, percentages, volume and more. Get quick results with simple tools and clear explanations on OnlineCalMaster.';
+const HOME_TITLE = 'Free Online Calculator & Math Tools | OnlineCalMaster';
+const HOME_DESCRIPTION = 'Use a free online calculator for everyday math, scientific expressions, age, loans and more. Choose a tool and follow clear formulas and examples.';
 const SITE_ORIGIN = 'https://onlinecalmaster.com';
 const SOCIAL_IMAGE_URL = `${SITE_ORIGIN}/Logo.png`;
 const homepageFaqJson = document.getElementById('homepageFaqSchema')?.textContent;
@@ -49,13 +49,13 @@ const RELATED_OVERRIDES = {
 };
 
 const calculatorData = [
-    { name: 'Basic Calculator', category: 'Education', target: 'basic', slug: 'basic-calculator', elementId: 'basicCalculator', metaDescription: 'Use the free Basic Calculator by OnlineCalMaster for quick addition, subtraction, multiplication, division, memory, and square root calculations.' },
-    { name: 'Scientific Calculator', category: 'Education', target: 'scientific', slug: 'scientific-calculator', elementId: 'scientificCalculator', metaDescription: 'Use the free Scientific Calculator by OnlineCalMaster for trigonometry, logarithms, powers, constants, and advanced math calculations.' },
-    { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', slug: 'unit-converter', elementId: 'unitConverter', heightClass: 'tall', metaDescription: 'Convert common measurement units instantly with the free Unit Converter by OnlineCalMaster.' },
+    { name: 'Basic Calculator', category: 'Education', target: 'basic', slug: 'basic-calculator', elementId: 'basicCalculator', seoTitle: 'Free Basic Calculator Online | OnlineCalMaster', metaDescription: 'Use this free basic calculator online for addition, subtraction, multiplication and division, plus powers, square roots and memory controls.' },
+    { name: 'Scientific Calculator', category: 'Education', target: 'scientific', slug: 'scientific-calculator', elementId: 'scientificCalculator', seoTitle: 'Scientific Calculator Online – Free | OnlineCalMaster', metaDescription: 'Use a free scientific calculator online for trigonometry in radians, base-10 logarithms, powers and square roots. Includes pi, e and worked examples.' },
+    { name: 'Unit Converter', category: 'Unit Conversion', target: 'unit', slug: 'unit-converter', elementId: 'unitConverter', heightClass: 'tall', metaDescription: 'Convert length, weight and temperature between supported metric and imperial units. Choose the units, enter a value and see the converted result.' },
     { name: 'Age Calculator', category: 'Date & Time', target: 'age', slug: 'age-calculator', elementId: 'ageCalculator', heightClass: 'extra-tall', seoTitle: 'Age Calculator from Date of Birth | OnlineCalMaster', metaDescription: 'Calculate your age today in years, months and days from your date of birth. Find the days until your next birthday with our free age calculator.' },
     { name: 'Date Diff', category: 'Date & Time', target: 'date', slug: 'date-difference-calculator', elementId: 'dateDifferenceCalculator', title: 'Date Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Date Difference Calculator – Days Between Dates | OnlineCalMaster', metaDescription: 'Find elapsed days between two dates, in either order. See same-day and inclusive-counting examples with this free date difference calculator.' },
     { name: 'Time Diff', category: 'Date & Time', target: 'time', slug: 'time-difference-calculator', elementId: 'timeDifferenceCalculator', title: 'Time Difference Calculator', heightClass: 'extra-tall', seoTitle: 'Time Difference & Duration Calculator | OnlineCalMaster', metaDescription: 'Calculate time duration between two dates and times in hours, minutes and seconds. Check overnight intervals and see total minutes and seconds.' },
-    { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Calculate percentages quickly using the free Percentage Calculator by OnlineCalMaster.' },
+    { name: 'Percentage', category: 'Finance', target: 'percentage', slug: 'percentage-calculator', elementId: 'percentageCalculator', title: 'Percentage Calculator', metaDescription: 'Find a percentage of any value. Enter the total and percentage to calculate the amount, with a formula and worked example for checking your result.' },
     { name: 'Percentage Change', category: 'Business', target: 'percentageChange', slug: 'percentage-change-calculator', elementId: 'percentageChangeCalculator', title: 'Percentage Change Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate percentage increase or decrease between two values with the free Percentage Change Calculator by OnlineCalMaster.' },
     { name: 'Tip', category: 'Business', target: 'tip', slug: 'tip-calculator', elementId: 'tipCalculator', title: 'Tip Calculator', heightClass: 'extra-tall', seoTitle: 'Tip Calculator – Restaurant Tip & Total Bill | OnlineCalMaster', metaDescription: 'Calculate a restaurant tip and total bill from your bill amount and chosen percentage. Check 15%, 18% and 20% examples, with clear rounding guidance.' },
     { name: 'VAT', category: 'Business', target: 'vat', slug: 'vat-calculator', elementId: 'vatCalculator', title: 'VAT Calculator', heightClass: 'extra-tall', seoTitle: 'VAT Calculator – Add or Remove VAT | OnlineCalMaster', metaDescription: 'Add VAT to a net price or remove VAT from an inclusive total using your chosen rate. Check formulas and examples with the free VAT calculator.' },
@@ -66,26 +66,26 @@ const calculatorData = [
     { name: 'Discount', category: 'Finance', target: 'discount', slug: 'discount-calculator', elementId: 'discountCalculator', title: 'Discount Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate sale discounts, tax, final price, and savings using the free Discount Calculator by OnlineCalMaster.' },
     { name: 'Savings', category: 'Finance', target: 'savings', slug: 'savings-calculator', elementId: 'dynamicToolCalculator', title: 'Savings Calculator', heightClass: 'extra-tall', dynamicTool: 'savings', metaDescription: 'Estimate future savings from deposits, interest rate, and time using the free Savings Calculator by OnlineCalMaster.' },
     { name: 'Salary', category: 'Finance', target: 'salary', slug: 'salary-calculator', elementId: 'dynamicToolCalculator', title: 'Salary Calculator', heightClass: 'extra-tall', dynamicTool: 'salary', metaDescription: 'Convert salary amounts between hourly, monthly, and yearly pay using the free Salary Calculator by OnlineCalMaster.' },
-    { name: 'Sales Tax', category: 'Finance', target: 'salesTax', slug: 'sales-tax-calculator', elementId: 'dynamicToolCalculator', title: 'Sales Tax Calculator', heightClass: 'extra-tall', dynamicTool: 'salesTax', metaDescription: 'Calculate sales tax amount and final price using the free Sales Tax Calculator by OnlineCalMaster.' },
-    { name: 'Fuel Cost', category: 'Finance', target: 'fuelCost', slug: 'fuel-cost-calculator', elementId: 'fuelCostCalculator', title: 'Fuel Cost Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate trip fuel usage and total fuel cost using the free Fuel Cost Calculator by OnlineCalMaster.' },
+    { name: 'Sales Tax', category: 'Finance', target: 'salesTax', slug: 'sales-tax-calculator', elementId: 'dynamicToolCalculator', title: 'Sales Tax Calculator', heightClass: 'extra-tall', dynamicTool: 'salesTax', metaDescription: 'Calculate sales tax and the final price from an amount and tax rate. See the tax amount separately, with neutral numbers for use in your own currency.' },
+    { name: 'Fuel Cost', category: 'Finance', target: 'fuelCost', slug: 'fuel-cost-calculator', elementId: 'fuelCostCalculator', title: 'Fuel Cost Calculator', heightClass: 'extra-tall', metaDescription: 'Estimate fuel needed and trip cost from distance, fuel efficiency in kilometers per liter and price per liter. See fuel use and cost separately.' },
     { name: 'Profit Margin', category: 'Business', target: 'profitMargin', slug: 'profit-margin-calculator', elementId: 'profitMarginCalculator', title: 'Profit Margin Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate profit amount, profit margin, and markup using the free Profit Margin Calculator by OnlineCalMaster.' },
     { name: 'Break-Even', category: 'Business', target: 'breakEven', slug: 'break-even-calculator', elementId: 'breakEvenCalculator', title: 'Break-Even Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate break-even units and sales value using the free Break-Even Calculator by OnlineCalMaster.' },
-    { name: 'ROI', category: 'Finance', target: 'roi', slug: 'roi-calculator', elementId: 'roiCalculator', title: 'ROI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate net profit and return on investment percentage using the free ROI Calculator by OnlineCalMaster.' },
+    { name: 'ROI', category: 'Finance', target: 'roi', slug: 'roi-calculator', elementId: 'roiCalculator', title: 'ROI Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate net profit and return on investment as a percentage from the initial investment and final value. Understand gains, losses and the formula.' },
     { name: 'Simple Interest', category: 'Finance', target: 'simpleInterest', slug: 'simple-interest-calculator', elementId: 'simpleInterestCalculator', title: 'Simple Interest Calculator', heightClass: 'extra-tall', metaDescription: 'Calculate simple interest and total amount using the free Simple Interest Calculator by OnlineCalMaster.' },
     { name: 'BMR', category: 'Health', target: 'bmr', slug: 'bmr-calculator', elementId: 'dynamicToolCalculator', title: 'BMR Calculator', heightClass: 'extra-tall', dynamicTool: 'bmr', metaDescription: 'Estimate basal metabolic rate using age, gender, height, and weight with the free BMR Calculator by OnlineCalMaster.' },
     { name: 'Daily Water Intake', category: 'Health', target: 'waterIntake', slug: 'daily-water-intake-calculator', elementId: 'dynamicToolCalculator', title: 'Daily Water Intake Calculator', heightClass: 'extra-tall', dynamicTool: 'waterIntake', metaDescription: 'Estimate daily water intake based on body weight and activity using the free Daily Water Intake Calculator by OnlineCalMaster.' },
     { name: 'Calorie', category: 'Health', target: 'calorie', slug: 'calorie-calculator', elementId: 'dynamicToolCalculator', title: 'Calorie Calculator', heightClass: 'extra-tall', dynamicTool: 'calorie', metaDescription: 'Estimate daily calorie needs from BMR and activity level using the free Calorie Calculator by OnlineCalMaster.' },
-    { name: 'GPA', category: 'Education', target: 'gpa', slug: 'gpa-calculator', elementId: 'dynamicToolCalculator', title: 'GPA Calculator', heightClass: 'extra-tall', dynamicTool: 'gpa', metaDescription: 'Calculate GPA from course grades and credits using the free GPA Calculator by OnlineCalMaster.' },
+    { name: 'GPA', category: 'Education', target: 'gpa', slug: 'gpa-calculator', elementId: 'dynamicToolCalculator', title: 'GPA Calculator', heightClass: 'extra-tall', dynamicTool: 'gpa', metaDescription: 'Calculate a credit-weighted GPA from numeric grade points and course credits. Enter your own grade scale and see total credits and weighted points.' },
     { name: 'Percentage Grade', category: 'Education', target: 'percentageGrade', slug: 'percentage-grade-calculator', elementId: 'dynamicToolCalculator', title: 'Percentage Grade Calculator', heightClass: 'extra-tall', dynamicTool: 'percentageGrade', metaDescription: 'Convert marks to percentage grade using the free Percentage Grade Calculator by OnlineCalMaster.' },
     { name: 'Countdown', category: 'Daily Tools', target: 'countdown', slug: 'countdown-calculator', elementId: 'dynamicToolCalculator', title: 'Countdown Calculator', heightClass: 'extra-tall', dynamicTool: 'countdown', seoTitle: 'Countdown Calculator – Days Until a Date & Time | OnlineCalMaster', metaDescription: 'Calculate days, hours and minutes until a future date and time. Get an on-demand result in your local time zone; press Calculate again to refresh.' },
     { name: 'Time Zone Difference', category: 'Daily Tools', target: 'timeZoneDifference', slug: 'time-zone-difference-calculator', elementId: 'dynamicToolCalculator', title: 'Time Zone Difference Calculator', heightClass: 'extra-tall', dynamicTool: 'timeZoneDifference', metaDescription: 'Find the time difference between two UTC offsets using the free Time Zone Difference Calculator by OnlineCalMaster.' },
     { name: 'Password Generator', category: 'Developer Tools', target: 'passwordGenerator', slug: 'password-generator', elementId: 'dynamicToolCalculator', title: 'Password Generator', heightClass: 'extra-tall', dynamicTool: 'passwordGenerator', metaDescription: 'Generate strong passwords with length and character options using the free Password Generator by OnlineCalMaster.' },
-    { name: 'UUID Generator', category: 'Developer Tools', target: 'uuidGenerator', slug: 'uuid-generator', elementId: 'dynamicToolCalculator', title: 'UUID Generator', heightClass: 'extra-tall', dynamicTool: 'uuidGenerator', metaDescription: 'Generate UUID v4 identifiers instantly using the free UUID Generator by OnlineCalMaster.' },
-    { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format, prettify, and validate JSON using the free JSON Formatter by OnlineCalMaster.' },
+    { name: 'UUID Generator', category: 'Developer Tools', target: 'uuidGenerator', slug: 'uuid-generator', elementId: 'dynamicToolCalculator', title: 'UUID Generator', heightClass: 'extra-tall', dynamicTool: 'uuidGenerator', metaDescription: 'Generate a random UUID v4 identifier and copy the result. Learn what the UUID format means and why identifiers should not be used as passwords.' },
+    { name: 'JSON Formatter', category: 'Developer Tools', target: 'jsonFormatter', slug: 'json-formatter', elementId: 'dynamicToolCalculator', title: 'JSON Formatter', heightClass: 'extra-tall', dynamicTool: 'jsonFormatter', metaDescription: 'Format and validate JSON with readable indentation. Preserve large numbers and duplicate keys while checking syntax, with clear input error messages.' },
     { name: 'Volume', category: 'Education', target: 'volume', slug: 'volume-calculator', elementId: 'volumeCalculator', title: 'Volume Calculator', heightClass: 'extra-tall', seoTitle: 'Volume Calculator – Cube, Cylinder, Sphere & More | OnlineCalMaster', metaDescription: 'Calculate volume for a cube, rectangular prism, cylinder, sphere or cone. Enter dimensions in one unit and get cubic-unit results with formulas and examples.' },
-    { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – Calculate GST, CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
-    { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Calculate SIP Returns & Future Value | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
-    { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Calculate Monthly Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
+    { name: 'GST Calculator India', category: 'Business', target: 'gst', slug: 'gst-calculator', elementId: 'dynamicToolCalculator', title: 'GST Calculator India', seoTitle: 'GST Calculator India – CGST, SGST & IGST | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'gst', metaDescription: 'Add GST to a price or remove GST from an inclusive amount. Calculate Indian rupee totals with CGST and SGST or IGST breakdowns using preset or custom rates.' },
+    { name: 'SIP Calculator India', category: 'Finance', target: 'sip', slug: 'sip-calculator', elementId: 'dynamicToolCalculator', title: 'SIP Calculator India', seoTitle: 'SIP Calculator India – Future Value & Returns | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'sip', metaDescription: 'Estimate monthly SIP future value, total invested and potential returns in Indian rupees using your return rate and period, with end-of-month contributions.' },
+    { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
     { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', seoTitle: 'Area Calculator – 7 Shapes, Formulas & Examples | OnlineCalMaster', metaDescription: 'Calculate area for rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Get square-unit results with formulas and examples.' },
     { name: 'Z-Score Calculator', category: 'Education', target: 'zScore', slug: 'z-score-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'zScore', heightClass: 'extra-tall', seoTitle: 'Z-Score Calculator – Calculate Standard Scores Online', metaDescription: 'Calculate a z-score from a raw score, population mean and standard deviation. See the standard score formula, interpretation and worked examples.' },
     { name: 'CBM Shipping Calculator', category: 'Business', target: 'cbm', slug: 'cbm-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'cbm', heightClass: 'extra-tall', seoTitle: 'CBM Calculator – Calculate Shipping Volume Online', metaDescription: 'Calculate CBM per carton, total shipping volume and cubic feet from dimensions and quantity. Enter centimeters, meters, inches or feet.' }
@@ -3432,16 +3432,44 @@ document.addEventListener('DOMContentLoaded', function () {
 // BEGIN GENERATED CLASSIC GUIDES
 const CLASSIC_GUIDES = {
   "basic": [
-    "Check everyday arithmetic with addition, subtraction, multiplication, division, powers, and square roots.",
+    "Use this free online basic calculator to check everyday arithmetic with addition, subtraction, multiplication, division, powers and square roots.",
     "Enter a number, choose an operation, enter the next number, and press =. Use DEL to correct a digit or C to clear the expression.",
     "Multiplication and division are evaluated before addition and subtraction. M+ adds the displayed value to memory; M- subtracts it; MRC recalls it.",
-    "12 × 8 = 96. By contrast, 12 + 8 × 2 = 28 because multiplication comes first."
+    "12 × 8 = 96. By contrast, 12 + 8 × 2 = 28 because multiplication comes first.",
+    [
+      [
+        "When should I use the scientific calculator?",
+        "Use the basic calculator for arithmetic, powers and square roots. For sine, cosine, tangent, base-10 logarithms or the constants pi and e, choose the Scientific Calculator.",
+        [
+          "Scientific Calculator",
+          "/scientific-calculator/"
+        ]
+      ],
+      [
+        "Why does 12 + 8 × 2 give 28 rather than 40?",
+        "Multiplication is evaluated before addition: 8 × 2 is 16, then 12 + 16 is 28. If you intend to add first, calculate 12 + 8, then multiply that result by 2."
+      ]
+    ]
   ],
   "scientific": [
-    "Evaluate expressions with trigonometric functions, logarithms, powers, and the constants pi and e.",
+    "Use this free scientific calculator online to evaluate numerical expressions with trigonometric functions, base-10 logarithms, powers and the constants pi and e.",
     "Select a function, enter its argument, and press =. Use parentheses to group expressions and C to begin again.",
     "Sine, cosine, and tangent use radians. The log button uses base 10: log(100) = 2. Convert degrees to radians by multiplying by pi / 180.",
-    "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians."
+    "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians.",
+    [
+      [
+        "Does this calculator solve algebraic equations?",
+        "No. It evaluates numerical expressions; it does not solve for unknown variables or provide step-by-step algebra solutions. For everyday arithmetic without scientific functions, use the Basic Calculator.",
+        [
+          "Basic Calculator",
+          "/basic-calculator/"
+        ]
+      ],
+      [
+        "Should I enter angles in degrees or radians?",
+        "The trigonometric functions use radians. Convert degrees by multiplying by pi / 180. For example, 30 degrees is pi / 6 radians, so sin(pi / 6) is approximately 0.5."
+      ]
+    ]
   ],
   "unit": [
     "Convert measurements within length, weight, or temperature without mixing incompatible quantities.",

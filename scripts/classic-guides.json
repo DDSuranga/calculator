@@ -1,15 +1,43 @@
 {
   "basic": [
-    "Check everyday arithmetic with addition, subtraction, multiplication, division, powers, and square roots.",
+    "Use this free online basic calculator to check everyday arithmetic with addition, subtraction, multiplication, division, powers and square roots.",
     "Enter a number, choose an operation, enter the next number, and press =. Use DEL to correct a digit or C to clear the expression.",
     "Multiplication and division are evaluated before addition and subtraction. M+ adds the displayed value to memory; M- subtracts it; MRC recalls it.",
-    "12 × 8 = 96. By contrast, 12 + 8 × 2 = 28 because multiplication comes first."
+    "12 × 8 = 96. By contrast, 12 + 8 × 2 = 28 because multiplication comes first.",
+    [
+      [
+        "When should I use the scientific calculator?",
+        "Use the basic calculator for arithmetic, powers and square roots. For sine, cosine, tangent, base-10 logarithms or the constants pi and e, choose the Scientific Calculator.",
+        [
+          "Scientific Calculator",
+          "/scientific-calculator/"
+        ]
+      ],
+      [
+        "Why does 12 + 8 × 2 give 28 rather than 40?",
+        "Multiplication is evaluated before addition: 8 × 2 is 16, then 12 + 16 is 28. If you intend to add first, calculate 12 + 8, then multiply that result by 2."
+      ]
+    ]
   ],
   "scientific": [
-    "Evaluate expressions with trigonometric functions, logarithms, powers, and the constants pi and e.",
+    "Use this free scientific calculator online to evaluate numerical expressions with trigonometric functions, base-10 logarithms, powers and the constants pi and e.",
     "Select a function, enter its argument, and press =. Use parentheses to group expressions and C to begin again.",
     "Sine, cosine, and tangent use radians. The log button uses base 10: log(100) = 2. Convert degrees to radians by multiplying by pi / 180.",
-    "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians."
+    "sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians.",
+    [
+      [
+        "Does this calculator solve algebraic equations?",
+        "No. It evaluates numerical expressions; it does not solve for unknown variables or provide step-by-step algebra solutions. For everyday arithmetic without scientific functions, use the Basic Calculator.",
+        [
+          "Basic Calculator",
+          "/basic-calculator/"
+        ]
+      ],
+      [
+        "Should I enter angles in degrees or radians?",
+        "The trigonometric functions use radians. Convert degrees by multiplying by pi / 180. For example, 30 degrees is pi / 6 radians, so sin(pi / 6) is approximately 0.5."
+      ]
+    ]
   ],
   "unit": [
     "Convert measurements within length, weight, or temperature without mixing incompatible quantities.",
