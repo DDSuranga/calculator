@@ -2589,3 +2589,13 @@ body.app-page .calculator .button[onclick^="clear"],body.app-page .calculator .b
 .app-page .contextual-panel { padding-top:30px; }
 @media(min-width:721px) and (max-width:1050px){.app-page .compact-hero{padding:14px 22px;}.app-page .hero-art{flex-basis:125px;min-width:125px;height:140px;}}
 @media(max-width:720px){.app-page .compact-hero{min-height:0;padding:16px 20px;}.app-page .hero-art{display:none;}.app-page .contextual-panel{padding-top:0;}}
+
+/* Roof Pitch only: primary measurements before supporting formulas. */
+.app-page .finance-result .roof-pitch-main { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+.app-page .finance-result .roof-pitch-main > div { display:block;padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--surface); }
+.app-page .finance-result .roof-pitch-main dt { font-size:.85rem;font-weight:600; }
+.app-page .finance-result .roof-pitch-main dd { margin:8px 0 0;font-size:1.5rem;font-weight:700;text-align:left;overflow-wrap:anywhere; }
+.app-page .roof-pitch-results h3 { margin:20px 0 8px;font-size:1rem; }
+.app-page .finance-result .roof-pitch-details > div { display:grid;grid-template-columns:minmax(90px,1fr) minmax(0,2fr);gap:12px; }
+#roofPitchCopy:disabled { opacity:.5;cursor:not-allowed; }
+@media(max-width:400px){ .app-page .finance-result .roof-pitch-main { grid-template-columns:1fr; } }

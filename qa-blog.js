@@ -35,7 +35,7 @@ for(const [start,end,expected] of [['2025-03-01','2025-03-03',2],['2025-03-03','
 has(dates,'<td>0 days</td><td>1 date</td>');has(dates,'<td>2 days</td><td>3 dates</td>');
 async function get(p){const r=await fetch(new URL(p,base),{redirect:'manual'});assert.equal(r.status,200,p);assert(!/noindex/i.test(r.headers.get('x-robots-tag')||''));return r.text();}
 (async()=>{
- const sitemap=await get('/sitemap.xml');const sitemapUrls=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);assert.equal(sitemapUrls.length,60);
+ const sitemap=await get('/sitemap.xml');const sitemapUrls=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);assert.equal(sitemapUrls.length,61);
  const titles=new Set(),descriptions=new Set();const pages=new Map();
  for(const route of ['/blog/',...articles.map(a=>`/blog/${a.slug}/`)]){
   const html=await get(route);pages.set(route,html);assert(sitemapUrls.includes(origin+route));assert.equal((html.match(/<h1[ >]/g)||[]).length,1);assert(!/<meta[^>]+noindex/i.test(html));
@@ -66,5 +66,5 @@ async function get(p){const r=await fetch(new URL(p,base),{redirect:'manual'});a
   for(const p of existingPaths){const f=p==='/'?'index.html':p.endsWith('/')?p.slice(1)+'index.html':p.slice(1);const old=read(path.join(backup,f)),now=read(f);assert.deepEqual(integrationBlocks(now),integrationBlocks(old),f+' integration changed');for(const pattern of [/<title>[\s\S]*?<\/title>/,/<meta name="description"[^>]*>/,/<link rel="canonical"[^>]*>/])assert.equal(now.match(pattern)?.[0],old.match(pattern)?.[0],f+' metadata changed');}
   console.log(`Baseline preserved: calculator logic, ${existingPaths.length} URLs, existing titles/descriptions/canonicals, ad/analytics loaders, trust pages, robots/ads/manifest/styles/IndexNow.`);
  }
- console.log(`Blog PASS: Batch 1 examples, 16 direct routes, 60 sitemap URLs, schemas, reciprocal links and ${checked.size} linked local resources.`);
+ console.log(`Blog PASS: Batch 1 examples, 16 direct routes, 61 sitemap URLs, schemas, reciprocal links and ${checked.size} linked local resources.`);
 })().catch(e=>{console.error(e);process.exitCode=1;});

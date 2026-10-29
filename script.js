@@ -23,6 +23,7 @@ const CATEGORY_ANCHORS = {
 };
 const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
 const RELATED_OVERRIDES = {
+    roofPitch: ['area', 'volume', 'unit', 'scientific'],
     zScore: ['scientific', 'percentage', 'basic'],
     cbm: ['volume', 'unit', 'area', 'basic'],
     scientific: ['zScore', 'basic', 'percentage', 'unit'],
@@ -43,7 +44,7 @@ const RELATED_OVERRIDES = {
     date: ['time', 'countdown', 'age', 'timeZoneDifference', 'basic'],
     age: ['date', 'countdown', 'time', 'timeZoneDifference', 'basic'],
     timeZoneDifference: ['time', 'countdown', 'date', 'age', 'basic'],
-    area: ['volume', 'unit', 'scientific', 'basic', 'percentage'],
+    area: ['roofPitch', 'volume', 'unit', 'scientific', 'basic'],
     volume: ['cbm', 'area', 'unit', 'scientific', 'basic'],
     unit: ['area', 'volume', 'scientific', 'basic', 'percentage']
 };
@@ -88,7 +89,8 @@ const calculatorData = [
     { name: 'Home Loan EMI Calculator', category: 'Finance', target: 'homeLoanEmi', slug: 'home-loan-emi-calculator', elementId: 'dynamicToolCalculator', title: 'Home Loan EMI Calculator', seoTitle: 'Home Loan EMI Calculator – Payment & Interest | OnlineCalMaster', heightClass: 'extra-tall', dynamicTool: 'homeLoanEmi', metaDescription: 'Estimate monthly home loan payments, total interest and repayment in your selected currency. Compare rates and tenures using a reducing-balance calculation.' },
     { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', seoTitle: 'Area Calculator – 7 Shapes, Formulas & Examples | OnlineCalMaster', metaDescription: 'Calculate area for rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Get square-unit results with formulas and examples.' },
     { name: 'Z-Score Calculator', category: 'Education', target: 'zScore', slug: 'z-score-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'zScore', heightClass: 'extra-tall', seoTitle: 'Z-Score Calculator – Calculate Standard Scores Online', metaDescription: 'Calculate a z-score from a raw score, population mean and standard deviation. See the standard score formula, interpretation and worked examples.' },
-    { name: 'CBM Shipping Calculator', category: 'Business', target: 'cbm', slug: 'cbm-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'cbm', heightClass: 'extra-tall', seoTitle: 'CBM Calculator – Calculate Shipping Volume Online', metaDescription: 'Calculate CBM per carton, total shipping volume and cubic feet from dimensions and quantity. Enter centimeters, meters, inches or feet.' }
+    { name: 'CBM Shipping Calculator', category: 'Business', target: 'cbm', slug: 'cbm-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'cbm', heightClass: 'extra-tall', seoTitle: 'CBM Calculator – Calculate Shipping Volume Online', metaDescription: 'Calculate CBM per carton, total shipping volume and cubic feet from dimensions and quantity. Enter centimeters, meters, inches or feet.' },
+    { name: 'Roof Pitch Calculator', category: 'Education', target: 'roofPitch', slug: 'roof-pitch-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'roofPitch', seoTitle: 'Roof Pitch Calculator – Pitch, Angle & Rafter Length | OnlineCalMaster', metaDescription: 'Calculate roof pitch in X:12, angle in degrees, slope percentage and straight-line rafter length from rise and run in inches, feet, centimeters or meters.' }
 ];
 
 function getCalculatorByTarget(type) {
@@ -109,6 +111,42 @@ const HOME_LOAN_CURRENCIES = {
 };
 
 const dynamicToolDefinitions = {
+    roofPitch: {
+        description: 'Enter vertical rise and horizontal run in the same unit to calculate the slope of one roof section.',
+        fields: [
+            { id: 'roofRise', label: 'Roof Rise (vertical)', type: 'number', min: 0, step: 'any', placeholder: '6' },
+            { id: 'roofRun', label: 'Roof Run (horizontal)', type: 'number', min: 0, step: 'any', placeholder: '12' },
+            { id: 'roofUnit', label: 'Measurement Unit (rise and run)', type: 'select', value: 'in', options: [['in', 'Inches (in)'], ['ft', 'Feet (ft)'], ['cm', 'Centimeters (cm)'], ['m', 'Meters (m)']] }
+        ],
+        primaryAction: 'Calculate Roof Pitch', copy: true,
+        help: {
+            what: 'Roof pitch here means vertical rise per 12 units of horizontal run, written X:12. Run is the horizontal distance for the roof section being measured, not its sloping length. For a symmetric gable roof, one side usually has a run of half the full span; do not halve the run again if you already measured one side.',
+            how: 'Enter the vertical rise and horizontal run, select their shared unit, and calculate. Use decimals when needed. Rise may be zero to represent a flat slope; run must be positive. The rafter result uses the selected unit. Copy includes the inputs, results and geometric assumptions.',
+            formula: 'Slope = rise / run. Pitch = 12 × slope, expressed as X:12. Angle = atan(slope) × 180 / π. Slope percentage = 100 × slope. Straight-line rafter length = √(rise² + run²). Both lengths are converted to meters internally using in × 0.0254, ft × 0.3048, cm × 0.01 or m × 1; the rafter result is converted back to your chosen unit.',
+            example: 'Rise 6 inches and run 12 inches give slope 0.5, pitch 6:12, angle approximately 26.56505118°, slope 50% and straight-line rafter length approximately 13.41640786 inches. Equivalently, rise 15.24 cm and run 30.48 cm give the same pitch and angle, with length approximately 34.07767598 cm.',
+            faqs: [
+                ['Is run the same as the roof span?', 'No. Run is the horizontal distance covered by the measured sloping section. Full span may include two sides. Use the actual run for each section, especially on asymmetric roofs.'],
+                ['Does 6:12 mean an angle of 6 degrees?', 'No. It means 6 units of rise for every 12 units of run. That is a 50% slope and an angle of approximately 26.565 degrees. Pitch, angle and percentage express the same slope differently.'],
+                ['Can I mix feet and inches in the input fields?', 'No. Convert both measurements to the same unit first. For example, 1 foot 6 inches is 18 inches or 1.5 feet. Use the <a href="/unit-converter/">Unit Converter</a> if needed.'],
+                ['Is the rafter length ready for cutting?', 'No. It is only the geometric length between the endpoints of the entered rise and run. It excludes overhangs, ridge thickness, birdsmouths, cut allowances and material requirements. It does not assess loads, structural safety, drainage, roofing suitability or building-code compliance.'],
+                ['Can I use zero rise or negative measurements?', 'Zero rise gives 0:12, 0 degrees and a rafter length equal to run. Negative measurements and zero run are rejected. Enter positive magnitudes for a downward slope; this calculator does not represent slope direction.'],
+                ['Does this calculate roof area or material quantities?', 'No. For simple geometric areas see the <a href="/area-calculator/">Area Calculator</a>. Roof coverings, waste, overlaps and structural design require additional information.']
+            ]
+        },
+        calculate(values) {
+            const r = calculateRoofPitchValues(values), f = formatNewCalculatorNumber;
+            return dynamicResult(f(r.pitch) + ':12', [
+                ['Roof Pitch', f(r.pitch) + ':12', true], ['Roof Angle', r.angle.toFixed(2) + '°'],
+                ['Roof Slope', f(r.percent) + '%'], ['Rafter Length (straight-line)', r.rafter.toFixed(2) + ' ' + r.unit],
+                ['Inputs', 'Rise ' + f(r.rise) + ' ' + r.unit + '; run ' + f(r.run) + ' ' + r.unit],
+                ['Slope formula', f(r.rise) + ' / ' + f(r.run) + ' = ' + f(r.slope)],
+                ['Pitch formula', f(r.slope) + ' × 12 = ' + f(r.pitch)],
+                ['Angle formula', 'atan(' + f(r.slope) + ') × 180 / π'],
+                ['Length formula', '√(' + f(r.rise) + '² + ' + f(r.run) + '²)'],
+                ['Excludes', 'Overhangs and cuts'], ['Use', 'Not structural design']
+            ]);
+        }
+    },
     zScore: {
         description: 'Find how many population standard deviations a value is above or below the mean.',
         fields: [
@@ -1002,11 +1040,21 @@ function renderDynamicTool(calculator) {
         ${definition.fields.map(renderDynamicField).join('')}
         <button class="button operator" onclick="calculateDynamicTool()">${definition.primaryAction || 'Calculate'}</button>
         <button class="button operator" onclick="clearDynamicTool()">Clear</button>
-        ${definition.copy ? '<button class="button operator copy-button" onclick="copyDynamicToolResult()">Copy</button>' : ''}
+        ${definition.copy ? '<button class="button operator copy-button"' + (calculator.target === 'roofPitch' ? ' id="roofPitchCopy" disabled' : '') + ' onclick="copyDynamicToolResult()">Copy</button>' : ''}
         <div class="finance-result dynamic-wide" id="dynamicToolResult" aria-live="polite">
             <p class="finance-message" id="dynamicToolMessage">Enter values and calculate the result.</p>
         </div>
     `;
+    if (calculator.target === 'roofPitch') {
+        latestDynamicToolCopyText = '';
+        document.getElementById('dynamicToolHelp').innerHTML = '';
+        definition.fields.forEach(field => {
+            document.getElementById('dynamic-' + field.id).addEventListener('input', () => {
+                document.getElementById('roofPitchCopy').disabled = true;
+                latestDynamicToolCopyText = '';
+            });
+        });
+    }
     if (calculator.dynamicTool === 'homeLoanEmi') {
         document.getElementById('dynamic-homeLoanCurrency').addEventListener('change', calculateDynamicTool);
     }
@@ -1032,9 +1080,11 @@ function showDynamicMessage(message, isError = false) {
         result.innerHTML = `<p class="finance-message${isError ? ' is-error' : ''}" id="dynamicToolMessage">${message}</p>`;
     }
     latestDynamicToolCopyText = '';
+    if (activeDisplay === 'roofPitch') document.getElementById('roofPitchCopy').disabled = true;
 }
 
 function renderDynamicResult(result) {
+    if (activeDisplay === 'roofPitch') { renderRoofPitchResult(result); return; }
     const display = document.getElementById('dynamicToolDisplay');
     const resultBox = document.getElementById('dynamicToolResult');
     if (display) display.value = result.display;
@@ -3831,6 +3881,7 @@ function getCalculatorReadingHtml(calculator) {
  return reading ? '<h3>Learn the method</h3><ul>'+reading.map(([slug,title])=>'<li><a href="/blog/'+slug+'/">'+escapeGuideText(title)+'</a></li>').join('')+'</ul>' : '';
 }
 function getCalculatorGuideHtml(calculator) {
+ if (calculator.target === 'roofPitch') return renderHelpContent(dynamicToolDefinitions.roofPitch, calculator);
  const guide = CLASSIC_GUIDES[calculator.target];
  const furtherReading = getCalculatorReadingHtml(calculator);
  if (!guide) return '<h2>How to Use</h2><p>'+escapeGuideText(dynamicToolDefinitions[calculator.dynamicTool].help.how)+'</p>' + furtherReading;
@@ -3849,7 +3900,7 @@ function renderCalculatorContext(calculator) {
  const description=panel?.querySelector('.calculator-description')?.textContent || calculator.metaDescription;
  const context=document.getElementById('contextDescription'); if(context) context.textContent=description;
  const guide=document.getElementById('calculatorGuide'); if(!guide) return;
- if (CLASSIC_GUIDES[calculator.target]) {
+ if (CLASSIC_GUIDES[calculator.target] || calculator.target === 'roofPitch') {
   guide.innerHTML = getCalculatorGuideHtml(calculator);
   return;
  }
@@ -3873,3 +3924,25 @@ document.addEventListener('DOMContentLoaded',()=>{
  if(query){document.getElementById('calculatorSearch').value=query;const input=document.getElementById('headerSearch');if(input)input.value=query;renderCalculatorList();document.getElementById('calculatorSidebar').classList.add('is-open');toggle?.setAttribute('aria-expanded','true');}
  document.querySelector('.header-search')?.addEventListener('submit',e=>{e.preventDefault();document.getElementById('calculatorSearch').value=document.getElementById('headerSearch').value;document.getElementById('calculatorCategory').value='All Calculators';renderCalculatorList();document.getElementById('calculatorSidebar').classList.add('is-open');toggle?.setAttribute('aria-expanded','true');document.getElementById('calculatorSearch').focus();});
 });
+
+function calculateRoofPitchValues(values) {
+    const factors = { in: 0.0254, ft: 0.3048, cm: 0.01, m: 1 };
+    if (!Object.prototype.hasOwnProperty.call(factors, values.roofUnit)) throw new Error('Select inches, feet, centimeters or meters.');
+    const rise = readNewCalculatorNumber(values.roofRise, 'Roof Rise');
+    const run = readNewCalculatorNumber(values.roofRun, 'Roof Run');
+    if (rise < 0 || run <= 0) throw new Error('Rise must be zero or greater, and run must be greater than zero.');
+    const factor = factors[values.roofUnit], riseMeters = rise * factor, runMeters = run * factor;
+    const slope = riseMeters / runMeters, pitch = slope * 12, percent = slope * 100;
+    const angle = Math.atan(slope) * 180 / Math.PI;
+    const rafter = Math.hypot(riseMeters, runMeters) / factor;
+    if (![riseMeters, runMeters, slope, pitch, percent, angle, rafter].every(Number.isFinite) || runMeters <= 0 || rafter <= 0 || (rise > 0 && (riseMeters === 0 || slope === 0 || angle === 0))) throw new Error('These measurements exceed the supported numerical range. Use less extreme values.');
+    return { rise, run, unit: values.roofUnit, slope, pitch, percent, angle, rafter };
+}
+
+function renderRoofPitchResult(result) {
+    document.getElementById('dynamicToolDisplay').value = result.display;
+    const row = ([label, value]) => '<div><dt>' + label + '</dt><dd>' + value + '</dd></div>';
+    document.getElementById('dynamicToolResult').innerHTML = '<section class="roof-pitch-results" aria-label="Roof pitch results"><dl class="roof-pitch-main">' + result.rows.slice(0, 4).map(row).join('') + '</dl><h3>Calculation details</h3><dl class="roof-pitch-details">' + result.rows.slice(4).map(row).join('') + '</dl></section><p class="finance-copy-status" id="dynamicToolCopyStatus"></p>';
+    latestDynamicToolCopyText = result.copyText;
+    document.getElementById('roofPitchCopy').disabled = false;
+}

@@ -26,7 +26,7 @@ for (const unit of ['mm', '', '__proto__', 'toString']) reject(() => cbm(1, 1, 1
 reject(() => cbm(1e308, 1e308, 1e308)); reject(() => cbm(1e-300, 1e-300, 1e-300));
 assert.notEqual(context.formatNewCalculatorNumber(1e-15), '0'); checks++;
 const registry = vm.runInContext('calculatorData', context);
-assert.equal(registry.length, 40);
+assert.equal(registry.length, 41);
 for (const [target, slug] of [['zScore', 'z-score-calculator'], ['cbm', 'cbm-calculator']]) {
     const calculator = registry.find(c => c.target === target);
     assert.equal(calculator.slug, slug);

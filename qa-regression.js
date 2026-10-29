@@ -183,9 +183,9 @@ for(const [category,from,to,input,expected] of [
 for(const [years,expected] of [[0.01,'100.00'],[0.1,'110.00'],[1,'220.00']]) {context.values={currentBalance:100,monthlyDeposit:10,annualRate:0,years};assert.match(run('dynamicToolDefinitions.savings.calculate(values).display'),new RegExp(expected));checks++;}
 const home=fs.readFileSync('index.html','utf8');assert.doesNotMatch(home,/href="#popular-calculators">Explore/);checks++;
 run("activeDisplay='scientific'");
-const data=run('calculatorData');assert.equal(data.length,40);
+const data=run('calculatorData');assert.equal(data.length,41);
 for(const c of data){const html=fs.readFileSync(c.slug+'/index.html','utf8');assert.ok(html.includes('<base href="/">'));assert.ok(html.includes(`rel="canonical" href="https://onlinecalmaster.com/${c.slug}/"`));assert.ok(html.includes('src="script.js"'));assert.ok(fs.readFileSync('sitemap.xml','utf8').includes(`/${c.slug}/</loc>`));}
-console.log(`${checks} calculation/control checks passed; all 40 generated routes and sitemap entries verified.`);
+console.log(`${checks} calculation/control checks passed; all 41 generated routes and sitemap entries verified.`);
 (async()=>{
  for(const [fn,expected] of [['copyLoanEmiResult','Monthly EMI'],['copyMortgageResult','Monthly Payment'],['copyCompoundInterestResult','Future Value'],['copyBmiResult','BMI'],['copyDiscountResult','Final Price'],['copyVolumeResult','Volume'],['copyAreaResult','Area']]){copied='';context[fn]();await Promise.resolve();assert.ok(copied.includes(expected),fn);}
  context.clearLoanEmi();assert.equal(el('loanAmountInput').value,'');
