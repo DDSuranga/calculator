@@ -1279,9 +1279,9 @@ function updateSeoMeta(calculator) {
     const description = calculator?.metaDescription || (calculatorTitle ? `Use the free ${calculatorTitle} by OnlineCalMaster for fast, accurate, mobile-friendly calculations.` : HOME_DESCRIPTION);
     const canonicalUrl = getCanonicalUrl(calculator);
 
-    document.title = title;
+    document.title = calculator ? title : 'Free Online Calculators & Tools | OnlineCalMaster';
     setRobotsIndexing(true);
-    ensureMetaContent('name', 'description', description);
+    ensureMetaContent('name', 'description', calculator ? description : 'Use free online calculators for math, finance, health, business, education and everyday tasks. Get fast, accurate results with easy-to-use tools.');
     ensureMetaContent('property', 'og:title', title);
     ensureMetaContent('property', 'og:description', description);
     ensureMetaContent('property', 'og:url', canonicalUrl);
@@ -1295,7 +1295,7 @@ function updateSeoMeta(calculator) {
     updateCanonical(calculator);
     updateBreadcrumbSchema(calculator);
     const heroHeading = document.querySelector('.compact-hero h1');
-    if (heroHeading) heroHeading.textContent = calculator ? calculatorTitle : 'Free Online Calculators & Smart Tools';
+    if (heroHeading) heroHeading.textContent = calculator ? calculatorTitle : 'Free Online Calculators for Everyday Use';
     const heroIntro = document.querySelector('.hero-subtitle');
     if (heroIntro) heroIntro.textContent = calculator ? getCalculatorIntroduction(calculator) : HOME_DESCRIPTION;
     const homepageInformation = document.querySelector('.homepage-seo');
