@@ -67,6 +67,7 @@ for (const calculator of data) {
  if (calculator.dynamicTool) {
   context.renderDynamicTool(calculator);
   for (const id of ['dynamicToolTitle','dynamicToolDescription','dynamicToolForm','dynamicToolHelp']) html=fill(html,id,elements[id].innerHTML || escape(elements[id].textContent));
+  if (calculator.target === 'etsyFee') html=html.replace('id="dynamicToolDisplay"', 'id="dynamicToolDisplay" hidden');
  }
  const inactive=[];
  for (const id of new Set(data.map(c=>c.elementId))) {

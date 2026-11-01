@@ -2598,4 +2598,25 @@ body.app-page .calculator .button[onclick^="clear"],body.app-page .calculator .b
 .app-page .roof-pitch-results h3 { margin:20px 0 8px;font-size:1rem; }
 .app-page .finance-result .roof-pitch-details > div { display:grid;grid-template-columns:minmax(90px,1fr) minmax(0,2fr);gap:12px; }
 #roofPitchCopy:disabled { opacity:.5;cursor:not-allowed; }
+/* Etsy only: keep order inputs separate from optional fee settings and totals. */
+#dynamicToolDisplay[hidden] { display:none!important; }
+.etsy-form { min-width:0;text-align:left; }
+.etsy-form fieldset { min-width:0;border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 16px; }
+.etsy-form legend,.etsy-settings summary { font-weight:700;padding:4px; }
+.etsy-fields { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+.app-page .calculator .etsy-fields .field-group { min-width:0;grid-column:auto; }
+.etsy-fields select { max-width:100%; }
+.app-page .calculator .etsy-fields .dynamic-check { align-items:flex-start;background:var(--surface);border:1px solid var(--line);box-shadow:none; }
+.etsy-settings { margin-bottom:16px; }
+.etsy-settings summary { cursor:pointer;margin-bottom:12px; }
+.etsy-note { font-size:.9rem;line-height:1.6;margin:12px 0; }
+.etsy-actions { display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin:16px 0; }
+.app-page #dynamicToolCalculator .etsy-actions .button { min-height:48px;white-space:normal;grid-column:auto; }
+#dynamicToolCalculator:has(.etsy-form) #dynamicToolHelp:empty { display:none; }
+#etsyFeeCopy:disabled { opacity:.5;cursor:not-allowed; }
+.app-page .finance-result .etsy-main { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+.app-page .finance-result .etsy-main > div { display:block;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:8px; }
+.app-page .finance-result .etsy-main dd { margin:8px 0 0;text-align:left;font-size:1.3rem;font-weight:700;overflow-wrap:anywhere; }
+.etsy-results dt,.etsy-results dd { overflow-wrap:anywhere; }
+@media(max-width:600px){.etsy-fields{grid-template-columns:1fr;}.etsy-actions{grid-template-columns:1fr 1fr;}.app-page #dynamicToolCalculator .etsy-actions .button:first-child{grid-column:1/-1;}.app-page .finance-result .etsy-main{grid-template-columns:1fr;}}
 @media(max-width:400px){ .app-page .finance-result .roof-pitch-main { grid-template-columns:1fr; } }

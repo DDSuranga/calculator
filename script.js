@@ -23,6 +23,8 @@ const CATEGORY_ANCHORS = {
 };
 const RECENT_CALCULATORS_KEY = 'onlineCalMasterRecentCalculators';
 const RELATED_OVERRIDES = {
+    etsyFee: ['profitMargin', 'breakEven', 'salesTax', 'percentage'],
+    profitMargin: ['etsyFee', 'breakEven', 'roi', 'percentage'],
     roofPitch: ['area', 'volume', 'unit', 'scientific'],
     zScore: ['scientific', 'percentage', 'basic'],
     cbm: ['volume', 'unit', 'area', 'basic'],
@@ -90,7 +92,8 @@ const calculatorData = [
     { name: 'Area', category: 'Education', target: 'area', slug: 'area-calculator', elementId: 'areaCalculator', title: 'Area Calculator', heightClass: 'extra-tall', seoTitle: 'Area Calculator – 7 Shapes, Formulas & Examples | OnlineCalMaster', metaDescription: 'Calculate area for rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Get square-unit results with formulas and examples.' },
     { name: 'Z-Score Calculator', category: 'Education', target: 'zScore', slug: 'z-score-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'zScore', heightClass: 'extra-tall', seoTitle: 'Z-Score Calculator – Calculate Standard Scores Online', metaDescription: 'Calculate a z-score from a raw score, population mean and standard deviation. See the standard score formula, interpretation and worked examples.' },
     { name: 'CBM Shipping Calculator', category: 'Business', target: 'cbm', slug: 'cbm-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'cbm', heightClass: 'extra-tall', seoTitle: 'CBM Calculator – Calculate Shipping Volume Online', metaDescription: 'Calculate CBM per carton, total shipping volume and cubic feet from dimensions and quantity. Enter centimeters, meters, inches or feet.' },
-    { name: 'Roof Pitch Calculator', category: 'Education', target: 'roofPitch', slug: 'roof-pitch-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'roofPitch', seoTitle: 'Roof Pitch Calculator – Pitch, Angle & Rafter Length | OnlineCalMaster', metaDescription: 'Calculate roof pitch in X:12, angle in degrees, slope percentage and straight-line rafter length from rise and run in inches, feet, centimeters or meters.' }
+    { name: 'Roof Pitch Calculator', category: 'Education', target: 'roofPitch', slug: 'roof-pitch-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'roofPitch', seoTitle: 'Roof Pitch Calculator – Pitch, Angle & Rafter Length | OnlineCalMaster', metaDescription: 'Calculate roof pitch in X:12, angle in degrees, slope percentage and straight-line rafter length from rise and run in inches, feet, centimeters or meters.' },
+    { name: 'Etsy Fee Calculator', category: 'Business', target: 'etsyFee', slug: 'etsy-fee-calculator', elementId: 'dynamicToolCalculator', dynamicTool: 'etsyFee', seoTitle: 'Etsy Fee Calculator – Free Seller Profit Calculator', metaDescription: 'Estimate US Etsy selling fees and profit after item costs, shipping and gift wrap. Adjust listing fees, processing, Offsite Ads and currency conversion.' }
 ];
 
 function getCalculatorByTarget(type) {
@@ -111,6 +114,46 @@ const HOME_LOAN_CURRENCIES = {
 };
 
 const dynamicToolDefinitions = {
+    etsyFee: {
+        description: 'Estimate one US Etsy Payments order in USD, with identical units from one listing. Separate Etsy selling fees, your costs and collected sales tax to estimate profit.',
+        fields: [
+            { id: 'etsyPrice', label: 'Item selling price per unit (USD)', min: 0, step: '0.01', placeholder: '30.00' },
+            { id: 'etsyQuantity', label: 'Quantity sold (same listing)', min: 1, max: 1000000, step: '1', value: '1' },
+            { id: 'etsyUnitCost', label: 'Item cost per unit (USD)', min: 0, step: '0.01', value: '0' },
+            { id: 'etsyShipping', label: 'Shipping charged to buyer (order, USD)', min: 0, step: '0.01', value: '0' },
+            { id: 'etsyShippingCost', label: 'Actual shipping cost (order, USD)', min: 0, step: '0.01', value: '0' },
+            { id: 'etsyWrap', label: 'Gift wrap charged (order, USD)', min: 0, step: '0.01', value: '0' },
+            { id: 'etsyWrapCost', label: 'Gift wrap cost (order, USD)', min: 0, step: '0.01', value: '0' },
+            { id: 'etsyTax', label: 'Sales tax collected/remitted by Etsy (USD amount)', min: 0, step: '0.01', value: '0' },
+            { id: 'etsyListingMode', label: 'Listing fee treatment', type: 'select', value: 'allocate', options: [['allocate', 'Original + extra units'], ['incremental', 'Extra units only'], ['none', 'Exclude listing fees']] },
+            { id: 'etsyRenew', label: 'Include one auto-renew-sold fee: stock remains listed after sale', type: 'checkbox' },
+            { id: 'etsyOffsite', label: 'Offsite Ads attributed order?', type: 'select', value: 'none', options: [['none', 'No Offsite Ads fee'], ['15', '15% tier (editable below)'], ['12', '12% tier (editable below)']] },
+            { id: 'etsyConversion', label: 'Apply currency conversion fee (listing/payment currencies differ)', type: 'checkbox' },
+            { id: 'etsyListingRate', label: 'Listing fee per listing / extra unit (USD)', min: 0, step: '0.01', value: '0.20' },
+            { id: 'etsyTransactionRate', label: 'Transaction fee (%)', min: 0, max: 100, step: '0.0001', value: '6.5' },
+            { id: 'etsyProcessingRate', label: 'Payment processing (%)', min: 0, max: 100, step: '0.0001', value: '3' },
+            { id: 'etsyProcessingFixed', label: 'Payment processing fixed fee per order (USD)', min: 0, step: '0.01', value: '0.25' },
+            { id: 'etsyOffsite15', label: 'Offsite Ads lower-sales tier (%)', min: 0, max: 100, step: '0.0001', value: '15' },
+            { id: 'etsyOffsite12', label: 'Offsite Ads qualifying tier (%)', min: 0, max: 100, step: '0.0001', value: '12' },
+            { id: 'etsyConversionRate', label: 'Currency conversion fee (%)', min: 0, max: 100, step: '0.0001', value: '2.5' }
+        ],
+        help: {
+            what: 'This Etsy profit calculator estimates a single order from one listing for a seller with a US bank account using Etsy Payments. All amounts are USD equivalents. It does not convert exchange rates. Gross sales revenue excludes tax collected and remitted by Etsy. Net profit here is revenue minus the modeled Etsy fees and entered costs, before income tax and any unentered overhead.',
+            how: 'Enter the discounted selling price per unit and quantity, then your per-unit cost. Shipping, gift wrap and sales tax are totals for the whole order, not per unit. Choose how to account for the original listing fee; only include the extra renewal when remaining stock stays listed. Select an Offsite Ads tier only for an attributed order. Open Fee settings to edit defaults. Calculate, review the breakdown, then Copy. For mixed listings, calculate their listing charges separately; do not repeat the per-order processing charge for each item.',
+            formula: 'Revenue R = price × quantity + buyer shipping + gift wrap. Payment P = R + Etsy-collected sales tax. Transaction fee = R × rate. Processing fee = P × rate + one fixed charge. Offsite Ads = min(R × selected rate, $100) when applicable. Conversion estimate = R × conversion rate when applicable (gross sales funds before fees, excluding remitted tax; compare with your Etsy statement). Listing charges = selected original allocation + (quantity − 1) × listing fee + optional one renewal; excluding listing fees makes all three zero. Costs = per-unit cost × quantity + actual shipping + wrap cost. Profit = R − total fees − costs. Margin = profit / R × 100; effective fee percentage = fees / R × 100. Both percentages are unavailable when R is zero. Each fee category is rounded to cents before totaling; Etsy statement rounding may differ.',
+            example: 'Two items at $30 each, $10 cost each, $5 shipping charged / $4 shipping cost, $3 wrap charged / $1 wrap cost, and $5.44 Etsy-collected tax: revenue is $68.00; buyer payment is $73.44. Allocate the original $0.20 plus one additional-unit $0.20, without another renewal. Transaction: $68 × 6.5% = $4.42. Processing: $73.44 × 3% + $0.25 = $2.4532, rounded to $2.45. With no ads or conversion, fees total $7.27, costs $25.00, profit $35.73, margin 52.54% and effective fees 10.69%. The $5.44 tax is not profit. A 15% attributed Offsite Ads fee adds $10.20; profit becomes $25.53.',
+            faqs: [
+                ['Will this charge the original listing fee twice?', 'No. The default allocates it once and adds a fee for each extra unit sold from that listing. If you already booked the original fee elsewhere, select additional units only. A separate unchecked option includes one auto-renew-sold fee for remaining stock. This is distinct from the original fee and is not automatically added. Expired unsold renewals and other listings are outside this order estimate.'],
+                ['Which amounts include sales tax?', 'For this US model, transaction and Offsite Ads fees exclude sales tax collected and remitted by Etsy. Payment processing includes it. Enter a tax amount, not a tax rate. The calculator does not determine taxability, calculate sales tax or advise on seller tax obligations.'],
+                ['Which Offsite Ads tier should I choose?', 'Use the tier applicable to your shop and only for an attributed order. Etsy generally uses 15% below $10,000 in qualifying sales during a 365-day period, with 12% after the threshold is reached; participation then becomes required under its policy. Attribution and eligibility are determined by Etsy, not by this order value. The modeled charge is capped at $100 per order. Verify current terms in <a href="https://www.etsy.com/legal/fees/">Etsy’s Fees & Payments Policy</a>.'],
+                ['What fees are excluded?', 'Refunds, cancellations and fee credits are not modeled. Neither are deposit or payout charges, reserves, VAT on seller fees, seller-specific taxes, regulatory or other special country fees, setup fees, Etsy Ads pay-per-click spending, subscriptions, shipping-label adjustments, labor or overhead not entered as costs. This is a US order estimate, not a payout reconciliation or tax return.'],
+                ['Why can a zero sale or free item show a loss?', 'Zero inputs are allowed for what-if analysis. Listing charges and the fixed processing charge still follow your settings for this assumed order, even at zero buyer payment. A zero-payment scenario is not a prediction that Etsy will process such a payment. Check the actual statement; margin and effective fee percentage cannot be calculated on zero revenue. Negative prices and costs are not supported; this is not a refunds calculator.'],
+                ['Where do the editable defaults come from?', 'Defaults checked 1 November 2026: $0.20 listing, 6.5% transaction, US processing 3% + $0.25, Offsite Ads 15% / 12% with a $100 cap, and optional 2.5% conversion. See <a href="https://www.etsy.com/legal/fees/">fees policy</a>, <a href="https://help.etsy.com/hc/en-us/articles/360000344908-Fees-and-Listing-Multiple-Quantities">multiple quantities</a>, <a href="https://help.etsy.com/hc/en-us/articles/115015628847-What-are-Payment-Processing-Fees-for-Selling-on-Etsy">payment processing</a>, and <a href="https://help.etsy.com/hc/en-us/articles/360000344668-Currency-Conversion-Fees">conversion fees</a>. Change the rates if your applicable terms differ. Independent estimator; not affiliated with Etsy.'],
+                ['How can I compare profit without marketplace fees?', 'Use the <a href="/profit-margin-calculator/">Profit Margin Calculator</a> for a general cost-and-revenue comparison, or the <a href="/break-even-calculator/">Break-Even Calculator</a> to include fixed business costs. Neither automatically applies Etsy fees.']
+            ]
+        },
+        calculate: calculateEtsyFees
+    },
     roofPitch: {
         description: 'Enter vertical rise and horizontal run in the same unit to calculate the slope of one roof section.',
         fields: [
@@ -1031,6 +1074,8 @@ function renderHelpContent(definition, calculator) {
 function renderDynamicTool(calculator) {
     const definition = dynamicToolDefinitions[calculator.dynamicTool];
     if (!definition) return;
+    if (calculator.target === 'etsyFee') { renderEtsyTool(calculator, definition); return; }
+    document.getElementById('dynamicToolDisplay').hidden = false;
 
     document.getElementById('dynamicToolTitle').textContent = getCalculatorTitle(calculator);
     document.getElementById('dynamicToolDescription').textContent = definition.description;
@@ -1081,9 +1126,14 @@ function showDynamicMessage(message, isError = false) {
     }
     latestDynamicToolCopyText = '';
     if (activeDisplay === 'roofPitch') document.getElementById('roofPitchCopy').disabled = true;
+    if (activeDisplay === 'etsyFee') {
+        document.getElementById('etsyFeeCopy').disabled = true;
+        if (display) display.hidden = true;
+    }
 }
 
 function renderDynamicResult(result) {
+    if (activeDisplay === 'etsyFee') { renderEtsyResult(result); return; }
     if (activeDisplay === 'roofPitch') { renderRoofPitchResult(result); return; }
     const display = document.getElementById('dynamicToolDisplay');
     const resultBox = document.getElementById('dynamicToolResult');
@@ -3881,6 +3931,7 @@ function getCalculatorReadingHtml(calculator) {
  return reading ? '<h3>Learn the method</h3><ul>'+reading.map(([slug,title])=>'<li><a href="/blog/'+slug+'/">'+escapeGuideText(title)+'</a></li>').join('')+'</ul>' : '';
 }
 function getCalculatorGuideHtml(calculator) {
+ if (calculator.target === 'etsyFee') return renderHelpContent(dynamicToolDefinitions.etsyFee, calculator);
  if (calculator.target === 'roofPitch') return renderHelpContent(dynamicToolDefinitions.roofPitch, calculator);
  const guide = CLASSIC_GUIDES[calculator.target];
  const furtherReading = getCalculatorReadingHtml(calculator);
@@ -3900,7 +3951,7 @@ function renderCalculatorContext(calculator) {
  const description=panel?.querySelector('.calculator-description')?.textContent || calculator.metaDescription;
  const context=document.getElementById('contextDescription'); if(context) context.textContent=description;
  const guide=document.getElementById('calculatorGuide'); if(!guide) return;
- if (CLASSIC_GUIDES[calculator.target] || calculator.target === 'roofPitch') {
+ if (CLASSIC_GUIDES[calculator.target] || calculator.target === 'roofPitch' || calculator.target === 'etsyFee') {
   guide.innerHTML = getCalculatorGuideHtml(calculator);
   return;
  }
@@ -3937,6 +3988,109 @@ function calculateRoofPitchValues(values) {
     const rafter = Math.hypot(riseMeters, runMeters) / factor;
     if (![riseMeters, runMeters, slope, pitch, percent, angle, rafter].every(Number.isFinite) || runMeters <= 0 || rafter <= 0 || (rise > 0 && (riseMeters === 0 || slope === 0 || angle === 0))) throw new Error('These measurements exceed the supported numerical range. Use less extreme values.');
     return { rise, run, unit: values.roofUnit, slope, pitch, percent, angle, rafter };
+}
+
+// Etsy-only fixed-point arithmetic: money in cents, rates in 1/10000 percent.
+// Round nonnegative fee categories half-up once; do not round their bases first again.
+function calculateEtsyFees(values) {
+    function scaled(id, places, max, label) {
+        const raw = String(values[id] ?? '').trim();
+        if (!new RegExp('^\\d+(?:\\.\\d{1,' + places + '})?$').test(raw) || raw.length > 24)
+            throw new Error(label + ': enter a nonnegative number with up to ' + places + ' decimal places.');
+        const [whole, fraction = ''] = raw.split('.');
+        const value = BigInt(whole) * 10n ** BigInt(places) + BigInt(fraction.padEnd(places, '0'));
+        if (value > max) throw new Error(label + ' exceeds the supported limit. Use a smaller order.');
+        return value;
+    }
+    const money = (id, label) => scaled(id, 2, 100000000000n, label); // $1 billion per amount
+    const rate = (id, label) => scaled(id, 4, 1000000n, label); // 0–100%
+    const quantityText = String(values.etsyQuantity ?? '').trim();
+    if (!/^\d{1,7}$/.test(quantityText) || Number(quantityText) < 1 || Number(quantityText) > 1000000)
+        throw new Error('Quantity must be a whole number from 1 to 1,000,000.');
+    const quantity = BigInt(quantityText);
+    if (!['allocate', 'incremental', 'none'].includes(values.etsyListingMode)) throw new Error('Choose a listing fee treatment.');
+    if (!['none', '15', '12'].includes(values.etsyOffsite)) throw new Error('Choose a valid Offsite Ads tier.');
+    if (values.etsyListingMode === 'none' && values.etsyRenew) throw new Error('Turn off renewal or choose a listing fee treatment that includes fees.');
+    const itemRevenue = money('etsyPrice', 'Item price') * quantity;
+    const shipping = money('etsyShipping', 'Buyer shipping'), wrap = money('etsyWrap', 'Buyer gift wrap');
+    const revenue = itemRevenue + shipping + wrap, tax = money('etsyTax', 'Sales tax'), payment = revenue + tax;
+    const itemCosts = money('etsyUnitCost', 'Item cost') * quantity;
+    const shippingCost = money('etsyShippingCost', 'Shipping cost'), wrapCost = money('etsyWrapCost', 'Wrap cost');
+    const costs = itemCosts + shippingCost + wrapCost;
+    if (payment > 100000000000000n || costs > 100000000000000n) throw new Error('Order payment and total costs must each be at most $1 trillion. Reduce price, costs or quantity.');
+    const listingRate = money('etsyListingRate', 'Listing fee');
+    const transactionRate = rate('etsyTransactionRate', 'Transaction rate');
+    const processingRate = rate('etsyProcessingRate', 'Processing rate');
+    const processingFixed = money('etsyProcessingFixed', 'Fixed processing fee');
+    const offsite15 = rate('etsyOffsite15', 'Offsite Ads rate'), offsite12 = rate('etsyOffsite12', 'Offsite Ads rate');
+    const conversionRate = rate('etsyConversionRate', 'Conversion rate');
+    const fee = (base, percent) => (base * percent + 500000n) / 1000000n;
+    const originalListing = values.etsyListingMode === 'allocate' ? listingRate : 0n;
+    const additionalListing = values.etsyListingMode === 'none' ? 0n : (quantity - 1n) * listingRate;
+    const renewal = values.etsyRenew ? listingRate : 0n;
+    const transaction = fee(revenue, transactionRate), processing = fee(payment, processingRate) + processingFixed;
+    const offsiteUncapped = values.etsyOffsite === 'none' ? 0n : fee(revenue, values.etsyOffsite === '15' ? offsite15 : offsite12);
+    const offsite = offsiteUncapped > 10000n ? 10000n : offsiteUncapped;
+    const conversion = values.etsyConversion ? fee(revenue, conversionRate) : 0n;
+    const fees = originalListing + additionalListing + renewal + transaction + processing + offsite + conversion;
+    const profit = revenue - fees - costs;
+    if (fees > 100000000000000n) throw new Error('Estimated fees exceed $1 trillion. Check listing fees and quantity.');
+    const usd = cents => (Number(cents) / 100).toLocaleString('en-US', {style:'currency', currency:'USD'});
+    const margin = revenue ? (Number(profit) / Number(revenue) * 100).toFixed(2) + '%' : 'N/A — zero revenue';
+    const effective = revenue ? (Number(fees) / Number(revenue) * 100).toFixed(2) + '%' : 'N/A — zero revenue';
+    const rows = [
+        ['Gross sales revenue (excludes tax)', usd(revenue)], ['Total Etsy fees', usd(fees)],
+        ['Total entered costs', usd(costs)], ['Estimated net profit', usd(profit)],
+        ['Profit margin (profit / revenue)', margin], ['Effective fee percentage (fees / revenue)', effective],
+        ['Item revenue (' + quantity + ' units)', usd(itemRevenue)], ['Buyer shipping / gift wrap', usd(shipping) + ' / ' + usd(wrap)],
+        ['Etsy-collected sales tax — not revenue', usd(tax)], ['Buyer payment (processing base)', usd(payment)],
+        ['Original listing fee allocated once', usd(originalListing)], ['Additional-unit listing fees', usd(additionalListing)],
+        ['Optional remaining-stock renewal', usd(renewal)], ['Transaction fee (revenue base)', usd(transaction)],
+        ['Payment processing (one fixed fee included)', usd(processing)], ['Offsite Ads (maximum $100/order)', usd(offsite)],
+        ['Optional currency conversion (revenue base)', usd(conversion)], ['Item costs (' + quantity + ' units)', usd(itemCosts)],
+        ['Actual shipping / gift wrap costs', usd(shippingCost) + ' / ' + usd(wrapCost)]
+    ];
+    return {display:usd(profit), rows, copyText:'Etsy US order estimate (USD)\n' + rows.map(([k,v]) => k + ': ' + v).join('\n') + '\nBefore income tax and unentered overhead; not a payout statement. Fees rounded per category.',
+        cents: Object.fromEntries(Object.entries({revenue,payment,tax,originalListing,additionalListing,renewal,transaction,processing,offsite,conversion,fees,costs,profit}).map(([k,v]) => [k,Number(v)]))};
+}
+
+function renderEtsyTool(calculator, definition) {
+    document.getElementById('dynamicToolTitle').textContent = getCalculatorTitle(calculator);
+    document.getElementById('dynamicToolDescription').textContent = definition.description;
+    document.getElementById('dynamicToolDisplay').value = '';
+    document.getElementById('dynamicToolDisplay').hidden = true;
+    document.getElementById('dynamicToolHelp').innerHTML = '';
+    latestDynamicToolCopyText = '';
+    const group = (start, end) => definition.fields.slice(start, end).map(renderDynamicField).join('');
+    const form = document.getElementById('dynamicToolForm');
+    form.innerHTML = '<div class="etsy-form dynamic-wide"><fieldset><legend>Order amounts — USD</legend><div class="etsy-fields">' + group(0,8) + '</div></fieldset><fieldset><legend>Applicable fees</legend><div class="etsy-fields">' + group(8,12) + '</div><p class="etsy-note">One listing, one order. Shipping, wrap and tax are order totals. No exchange-rate conversion. All amounts: up to $1 billion, 2 decimals; quantity: up to 1 million; order payment/cost totals: up to $1 trillion.</p></fieldset><details class="etsy-settings"><summary>Fee settings — edit US defaults</summary><div class="etsy-fields">' + group(12) + '</div><p class="etsy-note">Rates: 0–100%, up to 4 decimals. Checked 1 November 2026; verify your applicable Etsy terms. Offsite Ads cap: $100/order.</p></details><div class="etsy-actions"><button type="button" class="button operator" onclick="calculateDynamicTool()">Calculate Etsy Profit</button><button type="button" class="button operator" onclick="clearDynamicTool()">Clear</button><button type="button" class="button operator copy-button" id="etsyFeeCopy" disabled onclick="copyDynamicToolResult()">Copy</button></div><div class="finance-result" id="dynamicToolResult" aria-live="polite"><p class="finance-message" id="dynamicToolMessage">Enter the order amounts to estimate fees and profit.</p></div></div>';
+    // Property assignment replaces the handler when this shared container changes tools.
+    form.onkeydown = event => {
+        if (activeDisplay === 'etsyFee' && event.key === 'Enter' && event.target.tagName === 'INPUT') {
+            event.preventDefault(); calculateDynamicTool();
+        }
+    };
+    definition.fields.forEach(field => {
+        const invalidate = () => {
+            document.getElementById('etsyFeeCopy').disabled = true;
+            latestDynamicToolCopyText = '';
+            document.getElementById('dynamicToolDisplay').value = '';
+            document.getElementById('dynamicToolDisplay').hidden = true;
+            document.getElementById('dynamicToolResult').innerHTML = '<p class="finance-message" id="dynamicToolMessage">Inputs changed. Calculate to update the estimate.</p>';
+        };
+        const input = document.getElementById('dynamic-' + field.id);
+        input.addEventListener('input', invalidate);
+        input.addEventListener('change', invalidate);
+    });
+}
+
+function renderEtsyResult(result) {
+    document.getElementById('dynamicToolDisplay').value = result.display;
+    document.getElementById('dynamicToolDisplay').hidden = false;
+    const row = ([label,value]) => '<div><dt>' + label + '</dt><dd>' + value + '</dd></div>';
+    document.getElementById('dynamicToolResult').innerHTML = '<section class="etsy-results" aria-label="Etsy fee estimate"><dl class="etsy-main">' + result.rows.slice(0,6).map(row).join('') + '</dl><h3>Order and fee breakdown</h3><dl>' + result.rows.slice(6).map(row).join('') + '</dl><p class="etsy-note">USD estimate before income tax and unentered overhead. Sales tax is excluded from revenue and profit. Read the assumptions below; this is not an Etsy payout statement.</p></section><p class="finance-copy-status" id="dynamicToolCopyStatus"></p>';
+    latestDynamicToolCopyText = result.copyText;
+    document.getElementById('etsyFeeCopy').disabled = false;
 }
 
 function renderRoofPitchResult(result) {
