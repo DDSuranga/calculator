@@ -3196,10 +3196,18 @@ function calculateVolume() {
         formula = 'length x width x height';
     }
 
-    const formattedVolume = `${Number(volume).toLocaleString('en-US', {
+    if (!Number.isFinite(volume)) {
+        setVolumeMessage('The calculated volume is too large to display. Please enter smaller dimensions.', true);
+        return;
+    }
+
+    const volumeText = volume > 0 && volume < 0.005
+        ? Number(volume.toPrecision(6)).toExponential()
+        : Number(volume).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    })} ${unit}³`;
+    });
+    const formattedVolume = `${volumeText} ${unit}³`;
 
     display.value = formattedVolume;
 
