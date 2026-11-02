@@ -1,6 +1,6 @@
 // Run against an HTTP preview of this worktree; no external requests or real analytics.
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),os=require('node:os'),path=require('node:path');
-const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/Lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.argv[2]||'http://127.0.0.1:5503';
 (async()=>{
  const browser=await chromium.launch({channel:'chrome',headless:true});
