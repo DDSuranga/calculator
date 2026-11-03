@@ -107,8 +107,41 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Health","item":"https://onlinecalmaster.com/#health-calculators"},{"@type":"ListItem","position":3,"name":"BMI Calculator","item":"https://onlinecalmaster.com/bmi-calculator/"}]}</script>
+<style id="bmi-page-css">.bmi-page-active .hero-banner{background:linear-gradient(115deg,#054aab,#0071c4 70%,#0064b8);color:white;position:relative;overflow:hidden}.bmi-page-active .hero-banner h1,.bmi-page-active .hero-banner p{color:white}.bmi-page-active .hero-art{display:none}.bmi-hero-art{position:absolute;right:30px;top:10px;width:210px;opacity:.95;pointer-events:none}.bmi-page-active .hero-copy{max-width:calc(100% - 220px)}
+.bmi-page-active #bmiCalculator{background:transparent;border:0;box-shadow:none;padding:0;max-width:none;width:100%}.bmi-page-active .calculator-content-grid{grid-template-columns:minmax(0,1fr)}
+.bmi-workspace{--bmi-ink:#122443;--bmi-muted:#4b607c;--bmi-card:#fff;--bmi-border:#d4e4f5;color:var(--bmi-ink);font-family:inherit;display:grid;grid-template-columns:minmax(235px,.85fr) minmax(180px,.65fr) minmax(300px,1.3fr);gap:20px;align-items:start;margin:8px 0 24px}.bmi-workspace *{box-sizing:border-box}.bmi-box{border:1px solid var(--bmi-border);border-radius:22px;background:var(--bmi-card);padding:24px;box-shadow:0 5px 18px #17508b0a}.bmi-workspace h2{font-size:21px;margin:0 0 20px;color:var(--bmi-ink)}.bmi-workspace h3{font-size:17px;color:var(--bmi-ink);margin:0 0 14px}.bmi-workspace p{font-size:14px;line-height:1.6;color:var(--bmi-muted)}.bmi-workspace label,.bmi-workspace legend{font-size:14px;font-weight:650}.bmi-workspace input,.bmi-workspace select{width:100%;min-width:0;min-height:44px;border:1px solid #a9bed8;border-radius:10px;background:var(--bmi-card);color:var(--bmi-ink);font:inherit;padding:10px}.bmi-workspace input[type=range]{padding:0;accent-color:#087ad1;min-height:30px}.bmi-workspace fieldset{border:0;padding:0;margin:0 0 20px}.bmi-sex{display:flex;gap:10px;margin-top:10px}.bmi-sex label{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--bmi-border);border-radius:12px;padding:12px;background:#f3f7ff}.bmi-sex label:has(:checked){background:#0875d1;color:#fff;border-color:#0875d1}.bmi-sex input{width:16px;min-height:20px;accent-color:#fff}.bmi-field{display:block;margin:0 0 18px}.bmi-field>span{display:block;margin-bottom:8px}.bmi-pair{display:grid;grid-template-columns:1fr 90px;gap:8px}.bmi-workspace button{font:inherit;font-weight:650;border-radius:11px;border:1px solid #acbfd9;padding:12px;cursor:pointer;min-height:44px;color:var(--bmi-ink);background:var(--bmi-card)}.bmi-workspace .bmi-calculate{background:linear-gradient(110deg,#0072c4,#0060bd);border:0;color:#fff;width:100%;margin:4px 0 12px}.bmi-actions{display:flex;gap:8px}.bmi-actions button{flex:1}.bmi-workspace button:disabled{opacity:.55;cursor:not-allowed}.bmi-workspace :focus-visible{outline:3px solid #8159d5;outline-offset:3px}.bmi-avatar-panel{text-align:center;align-self:center}.bmi-avatar{width:100%;max-width:230px;height:350px;overflow:visible}.bmi-avatar .bmi-body{transform-origin:120px 200px;transition:transform .45s ease}.bmi-avatar .bmi-person{transform-origin:120px 370px;transition:transform .45s ease}.bmi-avatar .bmi-hair{fill:var(--hair,#55362b)}.bmi-avatar-panel figcaption{border:1px solid #66c9b5;border-radius:24px;padding:7px 12px;background:var(--bmi-card);font-weight:650;font-size:14px}.bmi-avatar-panel p{font-size:12px}.bmi-result-box{background:linear-gradient(145deg,#fff0f9,var(--bmi-card) 65%);min-height:360px}.bmi-summary{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between}.bmi-score{font-size:38px;font-weight:800;color:var(--bmi-ink);letter-spacing:-1px}.bmi-score small{font-size:16px;letter-spacing:0}.bmi-category{font-size:14px;font-weight:750;padding:9px 12px;border-radius:12px;background:#f4e5ef;color:#6f234c}.bmi-gauge{width:100%;max-height:215px;display:block;margin-top:10px}.bmi-gauge text{font-family:inherit;fill:var(--bmi-ink);font-size:12px}.bmi-needle{transition:transform .5s ease;transform-origin:160px 155px}.bmi-lower{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}.bmi-details dl{margin:0}.bmi-details dl>div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--bmi-border);padding:10px 0;font-size:13px}.bmi-details dd{margin:0;text-align:right;font-weight:600}.bmi-chart{width:100%;height:auto;display:block}.bmi-chart text{fill:var(--bmi-ink);font:12px sans-serif}.bmi-zones{list-style:none;margin:0;padding:0}.bmi-zones li{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:8px 0;border-bottom:1px solid var(--bmi-border)}.bmi-zones i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}.bmi-notice{grid-column:1/-1;background:linear-gradient(120deg,#e7f8ec,#e6f6ff);border:1px solid var(--bmi-border);border-radius:20px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:28px}.bmi-workspace a{color:#075fa8;text-decoration:underline}.bmi-workspace [hidden]{display:none!important}.bmi-error{color:#a51c35!important;min-height:0}.bmi-error:empty{margin:0}.bmi-placeholder{padding:35px 10px;text-align:center}.bmi-placeholder strong{display:block;font-size:45px;color:#0578d1}.bmi-formula{overflow-wrap:anywhere}.bmi-workspace figure{margin:0}.bmi-page-active .hero-banner{padding-right:245px}
+body.dark-mode .bmi-workspace{--bmi-ink:#edf5ff;--bmi-muted:#bbcce0;--bmi-card:#10283e;--bmi-border:#36516c}body.dark-mode .bmi-sex label{background:#17354f}body.dark-mode .bmi-sex label:has(:checked){background:#1266b4}body.dark-mode .bmi-result-box{background:linear-gradient(145deg,#382341,#10283e 65%)}body.dark-mode .bmi-notice{background:linear-gradient(120deg,#163c36,#14334c)}body.dark-mode .bmi-category{background:#512b44;color:#ffdeec}body.dark-mode .bmi-workspace a{color:#88ceff}body.dark-mode .bmi-error{color:#ffb9c5!important}
+@media(min-width:1200px){.bmi-page-active .workspace-grid{grid-template-columns:minmax(0,1fr)}.bmi-page-active .seo-column{display:grid;grid-template-columns:1fr 1fr;gap:20px}.bmi-page-active .seo-column .info-card{margin:0}}
+@media(max-width:1100px){.bmi-workspace{grid-template-columns:1fr 1fr}.bmi-avatar-panel{grid-column:2;grid-row:1}.bmi-result-box{grid-column:1/-1}.bmi-lower{grid-template-columns:1fr 1fr}.bmi-categories{grid-column:1/-1}.bmi-hero-art{width:140px;right:12px;top:35px}.bmi-page-active .hero-banner{padding-right:160px}}
+@media(max-width:600px){.bmi-workspace{grid-template-columns:minmax(0,1fr);gap:16px}.bmi-avatar-panel{grid-column:1;grid-row:auto}.bmi-avatar{height:260px}.bmi-lower,.bmi-notice{grid-template-columns:1fr}.bmi-box{padding:20px}.bmi-hero-art{display:none}.bmi-page-active .hero-banner{padding-right:20px}.bmi-page-active .hero-copy{max-width:100%}.bmi-score{font-size:32px}}
+@media(prefers-reduced-motion:reduce){.bmi-avatar *,.bmi-needle{transition:none!important}}
+@media(min-width:1051px){body.bmi-page-active .container{grid-template-columns:220px minmax(0,1fr);max-width:1800px;gap:20px;width:calc(100% - 40px)}body.bmi-page-active .calculator-container,body.bmi-page-active .contextual-panel{grid-column:2}body.bmi-page-active .contextual-panel{display:grid;grid-template-columns:1fr 1fr;gap:20px}body.bmi-page-active .sidebar{grid-row:1/5}}
+@media(max-width:1050px) and (min-width:721px){body.bmi-page-active .container{grid-template-columns:minmax(0,1fr)}body.bmi-page-active .calculator-container,body.bmi-page-active .contextual-panel{grid-column:1}}
+body.bmi-page-active .compact-hero{background:linear-gradient(115deg,#054aab,#0071c4 70%,#0064b8);color:#fff;position:relative;overflow:hidden;padding:24px 245px 24px 28px;min-height:160px}body.bmi-page-active .compact-hero h1,body.bmi-page-active .compact-hero .hero-subtitle,body.bmi-page-active .compact-hero .hero-eyebrow,body.bmi-page-active .hero-benefits{color:#fff}body.bmi-page-active #bmiCalculator{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}body.bmi-page-active .calculator-container{min-width:0}body.bmi-page-active .calculator-help{margin-top:20px}
+@media(max-width:1100px){body.bmi-page-active .compact-hero{padding-right:165px}}
+@media(max-width:600px){body.bmi-page-active .compact-hero{padding:22px}}
+.bmi-hero-art svg{width:100%;height:auto}.bmi-workspace>*,.bmi-lower>*{min-width:0}
+
+.bmi-workspace .bmi-field .bmi-pair{display:grid}.bmi-workspace p{font-weight:400}.bmi-page-active #bmiCalculator>.calculator-help{background:var(--panel-bg,#f5f8ff)}
+body.bmi-page-active .contextual-panel{grid-row:3}body.bmi-page-active .sidebar{grid-row:1 / span 3}
+/* BMI presentation is isolated from shared calculator layouts. */
+.bmi-workspace{grid-template-columns:minmax(240px,.85fr) minmax(270px,.95fr) minmax(340px,1.35fr);gap:16px;align-items:stretch}.bmi-workspace>#bmi-interactive-form{grid-column:1;grid-row:1 / span 2}.bmi-avatar-panel{grid-column:2;grid-row:1;align-self:stretch;display:flex;flex-direction:column;justify-content:end;min-height:385px}.bmi-result-box{grid-column:3;grid-row:1;min-height:385px;padding:20px;border:3px solid #fff;background:linear-gradient(135deg,#fff0f9,#fffaff 70%);box-shadow:0 3px 13px #527aa521}.bmi-lower{grid-column:2 / -1;grid-row:2;gap:12px;grid-template-columns:1fr 1fr 1.1fr}.bmi-lower .bmi-box{padding:16px;border-radius:18px}.bmi-lower h3{font-size:15px;margin-bottom:10px}.bmi-lower p{font-size:11px;line-height:1.5;margin:8px 0}.bmi-lower .bmi-details dl>div{font-size:12px;padding:7px 0}.bmi-lower .bmi-zones li{font-size:11px;padding:7px 0}.bmi-lower .bmi-categories{grid-column:auto}.bmi-notice{grid-row:3;padding:20px 28px;border:5px solid #fff;box-shadow:0 3px 14px #3971a51c;gap:32px}.bmi-notice>div+div{border-left:1px solid #80cdbd;padding-left:26px}.bmi-notice p{font-size:13px;line-height:1.6;margin:6px 0}.bmi-notice h3{font-size:19px}.bmi-box{border-radius:20px}.bmi-workspace h2{font-size:21px;margin-bottom:16px}.bmi-workspace .bmi-field{margin-bottom:12px}.bmi-workspace .bmi-field>span{margin-bottom:5px}.bmi-workspace #bmi-interactive-form{padding:22px 20px}.bmi-workspace #bmi-interactive-form>p{font-size:11px;line-height:1.5;margin:12px 0}.bmi-sex{margin-top:8px}.bmi-sex label{flex-direction:column;gap:3px;position:relative;font-size:14px;min-height:67px;padding:5px}.bmi-sex input{position:absolute;left:8px;top:8px;width:13px;height:13px;min-height:13px}.bmi-sex-symbol{font-size:27px;font-weight:800;line-height:1}.bmi-sex label:has(input[value=female]) .bmi-sex-symbol{color:#c90076}.bmi-sex label:has(input[value=female]:checked) .bmi-sex-symbol{color:white}.bmi-workspace fieldset{margin-bottom:14px}.bmi-workspace .bmi-actions button{font-size:13px;padding:9px}.bmi-pair{grid-template-columns:1fr 78px}.bmi-workspace .bmi-calculate{margin-top:4px}
+.bmi-character-pair{display:flex;align-items:end;justify-content:center;gap:4px;flex:1;min-height:310px}.bmi-character{width:50%;min-width:0;opacity:.58;filter:saturate(.65);transition:opacity .25s,filter .25s;align-self:end}.bmi-character.is-selected{opacity:1;filter:none}.bmi-character-art{height:340px;position:relative;display:flex;align-items:end;justify-content:center}.bmi-character-art img,.bmi-character-art canvas{width:100%;height:100%;object-fit:contain;object-position:center bottom}.bmi-character-label{display:block;border:1px solid #b5c6da;border-radius:20px;background:var(--bmi-card);font-size:11px;line-height:1.3;padding:7px 3px;text-align:center;color:var(--bmi-ink);white-space:nowrap}.is-selected .bmi-character-label{border-color:#00b39b;box-shadow:0 1px 6px #00b39b18;font-weight:750}.bmi-avatar-panel>figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;border:0}.bmi-avatar-panel>p{font-size:10px;line-height:1.45;margin:9px 5px 0;text-align:center}.bmi-summary{gap:6px}.bmi-score{font-size:clamp(24px,2.4vw,38px);background:#fff8ff;border-radius:13px;padding:8px;color:#123;font-weight:800}.bmi-category{max-width:145px;text-align:center;font-size:13px;padding:12px;background:#ffd9e6;color:#8a1740}.bmi-gauge{max-height:none;height:270px;margin:0 auto;width:100%}.bmi-gauge #bi-gauge-value{font-size:30px;font-weight:800}.bmi-result-box #bi-interpretation{font-size:11px;margin:0;text-align:center;line-height:1.45}.bmi-chart{height:150px}.bmi-chart text{font-size:11px}.bmi-lower input[type=range]{min-height:20px}.bmi-placeholder{padding:40px 10px}.bmi-workspace .bmi-formula{font-size:13px}.bmi-fold{border:1px solid #d7e6f6;border-radius:18px;padding:18px 22px;margin:12px 0;background:var(--surface,#fff)}.bmi-fold>summary{font-size:16px;font-weight:700;cursor:pointer}.bmi-fold .calculator-help{margin:15px 0 0!important}.bmi-page-active .compact-hero{min-height:150px}.bmi-page-active .hero-eyebrow{display:none}.bmi-page-active .compact-hero h1{font-size:38px}.bmi-page-active .bmi-hero-art{width:190px;top:0;right:30px}
+body.dark-mode .bmi-result-box{border-color:#27405a;background:linear-gradient(140deg,#38243f,#122a40)}body.dark-mode .bmi-score{background:#253447;color:#eef7ff}body.dark-mode .bmi-category{background:#5d2944;color:#ffdfeb}body.dark-mode .bmi-notice{border-color:#27405a}body.dark-mode .bmi-fold{border-color:#36516c;background:#10283e}body.dark-mode .bmi-fold summary{color:#edf5ff}
+@media(min-width:1400px){.bmi-character-art{height:365px}.bmi-workspace{grid-template-columns:290px minmax(290px,.95fr) minmax(390px,1.35fr)}}
+@media(max-width:1250px) and (min-width:801px){.bmi-workspace{grid-template-columns:260px minmax(0,1fr)}.bmi-avatar-panel{grid-column:2;grid-row:1}.bmi-result-box{grid-column:2;grid-row:2}.bmi-workspace>#bmi-interactive-form{grid-row:1/span 2}.bmi-lower{grid-column:1/-1;grid-row:3}.bmi-notice{grid-row:4}.bmi-character-art{height:300px}.bmi-avatar-panel{min-height:335px}.bmi-result-box{min-height:0}.bmi-gauge{height:235px}}
+@media(max-width:800px){.bmi-workspace{grid-template-columns:minmax(0,1fr);gap:14px}.bmi-workspace>#bmi-interactive-form,.bmi-avatar-panel,.bmi-result-box,.bmi-lower,.bmi-notice{grid-column:1;grid-row:auto}.bmi-lower{grid-template-columns:1fr 1fr}.bmi-lower .bmi-categories{grid-column:1/-1}.bmi-character-pair{max-width:420px;width:100%;margin:auto}.bmi-character-art{height:350px}.bmi-avatar-panel{min-height:0}.bmi-result-box{min-height:0}.bmi-gauge{height:280px}.bmi-notice{grid-template-columns:1fr;gap:16px}.bmi-notice>div+div{border-left:0;border-top:1px solid #80cdbd;padding-left:0;padding-top:16px}.bmi-score{font-size:30px}.bmi-page-active .compact-hero h1{font-size:28px}}
+@media(max-width:480px){.bmi-lower{grid-template-columns:1fr}.bmi-character-art{height:300px}.bmi-gauge{height:250px}.bmi-score{font-size:26px}.bmi-category{max-width:120px;font-size:12px}.bmi-notice{padding:18px}.bmi-fold{padding:16px}.bmi-character-label{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.bmi-character{transition:none}}
+
+.bmi-character{opacity:1;filter:none}.bmi-character-art{opacity:.6;filter:saturate(.6);transition:opacity .25s,filter .25s}.is-selected .bmi-character-art{opacity:1;filter:none}.bmi-gauge .bmi-arc-label{font-size:9px;font-weight:650}
+
+body.bmi-page-active .bmi-hero-art{width:260px;height:160px;top:0;right:18px}.bmi-hero-art img{width:100%;height:100%;object-fit:contain}body.bmi-page-active .compact-hero{padding-right:285px}@media(max-width:1100px){body.bmi-page-active .bmi-hero-art{width:155px;height:135px;top:12px}body.bmi-page-active .compact-hero{padding-right:175px}}@media(max-width:600px){body.bmi-page-active .compact-hero{padding-right:22px}}
+
+.bmi-page-active .bmi-character[hidden]{display:none!important}.bmi-page-active .bmi-character{width:100%;max-width:310px;margin:0 auto}.bmi-page-active .bmi-character-art{height:390px}.bmi-page-active .bmi-field-error{display:block;color:#b42335;font-size:12px;line-height:1.45}.bmi-page-active .bmi-field-error:empty{display:none}.bmi-page-active [aria-invalid="true"]{border-color:#b42335}.bmi-page-active.dark-mode .bmi-field-error{color:#ffb5bf}@media(max-width:480px){.bmi-page-active .bmi-character-art{height:360px}}
+</style>
 </head>
-<body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
+<body class="light-mode app-loading app-page bmi-page-active"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
         <div class="loader-ring" aria-hidden="true"></div>
         <p>Loading OnlineCalMaster...</p>
@@ -165,7 +198,7 @@
         <section class="compact-hero" aria-label="Welcome">
           <div><span class="hero-eyebrow">EVERYDAY ANSWERS, MADE SIMPLE</span><h1>BMI Calculator</h1><p class="hero-subtitle">Calculate adult body mass index from weight and height and view the corresponding screening category.</p>
           <ul class="hero-benefits"><li><b>✓</b> 100% Free</li><li><b>◎</b> Accurate Results</li><li><b>ϟ</b> Easy to Use</li><li><b>▣</b> Works on All Devices</li></ul></div>
-          <div class="hero-art" aria-hidden="true"><span>÷</span><div class="mini-calculator"><i>1,234</i><div>7　8　9<br>4　5　6<br>1　2　3<br>+　0　=</div></div><span>%</span></div>
+          <div class="bmi-hero-art"><img src="/assets/bmi/hero-health.webp" width="520" height="347" alt="" decoding="async"></div><div class="hero-art" aria-hidden="true"><span>÷</span><div class="mini-calculator"><i>1,234</i><div>7　8　9<br>4　5　6<br>1　2　3<br>+　0　=</div></div><span>%</span></div>
         </section>
         <!-- Main Content -->
         <main class="calculator-container" id="mainCalculator" tabindex="-1">
@@ -224,7 +257,12 @@
 
 
             <!-- BMI Calculator -->
-            <div class="calculator extra-tall" id="bmiCalculator" style="display: block;">
+            <div class="calculator extra-tall" id="bmiCalculator" style="display: block;"><section class="bmi-workspace" aria-label="Interactive BMI calculator">
+<form id="bmi-interactive-form" class="bmi-box" novalidate><h2>✦ Your details</h2><fieldset><legend>Gender · illustration</legend><div class="bmi-sex"><label><input type="radio" name="avatar" value="male" checked><span class="bmi-sex-symbol">♂</span> Male</label><label><input type="radio" name="avatar" value="female"><span class="bmi-sex-symbol">♀</span> Female</label></div></fieldset><label class="bmi-field"><span>Age (completed years)</span><input id="bi-age" aria-describedby="bi-age-error" name="age" type="number" value="35" min="2" max="120" step="1" required><span id="bi-age-error" class="bmi-field-error" aria-live="polite"></span></label><input id="bi-age-range" type="range" min="2" max="120" value="35" aria-label="Age in completed years"><label class="bmi-field"><span>Height</span><span class="bmi-pair"><input id="bi-height" aria-describedby="bi-height-error" type="number" step="any" placeholder="e.g. 175" required aria-label="Height"><select id="bi-height-unit" aria-label="Height unit"><option value="cm">cm</option><option value="m">m</option><option value="ft">ft</option><option value="in">in</option></select></span><span id="bi-height-error" class="bmi-field-error" aria-live="polite"></span></label><label class="bmi-field"><span>Weight</span><span class="bmi-pair"><input id="bi-weight" aria-describedby="bi-weight-error" type="number" step="any" placeholder="e.g. 70" required aria-label="Weight"><select id="bi-weight-unit" aria-label="Weight unit"><option value="kg">kg</option><option value="lb">lb</option></select></span><span id="bi-weight-error" class="bmi-field-error" aria-live="polite"></span></label><p>Feet are decimal: 5 ft 9 in = 5.75 ft (or 69 in). Changing a unit converts the entered value.</p><button class="bmi-calculate" type="submit">Calculate BMI</button><div class="bmi-actions"><button type="reset">↻ Clear</button><button id="bi-copy" type="button" disabled>Copy result</button></div><p id="bi-message" class="bmi-error" role="status" aria-live="polite"></p></form>
+<figure class="bmi-avatar-panel"><div class="bmi-character-pair"><div class="bmi-character" data-character="male"><div class="bmi-character-art"><img src="/assets/bmi/characters/male-adult-1.webp" width="285" height="545" alt="Friendly male cartoon illustration" decoding="async"><canvas width="420" height="780" role="img" aria-label="Illustrative male character" hidden></canvas></div><span class="bmi-character-label">Male</span></div><div class="bmi-character" data-character="female" hidden><div class="bmi-character-art"><img src="/assets/bmi/characters/female-adult-1.webp" width="285" height="545" alt="Friendly female cartoon illustration" decoding="async"><canvas width="420" height="780" role="img" aria-label="Illustrative female character" hidden></canvas></div><span class="bmi-character-label">Female</span></div></div><figcaption id="bi-avatar-caption">Male · 35 years</figcaption><p>Illustration only. Shape and age styling are not a medically accurate body prediction. Appearance is not a health assessment.</p></figure>
+<section class="bmi-box bmi-result-box" aria-labelledby="bi-result-title"><h2 id="bi-result-title">▥ Your BMI result</h2><div id="bi-empty" class="bmi-placeholder"><strong>—</strong><p>Enter your measurements to see your BMI.<br>No sign-up. Measurements stay in this page.</p></div><div id="bi-result" hidden><div class="bmi-summary"><output id="bi-score" class="bmi-score" aria-live="polite"></output><span id="bi-category" class="bmi-category"></span></div><svg id="bi-gauge" class="bmi-gauge" viewBox="-15 -20 350 255" role="img" aria-label="Adult BMI gauge"><g id="bi-arcs"></g><g class="bmi-needle" id="bi-needle"><path d="M160 155 47 151 160 149Z" fill="currentColor"/><circle cx="160" cy="152" r="8" fill="currentColor"/></g><text x="25" y="180">10</text><text x="160" y="185" text-anchor="middle">BMI</text><text id="bi-gauge-value" x="160" y="217" text-anchor="middle">—</text><text x="279" y="180">45+</text></svg><p id="bi-interpretation"></p></div></section>
+<div class="bmi-lower"><section class="bmi-box bmi-details"><h3>▤ Your BMI category</h3><dl><div><dt>Category</dt><dd id="bi-detail-category">—</dd></div><div><dt>Adult BMI reference</dt><dd>18.5 – &lt; 25</dd></div></dl><dl><div><dt>Adult reference weight*</dt><dd id="bi-range">—</dd></div><div><dt>Ponderal Index (kg/m³)</dt><dd id="bi-pi">—</dd></div></dl><p>*Weight corresponding to BMI 18.5 up to, but not including, 25. A screening reference, not a personal weight goal. PI = kg ÷ m³; no PI health category is assigned.</p></section><section class="bmi-box"><h3>⌁ Your BMI snapshot</h3><svg id="bi-chart" class="bmi-chart" viewBox="0 0 320 190" role="img" aria-label="No current BMI plotted"><g id="bi-chart-zones"></g><g id="bi-point" hidden><circle r="7" fill="#ff3158" stroke="#fff" stroke-width="3"/></g><g id="bi-chart-axis"></g></svg><input id="bi-explore" type="range" min="10" max="45" step=".1" value="22" aria-label="Explore adult reference zones"><p id="bi-zone-description">Explore a reference zone with the slider.</p><p>Current entry only—not a trend. Height on the horizontal axis; BMI on the vertical axis. Values outside 10–45 are pinned to the graph edge.</p></section><section class="bmi-box bmi-categories"><h3>BMI categories · adults 20+</h3><ul class="bmi-zones"><li><span><i style="background:#1578bd"></i>Underweight</span><span>&lt; 18.5</span></li><li><span><i style="background:#16804b"></i>Healthy weight</span><span>18.5 – &lt; 25</span></li><li><span><i style="background:#a96800"></i>Overweight</span><span>25 – &lt; 30</span></li><li><span><i style="background:#c54b16"></i>Obesity — class 1</span><span>30 – &lt; 35</span></li><li><span><i style="background:#c32350"></i>Obesity — class 2</span><span>35 – &lt; 40</span></li><li><span><i style="background:#852047"></i>Obesity — class 3</span><span>≥ 40</span></li></ul><p>Categories use the unrounded BMI. A rounded result at a boundary can look different from the category threshold.</p></section></div>
+<section class="bmi-notice"><div><h3>♡ Understanding your result</h3><p id="bi-formula" class="bmi-formula">BMI = kg ÷ m². Calculate to see your values.</p><p>BMI does not distinguish muscle from fat or assess an individual's health. Pregnancy, body composition and other circumstances affect interpretation. Discuss concerns with a qualified clinician; this tool does not prescribe treatment.</p></div><div><h3>◎ Use the right reference</h3><p>Ages 2–19 require BMI-for-age assessment using age and sex-specific reference data. This page reports the number only for that group, without an adult category or reference weight.</p><p><a href="https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html">CDC adult categories</a> · <a href="https://www.cdc.gov/bmi/child-teen-calculator/index.html">CDC child and teen calculator</a> · <a href="https://www.cdc.gov/bmi/about/">BMI limitations</a>. Reviewed November 3, 2026.</p></div></section></section><div hidden class="bmi-legacy">
                 <div class="calculator-brand" aria-label="Powered by Dinil Tech">
                     <span>Powered by</span>
                     <img src="Logo.png" alt="Dinil Tech" width="250" height="179" decoding="async" fetchpriority="low">
@@ -264,7 +302,7 @@
                         <p class="finance-message" id="bmiMessage">Enter weight and height to calculate BMI.</p>
                     </div>
                 </div>
-                <section class="calculator-help" aria-label="BMI Calculator help">
+                </div><details class="bmi-fold"><summary>How to calculate BMI · instructions and FAQs</summary><section class="calculator-help" aria-label="BMI Calculator help">
                     <h3>About the BMI Calculator</h3>
                     <p>This BMI calculator estimates body mass index from weight and height, then shows the common BMI category.</p>
                     <h4>How to use it</h4>
@@ -278,7 +316,7 @@
                         <details><summary>Can I use pounds and feet?</summary><p>Yes. The calculator converts imperial units before calculating BMI.</p></details>
                         <details><summary>What is a normal BMI range?</summary><p>A BMI from 18.5 to 24.9 is commonly considered the normal range for adults.</p></details>
                     </div>
-                </section>
+                </section></details>
             </div>
 
             <!-- Discount Calculator -->
@@ -1079,7 +1117,7 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Select the available unit system, enter height and weight, and calculate. Check the units before interpreting the number.</p><h3>Formula and interpretation</h3><p>BMI = weight in kilograms / height in meters squared. The categories describe a screening measure, not body-fat percentage or a diagnosis; children and pregnancy need different assessment.</p><h3>Example</h3><p>70 kg at 1.75 m gives 70 / 1.75² = 22.86, shown as 22.9. BMI does not distinguish muscle from fat.</p><h3>Frequently asked questions</h3><details><summary>Can women use this BMI calculator?</summary><p>Yes. For adults age 20 and older, the BMI formula and standard category thresholds are the same for women and men. Enter height and weight; there is no female-specific multiplier. BMI is a screening measure, not a diagnosis or a measurement of body fat.</p></details><details><summary>Can I use this for pregnancy or children?</summary><p>Do not interpret pregnancy weight using this general adult calculator. Children and teens need age- and sex-specific assessment. Ask a qualified health professional about interpretation for your circumstances.</p></details><h3>Learn the method</h3><ul><li><a href="/blog/bmi-vs-bmr-meaning-limitations/">BMI vs BMR: What the Numbers Mean and Their Limits</a></li></ul></section>
+<details class="bmi-fold"><summary>BMI formula, worked example and further reading</summary><section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Select the available unit system, enter height and weight, and calculate. Check the units before interpreting the number.</p><h3>Formula and interpretation</h3><p>BMI = weight in kilograms / height in meters squared. The categories describe a screening measure, not body-fat percentage or a diagnosis; children and pregnancy need different assessment.</p><h3>Example</h3><p>70 kg at 1.75 m gives 70 / 1.75² = 22.86, shown as 22.9. BMI does not distinguish muscle from fat.</p><h3>Frequently asked questions</h3><details><summary>Can women use this BMI calculator?</summary><p>Yes. For adults age 20 and older, the BMI formula and standard category thresholds are the same for women and men. Enter height and weight; there is no female-specific multiplier. BMI is a screening measure, not a diagnosis or a measurement of body fat.</p></details><details><summary>Can I use this for pregnancy or children?</summary><p>Do not interpret pregnancy weight using this general adult calculator. Children and teens need age- and sex-specific assessment. Ask a qualified health professional about interpretation for your circumstances.</p></details><h3>Learn the method</h3><ul><li><a href="/blog/bmi-vs-bmr-meaning-limitations/">BMI vs BMR: What the Numbers Mean and Their Limits</a></li></ul></section></details>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1105,5 +1143,178 @@
             });
         }
     </script>
+<script id="bmi-page-model">(function(root) {
+    const categories = [
+        {max:18.5, label:'Underweight', color:'#1578bd'},
+        {max:25, label:'Healthy weight', color:'#16804b'},
+        {max:30, label:'Overweight', color:'#a96800'},
+        {max:35, label:'Obesity — class 1', color:'#c54b16'},
+        {max:40, label:'Obesity — class 2', color:'#c32350'},
+        {max:Infinity, label:'Obesity — class 3', color:'#852047'}
+    ];
+    const heightUnits = {cm:.01, m:1, in:.0254, ft:.3048};
+    const weightUnits = {kg:1, lb:.45359237};
+    function validate({age,height,weight,heightUnit='cm',weightUnit='kg'}) {
+        const errors={},finite=v=>String(v).trim()!==''&&Number.isFinite(Number(v));
+        if(!finite(age)||!Number.isInteger(Number(age))||Number(age)<2||Number(age)>120)errors.age='Enter age as a whole number from 2 to 120 years.';
+        for(const [field,value,unit,units,min,max,label]of [['height',height,heightUnit,heightUnits,.5,2.5,'50–250 cm'],['weight',weight,weightUnit,weightUnits,2,400,'2–400 kg']]){
+            const converted=Number(value)*units[unit];
+            if(!Object.hasOwn(units,unit)||!finite(value)||!Number.isFinite(converted)||converted<=0||converted<min-1e-11||converted>max+1e-11)errors[field]='Enter '+field+' equivalent to '+label+' and check the selected unit.';
+        }
+        return errors;
+    }
+    function calculate(input) {
+        const errors=validate(input);
+        if(Object.keys(errors).length){const error=Error(Object.values(errors)[0]);error.fields=errors;throw error;}
+        const {height,weight,heightUnit='cm',weightUnit='kg'}=input,age=Number(input.age);
+        const m=Number(height)*heightUnits[heightUnit],kg=Number(weight)*weightUnits[weightUnit];
+        const bmi=kg/(m*m), adult=age>=20;
+        return {age,m,kg,bmi,adult,category:adult?categories.find(c=>bmi<c.max):null,low:adult?18.5*m*m:null,high:adult?25*m*m:null,pi:kg/(m*m*m)};
+    }
+    function convert(value, from, to, type) {
+        const units=type==='height'?heightUnits:weightUnits;
+        if(!Object.hasOwn(units,from)||!Object.hasOwn(units,to)) throw Error('Unsupported unit.');
+        if(String(value).trim()===''||!Number.isFinite(Number(value)))return '';
+        return Number(value)*units[from]/units[to];
+    }
+    const api={calculate,convert,categories,validate};
+    if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BmiInteractive=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script id="bmi-character-model">(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.BmiCharacters=factory();})(typeof window==='object'?window:this,function(){
+    const ageBand=age=>age<5?'toddler':age<13?'child':age<18?'teen':age<40?'adult':age<60?'middle':age<80?'senior':'elderly';
+    function select(age,bmi){
+        const validAge=Number.isInteger(age)&&age>=2&&age<=120;
+        const band=validAge?ageBand(age):'adult';
+        const adult=validAge&&age>=20&&Number.isFinite(bmi)&&bmi>0;
+        const build=adult?[18.5,25,30,35,40,Infinity].findIndex(limit=>bmi<limit):1;
+        return {band,build,height:{toddler:430,child:555,teen:695,adult:740,middle:740,senior:710,elderly:670}[band]};
+    }
+    return {select};
+});
+</script><script id="bmi-page-ui">document.addEventListener('DOMContentLoaded', () => {
+    const form=document.getElementById('bmi-interactive-form');
+    if(!form)return;
+    const el=id=>document.getElementById('bi-'+id), model=window.BmiInteractive;
+    let copyText='', heightUnit='cm', weightUnit='kg';
+    const clamp=v=>Math.max(10,Math.min(45,v));
+    const category=v=>model.categories.find(c=>v<c.max);
+    const values=()=>({age:el('age').value,height:el('height').value,weight:el('weight').value,heightUnit:el('height-unit').value,weightUnit:el('weight-unit').value});
+    const svg=(tag,attrs)=>{const n=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));return n;};
+    const boundaries=[10,18.5,25,30,35,40,45];
+    const point=v=>{const a=Math.PI+(clamp(v)-10)/35*Math.PI;return [160+130*Math.cos(a),155+130*Math.sin(a)];};
+    const chartY=v=>148-(clamp(v)-10)/35*125;
+    const chartX=cm=>38+(Math.max(40,Math.min(280,cm))-40)/240*265;
+    const colors=['#35a9f5','#58cb32','#ffc819','#ff8a14','#e63051','#9f173f'];
+    model.categories.forEach((c,i)=>{
+        const [x,y]=point(boundaries[i]),[xx,yy]=point(boundaries[i+1]);
+        el('arcs').append(svg('path',{d:`M${x} ${y}A130 130 0 0 1 ${xx} ${yy}`,fill:'none',stroke:colors[i],'stroke-width':30}));
+        const outer=v=>{const [x,y]=point(v);return [160+(x-160)*1.20,155+(y-155)*1.20];};
+        const [ox,oy]=outer(boundaries[i]),[ex,ey]=outer(boundaries[i+1]),id='bi-gauge-label-'+i;
+        el('arcs').append(svg('path',{id,d:`M${ox} ${oy}A156 156 0 0 1 ${ex} ${ey}`,fill:'none'}));
+        const title=svg('text',{'text-anchor':'middle',class:'bmi-arc-label'}),textPath=svg('textPath',{href:'#'+id,startOffset:'50%'});textPath.textContent=['Underweight','Healthy','Overweight','Class 1','Class 2','Class 3'][i];title.append(textPath);el('arcs').append(title);
+        if(i>0){const [tx,ty]=point(boundaries[i]);const label=svg('text',{x:160+(tx-160)*.75,y:155+(ty-155)*.75,'text-anchor':'middle'});label.textContent=boundaries[i];el('arcs').append(label);}
+        el('chart-zones').append(svg('rect',{x:38,y:chartY(boundaries[i+1]),width:265,height:chartY(boundaries[i])-chartY(boundaries[i+1]),fill:colors[i],opacity:.16}));
+    });
+    for(const v of [10,20,25,30,40,45]) {
+        el('chart-axis').append(svg('line',{x1:38,x2:303,y1:chartY(v),y2:chartY(v),stroke:'#a6bdd4','stroke-opacity':'.45'}));
+        const label=svg('text',{x:30,y:chartY(v)+4,'text-anchor':'end'});label.textContent=v;el('chart-axis').append(label);
+    }
+    for(const v of [50,100,150,200,250]) {const label=svg('text',{x:chartX(v),y:165,'text-anchor':'middle'});label.textContent=v;el('chart-axis').append(label);}
+    const axisTitle=svg('text',{x:170,y:185,'text-anchor':'middle'});axisTitle.textContent='Height (cm)';el('chart-axis').append(axisTitle);
+    const reference=svg('line',{id:'bi-reference-line',x1:38,x2:303,y1:chartY(22),y2:chartY(22),stroke:'#64748b','stroke-dasharray':'4 4'});el('chart-zones').append(reference);
+    function explore(){const v=Number(el('explore').value);reference.setAttribute('y1',chartY(v));reference.setAttribute('y2',chartY(v));el('zone-description').textContent=`Reference BMI ${v.toFixed(1)}: ${category(v).label}. Not an additional measurement.`;}
+    el('explore').addEventListener('input',explore);
+    const pictures=new Map();
+    function picture(src){if(!pictures.has(src))pictures.set(src,new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=src;}));return pictures.get(src);}
+    let illustrationVersion=0;
+    function illustration(){
+        const version=++illustrationVersion,age=Number(el('age').value),selected=form.elements.avatar.value;
+        let bmi=null;
+        try{bmi=model.calculate(values()).bmi;}catch{}
+        const visual=window.BmiCharacters.select(age,bmi);
+        for(const person of document.querySelectorAll('[data-character]')){
+            const sex=person.dataset.character,src='/assets/bmi/characters/'+sex+'-'+visual.band+'-'+visual.build+'.webp';
+            person.classList.toggle('is-selected',sex===selected);
+            person.hidden=sex!==selected;
+            const fallback=person.querySelector('img');fallback.src=src;
+            person.querySelector('.bmi-character-label').textContent=sex===selected?(sex==='male'?'Male':'Female')+' · '+(Number.isInteger(age)&&age>=2&&age<=120?age+' years':'select age'):(sex==='male'?'Male':'Female');
+            const canvas=person.querySelector('canvas');
+            canvas.setAttribute('aria-label',(sex==='male'?'Male':'Female')+' '+visual.band+' illustrative character; not a body prediction');
+            picture(src).then(image=>{
+                if(version!==illustrationVersion)return;
+                const ctx=canvas.getContext('2d'),previous=document.createElement('canvas');previous.width=420;previous.height=780;previous.getContext('2d').drawImage(canvas,0,0);
+                const start=performance.now(),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const scale=Math.min(visual.height/image.height,400/image.width),w=image.width*scale,h=image.height*scale;
+                function draw(now){
+                    if(version!==illustrationVersion)return;
+                    const t=reduce?1:Math.min(1,(now-start)/260);
+                    ctx.clearRect(0,0,420,780);ctx.globalAlpha=1-t;ctx.drawImage(previous,0,0);ctx.globalAlpha=t;
+                    ctx.drawImage(image,(420-w)/2,770-h,w,h);ctx.globalAlpha=1;
+                    canvas.hidden=false;fallback.hidden=true;canvas.dataset.band=visual.band;canvas.dataset.build=visual.build;
+                    if(t<1)requestAnimationFrame(draw);else canvas.dataset.ready=src;
+                }
+                requestAnimationFrame(draw);
+            }).catch(()=>{if(version===illustrationVersion){canvas.hidden=true;fallback.hidden=false;}});
+        }
+        el('avatar-caption').textContent=(selected==='male'?'Male':'Female')+' illustration selected';
+    }
+    function limits(){
+        for(const [field,min,max,base]of [['height',50,250,'cm'],['weight',2,400,'kg']]){el(field).min=model.convert(min,base,el(field+'-unit').value,field);el(field).max=model.convert(max,base,el(field+'-unit').value,field);}
+    }
+    function invalidate(){
+        for(const field of ['age','height','weight']){el(field+'-error').textContent='';el(field).removeAttribute('aria-invalid');}
+        copyText='';el('copy').disabled=true;el('result').hidden=true;el('empty').hidden=false;el('point').setAttribute('hidden','');
+        el('detail-category').textContent='—';el('range').textContent='—';el('pi').textContent='—';el('formula').textContent='BMI = kg ÷ m². Calculate to see your values.';
+        el('message').textContent='';el('chart').setAttribute('aria-label','No current BMI plotted');
+        const child=Number(el('age').value)<20;el('chart-zones').toggleAttribute('hidden',child);el('explore').disabled=child;
+        el('zone-description').textContent=child?'Adult reference zones are not applied to children or teens.':'Explore a reference zone with the slider.';
+        illustration();
+    }
+    form.addEventListener('input', e=>{
+        if(e.target===el('age-range'))el('age').value=e.target.value;
+        if(e.target===el('age')&&el('age').validity.valid)el('age-range').value=e.target.value;
+        if(!e.target.matches('select'))update();
+    });
+    form.addEventListener('change',e=>{if(!e.target.matches('select'))update();});
+    for(const type of ['height','weight'])el(type+'-unit').addEventListener('change',()=>{
+        const old=type==='height'?heightUnit:weightUnit,next=el(type+'-unit').value;
+        el(type).value=model.convert(el(type).value,old,next,type);
+        if(type==='height')heightUnit=next;else weightUnit=next;
+        limits();update();
+    });
+    form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input[type=number]')){e.preventDefault();e.stopPropagation();form.requestSubmit();}});
+    function update(focusErrors=false){
+        try{
+            const r=model.calculate(values());
+            for(const field of ['age','height','weight']){el(field+'-error').textContent='';el(field).removeAttribute('aria-invalid');}
+            el('message').textContent='';el('explore').disabled=!r.adult;
+            el('zone-description').textContent=r.adult?'Explore a reference zone with the slider.':'Adult reference zones are not applied to children or teens.';
+            el('empty').hidden=true;el('result').hidden=false;
+            el('score').textContent=`${r.bmi.toFixed(2)} kg/m²`;el('gauge-value').textContent=r.bmi.toFixed(2);
+            el('category').style.backgroundColor=r.adult?r.category.color:'';el('category').style.color=r.adult?'#fff':'';
+            el('category').textContent=r.adult?r.category.label:'Age-specific assessment needed';
+            el('detail-category').textContent=r.adult?r.category.label:'Age-specific assessment';el('gauge').toggleAttribute('hidden',!r.adult);el('chart-zones').toggleAttribute('hidden',!r.adult);
+            el('interpretation').textContent=r.adult?'Adult screening category, based on unrounded BMI. This is not a diagnosis.':'For ages 2–19, this number needs an age- and sex-specific BMI-for-age assessment. No adult category or weight range is assigned.';
+            el('needle').style.transform=`rotate(${(clamp(r.bmi)-10)/35*180}deg)`;
+            el('gauge').setAttribute('aria-label',`BMI ${r.bmi.toFixed(2)}: ${r.category?.label||'no adult category'}`);
+            el('formula').textContent=`${r.kg.toFixed(3)} kg ÷ (${r.m.toFixed(4)} m × ${r.m.toFixed(4)} m) = ${r.bmi.toFixed(2)} kg/m². Calculations use unrounded conversions.`;
+            const divisor=weightUnit==='lb'?.45359237:1;
+            el('range').textContent=r.adult?`${(r.low/divisor).toFixed(2)} – < ${(r.high/divisor).toFixed(2)} ${weightUnit}`:'Not assigned under 20';
+            el('pi').textContent=r.adult?r.pi.toFixed(2):'Not interpreted under 20';
+            el('point').toggleAttribute('hidden',!r.adult);el('point').setAttribute('transform',`translate(${chartX(r.m*100)} ${chartY(r.bmi)})`);
+            el('chart').setAttribute('aria-label',r.adult?`Current BMI ${r.bmi.toFixed(2)} shown against adult reference zones; no history.`:'Adult graph not applied under age 20.');
+            copyText=`BMI: ${r.bmi.toFixed(2)} kg/m²\n${el('category').textContent}\n${el('formula').textContent}\n${r.adult?'Adult reference weight: '+el('range').textContent+' (rounded boundaries, not a personal target).\nPonderal Index: '+r.pi.toFixed(2)+' kg/m³.':'No adult category or reference weight for ages under 20.'}\nScreening information only; not a diagnosis.`;
+            el('copy').disabled=false;illustration();
+        }catch(error){
+            invalidate();
+            if(error.fields){for(const [field,message]of Object.entries(error.fields)){el(field+'-error').textContent=message;el(field).setAttribute('aria-invalid','true');}if(focusErrors)el(Object.keys(error.fields)[0]).focus();el('message').textContent='Please check the highlighted fields.';}else el('message').textContent=error.message;
+        }
+    }
+    form.addEventListener('submit',e=>{e.preventDefault();update(true);});
+    form.addEventListener('reset',()=>{setTimeout(()=>{heightUnit='cm';weightUnit='kg';limits();invalidate();},0);});
+    el('copy').addEventListener('click',async()=>{if(!copyText)return;try{await navigator.clipboard.writeText(copyText);el('message').textContent='Result copied.';}catch{el('message').textContent='Copy is unavailable. Select and copy the visible result.';}});
+    limits();update();
+});
+</script>
 </body>
 </html>

@@ -11,6 +11,11 @@ const files = new Set([
     'icon-48x48.png', 'icon-192x192.png', 'icon-512x512.png',
     'b29d22c720714300a8b5dd23f580be47.txt', 'calculators/gst-calculator-india.html'
 ]);
+files.add('assets/bmi/hero-health.webp');
+for (const sex of ['male','female']) {
+    for (const band of ['toddler','child','teen']) files.add('assets/bmi/characters/'+sex+'-'+band+'-1.webp');
+    for (const band of ['adult','middle','senior','elderly']) for(let build=0;build<6;build++) files.add('assets/bmi/characters/'+sex+'-'+band+'-'+build+'.webp');
+}
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
 if (!urls.length) throw new Error('Sitemap contains no public URLs.');
