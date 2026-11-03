@@ -12,6 +12,25 @@ function illustration(id, suffix) {
     else if (id==='tube') geometry='<path d="M18 35v37c0 24 94 24 94 0V35Z" fill="url(#'+uid+')"/><ellipse cx="65" cy="35" rx="47" ry="19" fill="#cbd4e0"/><ellipse cx="65" cy="35" rx="25" ry="11" fill="#334155"/>';
     else if (id==='cone') geometry='<path d="M65 12 112 79Q65 107 18 79Z" fill="url(#'+uid+')"/>';
     else geometry='<path d="M'+(id==='frustum'?'40':'30')+' 24 '+(id==='frustum'?'18':'30')+' 78Q65 102 '+(id==='frustum'?'112':'100')+' 78L'+(id==='frustum'?'90':'100')+' 24Z" fill="url(#'+uid+')"/><ellipse cx="65" cy="24" rx="'+(id==='frustum'?25:35)+'" ry="11" fill="'+(id==='frustum'?'#b7f3aa':'#fff3a0')+'"/>';
+    if(suffix==='card') {
+        const line=(x1,y1,x2,y2,label,x,y)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" marker-start="url(#${uid}-arrow)" marker-end="url(#${uid}-arrow)"/><text x="${x}" y="${y}">${label}</text>`;
+        const center=(x,y)=>`<circle cx="${x}" cy="${y}" r="1.6" fill="currentColor" stroke="none"/>`;
+        const guides={
+            cube:line(24,30,24,72,'a',12,54),
+            rectangular:line(19.4,74,64.5,88,'l',39,90)+line(69,88,114,70,'w',100,89)+line(122,36,122,65.4,'h',132,53),
+            cylinder:center(65,78)+line(65,78,100,78,'r',82,73)+line(113,24,113,78,'h',124,54),
+            sphere:center(65,52)+line(65,52,102,52,'r',83,46),
+            cone:center(65,79)+line(65,79,112,79,'r',86,73)+line(65,12,65,79,'h',56,49),
+            frustum:center(65,24)+center(65,78)+line(65,24,90,24,'r',77,17)+line(65,78,112,78,'R',86,72)+line(123,24,123,78,'h',133,54),
+            ellipsoid:center(65,52)+line(65,52,116,52,'a',94,46)+line(65,52,65,23,'c',57,36)+line(65,52,37,70,'b',44,55),
+            cap:center(65,65)+line(65,65,96.82,33.18,'R',91,59)+line(120,20,120,45,'h',131,35),
+            tube:center(65,35)+line(65,35,18,35,'R',40,29)+line(65,35,90,35,'r',78,29)+line(124,35,124,72,'h',134,56)
+        };
+        const descriptions={cube:'a is one edge length.',rectangular:'l and w follow perpendicular base edges; h is the vertical height.',cylinder:'r runs from the base center to its edge; h is perpendicular height.',sphere:'r runs from the sphere center to its surface.',cone:'r is the base radius; h is the perpendicular apex-to-base-center height, not slant height.',frustum:'R is bottom radius, r is top radius; h is perpendicular height.',ellipsoid:'a, b and c are three perpendicular semi-axes shown in perspective, each measured from the center to the surface.',cap:'R is the full sphere radius from its center to the spherical surface; h is perpendicular cap height from the cutting plane to the top.',tube:'R and r are outer and inner radii from the same center; h is perpendicular tube length.'};
+        if(id==='cap')geometry='<circle cx="65" cy="65" r="45" fill="none" stroke="currentColor" stroke-dasharray="3 3" opacity=".35"/><path d="M24.69 45A45 45 0 0 1 105.31 45Q65 60 24.69 45" fill="url(#'+uid+')"/><path d="M24.69 45H105.31" fill="none" stroke="currentColor" stroke-dasharray="3 3" opacity=".5"/>';
+        const extra=id==='ellipsoid'?'<ellipse cx="65" cy="52" rx="36" ry="13" transform="rotate(-32 65 52)" fill="none" stroke="currentColor" stroke-dasharray="3 3" opacity=".35"/>':'';
+        return `<svg class="volume-dimension-diagram" viewBox="-5 0 150 115" width="195" height="150" role="img" aria-labelledby="${uid}-title" focusable="false"><title id="${uid}-title">${shapes.find(s=>s.id===id).name}: ${descriptions[id]}</title><defs><radialGradient id="${uid}" cx="28%" cy="20%" r="90%"><stop stop-color="#fff"/><stop offset=".3" stop-color="${color}"/><stop offset="1" stop-color="#183c6c"/></radialGradient><marker id="${uid}-arrow" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 6 3 0 6" fill="none" stroke="context-stroke" stroke-width="1"/></marker></defs><g${id==='rectangular'?' transform="translate(-7 15) scale(1.1 .7)"':''}>${geometry}</g>${extra}<g class="volume-dimension-arrows" stroke="currentColor" stroke-width=".8" fill="none">${guides[id]}</g></svg>`;
+    }
     return `<svg viewBox="0 0 130 110" width="130" height="110" aria-hidden="true" focusable="false"><defs><radialGradient id="${uid}" cx="28%" cy="20%" r="90%"><stop stop-color="#fff"/><stop offset=".3" stop-color="${color}"/><stop offset="1" stop-color="#183c6c"/></radialGradient></defs><ellipse cx="65" cy="97" rx="40" ry="5" fill="#143b6715"/><g${id==='rectangular'?' transform="translate(-7 15) scale(1.1 .7)"':''}>${geometry}</g></svg>`;
 }
 const options = Object.keys(units).map(u=>`<option value="${u}">${u}</option>`).join('');
