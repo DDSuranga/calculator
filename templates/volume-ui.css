@@ -40,3 +40,7 @@ body.dark-mode .volume-shape-form{background:linear-gradient(150deg,#17304e,#101
 @media(max-width:540px){.volume-card-grid{grid-template-columns:1fr}.volume-shape-form{padding:20px}.volume-learning{grid-template-columns:1fr}}
 
 .volume-shape-form>svg.volume-dimension-diagram{width:195px;height:150px;max-width:100%;flex-shrink:0;color:#102744}.volume-dimension-arrows text{fill:currentColor;stroke:var(--pastel);stroke-width:2.5px;paint-order:stroke;font-size:11px;font-weight:750;font-family:inherit;text-anchor:middle;dominant-baseline:middle}body.dark-mode .volume-shape-form>svg.volume-dimension-diagram{color:#f0f6ff}.dark-mode .volume-dimension-arrows text{stroke:#18324b}
+
+.volume-shape-form { scroll-margin-top: 110px; }
+.volume-shape-form.volume-card-selected { outline: 3px solid #0076d6; outline-offset: 3px; }
+body.dark-mode .volume-shape-form.volume-card-selected { outline-color: #6dd5ff; }

@@ -54,7 +54,7 @@ function render(html) {
     html=html.replace('<div class="calculator extra-tall" id="volumeCalculator" style="display: block;">',`<div class="calculator extra-tall" id="volumeCalculator" style="display: block;">${cards()}<div class="volume-legacy">`);
     html=html.replace(/(\s*<!-- Area Calculator -->)/,'</div>$1');
     html=html.replace('<div class="hero-art" aria-hidden="true">',`<div class="volume-hero-art" aria-hidden="true">${['cube','sphere','cylinder','cone','frustum'].map(s=>illustration(s,'hero')).join('')}</div><div class="hero-art" aria-hidden="true">`);
-    html=html.replace('<aside class="seo-column contextual-panel" aria-label="Calculator information">',`<aside class="seo-column contextual-panel" aria-label="Calculator information"><section class="info-card volume-formulas"><h2>Volume formulas at a glance</h2>${shapes.map(s=>`<a href="#volume-card-${s.id}">${illustration(s.id,'formula')}<span><strong>${s.name}</strong><small>${s.formula}</small></span></a>`).join('')}</section>`);
+    html=html.replace('<aside class="seo-column contextual-panel" aria-label="Calculator information">',`<aside class="seo-column contextual-panel" aria-label="Calculator information"><section class="info-card volume-formulas"><h2>Volume formulas at a glance</h2>${shapes.map(s=>`<a href="/volume-calculator/#volume-card-${s.id}">${illustration(s.id,'formula')}<span><strong>${s.name}</strong><small>${s.formula}</small></span></a>`).join('')}</section>`);
     html=html.replace('</body>',`<script id="volume-page-model">${fs.readFileSync(path.join(root,'templates/volume-model.js'),'utf8')}</script><script id="volume-page-ui">${fs.readFileSync(path.join(root,'templates/volume-ui.js'),'utf8')}</script>\n</body>`);
     return html;
 }

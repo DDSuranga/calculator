@@ -3,6 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const sync = () => document.body.classList.toggle('volume-page-active', panel.style.display !== 'none');
     sync();
     new MutationObserver(sync).observe(panel, {attributes:true, attributeFilter:['style']});
+    let highlightedCard;
+    let highlightTimer;
+    document.querySelectorAll('.volume-formulas a').forEach(link => {
+        link.addEventListener('click', event => {
+            if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+            const heading = document.getElementById(new URL(link.href).hash.slice(1));
+            const card = heading?.closest('.volume-shape-form');
+            if (!card) return;
+            // Keep fragment navigation local despite the site's root base URL.
+            event.preventDefault();
+            clearTimeout(highlightTimer);
+            highlightedCard?.classList.remove('volume-card-selected');
+            highlightedCard = card;
+            card.classList.add('volume-card-selected');
+            heading.tabIndex = -1;
+            heading.focus({preventScroll: true});
+            card.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
+            highlightTimer = setTimeout(() => card.classList.remove('volume-card-selected'), 2200);
+        });
+    });
     const guide = document.getElementById('calculatorGuide');
     const updateUnitNote = () => {
         if (panel.style.display === 'none') return;
