@@ -1,0 +1,40 @@
+.volume-card-workspace,.volume-formulas,.volume-hero-art{display:none}
+body.volume-page-active .volume-card-workspace,body.volume-page-active .volume-formulas{display:block}
+body.volume-page-active .volume-legacy,body.volume-page-active .hero-art{display:none!important}
+body.volume-page-active .compact-hero{background:linear-gradient(115deg,#004da8,#007de1 65%,#074ca5);color:#fff;min-height:200px;border:0;overflow:hidden}
+body.volume-page-active .compact-hero h1{color:#fff;font-size:clamp(30px,3vw,46px)}
+body.volume-page-active .compact-hero .hero-subtitle,body.volume-page-active .compact-hero .hero-eyebrow,body.volume-page-active .hero-benefits{color:#fff}
+body.volume-page-active .volume-hero-art{display:flex;align-items:end;flex:0 0 34%;min-width:0}
+.volume-hero-art svg{width:27%;height:auto;margin-left:-7%;filter:drop-shadow(0 12px 6px #00396b55)}
+.volume-hero-art svg:nth-child(3){transform:scaleY(1.3);transform-origin:bottom}
+body.volume-page-active #volumeCalculator{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;width:100%;max-width:none}
+body.volume-page-active .calculator-container{min-width:0}
+.volume-workspace-intro{font-size:14px;line-height:1.6;margin:0 0 16px;color:#435675}
+.volume-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.volume-shape-form{--accent:#0067bd;--pastel:#dff1ff;background:linear-gradient(150deg,var(--pastel),#fff 80%);border:1px solid #d4e3f3;border-radius:20px;padding:18px;display:flex;flex-direction:column;min-width:0;color:#132440;box-shadow:0 6px 20px #143b6708}
+.volume-rectangular{--accent:#7131b4;--pastel:#eee4ff}.volume-cylinder{--accent:#17722c;--pastel:#dff5e5}.volume-sphere{--accent:#b51c54;--pastel:#ffe7ef}.volume-cone{--accent:#a64400;--pastel:#fff1d3}.volume-frustum{--accent:#006d70;--pastel:#d9f5f3}.volume-cap{--accent:#8135b8;--pastel:#f5e5ff}.volume-tube{--accent:#046e92;--pastel:#e1f1fa}
+.volume-shape-form>svg{width:104px;height:88px;align-self:center}
+.volume-shape-form h2{font-size:20px;line-height:1.25;text-align:center;color:inherit;margin:6px 0 8px}
+.volume-card-formula{font-weight:700;text-align:center;font-size:15px;line-height:1.5;margin:0 0 10px;overflow-wrap:anywhere}
+.volume-dimension-help{font-size:12px;line-height:1.5;margin:0 0 16px;color:#485771}
+.volume-card-fields{display:grid;gap:10px}
+.volume-dimension label{display:block;font-size:13px;font-weight:600;margin:0 0 5px}
+.volume-dimension>div{display:flex;min-width:0}
+.volume-shape-form input,.volume-shape-form select{font:inherit;font-size:14px;color:#172b49;background:#fff;border:1px solid #aabbce;min-height:42px;border-radius:8px;padding:7px 9px;min-width:0}
+.volume-dimension input{width:100%;border-radius:8px 0 0 8px}.volume-dimension select{width:67px;flex-shrink:0;border-radius:0 8px 8px 0;border-left:0}
+.volume-result-unit{display:flex;align-items:center;justify-content:space-between;font-size:13px;gap:8px}
+.volume-shape-form button{font:inherit;font-size:13px;cursor:pointer;min-height:42px;border-radius:9px;padding:8px;border:1px solid #aabbce}
+.volume-shape-form .volume-calculate{background:linear-gradient(130deg,var(--accent),var(--accent));color:white;font-weight:700;border:0;margin-top:14px;width:100%}
+.volume-secondary{display:flex;gap:8px;margin-top:8px}.volume-secondary button{background:#ffffffb8;color:#243857;flex:1}.volume-secondary button:disabled{color:#59667b;cursor:not-allowed;background:#e8edf3}
+.volume-shape-form :is(input,select,button):focus-visible,.volume-formulas a:focus-visible{outline:3px solid #0082ed;outline-offset:3px}
+.volume-shape-form output{margin-top:14px;padding:12px;background:#e2f5e7;color:#175a2c;font-weight:700;font-size:23px;border-radius:10px;overflow-wrap:anywhere}
+.volume-shape-form [hidden]{display:none!important}.volume-card-message:empty,.volume-breakdown:empty{display:none}.volume-card-message{font-size:13px;color:#9c2435;line-height:1.5;margin:12px 0 0}.volume-breakdown{font-size:12px;line-height:1.6;margin:10px 0 0;overflow-wrap:anywhere}
+.volume-formulas h2{font-size:19px!important}.volume-formulas a{display:flex;gap:8px;align-items:center;text-decoration:none;color:inherit;border-bottom:1px solid #dce6f0;padding:9px 0}.volume-formulas svg{width:42px;height:38px;flex-shrink:0}.volume-formulas strong{font-size:13px}.volume-formulas small{display:block;font-size:12px;line-height:1.6}
+.volume-learning{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}.volume-learning>div,.volume-new-examples{padding:20px;border:1px solid #d4e3f3;border-radius:18px;background:#eff7ff;line-height:1.7;font-size:14px}.volume-learning h2{font-size:20px;margin:0 0 10px}.volume-learning ol{padding-left:22px}.volume-new-examples{margin-top:16px}.volume-new-examples summary{cursor:pointer;font-weight:700}.volume-new-examples a{color:#075ca7;text-decoration:underline}
+body.dark-mode .volume-shape-form{background:linear-gradient(150deg,#17304e,#101f35);color:#eaf1ff;border-color:#35516d}body.dark-mode .volume-dimension-help,body.dark-mode .volume-workspace-intro{color:#c2d1e6}body.dark-mode .volume-shape-form :is(input,select){background:#0b192d;color:#eef4ff;border-color:#68809d}body.dark-mode .volume-secondary button{background:#223952;color:#fff}body.dark-mode .volume-secondary button:disabled{color:#a9b6c9;background:#18283e}body.dark-mode .volume-shape-form output{background:#163e32;color:#a3f1c0}body.dark-mode .volume-card-message{color:#ffb6bb}body.dark-mode .volume-learning>div,body.dark-mode .volume-new-examples{background:#14263f;border-color:#35516d;color:#eaf1ff}body.dark-mode .volume-new-examples a{color:#89c9ff}
+.volume-shape-form .volume-dimension-help{font-weight:400}
+@media(min-width:1400px){.volume-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1051px){body.volume-page-active .container{grid-template-columns:220px minmax(0,1fr) 280px;gap:20px;max-width:1900px;width:calc(100% - 40px)}}
+@media(max-width:1050px){body.volume-page-active .container{grid-template-columns:minmax(0,1fr) 240px;gap:16px}.volume-card-grid{grid-template-columns:1fr}.volume-learning{grid-template-columns:1fr}}
+@media(max-width:720px){.volume-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body.volume-page-active .volume-hero-art{display:none}body.volume-page-active .compact-hero{min-height:0;padding:22px}body.volume-page-active .contextual-panel{width:100%}}
+@media(max-width:540px){.volume-card-grid{grid-template-columns:1fr}.volume-shape-form{padding:20px}.volume-learning{grid-template-columns:1fr}}

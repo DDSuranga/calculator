@@ -1686,6 +1686,12 @@ function applySavedTheme() {
 
 // Show selected calculator and hide others
 function showCalculator(type, options = {}) {
+    if (type === 'volume' && typeof location !== 'undefined' &&
+        location.pathname !== '/volume-calculator/' && !document.getElementById('volume-page-ui')) {
+        location.assign('/volume-calculator/');
+        return;
+    }
+
     document.querySelectorAll('.calculator').forEach(calculator => {
         calculator.style.display = 'none';
         calculator.classList.remove('tall', 'extra-tall');
@@ -3497,6 +3503,17 @@ function copyAreaResult() {
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', function (e) {
     if (!['basic', 'scientific'].includes(activeDisplay)) return;
+    const homepage = typeof location !== 'undefined' && ['/', '/index.html'].includes(location.pathname);
+    if (homepage && activeDisplay === 'basic' && e.key === 'Enter' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.isComposing) {
+        const focused = document.activeElement;
+        const calculatorControl = focused?.closest('#basicCalculator') && focused.matches('button, #display');
+        if (calculatorControl || !focused?.matches('input, textarea, select, button, a, summary, [contenteditable="true"]')) {
+            e.preventDefault();
+            calculate();
+            return;
+        }
+    }
+
     if (['Enter', ' '].includes(e.key) && document.activeElement?.matches('button, a, summary')) return;
     if (document.activeElement?.matches('input, textarea, select, [contenteditable="true"]')) return;
     if (!isNaN(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {

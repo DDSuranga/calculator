@@ -79,6 +79,7 @@ for (const calculator of data) {
  }
  const guideStart=elementRange(html,'calculatorGuide').start;
  html=html.slice(0,guideStart)+`<template id="calculatorPanels">${inactive.join('\n')}</template>\n`+html.slice(guideStart);
+ if (calculator.target === 'volume') html = require('./render-volume-page').render(html);
  fs.mkdirSync(path.join(root,calculator.slug),{recursive:true});
  fs.writeFileSync(path.join(root,calculator.slug,'index.html'),html.replace(/[ \t]+$/gm,'').trimEnd()+'\n');
 }
