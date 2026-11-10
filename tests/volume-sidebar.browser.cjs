@@ -19,7 +19,7 @@ const assert=require('node:assert/strict');
     assert.equal(await link.evaluate(a=>new URL(a.href).pathname),'/volume-calculator/');
     for(const keyboard of [false,true]) {
      if(keyboard){await link.scrollIntoViewIfNeeded();await link.focus();await page.keyboard.press('Enter')}else await link.click();
-     await page.waitForFunction(id=>{const r=document.querySelector('[data-shape='+id+']').getBoundingClientRect();return r.top>=0&&r.top<innerHeight},shape);
+     await page.waitForFunction(id=>{const r=document.querySelector('[data-shape='+id+']').getBoundingClientRect();return r.top>=105&&r.top<=115},shape);
      await page.waitForTimeout(250);
      assert.equal(new URL(page.url()).pathname,'/volume-calculator/');
      assert.equal(await page.locator('#volumeCalculator').isVisible(),true);
