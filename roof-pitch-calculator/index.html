@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Education","item":"https://onlinecalmaster.com/#education-calculators"},{"@type":"ListItem","position":3,"name":"Roof Pitch Calculator","item":"https://onlinecalmaster.com/roof-pitch-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1098,19 +1113,19 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide">
-        <h3>About the Roof Pitch Calculator</h3>
-        <p>Roof pitch here means vertical rise per 12 units of horizontal run, written X:12. Run is the horizontal distance for the roof section being measured, not its sloping length. For a symmetric gable roof, one side usually has a run of half the full span; do not halve the run again if you already measured one side.</p>
-        <h4>How to use it</h4>
-        <p>Enter the vertical rise and horizontal run, select their shared unit, and calculate. Use decimals when needed. Rise may be zero to represent a flat slope; run must be positive. The rafter result uses the selected unit. Copy includes the inputs, results and geometric assumptions.</p>
-        <h4>Formula / Explanation</h4>
-        <p>Slope = rise / run. Pitch = 12 × slope, expressed as X:12. Angle = atan(slope) × 180 / π. Slope percentage = 100 × slope. Straight-line rafter length = √(rise² + run²). Both lengths are converted to meters internally using in × 0.0254, ft × 0.3048, cm × 0.01 or m × 1; the rafter result is converted back to your chosen unit.</p>
-        <h4>Example</h4>
-        <p>Rise 6 inches and run 12 inches give slope 0.5, pitch 6:12, angle approximately 26.56505118°, slope 50% and straight-line rafter length approximately 13.41640786 inches. Equivalently, rise 15.24 cm and run 30.48 cm give the same pitch and angle, with length approximately 34.07767598 cm.</p>
-        <div class="calculator-faq">
-            <details><summary>Is run the same as the roof span?</summary><p>No. Run is the horizontal distance covered by the measured sloping section. Full span may include two sides. Use the actual run for each section, especially on asymmetric roofs.</p></details><details><summary>Does 6:12 mean an angle of 6 degrees?</summary><p>No. It means 6 units of rise for every 12 units of run. That is a 50% slope and an angle of approximately 26.565 degrees. Pitch, angle and percentage express the same slope differently.</p></details><details><summary>Can I mix feet and inches in the input fields?</summary><p>No. Convert both measurements to the same unit first. For example, 1 foot 6 inches is 18 inches or 1.5 feet. Use the <a href="/unit-converter/">Unit Converter</a> if needed.</p></details><details><summary>Is the rafter length ready for cutting?</summary><p>No. It is only the geometric length between the endpoints of the entered rise and run. It excludes overhangs, ridge thickness, birdsmouths, cut allowances and material requirements. It does not assess loads, structural safety, drainage, roofing suitability or building-code compliance.</p></details><details><summary>Can I use zero rise or negative measurements?</summary><p>Zero rise gives 0:12, 0 degrees and a rafter length equal to run. Negative measurements and zero run are rejected. Enter positive magnitudes for a downward slope; this calculator does not represent slope direction.</p></details><details><summary>Does this calculate roof area or material quantities?</summary><p>No. For simple geometric areas see the <a href="/area-calculator/">Area Calculator</a>. Roof coverings, waste, overlaps and structural design require additional information.</p></details>
-        </div>
-    </section>
+<article id="batch01-guide" class="batch-guide" data-target="roofPitch" data-panel="dynamicToolCalculator" data-route="/roof-pitch-calculator/" aria-label="Roof Pitch Calculator educational guide"><h2>Roof pitch, slope, angle and straight-line rafter geometry</h2>
+<p>Roof pitch describes rise relative to horizontal run. This calculator converts those two measurements into X:12 pitch, slope percentage, angle and a straight-line hypotenuse length. It is a geometry aid, not a roof design approval or a cut list for structural members.</p>
+<h3>Measure rise and horizontal run</h3><ol><li>Enter vertical rise and horizontal run for the same roof segment.</li><li>Select inches, feet, centimeters or meters; both inputs use that unit.</li><li>Calculate and review the four outputs and formula breakdown.</li><li>Copy the result if needed, or Clear to start again.</li></ol><p>Run is horizontal, not the sloping rafter length. For a symmetric gable measured from an exterior wall to the ridge, run is generally half the full horizontal span; verify which endpoints your measurements describe. Rise may be zero for flat geometry, but run must be positive. Negative measurements are rejected.</p>
+<h3>Formulas and the 6-in-12 example</h3><div class="guide-table" role="region" tabindex="0" aria-label="Roof Pitch Calculator reference table"><table><caption>Rise R and horizontal run U in the same unit</caption><thead><tr><th>Output</th><th>Formula</th></tr></thead><tbody><tr><td>Slope ratio</td><td>R / U</td></tr><tr><td>Pitch X:12</td><td>X = 12R / U</td></tr><tr><td>Slope percentage</td><td>100R / U</td></tr><tr><td>Angle</td><td>atan(R / U) × 180 / π</td></tr><tr><td>Straight-line length</td><td>√(R² + U²)</td></tr></tbody></table></div>
+<p>For rise 6 in and run 12 in, slope is 6 / 12 = 0.5. Pitch is 12 × 0.5 = <strong>6:12</strong>; slope is <strong>50%</strong>; angle is atan(0.5) ≈ <strong>26.57°</strong>. The straight-line length is √(36 + 144) = √180 ≈ <strong>13.42 in</strong>. It is not 18 inches: rise and run are perpendicular legs, not consecutive sections of a rafter.</p>
+<h3>Units, practical use and limitations</h3><p>Scaling both measurements by the same factor leaves pitch, percentage and angle unchanged. Rise 0.5 ft and run 1 ft describe the same geometry as 6 in and 12 in; the resulting length is approximately 1.12 ft. Changing the selector alone does not convert the typed numbers. Enter converted dimensions when you want to preserve physical size.</p>
+<p>Use the result to compare geometric slopes or check a drawing. The estimate excludes overhangs, ridge thickness, birdsmouth cuts, bearing details, material dimensions, loads, drainage and local requirements. Do not infer a safe roof covering or minimum allowable pitch from this calculator. The <a href="/area-calculator/">Area Calculator</a> and <a href="/volume-calculator/">Volume Calculator</a> answer separate geometric questions.</p>
+<h2>Roof Pitch FAQs</h2><section aria-label="Roof Pitch Calculator FAQs">
+<h3>Is 6:12 the same as 6 degrees?</h3><p>No. It means 6 units of rise per 12 horizontal units, an angle of about 26.57 degrees.</p>
+<h3>Why is a 50% slope not 50 degrees?</h3><p>Percentage is 100 times the rise/run ratio. The angle comes from the arctangent of that ratio.</p>
+<h3>Should I enter total building span as run?</h3><p>Only if that span is actually the horizontal distance between your chosen endpoints. A wall-to-ridge segment of a symmetric gable usually uses half the full span.</p>
+<h3>Does the length include an overhang or cut allowance?</h3><p>No. It is the straight distance between the endpoints defined by the rise and run, not a finished member length.</p>
+<h3>Can I use metric measurements?</h3><p>Yes. Enter both values in cm or m. The pitch remains dimensionless and the length uses the selected unit. Use the <a href="/unit-converter/">Unit Converter</a> to check a length conversion.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1136,5 +1151,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

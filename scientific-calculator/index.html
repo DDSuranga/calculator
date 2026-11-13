@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Education","item":"https://onlinecalmaster.com/#education-calculators"},{"@type":"ListItem","position":3,"name":"Scientific Calculator","item":"https://onlinecalmaster.com/scientific-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1079,7 +1094,19 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Select a function, enter its argument, and press =. Use parentheses to group expressions and C to begin again.</p><h3>Formula and interpretation</h3><p>Sine, cosine, and tangent use radians. The log button uses base 10: log(100) = 2. Convert degrees to radians by multiplying by pi / 180.</p><h3>Example</h3><p>sin(0) = 0 and cos(0) = 1. A right angle is pi / 2 radians, not 90 radians.</p><h3>Frequently asked questions</h3><details><summary>Does this calculator solve algebraic equations?</summary><p>No. It evaluates numerical expressions; it does not solve for unknown variables or provide step-by-step algebra solutions. For everyday arithmetic without scientific functions, use the <a href="/basic-calculator/">Basic Calculator</a>.</p></details><details><summary>Should I enter angles in degrees or radians?</summary><p>The trigonometric functions use radians. Convert degrees by multiplying by pi / 180. For example, 30 degrees is pi / 6 radians, so sin(pi / 6) is approximately 0.5.</p></details></section>
+<article id="batch01-guide" class="batch-guide" data-target="scientific" data-panel="scientificCalculator" data-route="/scientific-calculator/" aria-label="Scientific Calculator educational guide"><h2>Scientific expressions: radians, logarithms and numerical limits</h2>
+<p>This scientific calculator evaluates numerical expressions using arithmetic, powers, square roots, sine, cosine, tangent, base-10 logarithms and the constants pi and e. Use it to check a formula or explore a function value. It does not provide symbolic algebra, solve for unknown variables or explain every algebraic step automatically.</p>
+<h3>Entering functions correctly</h3><ol><li>Choose a function or enter an arithmetic expression.</li><li>Supply the argument inside parentheses. Keep nested groups clear.</li><li>Use radians for trigonometric arguments; there is no degree-mode switch.</li><li>Press = or Enter, then check whether the result is meaningful for the original problem.</li></ol>
+<h3>Radian conversion and examples</h3><p>A full turn is 2π radians, so <strong>radians = degrees × π / 180</strong>. For 30°, the input angle is π/6. Therefore <strong>sin(π/6) ≈ 0.5</strong>. Entering sin(30) asks for 30 radians and gives a different answer. Other checks are sin(0) = 0 and cos(0) = 1.</p>
+<p>The log button uses base 10. <strong>log(100) = 2</strong>, because 10² = 100; log(0.01) = −2, because 10⁻² = 0.01. This is not the natural logarithm. For powers, 2⁵ = 32; for square roots, √81 = 9. Using the constant pi rather than typing 3.14 avoids unnecessary early rounding.</p>
+<h3>Domains, precision and useful applications</h3><p>Real-valued square roots require a nonnegative argument, and real base-10 logarithms require a positive argument. Division by zero and non-finite results are rejected. Tangent has singularities at π/2 plus integer multiples of π: floating-point approximations can produce a very large number near these angles rather than an exact undefined value. Do not interpret such a number as evidence that the function is defined at the singularity.</p>
+<p>For a circle of radius 3, π × 3² gives an area near 28.27433388 square units. Use the <a href="/area-calculator/">Area Calculator</a> when you want labeled geometric inputs. Scientific expressions are also useful for checking the standardized-score arithmetic in the <a href="/z-score-calculator/">Z-Score Calculator</a>. Keep full precision while calculating and round only the answer required by your measurement or assignment.</p>
+<h2>Scientific Calculator FAQs</h2><section aria-label="Scientific Calculator FAQs">
+<h3>Are sine and cosine in degrees?</h3><p>No. They use radians. Convert a degree measurement by multiplying it by π/180 before applying the function.</p>
+<h3>Is log the same as ln?</h3><p>No. The log control here is base 10. Do not use it as though it were a natural-logarithm control.</p>
+<h3>Why is a result almost, but not exactly, zero?</h3><p>Constants and function values are represented with finite precision. A tiny residual such as a value close to zero can result from numerical approximation.</p>
+<h3>Can this solve an equation such as x² = 9?</h3><p>No. It evaluates numeric expressions, not symbolic equations or both roots of an equation. Computing √9 gives the principal square root, 3.</p>
+<h3>What should I check after an invalid-expression message?</h3><p>Check missing numbers, parentheses, the function’s domain and division by zero. For arithmetic without scientific functions, use the <a href="/basic-calculator/">Basic Calculator</a>.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1105,5 +1132,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

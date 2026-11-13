@@ -106,6 +106,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Education","item":"https://onlinecalmaster.com/#education-calculators"},{"@type":"ListItem","position":3,"name":"Z-Score Calculator","item":"https://onlinecalmaster.com/z-score-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1107,7 +1122,19 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Enter a raw score, population mean and positive population standard deviation. Negative scores and means are allowed. Calculate to see the signed standard score and substitution into the formula.</p></section>
+<article id="batch01-guide" class="batch-guide" data-target="zScore" data-panel="dynamicToolCalculator" data-route="/z-score-calculator/" aria-label="Z-Score Calculator educational guide"><h2>Understand a value’s distance from the population mean</h2>
+<p>A z-score expresses the difference between a value and a mean in standard-deviation units. This standard score calculator takes a raw score, population mean and population standard deviation. It reports the standardized value and whether the raw score is above, below or at the mean. It does not estimate those population parameters from a dataset.</p>
+<h3>Inputs and formula</h3><ol><li>Enter the raw score X.</li><li>Enter the population mean μ using the same measurement scale.</li><li>Enter a population standard deviation σ greater than zero.</li><li>Calculate and inspect the substitution and interpretation.</li></ol><p><strong>z = (X − μ) / σ.</strong> Raw scores and means may be negative, zero or positive. Standard deviation is a nonnegative measure of spread, but zero cannot be used as a divisor. Use the standard deviation, not the variance or standard error.</p>
+<h3>Worked examples</h3><p>Suppose a score is 85, the mean is 75 and standard deviation is 10. First subtract: 85 − 75 = 10. Divide by the spread: 10 / 10 = <strong>1</strong>. The score is one standard deviation above the mean. If X = 65 instead, (65 − 75) / 10 = <strong>−1</strong>, one standard deviation below it. X = 75 produces zero.</p>
+<p>Negative measurements work the same way. With X = −2, μ = −5 and σ = 1.5, subtract carefully: −2 − (−5) = 3; 3 / 1.5 = <strong>2</strong>. The value is above the mean even though both measurements are negative.</p>
+<h3>What a z-score does and does not establish</h3><p>Standardization can help compare relative positions in two distributions, but the distributions must be relevant and their parameters meaningful. A z-score of 2 means two standard deviations above the mean; it does not automatically mean a particular percentile, a medical diagnosis or an error in the data. Normal-distribution probability statements require an appropriate distributional assumption. This tool does not output tail probabilities or perform a hypothesis test.</p>
+<p>Keep units consistent: entering a height in inches with a mean and standard deviation in centimeters would invalidate the comparison. A very small standard deviation magnifies even a small difference. Check the underlying measurements before interpreting a large score. See <a href="https://www.nlm.nih.gov/nichsr/stats_tutorial/section2/mod9_z-score.html">the National Library of Medicine’s explanation of z-scores</a> for the definition.</p>
+<h2>Z-Score FAQs</h2><section aria-label="Z-Score Calculator FAQs">
+<h3>Does z = 0 mean the raw score is zero?</h3><p>No. It means the raw score equals the entered mean. Both could be 75 or any other finite value.</p>
+<h3>Can a z-score be negative?</h3><p>Yes. A negative score means the raw value is below the mean when the standard deviation is positive.</p>
+<h3>Can I enter variance in the standard-deviation field?</h3><p>No. Standard deviation is the square root of variance. Check which statistic you have before entering it; the <a href="/scientific-calculator/">Scientific Calculator</a> can check a square root.</p>
+<h3>Does this calculate percentiles?</h3><p>No. It calculates a standardized distance only. A percentile needs information about the relevant distribution.</p>
+<h3>Can this compare two test results?</h3><p>It can standardize each score using its own appropriate mean and standard deviation. Whether that comparison is educationally meaningful depends on the tests and populations. Use the <a href="/percentage-grade-calculator/">Percentage Grade Calculator</a> for earned-points percentages instead.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1133,5 +1160,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

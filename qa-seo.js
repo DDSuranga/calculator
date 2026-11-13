@@ -22,7 +22,7 @@ async function get(p){const r=await fetch(new URL(p,base),{redirect:'manual',cac
   const h1=[...h.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];assert.equal(h1.length,1,p+' H1 count');const heading=text(h1[0][1]);assert.equal(heading,c.title||c.name);
   for(const [set,value,label] of [[titles,title,'title'],[descriptions,description,'description'],[headings,heading,'H1']]){assert(!set.has(value),p+' duplicate '+label);set.add(value);}
   const panels=[...h.matchAll(/<div class="calculator(?: [^"]*)?" id="([^"]+)"/g)];assert.equal(panels.length,1,p+' initial active panels');assert.equal(panels[0][1],c.elementId);
-  assert.match(h,/How to [Uu]se/);assert.match(h,/Formula|Explanation/);assert.match(h,/Example/);
+  if(h.includes('id="batch01-guide"')){assert.match(h,/<h3>/);assert.match(h,/formula|equation|operations/i);assert.match(h,/example/i);assert.match(h,/FAQs/);}else{assert.match(h,/How to (?:use|calculate)/i);assert.match(h,/formula|explanation/i);assert.match(h,/example/i);}
   if(c.dynamicTool)assert.match(h,/id="dynamic-[^"]+"|onclick="calculateDynamicTool\(\)"/);
   const nav=h.match(/id="calculatorList"[^>]*>([\s\S]*?)<\/aside>/)[1];for(const other of data)assert(links(nav).includes('/'+other.slug+'/'),p+' missing static nav '+other.slug);
   const related=h.match(/id="relatedCalculators"[^>]*>([\s\S]*?)<\/div>/)[1];assert.equal(links(related).length,5);assert(!links(related).includes(p));

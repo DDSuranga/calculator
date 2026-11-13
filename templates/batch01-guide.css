@@ -1,0 +1,14 @@
+.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}

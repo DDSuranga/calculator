@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://onlinecalmaster.com/#finance-calculators"},{"@type":"ListItem","position":3,"name":"Percentage Calculator","item":"https://onlinecalmaster.com/percentage-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1079,7 +1094,20 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Enter the base value and the percentage, then calculate. Enter 15 for fifteen percent, not 0.15.</p><h3>Formula and interpretation</h3><p>Percentage amount = base value × percentage / 100. This tool returns the portion itself; use Percentage Change to compare an old and new value.</p><h3>Example</h3><p>15% of 200 is 200 × 15 / 100 = 30.</p></section>
+<article id="batch01-guide" class="batch-guide" data-target="percentage" data-panel="percentageCalculator" data-route="/percentage-calculator/" aria-label="Percentage Calculator educational guide"><h2>Find a percentage of a value</h2>
+<p>A percentage expresses a quantity per hundred. This calculator answers “What is p percent of V?” from a base value and percentage. It returns the computed portion with two decimal places and identifies the entered percentage and base. It does not automatically compute percentage change, a reverse percentage or a total after adding tax.</p>
+<h3>Formula and instructions</h3><p><strong>Portion = value × percentage / 100.</strong> Enter the full base value, then the rate as a percent: type 15 for 15%, not 0.15. Calculate or use Enter to see the portion. Use consistent units for the base and the answer; the percentage itself is dimensionless.</p>
+<h3>Worked examples</h3><p>For 15% of 80, multiply 80 × 15 = 1,200, then divide by 100: <strong>12.00</strong>. If 80 is a bill amount, 12 is the portion only; a total including that portion would be 80 + 12 = 92.</p>
+<p>For 7.5% of 240, 240 × 7.5 / 100 = <strong>18.00</strong>. For 125% of 80, 80 × 125 / 100 = <strong>100.00</strong>. Percentages above 100 are mathematically meaningful when a quantity exceeds its base. Zero percent of a value, or any finite percentage of zero, is zero. Signed values are supported as arithmetic; a negative result is not automatically a valid discount or tax adjustment.</p>
+<h3>Choose the right percentage question</h3><div class="guide-table" role="region" tabindex="0" aria-label="Percentage Calculator reference table"><table><caption>Similar wording can require different calculations</caption><thead><tr><th>Question</th><th>Calculation</th></tr></thead><tbody><tr><td>What is 20% of 50?</td><td>50 × 20 / 100 = 10</td></tr><tr><td>What percent is 10 of 50?</td><td>10 / 50 × 100 = 20%</td></tr><tr><td>Increase 50 by 20%</td><td>50 + 10 = 60</td></tr><tr><td>Change from 50 to 60</td><td>(60 − 50) / 50 × 100 = 20%</td></tr></tbody></table></div>
+<p>This tool performs the first type directly. Use the <a href="/percentage-change-calculator/">Percentage Change Calculator</a> for old/new values, the <a href="/discount-calculator/">Discount Calculator</a> for a sale price, or the <a href="/tip-calculator/">Tip Calculator</a> for a tip plus bill total.</p>
+<h3>Common mistakes and rounding</h3><p>Do not confuse percentage points with relative change: moving from 10% to 15% adds five percentage points but is a 50% increase relative to 10%. Successive percentages act on changing bases; a 20% increase followed by a 20% decrease does not restore the starting amount. The displayed two-decimal portion may round a very small value to zero; retain suitable precision for later calculations.</p>
+<h2>Percentage Calculator FAQs</h2><section aria-label="Percentage Calculator FAQs">
+<h3>Should I enter 0.15 or 15 for fifteen percent?</h3><p>Enter 15. The calculator divides the percentage input by 100 internally.</p>
+<h3>Does the result include the original amount?</h3><p>No. It is the percentage portion only. Add or subtract it separately if that matches your question.</p>
+<h3>Are decimals and percentages over 100 allowed?</h3><p>Yes. For example, 7.5% and 125% both have valid arithmetic meanings.</p>
+<h3>Does this choose a tax rate for me?</h3><p>No. It applies the rate you enter and does not determine tax rules, exemptions or eligibility.</p>
+<h3>Where can I learn about increases and decreases?</h3><p>Read <a href="/blog/percentage-increase-decrease-explained/">Percentage Increase and Decrease</a> for base-value selection, worked examples and common mistakes.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1105,5 +1133,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

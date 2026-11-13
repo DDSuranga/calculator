@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Education","item":"https://onlinecalmaster.com/#education-calculators"},{"@type":"ListItem","position":3,"name":"Percentage Grade Calculator","item":"https://onlinecalmaster.com/percentage-grade-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1105,7 +1120,19 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Enter marks scored and total possible marks.</p></section>
+<article id="batch01-guide" class="batch-guide" data-target="percentageGrade" data-panel="dynamicToolCalculator" data-route="/percentage-grade-calculator/" aria-label="Percentage Grade Calculator educational guide"><h2>From earned points to a percentage and grade band</h2>
+<p>This calculator compares marks scored with total possible marks. It reports the percentage and assigns a letter using its stated 90/80/70/60 thresholds. It is useful for checking an assignment or practice test, but the letter is not a guarantee of the grade an instructor will award.</p>
+<h3>Calculate the percentage</h3><ol><li>Enter the points actually earned in Marks Scored.</li><li>Enter the maximum points available in Total Marks.</li><li>Calculate, then review the percentage and letter separately.</li></ol><p><strong>Percentage = scored / total × 100.</strong> Total marks must be greater than zero. Scored marks may be zero, but cannot be negative or exceed the total. Decimal marks are accepted. Extra-credit totals above 100% are not supported.</p>
+<h3>Worked examples and boundaries</h3><p>For 45 out of 50, 45 / 50 = 0.9; multiplying by 100 gives <strong>90%</strong>, an A on this scale. For 39 out of 50, 39 / 50 × 100 = <strong>78%</strong>, a C. A decimal score of 18.5 out of 20 gives <strong>92.5%</strong>, an A.</p>
+<div class="guide-table" role="region" tabindex="0" aria-label="Percentage Grade Calculator reference table"><table><caption>The calculator’s fixed grade thresholds</caption><thead><tr><th>Letter</th><th>Unrounded percentage</th></tr></thead><tbody><tr><td>A</td><td>90 to 100</td></tr><tr><td>B</td><td>80 to less than 90</td></tr><tr><td>C</td><td>70 to less than 80</td></tr><tr><td>D</td><td>60 to less than 70</td></tr><tr><td>F</td><td>Below 60</td></tr></tbody></table></div>
+<p>The letter uses the unrounded ratio. For example, 89.999 out of 100 can display as 90% after formatting but remains below the A boundary. Check the underlying score when a result is near a cutoff; do not infer a letter from the rounded display alone.</p>
+<h3>Common mistakes and course-grade limitations</h3><p>Do not enter a percentage as the denominator unless 100 is genuinely the maximum score. Do not average assignment percentages when their point totals or category weights differ. Combining 8/10 and 45/50 by points gives 53/60 ≈ 88.33%; averaging 80% and 90% gives 85%, a different weighting scheme. This tool calculates one earned/possible ratio; it does not apply homework, exam or participation category weights.</p>
+<h2>Percentage Grade FAQs</h2><section aria-label="Percentage Grade FAQs">
+<h3>Are these letter grades used by every school?</h3><p>No. Schools and instructors may use different boundaries, plus/minus grades, curves or rounding rules. Check the syllabus.</p>
+<h3>Why is a displayed 90% sometimes a B?</h3><p>The underlying percentage may be just below 90 and round upward for display. The letter uses the unrounded value.</p>
+<h3>Can I enter half points?</h3><p>Yes. Decimal scored and total marks are accepted when the total is positive and scored marks do not exceed it.</p>
+<h3>Can I calculate a weighted final course grade?</h3><p>Not directly. Category weighting requires additional information. The <a href="/percentage-calculator/">Percentage Calculator</a> can help check individual weighted contributions.</p>
+<h3>Does this calculate GPA?</h3><p>No. GPA uses numeric grade points and credits. Use the <a href="/gpa-calculator/">GPA Calculator</a> with your institution’s grade-point scale.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1131,5 +1158,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

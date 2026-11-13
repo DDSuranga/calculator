@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Education","item":"https://onlinecalmaster.com/#education-calculators"},{"@type":"ListItem","position":3,"name":"GPA Calculator","item":"https://onlinecalmaster.com/gpa-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1129,7 +1144,20 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Enter grade points and credits for each course. Leave unused rows blank.</p></section>
+<article id="batch01-guide" class="batch-guide" data-target="gpa" data-panel="dynamicToolCalculator" data-route="/gpa-calculator/" aria-label="GPA Calculator educational guide"><h2>Credit-weighted GPA: calculate quality points before averaging</h2>
+<p>A grade point average summarizes course grades on a numeric scale. This GPA calculator accepts up to five courses, each with grade points and credits, and returns the weighted GPA, total credits and total quality points. It does not convert letter grades or percentages into your school’s grade-point scale.</p>
+<h3>Choose the right inputs</h3><ol><li>Find the grade-point value for each course using your institution’s published scale.</li><li>Enter that value and the course’s credits in the same row.</li><li>Leave both fields blank for an unused row. Enter an explicit 0 for a zero grade; do not leave its grade field empty.</li><li>Calculate and compare the total credits with the courses you intended to include.</li></ol>
+<p>Credits must be positive; grade points may be zero or positive. A partially completed row needs correction. The tool permits different numeric scales, but every included course must use the same scale. The “0–4” placeholder is an example, not an automatic conversion rule.</p>
+<h3>Formula and unequal-credit example</h3><p><strong>Quality points = grade points × credits.</strong> Add quality points for all courses, then divide by total included credits: <strong>GPA = Σ(grade × credits) / Σcredits</strong>.</p>
+<div class="guide-table" role="region" tabindex="0" aria-label="GPA Calculator reference table"><table><caption>Example using a consistent 4-point scale</caption><thead><tr><th>Course</th><th>Grade points</th><th>Credits</th><th>Quality points</th></tr></thead><tbody><tr><td>Course A</td><td>4.0</td><td>3</td><td>12</td></tr><tr><td>Course B</td><td>3.0</td><td>4</td><td>12</td></tr><tr><td>Course C</td><td>2.0</td><td>2</td><td>4</td></tr></tbody></table></div>
+<p>The totals are 28 quality points and 9 credits, so 28 / 9 = 3.111111… and the display is <strong>3.11</strong>. The simple average of 4, 3 and 2 would be 3.00, which ignores the unequal credits. For an explicit zero-grade example, grades 0 and 4 with 3 credits each give (0 + 12) / 6 = <strong>2.00</strong>.</p>
+<h3>How to use the estimate responsibly</h3><p>Use it to check a small group of courses or compare a hypothetical grade scenario. Retakes, transfer credits, pass/fail work, withdrawals, honors weighting and institutional rounding rules may alter an official GPA. The calculator does not decide which courses qualify. Keep unrounded quality points when combining groups; averaging already-rounded GPAs without their credit weights can change the answer.</p>
+<h2>GPA Calculator FAQs</h2><section aria-label="GPA Calculator FAQs">
+<h3>Can I type A or B instead of a number?</h3><p>No. Enter the numeric grade points assigned by your institution. Letter-grade conversions are not universal.</p>
+<h3>Can I use a 5-point scale?</h3><p>Yes, if every grade uses that same scale. The tool performs weighted arithmetic and does not normalize scales.</p>
+<h3>Does a blank grade count as zero?</h3><p>No. A row with credits but no grade is incomplete. A genuine zero must be entered explicitly so it contributes credits with zero quality points.</p>
+<h3>Can I calculate a cumulative GPA?</h3><p>Only if you have compatible grade-point averages and credit weights for the groups you enter. Official cumulative rules still need checking; the tool has five rows and does not import a transcript.</p>
+<h3>Is a percentage grade the same as GPA?</h3><p>No. The <a href="/percentage-grade-calculator/">Percentage Grade Calculator</a> converts earned points into a percentage and a fixed letter band. It does not establish your institution’s GPA conversion. Use the <a href="/basic-calculator/">Basic Calculator</a> to check quality-point arithmetic separately.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1155,5 +1183,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

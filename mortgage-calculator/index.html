@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://onlinecalmaster.com/#finance-calculators"},{"@type":"ListItem","position":3,"name":"Mortgage Calculator","item":"https://onlinecalmaster.com/mortgage-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1079,7 +1094,20 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Enter home price, down payment, annual rate, and term in years. Supply annual tax and insurance amounts or enter zero.</p><h3>Formula and interpretation</h3><p>Loan principal = home price − down payment. A fixed-rate monthly payment is calculated on that principal; annual tax and insurance are each divided by 12 and added.</p><h3>Example</h3><p>At 0% interest, a 120,000 principal over 10 years costs 1,000 monthly before tax and insurance. Other ownership costs and lender fees are not included.</p><h3>Learn the method</h3><ul><li><a href="/blog/mortgage-payment-principal-interest-tax-insurance/">Mortgage Payment Calculation: Principal, Interest, Tax and Insurance</a></li></ul></section>
+<article id="batch01-guide" class="batch-guide" data-target="mortgage" data-panel="mortgageCalculator" data-route="/mortgage-calculator/" aria-label="Mortgage Calculator educational guide"><h2>Estimate mortgage principal, interest, property tax and insurance</h2>
+<p>This mortgage calculator estimates a fixed-rate monthly housing payment from home price, down payment, annual interest rate, term, annual property tax and annual homeowners insurance. It separates principal and interest from the monthly tax and insurance allowances. The result is a scenario estimate, not a complete assessment of homeownership costs or loan eligibility.</p>
+<h3>Prepare the inputs</h3><ol><li>Enter home price and the cash down payment. Down payment must be less than home price.</li><li>Enter the annual nominal interest rate and term in years.</li><li>Enter property tax and homeowners insurance as annual amounts, not percentages or monthly bills. Leave them blank or enter zero only if you intend to exclude them.</li><li>Calculate and inspect each component of the monthly total.</li></ol><p>Use one currency throughout. The software does not look up local property taxes, insurance premiums or live mortgage rates. Check actual figures with the relevant provider or authority.</p>
+<h3>Formula and complete worked example</h3><p>Loan principal P = home price − down payment. With r = annual rate / 1,200 and n = years × 12, monthly principal and interest is <strong>M = Pr / [1 − (1 + r)<sup>−n</sup>]</strong>. When interest is zero, M = P/n. The displayed total adds annual property tax / 12 and annual insurance / 12.</p>
+<p>Assume a home price of 300,000, down payment 60,000, annual interest 6%, term 30 years, annual property tax 3,600 and annual insurance 1,200. Principal is 240,000; r = 0.005 and n = 360.</p>
+<div class="guide-table" role="region" tabindex="0" aria-label="Mortgage Calculator reference table"><table><caption>Illustrative monthly payment components</caption><thead><tr><th>Component</th><th>Calculation</th><th>Amount</th></tr></thead><tbody><tr><td>Principal and interest</td><td>Amortizing payment on 240,000</td><td>1,438.92</td></tr><tr><td>Property tax allowance</td><td>3,600 / 12</td><td>300.00</td></tr><tr><td>Insurance allowance</td><td>1,200 / 12</td><td>100.00</td></tr><tr><td>Total monthly estimate</td><td>Unrounded payment + 300 + 100</td><td>1,838.92</td></tr></tbody></table></div>
+<p>Using the unrounded principal-and-interest payment over 360 months gives modeled interest of <strong>278,011.65</strong>. Holding tax and insurance constant for all 30 years produces total modeled payments of <strong>662,011.65</strong>. The down payment is not part of that payment total, and actual taxes and premiums can change.</p>
+<h3>What is excluded?</h3><p>Mortgage insurance, HOA dues, closing costs, maintenance, utilities, special assessments and extra payments are not included. The calculator does not model adjustable rates, interest-only periods or lender-specific payment dates. The <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-piti-en-152/">CFPB describes principal, interest, taxes and insurance as PITI</a>; its <a href="https://www.consumerfinance.gov/owning-a-home/prepare/figure-out-how-much-you-want-to-spend/">home-cost guidance</a> also distinguishes other housing costs. These estimates are educational, not personalized financial advice.</p>
+<h2>Mortgage Calculator FAQs</h2><section aria-label="Mortgage Calculator FAQs">
+<h3>Is down payment entered as a percentage?</h3><p>No. Enter its monetary amount. For 20% of 300,000, enter 60,000; the <a href="/percentage-calculator/">Percentage Calculator</a> can check that amount.</p>
+<h3>Does the monthly result include PMI?</h3><p>No. Mortgage insurance is not an input or an automatic charge here. Add any applicable cost separately when preparing a budget.</p>
+<h3>Are property tax and insurance monthly inputs?</h3><p>No. Enter annual amounts. The tool divides each by 12; entering monthly amounts would understate their contribution.</p>
+<h3>Why is total payment not the full cost of buying the home?</h3><p>It totals modeled loan payments plus entered tax and insurance allowances. It excludes the down payment and other ownership or closing costs.</p>
+<h3>Can I compare a shorter loan term?</h3><p>Yes. Change the term while keeping other assumptions consistent, then compare monthly payment and total interest. Read <a href="/blog/mortgage-payment-principal-interest-tax-insurance/">Mortgage Payment Calculation</a> or use the <a href="/loan-emi-calculator/">Loan EMI Calculator</a> for principal-and-interest-only scenarios.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1105,5 +1133,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>

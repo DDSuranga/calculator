@@ -107,6 +107,21 @@
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json" id="calculatorBreadcrumbSchema">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://onlinecalmaster.com/"},{"@type":"ListItem","position":2,"name":"Education","item":"https://onlinecalmaster.com/#education-calculators"},{"@type":"ListItem","position":3,"name":"Area Calculator","item":"https://onlinecalmaster.com/area-calculator/"}]}</script>
+<style id="batch01-guide-css">.batch-guide{background:#fff;color:#173452;border:1px solid #dce8f5;border-radius:20px;padding:24px;line-height:1.7;min-width:0}
+.batch-guide[hidden]{display:none!important}
+.batch-guide h2,.batch-guide h3{line-height:1.35;margin:1.3em 0 .6em}
+.batch-guide h2:first-child{margin-top:0}
+.batch-guide p,.batch-guide ul,.batch-guide ol{margin:0 0 1em}
+.batch-guide ol,.batch-guide ul{padding-left:1.5em}
+.batch-guide li{margin-bottom:.5em}
+.batch-guide .guide-table{max-width:100%;overflow-x:auto;margin:1em 0}
+.batch-guide table{width:100%;border-collapse:collapse;text-align:left}
+.batch-guide th,.batch-guide td{padding:10px;border:1px solid #dce8f5;vertical-align:top;min-width:90px}
+.batch-guide caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .batch-guide{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .batch-guide th,body.dark-mode .batch-guide td{border-color:#354a64}
+body.dark-mode .batch-guide a{color:#8ed4ff}
+</style>
 </head>
 <body class="light-mode app-loading app-page"> <!-- Default theme set to light mode -->
     <div class="app-loader" id="appLoader" role="status" aria-live="polite">
@@ -1079,7 +1094,18 @@
                     </div>
                 </div>
             </div></template>
-<section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Choose a shape and unit and enter positive dimensions in that same unit. For triangles, parallelograms and trapezoids, height is perpendicular to the base, not the sloping side. For an ellipse, enter the major and minor radii: half the full axis lengths.</p><h3>Formula and interpretation</h3><p>Rectangle: length × width. Square: side². Triangle: base × perpendicular height / 2. Circle: π × radius². Parallelogram: base × perpendicular height. Trapezoid: (parallel base 1 + parallel base 2) × perpendicular height / 2. Ellipse: π × major radius × minor radius. Results use squared units such as cm² or m²; selecting a unit labels the dimensions and result, rather than converting mixed-unit inputs.</p><h3>Example</h3><p>A 10 cm × 5 cm rectangle has area 50 cm². A triangle with base 4 m and perpendicular height 5 m has area 10 m². A circle with radius 3 cm has area 9π, approximately 28.27 cm². An ellipse with radii 4 cm and 2 cm has area 8π, approximately 25.13 cm².</p><h3>Frequently asked questions</h3><details><summary>Can I enter a diameter instead of a radius?</summary><p>For a circle, divide the diameter by 2 first. For an ellipse, divide each full axis length by 2.</p></details><details><summary>How do I handle different units?</summary><p>Convert all lengths to one unit before calculating. A square meter equals 10,000 square centimeters because the length conversion factor is squared.</p></details><details><summary>Does area include perimeter or volume?</summary><p>No. Area measures a two-dimensional surface. Use Volume Calculator for three-dimensional space.</p></details></section>
+<article id="batch01-guide" class="batch-guide" data-target="area" data-panel="areaCalculator" data-route="/area-calculator/" aria-label="Area Calculator educational guide"><h2>Measure two-dimensional space with the right area formula</h2>
+<p>Area measures a surface in square units. This calculator supports rectangles, squares, triangles, circles, parallelograms, trapezoids and ellipses. Use it for geometric exercises, a rectangular floor or a simple garden outline. It does not measure an irregular boundary from a drawing or account automatically for waste and overlapping regions.</p>
+<h3>How to choose dimensions and units</h3><ol><li>Select the shape to reveal its required fields.</li><li>Convert every dimension into one common unit before entering it.</li><li>Select that unit label, enter positive dimensions, and calculate.</li><li>Check the formula and dimensions in the result breakdown.</li></ol><p>The Area unit selector labels the entered numbers; it does not convert their values. To switch a 2 m length into centimeters, enter 200 and choose cm. A height must be perpendicular to the base, not the length of a sloping side. For an ellipse, enter semi-axes: half the full width and height.</p>
+<div class="guide-table" role="region" tabindex="0" aria-label="Area Calculator reference table"><table><caption>Seven formulas with independently checked examples</caption><thead><tr><th>Shape</th><th>Formula</th><th>Example in centimeters</th></tr></thead><tbody><tr><td>Rectangle</td><td>A = lw</td><td>4 × 3 = 12 cm²</td></tr><tr><td>Square</td><td>A = a²</td><td>3² = 9 cm²</td></tr><tr><td>Triangle</td><td>A = bh/2</td><td>6 × 4 / 2 = 12 cm²</td></tr><tr><td>Circle</td><td>A = πr²</td><td>r = 2: 4π ≈ 12.57 cm²</td></tr><tr><td>Parallelogram</td><td>A = bh</td><td>6 × 4 = 24 cm²</td></tr><tr><td>Trapezoid</td><td>A = (a + b)h/2</td><td>(3 + 5) × 4 / 2 = 16 cm²</td></tr><tr><td>Ellipse</td><td>A = πab</td><td>Semi-axes 3 and 2: 6π ≈ 18.85 cm²</td></tr></tbody></table></div>
+<h3>Worked floor example and square-unit conversion</h3><p>A rectangular floor 4 m long and 3 m wide has area 4 × 3 = <strong>12 m²</strong>. Since 1 m = 100 cm, 1 m² = 100² = 10,000 cm², so the same floor is 120,000 cm². Do not multiply square meters by only 100. Material quantities may need cuts, wastage or installation allowances; those are not included.</p>
+<p>For composite regions, divide the shape into non-overlapping supported parts and add their areas, subtracting holes where appropriate. Area is not perimeter and not volume. A rectangle’s perimeter is 2(l + w), while a box also needs depth to find volume. The <a href="/volume-calculator/">Volume Calculator</a> handles three-dimensional solids.</p>
+<h2>Area Calculator FAQs</h2><section aria-label="Area Calculator FAQs">
+<h3>Can I use a circle’s diameter?</h3><p>Divide it by two before entering radius. Using diameter as radius makes the area four times too large.</p>
+<h3>Which trapezoid sides are a and b?</h3><p>They are the two parallel bases. Height is their perpendicular separation, not either sloping side.</p>
+<h3>Does changing cm to m convert my dimensions?</h3><p>No. Enter converted dimensions yourself. The <a href="/unit-converter/">Unit Converter</a> can help convert supported length units first.</p>
+<h3>Can I calculate a curved or irregular outline?</h3><p>Only if it matches a supported shape or can be decomposed appropriately. A general measured outline needs another method.</p>
+<h3>Why are results shown in squared units?</h3><p>Area combines two lengths. Use cm², m², in² or ft² as appropriate, rather than a length unit or cubic unit. Read <a href="/blog/how-to-calculate-volume-common-shapes/">the volume guide</a> for the distinction from space occupied by solids.</p></section></article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
@@ -1105,5 +1131,36 @@
             });
         }
     </script>
+<script id="batch01-guide-ui">document.addEventListener('DOMContentLoaded',()=>{
+    const guide=document.getElementById('batch01-guide');
+    const panel=document.getElementById(guide.dataset.panel);
+    const active=()=>location.pathname.replace(/\/$/,'')===guide.dataset.route.replace(/\/$/,'');
+    const help=document.getElementById('dynamicToolHelp');
+    const sync=()=>{
+        const hide=!active();
+        if(guide.hidden!==hide)guide.hidden=hide;
+        if(active()&&guide.dataset.panel==='dynamicToolCalculator'&&help?.childNodes.length)help.replaceChildren();
+    };
+    sync();
+    new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['style']});
+    if(help)new MutationObserver(sync).observe(help,{childList:true});
+    window.addEventListener('popstate',sync);
+    document.addEventListener('click',()=>setTimeout(sync,0));
+    document.addEventListener('keydown',event=>{
+        if(!active()||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return;
+        const expression=['basic','scientific'].includes(guide.dataset.target);
+        const within=panel.contains(event.target);
+        const display=expression&&within&&event.target.matches('input[readonly]');
+        if(display&&(['Escape','Backspace'].includes(event.key)||/^[0-9.+*/()\-]$/.test(event.key))){
+            event.preventDefault();event.stopImmediatePropagation();
+            if(event.key==='Escape')clearDisplay();else if(event.key==='Backspace')deleteLast();else appendToDisplay(event.key);
+            return;
+        }
+        if(event.key!=='Enter'||!within||!event.target.matches('input'))return;
+        const action={basic:'calculate',scientific:'calculate',area:'calculateArea',percentage:'calculatePercentage',loanEmi:'calculateLoanEmi',mortgage:'calculateMortgage'}[guide.dataset.target]||'calculateDynamicTool';
+        event.preventDefault();event.stopImmediatePropagation();window[action]();
+    },true);
+});
+</script>
 </body>
 </html>
