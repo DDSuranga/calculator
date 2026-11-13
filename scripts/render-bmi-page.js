@@ -18,8 +18,15 @@ function render(html){
  html=html.replace('<section class="calculator-help" aria-label="BMI Calculator help">','</div><section class="calculator-help" aria-label="BMI Calculator help">');
  html=html.replace('<div class="hero-art" aria-hidden="true">',`<div class="bmi-hero-art">${scale}</div><div class="hero-art" aria-hidden="true">`);
  html=html.replace('</body>',`<script id="bmi-page-model">${fs.readFileSync(path.join(root,'templates/bmi-model.js'),'utf8')}</script><script id="bmi-character-model">${fs.readFileSync(path.join(root,'templates/bmi-characters.js'),'utf8')}</script><script id="bmi-page-ui">${fs.readFileSync(path.join(root,'templates/bmi-ui.js'),'utf8')}</script>\n</body>`);
- html=html.replace(/(<section class="calculator-help" aria-label="BMI Calculator help">[\s\S]*?<\/section>)/,'<details class="bmi-fold"><summary>How to calculate BMI · instructions and FAQs</summary>$1</details>');
- html=html.replace(/(<section class="how-card" id="calculatorGuide"[\s\S]*?<\/section>)/,'<details class="bmi-fold"><summary>BMI formula, worked example and further reading</summary>$1</details>');
- return html;
+ return updateEducation(html);
 }
-module.exports={render};
+function updateEducation(html) {
+ const article=fs.readFileSync(path.join(root,'templates/bmi-education.html'),'utf8').trim();
+ const existing=/<article\b[^>]*id="bmi-education"[\s\S]*?<\/article>/;
+ if(existing.test(html)) return html.replace(existing,article);
+ const oldHelp=/(?:<details class="bmi-fold"><summary>How to calculate BMI · instructions and FAQs<\/summary>)?<section class="calculator-help" aria-label="BMI Calculator help">[\s\S]*?<\/section>(?:<\/details>)?/;
+ const oldGuide=/(?:<details class="bmi-fold"><summary>BMI formula, worked example and further reading<\/summary>)?<section class="how-card" id="calculatorGuide"[\s\S]*?<\/section>(?:<\/details>)?/;
+ if(!oldHelp.test(html)||!oldGuide.test(html)) throw Error('Expected BMI educational sections are missing; no page written.');
+ return html.replace(oldHelp,'').replace(oldGuide,article);
+}
+module.exports={render,updateEducation};

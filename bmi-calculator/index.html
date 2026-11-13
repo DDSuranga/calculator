@@ -302,21 +302,7 @@ body.bmi-page-active .bmi-hero-art{width:260px;height:160px;top:0;right:18px}.bm
                         <p class="finance-message" id="bmiMessage">Enter weight and height to calculate BMI.</p>
                     </div>
                 </div>
-                </div><details class="bmi-fold"><summary>How to calculate BMI · instructions and FAQs</summary><section class="calculator-help" aria-label="BMI Calculator help">
-                    <h3>About the BMI Calculator</h3>
-                    <p>This BMI calculator estimates body mass index from weight and height, then shows the common BMI category.</p>
-                    <h4>How to use it</h4>
-                    <p>Enter your weight and height, choose the correct units, and press Calculate.</p>
-                    <h4>Formula</h4>
-                    <p>BMI = weight in kilograms / (height in meters x height in meters).</p>
-                    <h4>Example</h4>
-                    <p>A person who weighs 70 kg and is 1.75 m tall has a BMI of about 22.9.</p>
-                    <div class="calculator-faq">
-                        <details><summary>Is BMI a medical diagnosis?</summary><p>No. BMI is a general screening number and does not replace medical advice.</p></details>
-                        <details><summary>Can I use pounds and feet?</summary><p>Yes. The calculator converts imperial units before calculating BMI.</p></details>
-                        <details><summary>What is a normal BMI range?</summary><p>A BMI from 18.5 to 24.9 is commonly considered the normal range for adults.</p></details>
-                    </div>
-                </section></details>
+                </div>
             </div>
 
             <!-- Discount Calculator -->
@@ -1117,7 +1103,75 @@ body.bmi-page-active .bmi-hero-art{width:260px;height:160px;top:0;right:18px}.bm
                     </div>
                 </div>
             </div></template>
-<details class="bmi-fold"><summary>BMI formula, worked example and further reading</summary><section class="how-card" id="calculatorGuide" aria-label="Calculator guide"><h2>How to Use</h2><p>Select the available unit system, enter height and weight, and calculate. Check the units before interpreting the number.</p><h3>Formula and interpretation</h3><p>BMI = weight in kilograms / height in meters squared. The categories describe a screening measure, not body-fat percentage or a diagnosis; children and pregnancy need different assessment.</p><h3>Example</h3><p>70 kg at 1.75 m gives 70 / 1.75² = 22.86, shown as 22.9. BMI does not distinguish muscle from fat.</p><h3>Frequently asked questions</h3><details><summary>Can women use this BMI calculator?</summary><p>Yes. For adults age 20 and older, the BMI formula and standard category thresholds are the same for women and men. Enter height and weight; there is no female-specific multiplier. BMI is a screening measure, not a diagnosis or a measurement of body fat.</p></details><details><summary>Can I use this for pregnancy or children?</summary><p>Do not interpret pregnancy weight using this general adult calculator. Children and teens need age- and sex-specific assessment. Ask a qualified health professional about interpretation for your circumstances.</p></details><h3>Learn the method</h3><ul><li><a href="/blog/bmi-vs-bmr-meaning-limitations/">BMI vs BMR: What the Numbers Mean and Their Limits</a></li></ul></section></details>
+<article class="bmi-box bmi-fold" id="bmi-education" aria-labelledby="bmi-education-title">
+  <h2 id="bmi-education-title">Understanding your BMI: formula, examples and limitations</h2>
+  <p>A height and weight measurement can give you a BMI number, but the number needs context. This BMI calculator shows how weight relates to height, lets you check metric or imperial measurements, and explains the standard adult reference categories. Use the result as a starting point for understanding the calculation, not as a diagnosis or a personal weight target.</p>
+
+  <h3>How to use this calculator</h3>
+  <ol>
+    <li>Enter your age in completed years. The supported range is 2–120; adult category labels are shown only from age 20.</li>
+    <li>Choose Male or Female for the illustration. This choice does not change the adult BMI formula or category thresholds.</li>
+    <li>Enter height and select cm, m, ft or in. Feet are decimal: 5 feet 9 inches is 5.75 feet, or 69 inches—not 5.9 feet.</li>
+    <li>Enter weight in kg or lb. Changing a unit converts an entered measurement; it does not replace your physical height or weight.</li>
+    <li>Read the result as you type valid values, or press Calculate BMI or Enter. Check the number, category and formula breakdown together. Copy result copies the calculated summary; Clear removes the entry and result.</li>
+  </ol>
+  <p>The software accepts heights equivalent to 50–250 cm and weights equivalent to 2–400 kg. These are input limits, not recommended measurements or healthy ranges. Missing or out-of-range values need correction before a result is shown.</p>
+
+  <h3>BMI formula in metric and imperial units</h3>
+  <p><strong>BMI = weight in kilograms ÷ (height in meters × height in meters).</strong> Convert centimeters to meters by dividing by 100 before squaring the height. BMI is expressed in kg/m²; it is not a percentage.</p>
+  <p>For imperial inputs, this calculator first converts pounds to kilograms and inches or feet to meters: 1 lb = 0.45359237 kg, 1 in = 0.0254 m, and 1 ft = 0.3048 m. It then uses the same metric formula. The equivalent expression is <strong>BMI = weight in lb ÷ height in in² × 703.06957964…</strong>. The familiar multiplier 703 is rounded, so hand calculations using it can differ slightly.</p>
+
+  <h3>Worked example: 70 kg and 175 cm</h3>
+  <p>For a 35-year-old adult, convert 175 cm to 1.75 m. Square the height: 1.75 × 1.75 = 3.0625. Then divide: 70 ÷ 3.0625 = 22.857142… . The calculator displays <strong>22.86 kg/m²</strong>, which is within the adult healthy-weight reference category. The age and illustration choice do not change this arithmetic.</p>
+
+  <h3>Worked example: 160 lb and 5 feet 9 inches</h3>
+  <p>Enter height as 69 in or 5.75 ft, and weight as 160 lb. The conversions are 69 × 0.0254 = 1.7526 m and 160 × 0.45359237 = 72.5747792 kg. Therefore BMI = 72.5747792 ÷ 1.7526² = 23.6276… , displayed as <strong>23.63 kg/m²</strong>. Entering those same converted metric measurements produces the same result.</p>
+
+  <h3>Adult BMI categories and rounding</h3>
+  <p>For adults age 20 and older, this page uses the following reference thresholds from the <a href="https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html">CDC adult BMI categories</a>:</p>
+  <ul>
+    <li><strong>Underweight:</strong> below 18.5.</li>
+    <li><strong>Healthy weight:</strong> 18.5 to less than 25.</li>
+    <li><strong>Overweight:</strong> 25 to less than 30.</li>
+    <li><strong>Obesity, class 1:</strong> 30 to less than 35.</li>
+    <li><strong>Obesity, class 2:</strong> 35 to less than 40.</li>
+    <li><strong>Obesity, class 3:</strong> 40 or higher.</li>
+  </ul>
+  <p>The category uses the unrounded result. For example, a calculated BMI of 24.999 displays as 25.00 but remains below the category boundary of 25. Avoid reclassifying a result from the rounded display alone. The gauge is a visual aid; its endpoints do not limit the numerical BMI that the calculator can report.</p>
+
+  <h3>What the other result cards mean</h3>
+  <p><strong>Adult reference weight:</strong> the calculator rearranges the formula as weight = BMI × height². At 1.75 m, the lower boundary is 18.5 × 1.75² = 56.65625 kg; the upper boundary is 25 × 1.75² = 76.5625 kg and is excluded. The display rounds these boundaries to 56.66–&lt;76.56 kg. These rounded endpoints describe a screening reference, not a prescribed weight goal.</p>
+  <p><strong>Ponderal Index:</strong> PI = weight in kg ÷ height in m³. For 70 kg and 1.75 m it is approximately 13.06 kg/m³. It uses a cubed height rather than BMI’s squared height; this page assigns no medical category to PI.</p>
+  <p><strong>BMI snapshot:</strong> the graph shows the current entry, not previous measurements or a health trend. Points beyond its displayed BMI range of 10–45 are pinned to the graph edge. The character is an illustration, not a prediction of body composition or appearance.</p>
+
+  <h3>Practical uses, common mistakes and limitations</h3>
+  <p>You can use the tool to check a hand calculation, compare equivalent metric and imperial entries, or understand what a reported BMI means mathematically. Check units before comparing results from different tools, and use the same measured height rather than a rounded estimate.</p>
+  <ul>
+    <li>Do not enter centimeters into a meters field, or pounds into a kilograms field.</li>
+    <li>Do not read decimal feet as feet-and-inches notation.</li>
+    <li>Do not interpret BMI as body-fat percentage, fitness, a calorie requirement or a diagnosis.</li>
+    <li>Do not apply adult thresholds to a child or teenager. Ages 2–19 need an age- and sex-specific BMI-for-age assessment; this tool does not calculate pediatric percentiles.</li>
+  </ul>
+  <p>BMI cannot distinguish fat, muscle and bone or show where fat is distributed. A result therefore needs individual context. Do not use this general adult reference to set pregnancy weight targets or make treatment decisions. The <a href="https://www.cdc.gov/bmi/about/index.html">CDC overview of BMI</a> explains why clinical assessment considers additional information. Discuss personal concerns with a qualified health professional.</p>
+
+  <h2>Frequently asked questions</h2>
+  <section aria-label="BMI frequently asked questions">
+    <h3>Do women and men use different BMI formulas?</h3>
+    <p>No. For adults, the height-and-weight formula and the standard thresholds used here are the same. Male/Female selection changes the illustration, not your calculated adult BMI. This does not mean body composition or individual health can be inferred from the same number.</p>
+    <h3>Why is there no adult category for someone under 20?</h3>
+    <p>Adult cutoffs are not the reference used here for ages 2–19. The calculator can show the numerical BMI but does not supply pediatric percentiles or interpret growth. For an appropriate reference, see the <a href="https://www.cdc.gov/bmi/child-teen-calculator/index.html">CDC child and teen BMI calculator</a>.</p>
+    <h3>Should switching from kg to lb change my BMI?</h3>
+    <p>No, provided the measurement is converted rather than reinterpreted. Changing the unit selector converts the entered value. Small differences between separate calculators can arise from rounded measurements or conversion factors; this tool calculates from its unrounded converted values.</p>
+    <h3>Does the reference weight range tell me what I should weigh?</h3>
+    <p>No. It is the mathematical weight interval corresponding to adult BMI 18.5 up to, but not including, 25 at the entered height. It does not account for your health history, pregnancy or body composition and is not a personal treatment recommendation.</p>
+    <h3>Can BMI tell me how many calories I need?</h3>
+    <p>No. BMI relates weight to height; it does not estimate energy use. The <a href="/bmr-calculator/">BMR Calculator</a> estimates resting energy, while the <a href="/calorie-calculator/">Calorie Calculator</a> adds an assumed activity factor. Those estimates have their own limitations and do not turn BMI into a diet prescription.</p>
+  </section>
+
+  <h2>Use the number with context</h2>
+  <p>Start with correctly measured inputs, review the formula and keep the age-appropriate interpretation. For a fuller comparison of these different measures, read <a href="/blog/bmi-vs-bmr-meaning-limitations/">BMI vs BMR: What the Numbers Mean and Their Limits</a>. A clearly understood calculation is more useful than treating any one category as a complete health assessment.</p>
+  <p>Adult reference guidance checked 13 November 2026. This educational explanation does not replace professional medical advice.</p>
+</article>
         </main>
 
         <aside class="seo-column contextual-panel" aria-label="Calculator information">
