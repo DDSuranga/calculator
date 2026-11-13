@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById('volumeCalculator');
-    const sync = () => document.body.classList.toggle('volume-page-active', panel.style.display !== 'none');
+    const sync = () => {
+        const active = panel.style.display !== 'none';
+        document.body.classList.toggle('volume-page-active', active);
+        const education = document.getElementById('volume-education');
+        if (active && education) document.querySelector('.hero-subtitle').textContent = education.dataset.introduction;
+    };
     sync();
     new MutationObserver(sync).observe(panel, {attributes:true, attributeFilter:['style']});
     let highlightedCard;
@@ -23,18 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             highlightTimer = setTimeout(() => card.classList.remove('volume-card-selected'), 2200);
         });
     });
-    const guide = document.getElementById('calculatorGuide');
-    const updateUnitNote = () => {
-        if (panel.style.display === 'none') return;
-        const old = 'Selecting a unit labels the inputs and result; it does not convert dimensions entered in different units.';
-        const walker = document.createTreeWalker(guide, NodeFilter.SHOW_TEXT);
-        let node;
-        while ((node = walker.nextNode())) {
-            if (node.textContent.includes(old)) node.textContent = node.textContent.replace(old, 'Each card converts the dimension units you select into the chosen result unit before calculating volume.');
-        }
-    };
-    updateUnitNote();
-    new MutationObserver(updateUnitNote).observe(guide, {childList:true, subtree:true});
     document.querySelectorAll('.volume-shape-form').forEach(form => {
         const shape = VolumeCards.shapes.find(s => s.id === form.dataset.shape);
         const output = form.querySelector('output');
@@ -49,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
             output.textContent = ''; message.textContent = ''; breakdown.textContent = '';
             form.querySelectorAll('input').forEach(input => input.removeAttribute('aria-invalid'));
         };
-        form.addEventListener('input', invalidate);
+        form.addEventListener('input', () => calculate(false));
         form.addEventListener('change', event => {
-            if (event.target.matches('select')) invalidate();
+            if (event.target.matches('select')) calculate(false);
         });
         form.addEventListener('reset', invalidate);
         form.addEventListener('keydown', event => {
@@ -61,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.requestSubmit();
             }
         });
-        form.addEventListener('submit', event => {
-            event.preventDefault(); invalidate();
+        function calculate(focusError) {
+            invalidate();
             const values = {}, units = {};
             shape.fields.forEach(([key]) => {values[key]=form.elements[key].value; units[key]=form.elements[key+'Unit'].value;});
             try {
@@ -74,8 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 message.textContent = error.message;
                 const invalid = [...form.querySelectorAll('input')].find(input => input.value.trim()==='' || !Number.isFinite(Number(input.value)) || Number(input.value)<=0);
-                if (invalid) {invalid.setAttribute('aria-invalid','true'); invalid.focus();}
+                if (invalid) {invalid.setAttribute('aria-invalid','true'); if (focusError) invalid.focus();}
             }
+        }
+        form.addEventListener('submit', event => {
+            event.preventDefault(); calculate(true);
         });
         copy.addEventListener('click', async () => {
             if (!copyText) return;

@@ -44,3 +44,18 @@ body.dark-mode .volume-shape-form{background:linear-gradient(150deg,#17304e,#101
 .volume-shape-form { scroll-margin-top: 110px; }
 .volume-shape-form.volume-card-selected { outline: 3px solid #0076d6; outline-offset: 3px; }
 body.dark-mode .volume-shape-form.volume-card-selected { outline-color: #6dd5ff; }
+
+.volume-education{display:none;border:1px solid #dce8f5;border-radius:20px;padding:24px;background:#fff;color:#163359;line-height:1.7;min-width:0}
+body.volume-page-active .volume-education{display:block}
+.volume-education h2,.volume-education h3{line-height:1.3;margin:1.3em 0 .6em}
+.volume-education h2:first-child{margin-top:0}
+.volume-education p,.volume-education ul,.volume-education ol{margin:0 0 1em}
+.volume-education ul,.volume-education ol{padding-left:1.5em}
+.volume-education li{margin-bottom:.5em}
+.volume-table-scroll{overflow-x:auto;margin:1em 0;max-width:100%}
+.volume-education table{width:100%;border-collapse:collapse;text-align:left}
+.volume-education th,.volume-education td{border:1px solid #dce8f5;padding:10px;vertical-align:top;min-width:115px}
+.volume-education caption{text-align:left;font-weight:600;margin-bottom:8px}
+body.dark-mode .volume-education{background:#14253c;color:#e3edf9;border-color:#354a64}
+body.dark-mode .volume-education th,body.dark-mode .volume-education td{border-color:#354a64}
+body.dark-mode .volume-education a{color:#8ed4ff}

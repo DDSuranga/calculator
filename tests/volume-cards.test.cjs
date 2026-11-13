@@ -44,7 +44,7 @@ test('Scientific display, extreme inputs and invalid units are safe',()=>{
     assert.throws(()=>calculate('cube',{a:2},{a:'yards'},'cm'));
     assert.throws(()=>calculate('cube',{a:2},{a:'cm'},'__proto__'));
 });
-test('SEO, schema, integrations, links and existing guide remain preserved',()=>{
+test('SEO, schema, integrations and links remain preserved with the consolidated guide',()=>{
     const before=fs.readFileSync('tests/fixtures/volume-production-base.html','utf8').replace(/\r\n/g,'\n');
     const after=fs.readFileSync('volume-calculator/index.html','utf8').replace(/\r\n/g,'\n');
     for(const pattern of [/<title>[\s\S]*?<\/title>/g,/<meta\b[^>]*>/g,/<link rel="canonical"[^>]*>/g,/<h1>[\s\S]*?<\/h1>/g,/<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g,/<script[^>]*src=[^>]*>/g]) assert.deepEqual(after.match(pattern),before.match(pattern));
@@ -52,7 +52,7 @@ test('SEO, schema, integrations, links and existing guide remain preserved',()=>
     inline.forEach(block=>assert(after.includes(block),'Existing integration/script changed'));
     for(const [,href]of before.matchAll(/href="([^"]*)"/g)) assert(after.includes(`href="${href}"`),href);
     assert.equal((after.match(/class="volume-shape-form /g)||[]).length,9);
-    assert(after.includes('A 10 cm cube has volume'));
+    assert(after.includes('id="volume-education"'));
     const rendered=require('../scripts/render-volume-page').render(before).replace(/\r\n/g,'\n').replace(/[ \t]+$/gm,'').trimEnd()+'\n';
     assert.equal(after,rendered,'Generated page must match source renderer');
 });

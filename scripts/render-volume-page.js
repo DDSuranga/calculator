@@ -56,6 +56,21 @@ function render(html) {
     html=html.replace('<div class="hero-art" aria-hidden="true">',`<div class="volume-hero-art" aria-hidden="true">${['cube','sphere','cylinder','cone','frustum'].map(s=>illustration(s,'hero')).join('')}</div><div class="hero-art" aria-hidden="true">`);
     html=html.replace('<aside class="seo-column contextual-panel" aria-label="Calculator information">',`<aside class="seo-column contextual-panel" aria-label="Calculator information"><section class="info-card volume-formulas"><h2>Volume formulas at a glance</h2>${shapes.map(s=>`<a href="/volume-calculator/#volume-card-${s.id}">${illustration(s.id,'formula')}<span><strong>${s.name}</strong><small>${s.formula}</small></span></a>`).join('')}</section>`);
     html=html.replace('</body>',`<script id="volume-page-model">${fs.readFileSync(path.join(root,'templates/volume-model.js'),'utf8')}</script><script id="volume-page-ui">${fs.readFileSync(path.join(root,'templates/volume-ui.js'),'utf8')}</script>\n</body>`);
+    return updateEducation(html);
+}
+function updateEducation(html) {
+    const article=fs.readFileSync(path.join(root,'templates/volume-education.html'),'utf8').trim();
+    const existing=/<article\b[^>]*id="volume-education"[\s\S]*?<\/article>/;
+    const guide=/<section class="how-card" id="calculatorGuide"[\s\S]*?<\/section>/;
+    if (!existing.test(html) && !guide.test(html)) throw Error('Expected Volume guide missing; no page written.');
+    html=existing.test(html)?html.replace(existing,article):html.replace(guide,article);
+    html=html.replace(/<section class="volume-learning">[\s\S]*?<\/section>/,'');
+    html=html.replace(/<details class="volume-new-examples">[\s\S]*?<\/details>/,'');
+    html=html.replace(/<section class="calculator-help" aria-label="Volume Calculator help">[\s\S]*?<\/section>/,'');
+    const intro=article.match(/data-introduction="([^"]+)"/)[1];
+    html=html.replace(/(<p class="hero-subtitle">)[\s\S]*?(<\/p>)/,'$1'+intro+'$2');
+    html=html.replace(/(<script id="volume-page-ui">)[\s\S]*?(<\/script>)/,()=>'<script id="volume-page-ui">'+fs.readFileSync(path.join(root,'templates/volume-ui.js'),'utf8')+'</script>');
+    html=html.replace(/(<style id="volume-page-css">)[\s\S]*?(<\/style>)/,()=>'<style id="volume-page-css">'+fs.readFileSync(path.join(root,'templates/volume-ui.css'),'utf8')+'</style>');
     return html;
 }
-module.exports = {render};
+module.exports = {render, updateEducation};
